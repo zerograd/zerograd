@@ -13,6 +13,11 @@
 
 //Zerograd page
 Route::get('/','HomeController@index');
+Route::post('/search',array(
+	'as' => 'submit-search',
+	'uses' => 'HomeController@search'
+));
+Route::get('/search','HomeController@searchResults');
 
 //StudentController
 Route::get('/student-login','StudentController@index');
