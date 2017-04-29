@@ -30,3 +30,7 @@ Route::get('/student/home','StudentController@home');
 Route::get('/student/profile/{id}','StudentController@profile');
 
 Route::get('/student/search-tool','StudentController@searchTool');
+
+
+//CompanyController
+Route::get('/company/{id}','CompanyController@index');
