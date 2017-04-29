@@ -17,9 +17,7 @@
     <body>
         <div id="header">
             <div id="logo-div" class="col-md-6 col-xs-6">
-                <h1>
-                Zer<span class="zeroLogo">0</span>Grad
-                </h1>
+                <a href="{{URL::to('/')}}"><h1 id="logo" style="margin:0;padding:15px; color:white;display:block;">Zer<span class="zeroLogo">0</span>Grad</h1></a>
 
             </div>
             <div class="col-md-6 col-xs-6">

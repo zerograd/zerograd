@@ -15,6 +15,7 @@ class HomeController extends Controller
 
     //Search
     public function search(Request $request){
+
     	if($request->searchkeywords){
     		$keywords = explode(' ',$request->searchkeywords);
 	    	$postings = array();
@@ -24,8 +25,10 @@ class HomeController extends Controller
 	    					->where('keywords','like','%'. $keyword .'%')
 	    					->orWhere('description','like','%' . $keyword . '%')
 	    					->get();
-				if($posting){
-					array_push($postings,$posting);
+				if(sizeof($posting) > 0){
+					foreach($posting as $post){
+						array_push($postings,$post);
+					}
 				}
 	    	}if($request->searchlocation){
 	    		//later
@@ -33,9 +36,13 @@ class HomeController extends Controller
 
 	    	
     	}
+    	$found = "no";
+    	 if($postings) $found = "yes"; 
 
+    	 
     	$data = array(
-    		'postings' => $postings
+    		'postings' => $postings,
+    		'found' => $found
 		);
 
 		return view('search-results')->with($data);
@@ -48,12 +55,38 @@ class HomeController extends Controller
 	    					->select('*')
 	    					->get();
 
+		$found = "no";
+    	 if($postings) $found = "yes"; 
 
     	$data = array(
-    		'postings' => $postings
+    		'postings' => $postings,
+    		'found' => $found
 		);
 
 		return view('search-results')->with($data);
+    }
+
+    public function filter(Request $request){
+    	//For now filter by experience. will need to filter by location and date later
+    	if($request->experience != 0){
+    		$postings = DB::table('postings')
+    				->select('*')
+    				->where('required_experience',$request->experience)
+    				->get();
+    	}else{
+    		$postings = DB::table('postings')
+    				->select('*')
+    				->get();
+    	}
+
+    	$found = "no";
+    	 if($postings) $found = "yes"; 
+		$data = array(
+			'postings' => $postings,
+			'found' => $found
+		);
+
+		return view('results')->with($data);
     }
 
 }

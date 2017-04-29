@@ -18,6 +18,10 @@ Route::post('/search',array(
 	'uses' => 'HomeController@search'
 ));
 Route::get('/search','HomeController@searchResults');
+Route::post('/filter',array(
+	'as' => 'filter-results',
+	'uses' => 'HomeController@filter'
+));
 
 //StudentController
 Route::get('/student-login','StudentController@index');
