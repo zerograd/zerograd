@@ -136,6 +136,7 @@
                         </li>
                     </ul>
                     @endif
+                    <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
                 </div>
         </div> 
         <div id="otherContainer">
@@ -156,7 +157,8 @@
                     "_token": "{{ csrf_token() }}",
                     'relevance' : $('#relevance').val(),
                     'distance' : $('#slider-distance').slider("value"),
-                    'experience': ui.value
+                    'experience': ui.value,
+                    'searchkeywords' : $('#searchkeywords').val() 
                  }
 
                  $.post('{{route('filter-results')}}',data,function(data){

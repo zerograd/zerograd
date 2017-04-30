@@ -24,7 +24,6 @@ class HomeController extends Controller
 	    					->select('*')
 	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->where('keywords','like','%'. $keyword .'%')
-	    					->orWhere('description','like','%' . $keyword . '%')
 	    					->get();
 				if(sizeof($posting) > 0){
 					foreach($posting as $post){
@@ -42,12 +41,14 @@ class HomeController extends Controller
     	 	$found = "yes"; 
     	 	$data = array(
 	    		'postings' => $postings,
-	    		'found' => $found
+	    		'found' => $found,
+	    		'keywords' => $request->searchkeywords
 			);
     	 }else{
     	 	$data = array(
 	    		'postings' => array(),
-	    		'found' => $found
+	    		'found' => $found,
+	    		'keywords' => isset($request->searchkeywords)?$request->searchkeywords:""
 			);
     	 }
     	 
@@ -69,7 +70,8 @@ class HomeController extends Controller
 
     	$data = array(
     		'postings' => $postings,
-    		'found' => $found
+    		'found' => $found,
+    		'keywords'=>isset($request->searchkeywords)?$request->searchkeywords:""
 		);
     	
 		return view('search-results')->with($data);
@@ -78,24 +80,56 @@ class HomeController extends Controller
     public function filter(Request $request){
     	//For now filter by experience. will need to filter by location and date later
     	if($request->experience != 0){
-    		$postings = DB::table('postings')
-    				->select('*')
-    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-    				->where('required_experience',$request->experience)
-    				->get();
+    		$keywords = explode(' ',$request->searchkeywords);
+    		$postings = array();
+    		foreach($keywords as $keyword){
+	    			$posting = DB::table('postings')
+	    				->select('*')
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    				->where('required_experience',$request->experience)
+	    				->where('keywords','like','%'. $keyword .'%')
+	    				->get();
+
+    				if(sizeof($posting) > 0){
+					    foreach($posting as $post){
+						array_push($postings,$post);
+					}
+				}
+			}
     	}else{
-    		$postings = DB::table('postings')
-    				->select('*')
-    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-    				->get();
+    		$keywords = explode(' ',$request->searchkeywords);
+    		$postings = array();
+    		foreach($keywords as $keyword){
+	    			$posting = DB::table('postings')
+	    				->select('*')
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    				->where('keywords','like','%'. $keyword .'%')
+	    				->get();
+
+    				if(sizeof($posting) > 0){
+					foreach($posting as $post){
+						array_push($postings,$post);
+					}
+				}
+			}
     	}
 
     	$found = "no";
-    	 if($postings) $found = "yes"; 
-		$data = array(
-			'postings' => $postings,
-			'found' => $found
-		);
+    	 if(isset($postings)) {
+    	 	$found = "yes"; 
+    	 	$data = array(
+	    		'postings' => $postings,
+	    		'found' => $found,
+	    		'keywords' => $request->searchkeywords
+			);
+    	 }else{
+    	 	$data = array(
+	    		'postings' => array(),
+	    		'found' => $found,
+	    		'keywords' => isset($request->searchkeywords)?$request->searchkeywords:""
+			);
+    	 }
+    	 
 
 		return view('results')->with($data);
     }
