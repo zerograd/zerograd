@@ -125,7 +125,7 @@
                 </div>
                 <div id="results-area" class="col-md-10 scroll" style="height:100%;text-align: center;overflow-y: scroll;">
                 <div class="loader" style="display:none;position: absolute;z-index:1;top:40%;left:40%;"></div>
-                    @if($found == "yes")
+                    @if($found == "yes" && isset($found))
                     <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
                         @include('results')
                     </ul>

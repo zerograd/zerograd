@@ -38,13 +38,20 @@ class HomeController extends Controller
 	    	
     	}
     	$found = "no";
-    	 if($postings) $found = "yes"; 
-
+    	 if(isset($postings)) {
+    	 	$found = "yes"; 
+    	 	$data = array(
+	    		'postings' => $postings,
+	    		'found' => $found
+			);
+    	 }else{
+    	 	$data = array(
+	    		'postings' => array(),
+	    		'found' => $found
+			);
+    	 }
     	 
-    	$data = array(
-    		'postings' => $postings,
-    		'found' => $found
-		);
+    	
 
 		return view('search-results')->with($data);
     }
