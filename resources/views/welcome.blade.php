@@ -22,10 +22,13 @@
             </div>
             <div class="col-md-6 col-xs-6">
                 <ul class="navigation">
-                    <li><a>Home</a></li>
                     <li><a>About</a></li>
                     <li><a>Contact Us</a></li>
-                    <a href="{{URL::to('/student-login')}}"><button class="white-btn">Login</button></a>
+                    @if(!Session::has('user_id'))
+                        <a href="{{URL::to('/student-login')}}"><button class="white-btn">Login</button></a>
+                    @else
+                    <a href="{{URL::to('/student/home')}}"><button class="white-btn">{{Session::get('student_name')}}</button></a>
+                    @endif
                     <button class="white-btn">Employer?</button>
                 </ul>
             </div>
