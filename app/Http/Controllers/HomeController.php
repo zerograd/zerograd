@@ -37,7 +37,7 @@ class HomeController extends Controller
 	    	
     	}
     	$found = "no";
-    	 if(isset($postings)) {
+    	 if(isset($postings) && sizeof($postings) > 0) {
     	 	$found = "yes"; 
     	 	$data = array(
 	    		'postings' => $postings,

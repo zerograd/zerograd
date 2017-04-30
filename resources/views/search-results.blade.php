@@ -17,6 +17,7 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
         <!-- Styles -->
         {{ HTML::style('css/styles.css') }}
         <style>
@@ -106,6 +107,7 @@
                       </div>
                     </div>
                   </div>
+                  @if($found == "yes" && isset($found))
                 <div id="filters" class="col-md-2" style="border-right:1px solid grey;height:100%;">
                     <div id="relevance-div" class="col-sm-12" style="height:33%;line-height: 2;">
                         <label>Sort By:</label>
@@ -123,7 +125,13 @@
                         <div id="slider" style="background-color: #5CF0EF;"></div>
                     </div>
                 </div>
+                @endif
+
+                @if($found == "yes" && isset($found))
                 <div id="results-area" class="col-md-10 scroll" style="height:100%;text-align: center;overflow-y: scroll;">
+                @else
+                <div id="results-area" class="col-md-12 scroll" style="height:100%;text-align: center;overflow-y: scroll;">
+                @endif
                 <div class="loader" style="display:none;position: absolute;z-index:1;top:40%;left:40%;"></div>
                     @if($found == "yes" && isset($found))
                     <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
@@ -132,8 +140,9 @@
                     @else
                     <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
                         <li class="col-sm-12">
-                                <div class="col-sm-6"><h5> <strong>NO RESULTS FOUND</strong></h5></div>
+                                <div class="col-sm-12"><h5> <strong>NO RESULTS FOUND</strong></h5></div>
                         </li>
+                        <a href="{{URL::to('/')}}"><button class="btn waves-effect waves-teal " style="margin:10px;font-weight: bold;">Return to Home and Try a new search.</button></a>
                     </ul>
                     @endif
                     <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
