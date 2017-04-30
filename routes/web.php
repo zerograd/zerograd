@@ -33,4 +33,7 @@ Route::get('/student/search-tool','StudentController@searchTool');
 
 
 //CompanyController
-Route::get('/company/{id}','CompanyController@index');
+Route::get('/company/{id}',array(
+	'as' => 'company-get',
+	'uses' => 'CompanyController@index'		
+));
