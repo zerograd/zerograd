@@ -109,18 +109,18 @@
                 <div id="filters" class="col-md-2" style="border-right:1px solid grey;height:100%;">
                     <div id="relevance-div" class="col-sm-12" style="height:33%;line-height: 2;">
                         <label>Sort By:</label>
-                        <select id="relevance" style="color:#50C62B;font-weight: bold;">
-                            <option value="relevance" style="color:#50C62B;font-weight: bold;">Relevance</option>
-                            <option value="date" style="color:#50C62B;font-weight: bold;">Recent</option>
+                        <select id="relevance" style="color:#5CF0EF;font-weight: bold;">
+                            <option value="relevance" style="color:#5CF0EF;font-weight: bold;">Relevance</option>
+                            <option value="date" style="color:#5CF0EF;font-weight: bold;">Recent</option>
                         </select>
                     </div>
                     <div id="radius" class="col-sm-12" style="height:33%;line-height: 2;">
                         <label id="distance"></label>
-                        <div id="slider-distance" style="background-color: #50C62B;"></div>
+                        <div id="slider-distance" style="background-color: #5CF0EF;"></div>
                     </div>
                     <div id="experience" class="col-sm-12" style="height:33%;line-height: 2;">
                         <label id="amount">Years of Experience:</label>
-                        <div id="slider" style="background-color: #50C62B;"></div>
+                        <div id="slider" style="background-color: #5CF0EF;"></div>
                     </div>
                 </div>
                 <div id="results-area" class="col-md-10 scroll" style="height:100%;text-align: center;overflow-y: scroll;">
