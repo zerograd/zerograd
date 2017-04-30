@@ -22,6 +22,7 @@ class HomeController extends Controller
 	    	foreach($keywords as $keyword){
 	    		$posting =	DB::table('postings')
 	    					->select('*')
+	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->where('keywords','like','%'. $keyword .'%')
 	    					->orWhere('description','like','%' . $keyword . '%')
 	    					->get();
@@ -53,6 +54,7 @@ class HomeController extends Controller
 
     	$postings =	DB::table('postings')
 	    					->select('*')
+	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->get();
 
 		$found = "no";
@@ -62,7 +64,7 @@ class HomeController extends Controller
     		'postings' => $postings,
     		'found' => $found
 		);
-
+    	
 		return view('search-results')->with($data);
     }
 
@@ -71,11 +73,13 @@ class HomeController extends Controller
     	if($request->experience != 0){
     		$postings = DB::table('postings')
     				->select('*')
+    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
     				->where('required_experience',$request->experience)
     				->get();
     	}else{
     		$postings = DB::table('postings')
     				->select('*')
+    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
     				->get();
     	}
 
