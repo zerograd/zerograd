@@ -12,7 +12,8 @@
                                 	</h5></div>
 	                                <div class="col-sm-6"><h5 style="display: block;
     float: right;">Posted: <strong>{{$posting->posted_date}}</strong></h5></div>
-	                                <div class="col-sm-12 keywords"><h5 style="display: block;float: left;">Keywords: <strong>{{$posting->keywords}}</strong></h5></div>
+	                                <div class="col-sm-6 keywords"><h5 style="display: block;float: left;">Keywords: <strong>{{$posting->keywords}}</strong></h5></div>
+	                                <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>REQUIRED EXPERIENCE: {{$posting->required_experience}} years</strong></h5></div>
                                 </div>
                             </li>
 @endforeach
