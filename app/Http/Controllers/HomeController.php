@@ -21,7 +21,7 @@ class HomeController extends Controller
 	    	$postings = array();
 	    	foreach($keywords as $keyword){
 	    		$posting =	DB::table('postings')
-	    					->select('*')
+	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
 	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->where('keywords','like','%'. $keyword .'%')
 	    					->get();
@@ -61,7 +61,7 @@ class HomeController extends Controller
     public function searchResults(){
 
     	$postings =	DB::table('postings')
-	    					->select('*')
+	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
 	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->get();
 
@@ -84,7 +84,7 @@ class HomeController extends Controller
     		$postings = array();
     		foreach($keywords as $keyword){
 	    			$posting = DB::table('postings')
-	    				->select('*')
+	    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
 	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    				->where('required_experience',$request->experience)
 	    				->where('keywords','like','%'. $keyword .'%')

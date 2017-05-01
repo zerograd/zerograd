@@ -26,10 +26,11 @@
                     <li><a>Contact Us</a></li>
                     @if(!Session::has('user_id'))
                         <a href="{{URL::to('/student-login')}}"><button class="white-btn">Login</button></a>
+                        <button class="white-btn">Employer?</button>
                     @else
                     <a href="{{URL::to('/student/home')}}"><button class="white-btn">{{Session::get('student_name')}}</button></a>
                     @endif
-                    <button class="white-btn">Employer?</button>
+                    
                 </ul>
             </div>
         </div>

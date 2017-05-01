@@ -59,6 +59,10 @@
           background: rgba(224,224,224,0.8);
           outline: 1px solid slategrey;
         }
+        .posting:hover {
+            text-decoration: none;
+            color:black;
+        }
         </style>
         <script>
   $( function() {
