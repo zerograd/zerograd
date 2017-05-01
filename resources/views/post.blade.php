@@ -1,19 +1,4 @@
-
- 
-        
-
-        
-        <!-- Compiled and minified CSS -->
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
-
-  Compiled and minified JavaScript
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script> -->
-        <!-- Styles -->
-        
-    
-    
-        
-          <div  style="margin:50px 0;height:100%;border:1px solid #354886;border-radius: 10px;padding:10px;background-color: #FFFFFF;">
+<div  style="margin:50px 0;height:100%;border:1px solid #354886;border-radius: 10px;padding:10px;">
                 <div class="row" style="text-align: center;margin-top: 15px;">
                     <img class="center-block img-responsive" style="width: 200px;height: 155px;float: left;margin:0 40px;" src="{{URL::asset('/images/nasa.png')}}" alt="Company Photo">
                     <div class="row" style="text-align: left;float:left;">
@@ -40,18 +25,3 @@
                     </div>
                 </div>
             </div>
-        <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-        <script type="text/javascript">
-            // function backToResults(){
-            //     var keywords = $('#searchkeywords').val();
-            //     $.post('{{route('submit-search')}}',{
-
-            //     },function(data){
-
-            //     });
-            // }
-        </script>
-        
-    
-

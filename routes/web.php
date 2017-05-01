@@ -39,7 +39,7 @@ Route::get('/company/{id}',array(
 ));
 
 //PostingController
-Route::get('/posting/{id}',array(
+Route::post('/posting',array(
 	'as' => 'posting-get',
 	'uses' => 'PostingController@index'		
 ));

@@ -16,7 +16,14 @@
         <link rel="stylesheet" href="/resources/demos/style.css">
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        
+        <!-- Styles -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+        
+
+  
+        <!-- Styles -->
 
         <!-- Styles -->
         {{ HTML::style('css/styles.css') }}
@@ -63,6 +70,16 @@
             text-decoration: none;
             color:black;
         }
+        .no-hover:hover{
+            text-decoration: none;
+            color:black;
+        }
+
+        .btn {
+            background-color: #26a69a;
+            color:white;
+        }
+
         </style>
         <script>
   $( function() {
@@ -190,7 +207,30 @@
                 headers: { 'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content') }
             });
         });
-        </script>
 
+        function showPost(id){
+            $.post('{{route('posting-get')}}',{
+                "_token": "{{ csrf_token() }}", 
+                id:id
+            },function(data){
+                $('#post-overlay').show();
+                $('#post-overlay .container').html(data);
+            })
+        }
+
+        function closeOverlay(){
+            $('#post-overlay').hide();
+        }
+
+        </script>
+        <div id="post-overlay" style="display:none;position:absolute;z-index:3;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);">
+            <div class="container">
+                
+            </div>
+            <div style="position:absolute;top:0;right:10px;" id="close-overlay" onClick="closeOverlay();">
+                <button type="button" class="btn btn-danger">X</button>
+            </div>
+        </div>
+        
     </body>
 </html>

@@ -5,7 +5,7 @@
                                 </div>
                                 <div class="col-sm-10">
                                 	<div class="col-sm-12">
-                                		<a href="{{route('posting-get',$posting->id)}}" class="posting"><h4 style="display:block;float:left;">{{$posting->title}}</h4></a>
+                                		<a href="#" onClick="showPost({{$posting->id}});"class="posting"><h4 style="display:block;float:left;">{{$posting->title}}</h4></a>
                                 	</div>
                                 	<div class="col-sm-6"><h5 style="display: block;float: left;"><a href="{{route('company-get',$posting->companyID)}}"><strong style="text-transform: capitalize;">{{$posting->company_name}} - </strong></a>
                                 	<span>{{$posting->location}}</span>
