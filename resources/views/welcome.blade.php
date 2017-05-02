@@ -55,19 +55,17 @@
             <div id="social-medias" class="col-md-3 col-xs-3">
                 <h2 class="text-center">Social Media</h2>
                 <div id="twitter" class="col-md-12 col-xs-12">
-                    <a href="#">
-                    <img src="{{URL::asset('/images/twitter-icon.png')}}" alt="twitter-icon"/>
-                    <h3>Twitter</h3></a>
+                    <i class="fa fa-twitter-square col-xs-12 text-center " aria-hidden="true"></i>
+                    <h3 class="col-xs-12 text-center">Twitter</h3></a>
                 </div>
                 <div id="instagram" class="col-md-12 col-xs-12">
-                    <a href="#">
-                    <img src="{{URL::asset('/images/instagram-icon.png')}}" alt="instagram-icon"/>
-                    <h3>Instagram</h3></a>
+                    <a href="https://instagram.com/zerograd" target="_blank">
+                    <i class="fa fa-facebook-square col-xs-12 text-center" aria-hidden="true"></i>
+                    <h3 class="col-xs-12 text-center">Instagram</h3></a>
                 </div>
                 <div id="facebook" class="col-md-12 col-xs-12">
-                    <a href="#">
-                    <img src="{{URL::asset('/images/facebook-icon.png')}}" alt="facebook-icon"/>
-                    <h3>Facebook</h3></a>
+                    <i class="fa fa-instagram fa-2 col-xs-12 text-center" aria-hidden="true"></i>
+                    <h3 class="col-xs-12 text-center">Facebook</h3></a>
                 </div>
             </div>
             <div id="tips" class="col-md-6 col-xs-6" >

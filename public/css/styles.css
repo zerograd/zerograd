@@ -108,8 +108,8 @@ html, body {
             }
 
             /*Social media icons*/
-            #social-medias div {
-                margin: 20px 0;
+            #social-medias {
+                padding: 10px 0;
             }
             #social-medias h3 {
                 display:block;
