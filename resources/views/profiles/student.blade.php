@@ -7,7 +7,7 @@
 @section('styles')
 	<style>
 		#profile{
-			height:800px;
+			height:400px;
 			background-color: white;
 			margin:0 50px;
 

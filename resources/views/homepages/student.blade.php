@@ -24,6 +24,19 @@
 			font-weight:500;
 			text-align: center;
 		}
+
+		#timeline{
+			height:400px;
+			background-color: white;
+			border-top:5px solid #D7D131;
+			margin:10px 50px;
+		}
+
+		#timeline h2{
+			margin:10px 0;
+			color:black;
+			font-weight:500;
+		}
 		
 		#profile-completion{
 			height:350px;
@@ -56,12 +69,18 @@
 	
 		@include('layout.main-layout')
 		<div id="content">
-			<div id="recent-search-panel" class="col-sm-6">
-				<h2>Recent Searches</h2>
-				<h4>1. Engineering in Toronto</h4>
-				<h4>2. Engineering in Detroit</h4>
-				<h4>3. Engineering in California</h4>
+			<div class="col-sm-7">
+				<div id="recent-search-panel" class="col-sm-12">
+					<h2>Recent Searches</h2>
+					<h4>1. Engineering in Toronto</h4>
+					<h4>2. Engineering in Detroit</h4>
+					<h4>3. Engineering in California</h4>
+				</div>
+				<div id="timeline" class="col-sm-12">
+					<h2>Timeline</h2>
+				</div>
 			</div>
+			
 
 			<div id="profile-completion" class="col-sm-3">
 				<h2>Profile Completion</h2>
