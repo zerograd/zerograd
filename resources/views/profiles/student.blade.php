@@ -35,6 +35,18 @@
 	</style>
 @stop
 
+@section('style_plugins')
+	<script type="text/javascript">
+		function changeActive(id){
+			var currentActive = $('.active');
+			currentActive.removeClass('active');
+			currentActive.hide();
+			$('#' + id).addClass('active');
+			$('#' + id).show();
+		}
+	</script>
+@stop
+
 @section('content')
 	@include('layout.main-layout')
 		<div id="content">
@@ -43,12 +55,12 @@
 					<h2>Profile</h2>
 				</div>	
 				<div id="profile" class="col-sm-11">
-					<div class="row" style="padding:5px;text-align: center;">
-						<button class="btn btn-primary">Summary</button>
-						<button class="btn btn-success">Education</button>
-						<button class="btn btn-info">Resume</button>
-						<button class="btn btn-warning">Skills</button>
-						<button class="btn btn-danger">Projects</button>
+					<div class="row" style="padding:5px;text-align: center;" id="profile-buttons">
+						<button class="btn btn-primary" onClick="changeActive('summary');">Summary</button>
+						<button class="btn btn-success" onClick="changeActive('education');">Education</button>
+						<button class="btn btn-info" onClick="changeActive('resume');">Resume</button>
+						<button class="btn btn-warning" onClick="changeActive('skills');">Skills</button>
+						<button class="btn btn-danger" onClick="changeActive('projects');">Projects</button>
 					</div>
 					<div class="row">
 						<div id="summary" class="active" style="width:95%;margin:0 2.5%;height:100%;border:1px solid #354886;border-radius: 5px;padding:10px;">
