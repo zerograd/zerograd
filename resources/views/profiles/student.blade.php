@@ -25,6 +25,13 @@
 			color:black;
 			font-weight:500;
 		}
+
+		.active {
+			display:block;
+		}
+		 h2 {
+		 	color:black;
+		 }
 	</style>
 @stop
 
@@ -42,6 +49,23 @@
 						<button class="btn btn-info">Resume</button>
 						<button class="btn btn-warning">Skills</button>
 						<button class="btn btn-danger">Projects</button>
+					</div>
+					<div class="row">
+						<div id="summary" class="active" style="width:95%;margin:0 2.5%;height:100%;border:1px solid #354886;border-radius: 5px;padding:10px;">
+							<h2>Summary</h2>
+						</div>
+						<div id="education" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border:1px solid #354886;border-radius: 5px;padding:10px;">
+							<h2>Education</h2>
+						</div>
+						<div id="resume" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border:1px solid #354886;border-radius: 5px;padding:10px;">
+							<h2>Resume</h2>
+						</div>
+						<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border:1px solid #354886;border-radius: 5px;padding:10px;">
+							<h2>Skills</h2>
+						</div>
+						<div id="projects" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border:1px solid #354886;border-radius: 5px;padding:10px;">
+							<h2>Projects</h2>
+						</div>
 					</div>
 				</div>
 			</div>
