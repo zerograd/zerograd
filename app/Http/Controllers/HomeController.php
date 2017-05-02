@@ -143,4 +143,8 @@ class HomeController extends Controller
 		return view('results')->with($data);
     }
 
+    public function about(){
+    	return view('about');
+    }
+
 }

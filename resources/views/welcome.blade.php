@@ -23,7 +23,7 @@
             </div>
             <div class="col-md-6 col-xs-6">
                 <ul class="navigation">
-                    <li><a>About</a></li>
+                    <li><a href="{{URL::to('/about')}}">About</a></li>
                     <li><a>Contact Us</a></li>
                     @if(!Session::has('user_id'))
                         <a href="{{URL::to('/student-login')}}"><button class="white-btn">Login</button></a>

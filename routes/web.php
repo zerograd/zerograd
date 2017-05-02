@@ -22,6 +22,7 @@ Route::post('/filter',array(
 	'as' => 'filter-results',
 	'uses' => 'HomeController@filter'
 ));
+Route::get('/about','HomeController@about');
 
 //StudentController
 Route::get('/student-login','StudentController@index');
