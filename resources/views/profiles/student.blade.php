@@ -36,7 +36,13 @@
 					<h2>Profile</h2>
 				</div>	
 				<div id="profile" class="col-sm-11">
-					
+					<div class="row" style="padding:5px;text-align: center;">
+						<button class="btn btn-primary">Summary</button>
+						<button class="btn btn-success">Education</button>
+						<button class="btn btn-info">Resume</button>
+						<button class="btn btn-warning">Skills</button>
+						<button class="btn btn-danger">Projects</button>
+					</div>
 				</div>
 			</div>
 		</div>
