@@ -10,7 +10,16 @@ class HomeController extends Controller
 {
     //Display Index
     public function index(){
-		return view('welcome');
+
+    	$advices = DB::table('tips_advice')
+    					->select('*')
+    					->inRandomOrder()
+    					->get();
+
+    	$data = array(
+    		'advices' => $advices
+		);
+		return view('welcome')->with($data);
     }
 
     //Search

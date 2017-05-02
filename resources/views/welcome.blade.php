@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
     <head>
+    <script src="https://use.fontawesome.com/ba4723fdf4.js"></script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -71,6 +72,11 @@
             </div>
             <div id="tips" class="col-md-6 col-xs-6" >
                 <h2 class="text-center">Tips &amp; Advice </h2>
+                <div class="col-xs-8 col-xs-offset-2">
+                    @foreach ($advices as $advice)
+                        <p style="font-size:16px;color:white;text-align: center;"><i class="fa fa-circle fa-1" aria-hidden="true"></i>&nbsp{{$advice->advice}}</p>
+                    @endforeach
+                </div>
             </div>
             <div id="polls-and-reviews" class="col-md-3 col-xs-3">
                 <h2 class="text-center">Polls</h2>
