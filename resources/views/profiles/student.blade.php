@@ -7,7 +7,7 @@
 @section('styles')
 	<style>
 		#profile{
-			height:400px;
+			height:auto;
 			background-color: white;
 			margin:0 50px;
 
@@ -35,6 +35,21 @@
 		 .label-color{
 		 	color:black;
 		 }
+ 
+ 		.scroll::-webkit-scrollbar {
+            width: 10px;
+        }
+         
+        .scroll::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
+        }
+         
+        .scroll::-webkit-scrollbar-thumb {
+          background: rgba(224,224,224,0.8);
+          outline: 1px solid slategrey;
+        }
+
+
 	</style>
 @stop
 
@@ -52,8 +67,8 @@
 
 @section('content')
 	@include('layout.main-layout')
-		<div id="content">
-			<div class="col-sm-12">	
+		<div id="content" style="height:100%">
+			<div class="col-sm-12 scroll" style="height:90%;overflow-y: scroll;">	
 				<div class="panel-name">
 					<h2>Profile</h2>
 				</div>	
