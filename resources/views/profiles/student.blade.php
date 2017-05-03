@@ -178,8 +178,8 @@
 			var schoolInput = $('<div class="col-sm-4"><label class="label-color">School</label><input type="text" class="form-control"></div>');
 			var startSelect = $('<div class="col-sm-2"><label class="label-color">Start Year</label>'+ startString + '</div>');
 			var endSelect = $('<div class="col-sm-2"><label class="label-color">Graduation Year</label>'+ endString + '</div>');
-			var programInput = $('<div class="col-sm-4"><label class="label-color">Program</label><input type="text" class="form-control"></div>');
-			var saveButton = $('<div class="col-sm-12"><button class="save-button btn btn-success" style="float:right;margin:10px 0;"><i class="fa fa-check" aria-hidden="true"></i></button></div>');
+			var programInput = $('<div class="col-sm-3"><label class="label-color">Program</label><input type="text" class="form-control"></div>');
+			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px"><i class="fa fa-check" aria-hidden="true"></i></button>');
 			formGroup.append(schoolInput);
 			formGroup.append(programInput);
 			formGroup.append(startSelect);
