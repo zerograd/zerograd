@@ -36,7 +36,16 @@ class StudentController extends Controller
     }
 
     public function profile($id = null){
-    	return view('profiles.student');
+
+        $education = DB::table('education')
+                        ->select('*')
+                        ->where('user_id',$id)
+                        ->get();
+
+        $data = array(
+            'educations' => $education
+        );
+    	return view('profiles.student')->with($data);
     }
 
     public function searchTool(){
