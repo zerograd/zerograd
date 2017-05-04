@@ -160,8 +160,8 @@
 							<h2>Skills</h2>
 							<div class="form-group">
 								<label class="label-color">List all those wonderful skills that you have accquired over the years.(Press Enter after each skill)</label>
-								<div>
-									
+								<div class="input-group col-sm-12" id="skills-group-div">
+									<input class="form-control" name="skill" id="skill" type="text" placeholder="Enter skills here...(Press space key after each skill)" />
 								</div>
 							</div>
 						</div>
@@ -169,7 +169,15 @@
 							<h2>Projects</h2>
 							<div class="form-group">
 								<label class="label-color">Project Descriptions are great for providing more detail on what you have done to get where you are in your profession.</label>
-								<div></div>
+								<div class="form-group" id="projects-div">
+									<label class="label-color">Education is important! Tell others where you went and what you took. Maybe even mention that you are an alnumi.</label>
+									@include('profiles.projects');
+									<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
+										Add a Project...
+										<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addProject();"></i>
+										&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeProject();"></i>
+									</div>
+							</div>
 							</div>
 						</div>
 					</div>
@@ -195,6 +203,20 @@
 					
 				}
 			});
+			
+
+			$('#skill').keypress(function(event){
+				if(event.keyCode == 32 || event.keyCode == 13){
+					var currentSkill = $(this).val();
+					if(currentSkill.length > 0){
+						var button = $('<span class="input-group-btn"><button class="btn btn-info" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button></span>"');
+						button.insertBefore('#skill');
+						$('#skill').val('');
+					}
+					
+				}
+			});
+
 		});
 
 		function removeSkill(skill){
@@ -299,6 +321,66 @@
 		
 		function removeSchool(){
 			var div = $('#school-div .new-school').last().remove();
+		}
+
+		function addProject(){
+			var schoolDiv = $('#projects-div');
+			var formGroup = $('<div class="form-group new-project" style="margin:10px 0;"></div>');
+			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Project Name</label><input type="text" class="form-control"></div>');
+			var startSelect = $('<div class="col-sm-2"><label class="label-color">Start</label>'+ startString + '</div>');
+			var endSelect = $('<div class="col-sm-2"><label class="label-color">Completed</label>'+ endString + '</div>');
+			var programInput = $('<div class="col-sm-3"><label class="label-color">Project Skills</label><input type="text" class="form-control"></div>');
+			var textArea = $('<div class="col-sm-11"><label class="label-color">Overview</label><textarea class="form-control" style="height:150px;" col="50" placeholder="" readonly></textarea></div>')
+			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px"><i class="fa fa-check" aria-hidden="true"></i></button>');
+			formGroup.append(schoolInput);
+			formGroup.append(programInput);
+			formGroup.append(startSelect);
+			formGroup.append(endSelect);
+			formGroup.append(textArea);
+			formGroup.append(saveButton);
+			schoolDiv.append(formGroup);
+		}
+		function updateProject(updateButton){
+			var button = $(updateButton);
+			var divGroup = button.parent();
+			var inputs = divGroup.find('input');
+			var textareas = divGroup.find('textarea');
+
+			var selects =divGroup.find('select');
+			inputs.each(function(){
+				$(this).attr( 'readonly','readonly'  );
+			});
+			selects.each(function(){
+				$(this).attr( 'disabled' , 'disabled' );
+			});
+			textareas.each(function(){
+				$(this).attr( 'readonly' , 'readonly' );
+			});
+			button.replaceWith('<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editProject(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button>');
+		}
+		function editProject(editButton){
+			var button = $(editButton);
+			var divGroup = button.parent();
+			var inputs = divGroup.find('input');
+
+			var selects =divGroup.find('select');
+			var textareas = divGroup.find('textarea');
+
+			inputs.each(function(){
+				$(this).removeAttr( 'readonly' );
+			});
+			selects.each(function(){
+				$(this).removeAttr( 'disabled' );
+			});
+			textareas.each(function(){
+				$(this).removeAttr( 'readonly' );
+			});
+
+			button.replaceWith('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateProject(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
+		}
+		
+		function removeProject(){
+			var div = $('#projects-div .new-project').last().remove();
 		}
 	</script>
 @stop
