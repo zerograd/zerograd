@@ -10,7 +10,7 @@
 			height:auto;
 			background-color: white;
 			margin:0 50px;
-
+			padding:5px;
 		}
 		.panel-name{
 			display:inline-block;
@@ -49,7 +49,18 @@
           outline: 1px solid slategrey;
         }
 
+        label {
+        	color:black;
+        	margin-top:10px;
+        }
+        input,textarea {
+        	color:black;
+        	font-weight: bold;
+        }
 
+        textarea {
+        	height:200px;
+        }
 	</style>
 @stop
 
@@ -104,6 +115,41 @@
 							<h2>Resume</h2>
 							<div class="form-group">
 								<label class="label-color">A resume is the best tool for sharing your skills and knowledge with future employers. Please upload your own or click 'Resume Builder' to use our Resume building tool.</label>
+								<div class="col-sm-4">
+									<label>Street Address</label>
+									<input name="address" type="text" placeholder="Street Address" class="form-control">
+								</div>
+								<div class="col-sm-4">
+									<label>City</label>
+									<input name="city" type="text" placeholder="City" class="form-control">
+								</div>
+								<div class="col-sm-4">
+									<label>Province/State</label>
+									<input name="state" type="text" placeholder="Province/State" class="form-control">
+								</div>
+								<div class="col-sm-4">
+									<label>Postal Code</label>
+									<input name="zipcode" type="text" placeholder="Postal Code/Zip Code" class="form-control">
+								</div>
+								<div class="col-sm-4">
+									<label>Telephone</label>
+									<input name="telephone_number" type="text" placeholder="Telephone Number" class="form-control">
+								</div>
+								<div class="col-sm-4"></div>
+								<div class="col-sm-6">
+									<label>Objective</label>
+									<textarea col="50" style="height:150px;"  name="objective" class="form-control" placeholder="Talk about the type of job you are looking for."></textarea>
+								</div>
+								<div class="col-sm-6">
+									<label>Summary</label>
+									<textarea col="50" style="height:150px;" name="summary" class="form-control" placeholder="A brief description of who you are and your skills"></textarea>
+								</div>
+								<div class="col-sm-12">
+									<label>Skills</label>
+									<div class="input-group col-sm-12" id="skills-group">
+										<input class="form-control" name="current-skill" id="current-skill" type="text" placeholder="Enter skills here...(Press space key after each skill)" />
+									</div>
+								</div>
 							</div>
 						</div>
 						<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
@@ -132,8 +178,23 @@
 
 
 	<script type="text/javascript">
+		$(document).ready(function(){
+			$('#current-skill').keypress(function(event){
+				if(event.keyCode == 32 || event.keyCode == 13){
+					var currentSkill = $(this).val();
+					if(currentSkill.length > 0){
+						var button = $('<span class="input-group-btn"><button class="btn btn-info" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button></span>"');
+						button.insertBefore('#current-skill');
+						$('#current-skill').val('');
+					}
+					
+				}
+			});
+		});
 
-
+		function removeSkill(skill){
+			$(skill).remove();
+		}
 
 		
 		var startString = '<select class="form-control label-color" style="font-weight:bold;" name="birth-year">\
