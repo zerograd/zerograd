@@ -115,6 +115,7 @@ html, body {
                 display:block;
                 float:left;
                 color:white; 
+                margin:0;
                 font-size: 14px;
             }
 
@@ -159,3 +160,11 @@ html, body {
                 color:white;
                 text-decoration: none;
             }
+
+@media (max-width: 767px) {
+
+  // Align text to center.
+  .text-xs-center {
+    text-align: center;
+  } 
+}
