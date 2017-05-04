@@ -91,3 +91,15 @@
 		</div>
 	</div>
 @stop
+
+@section('script_plugins')
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(this).keypress(function(event){
+				if(event.keyCode == 13 ){
+					verifyLogin();
+				}
+			});
+		});
+	</script>
+@stop
