@@ -151,6 +151,10 @@
 									</div>
 								</div>
 							</div>
+							<div class="row" style="">
+								<button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Save</button>
+								<button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Preview Resume</button>
+							</div>
 						</div>
 						<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Skills</h2>
@@ -169,6 +173,7 @@
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
