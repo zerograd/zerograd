@@ -41,10 +41,16 @@ class StudentController extends Controller
                         ->select('*')
                         ->where('user_id',$id)
                         ->get();
+        $resume = DB::table('resume')
+                        ->select('*')
+                        ->where('user_id',$id)
+                        ->first();
 
         $data = array(
-            'educations' => $education
+            'educations' => $education,
+            'resume' => $resume
         );
+        
     	return view('profiles.student')->with($data);
     }
 
