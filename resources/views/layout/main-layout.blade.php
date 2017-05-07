@@ -53,7 +53,7 @@
 					@endif()
 				</li>
 			</ul>
-		</div>
+		</div>       
 
 			<script>
 		function show(div){

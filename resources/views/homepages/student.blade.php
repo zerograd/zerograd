@@ -72,7 +72,7 @@
 @section('content')
 	
 		@include('layout.main-layout')
-		<div class="container">
+		<div class="container-fluid">
 			<div class="col-sm-7 col-xs-6">
 				<div id="timeline" class="col-sm-12 col-xs-12">
 					<h2>Timeline</h2>
