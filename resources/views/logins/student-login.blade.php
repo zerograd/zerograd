@@ -10,12 +10,12 @@
 		background-color: #354886;
 	}
 	#login-panel{
-		height:100%;
+		height:auto;
 	}
 	#login-form{
 		border: 1px solid white;
-		margin-top:100px;
-		height:350px;
+		margin-top:5px;
+		height:auto;
 		text-align:center;
 		padding:30px 10px;
 		border-radius:10px;
@@ -33,13 +33,25 @@
 		color:white;
 	}
 	#logo-panel {
-		height:100%;
+		height:auto;
 	}
 	#logo {
-		font-size:100px;
+		font-size:60px;
 	}
 	.zeroLogo{
-		font-size:100px;
+		font-size:60px;
+	}
+
+	@media (min-width: 768px) {
+
+
+	  #logo,.zeroLogo {
+	    font-size:100px;
+	  } 
+
+	  #logo-panel,#login-form{
+	  	margin-top:100px;
+	  }
 	}
 </style>
 @stop
@@ -70,7 +82,14 @@
 @stop
 
 @section('content')
-	<div id="login-panel" class="col-sm-4">
+	<div id="logo-panel" class="col-xs-12 col-sm-8 col-sm-push-4">
+		<div id="logo-div" class=" col-lg-offset-2 col-sm-offset-1  col-sm-4" style="text-align: center;">
+			<h1 id="logo" class="text-xs-center" style="margin:0;">
+                Zer<span class="zeroLogo">0</span>Grad
+            </h1>
+		</div>
+	</div>
+	<div id="login-panel" class="col-xs-12 col-sm-4 col-sm-pull-8">
 		<form id="login-form" class="col-sm-12" >
 			{{ csrf_field() }}
 			<h2 style="color:#29C9C8;;">Please login in below</h2>
@@ -82,13 +101,6 @@
 				<a href="#">Need to Contact Us?</a>
 			</div>
 		</form>
-	</div>
-	<div id="logo-panel" class="col-sm-8">
-		<div id="logo-div" class="col-sm-offset-3 col-sm-4" style="margin-top:180px;">
-			<h1 id="logo" class="text-xs-center" style="margin:0;">
-                Zer<span class="zeroLogo">0</span>Grad
-            </h1>
-		</div>
 	</div>
 @stop
 

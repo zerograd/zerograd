@@ -14,6 +14,7 @@
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
         <!-- Styles -->
         {{ HTML::style('css/styles.css') }}
+        {{ HTML::style('css/responsive.css') }}
             @yield('styles')
             
             @yield('style_plugins')

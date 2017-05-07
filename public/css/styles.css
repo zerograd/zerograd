@@ -1,5 +1,5 @@
 html, body {
-                background-color: #FFFFFF;
+                
                 color: #636b6f;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
@@ -8,6 +8,9 @@ html, body {
             }
             body {
 
+            }
+            #navigation {
+                background-color: #354886;
             }
             #header{
                 background-color: #354886;
@@ -52,11 +55,11 @@ html, body {
                 color:white;
                 font-size: 16px;
             }
-            a:hover {
-                color:white;
-                cursor: pointer;
-                border-bottom: 2px solid white;
+            .nav>li>a:hover {
+                text-decoration: none;
+                /* background-color: #eee; */
             }
+                        
             .white-btn{
                 border:2px solid white;
                 background-color: transparent;
@@ -78,7 +81,6 @@ html, body {
             }
             .search-header{
                 color:#354886;
-                margin-top:50px;
             }
             .search-header > h1{
                 /*font-weight: bold;*/
@@ -161,10 +163,6 @@ html, body {
                 text-decoration: none;
             }
 
-@media (max-width: 767px) {
-
-  // Align text to center.
-  .text-xs-center {
-    text-align: center;
-  } 
+.navbar-header .navbar-toggle .icon-bar {
+    background-color: white;
 }

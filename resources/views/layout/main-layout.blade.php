@@ -1,4 +1,4 @@
-<div id="navigation-panel" class="col-sm-2">
+<div id="navigation-panel" class="col-sm-2 hidden-sm-up">
 		<div id="navigation-header" class="col-sm-12" onClick="goTo('{{URL::to('/student/home')}}');">
        		 <h1 id="logo" style="margin:0; color:white;">Zer<span class="zeroLogo">0</span>Grad
        		 </h1>
@@ -38,19 +38,13 @@
 		</ul>
 	</div>
 	<div id="main-area" class="col-sm-10">
-		<div id="header" class="col-sm-12">
-			<div class="col-xl-8 col-lg-6 col-md-4 col-xs-4" style="height:50px;">
-
-			</div>
-			<ul class="nav navbar-nav col-lg-6 col-md-6 col-xs-8" style="margin:0 auto;">
-				<li id="messages" class="icons">
-					<i class="material-icons " style="color:white;">textsms</i>
-				</li>
-				<li id="notifications-feed" class="icons">
-					<i class="material-icons" style="color:white;">new_releases</i>
-				</li>
-				<li id="notifications-jobs" class="icons">
-					<i class="material-icons" style="color:white;">chat</i>
+		<div class="container-fluid" style="background-color: #354886">
+			<ul class="nav navbar-nav col-md-4 col-md-push-8 col-xs-12 " style="margin:0 auto;text-align: center;">
+				<li>
+					<i class="material-icons " style="color:white;margin:5px;">textsms</i>
+					<i class="material-icons" style="color:white;margin:5px;">new_releases</i>
+				
+					<i class="material-icons" style="color:white;margin:5px;">chat</i>
 				</li>
 				<li id="user-list-item">
 					<img src="{{URL::asset('/images/me.jpg')}}" alt="user-list-item">

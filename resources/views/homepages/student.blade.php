@@ -8,10 +8,11 @@
 	<style>
 
 		#recent-search-panel{
-			height:150px;
+			height:auto;
 			background-color: white;
 			border-top:5px solid #133BB6;
-			margin:10px 50px;
+			margin:10px 0;
+			padding:5px;
 		}
 		#recent-search-panel h2{
 			margin:10px 0;
@@ -29,7 +30,7 @@
 			height:400px;
 			background-color: white;
 			border-top:5px solid #D7D131;
-			margin:10px 50px;
+			margin:10px 0;
 		}
 
 		#timeline h2{
@@ -39,10 +40,11 @@
 		}
 		
 		#profile-completion{
-			height:350px;
+			height:auto;
 			background-color: white;
 			border-top:5px solid #13B662;
-			margin:10px 50px;
+			margin:10px 0;
+			padding: 5px;
 
 		}
 		#profile-completion h2{
@@ -54,11 +56,13 @@
 		#profile-completion > div{
 			margin:10px;
 		}
-		html,body {
-			height:150%;
+
+
+		@media (max-width: 768px) {
+			h2{
+				font-size:24px;
+			}
 		}
-
-
 
 	</style>
 @stop
@@ -68,21 +72,15 @@
 @section('content')
 	
 		@include('layout.main-layout')
-		<div id="content">
-			<div class="col-sm-7">
-				<div id="recent-search-panel" class="col-sm-12">
-					<h2>Recent Searches</h2>
-					<h4>1. Engineering in Toronto</h4>
-					<h4>2. Engineering in Detroit</h4>
-					<h4>3. Engineering in California</h4>
-				</div>
-				<div id="timeline" class="col-sm-12">
+		<div class="container">
+			<div class="col-sm-7 col-xs-6">
+				<div id="timeline" class="col-sm-12 col-xs-12">
 					<h2>Timeline</h2>
 				</div>
 			</div>
 			
 
-			<div id="profile-completion" class="col-sm-3">
+			<div id="profile-completion" class="col-sm-3 col-xs-6">
 				<h2>Profile Completion</h2>
 				<canvas id="doughnutChart"></canvas>
 			</div>
@@ -114,7 +112,7 @@
 	    type: 'doughnut',
 	    data: data,
 	    options: {
-	    	cutoutPercentage : 80,
+	    	cutoutPercentage : 50,
 	    	responsive:true,
 	    	maintainAspectRatio: true,
 	    	tooltips: {
