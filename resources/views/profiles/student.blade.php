@@ -96,7 +96,7 @@
 							<h2>Summary</h2>
 							<div class="form-group">
 								<label class="label-color">A summary should always provide always answer the following: Who you are ? What have you done?In addition, it should show a bit of what makes you different from others.</label>
-								<textarea col="50" class="form-control"></textarea>
+								<textarea col="50" class="form-control" style="height:200px;">{!!$profileSummary->summary!!}</textarea>
 							</div>
 						</div>
 						<div id="education" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
@@ -149,6 +149,11 @@
 										<label>Skills</label>
 										<div class="input-group col-sm-12" id="skills-group">
 											<input class="form-control" name="current-skill" id="current-skill" type="text" placeholder="Enter skills here...(Press space key after each skill)" />
+											<div id="resume-skill-container" class="container-fluid">
+											@foreach($resumeSkills as $skill)
+												<button class="btn btn-info" style="margin: 5px 0;" onClick="removeSkill(this);"">{{$skill}}&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button>
+											@endforeach
+											</div>
 										</div>
 									</div>
 									<div class="col-sm-12">
@@ -183,6 +188,11 @@
 								<label class="label-color">List all those wonderful skills that you have accquired over the years.(Press Enter after each skill)</label>
 								<div class="input-group col-sm-12" id="skills-group-div">
 									<input class="form-control" name="skill" id="skill" type="text" placeholder="Enter skills here...(Press space key after each skill)" />
+									<div id="profile-skill-container" class="container-fluid">
+										@foreach($skills as $skill)
+												<button class="btn btn-info" style="margin: 5px 0;" onClick="removeSkill(this);"">{{$skill}}&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button>
+										@endforeach
+									</div>
 								</div>
 							</div>
 						</div>
@@ -221,8 +231,9 @@
 				if(event.keyCode == 32 || event.keyCode == 13){
 					var currentSkill = $(this).val();
 					if(currentSkill.length > 0){
-						var button = $('<span class="input-group-btn"><button class="btn btn-info" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button></span>"');
-						button.insertBefore('#current-skill');
+						var skillContainer = $('#resume-skill-container');
+						var button = $('<button class="btn btn-info" style="margin: 5px 0;" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button>"');
+						skillContainer.append(button);
 						$('#current-skill').val('');
 					}
 					
@@ -234,8 +245,9 @@
 				if(event.keyCode == 32 || event.keyCode == 13){
 					var currentSkill = $(this).val();
 					if(currentSkill.length > 0){
-						var button = $('<span class="input-group-btn"><button class="btn btn-info" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button></span>"');
-						button.insertBefore('#skill');
+						var skillContainer = $('#profile-skill-container');
+						var button = $('<button class="btn btn-info" style="margin: 5px 0;" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button>"');
+						skillContainer.append(button);
 						$('#skill').val('');
 					}
 					

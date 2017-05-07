@@ -56,12 +56,44 @@ class StudentController extends Controller
                         ->select('*')
                         ->where('user_id',$id)
                         ->first();
+        $profileSummary = DB::table('profile_summary')
+                        ->select('summary')
+                        ->where('user_id',$id)
+                        ->first();  
 
+        $resumeSkills = explode(',',$resume->skills);
+
+        $profileSkills = DB::table('profile_skills')
+                            ->select('skills')
+                            ->where('user_id',$id)
+                            ->first();
+        $skills = explode(',', $profileSkills->skills);
+
+        $profileProjects = DB::table('profile_projects')
+                            ->select('*')
+                            ->where('user_id',$id)
+                            ->get();
+
+        $workExperience = DB::table('work_experience')
+                            ->select('*')
+                            ->where('user_id',$id)
+                            ->get();
+        $volunteering = DB::table('volunteer')
+                            ->select('*')
+                            ->where('user_id',$id)
+                            ->get();
         $data = array(
             'educations' => $education,
-            'resume' => $resume
+            'resume' => $resume,
+            'profileSummary' => $profileSummary,
+            'resumeSkills' => $resumeSkills,
+            'skills' => $skills,
+            'profileProjects' => $profileProjects,
+            'workExperience' => $workExperience,
+            'volunteering' => $volunteering
         );
         
+
     	return view('profiles.student')->with($data);
     }
 
