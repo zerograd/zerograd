@@ -28,13 +28,6 @@
 			</li>
 			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Search Tool</p></li>
 			<li class="other-list-item"><i class="material-icons">view_agenda</i><p>Resume Builder</p></li>
-			<li class="other-list-item" onClick="show('text-list');"><i class="material-icons">subject</i><p>Text</p>
-				<ul id="text-list" class="hidden-list" style="display:none;">
-					<li><p> Text 1</p></li>
-					<li><p>Text 2</p></li>
-					<li><p>Text 3</p></li>
-				</ul>
-			</li>
 		</ul>
 	</div>
 	<div id="main-area" class="col-sm-10">

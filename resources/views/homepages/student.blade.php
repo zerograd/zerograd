@@ -47,6 +47,37 @@
 			padding: 5px;
 
 		}
+
+		#searches {
+			height:auto;
+			background-color: white;
+			border-top:5px solid #108EE3;
+			margin:10px 0;
+			padding: 5px;
+			min-height: 200px;
+		}
+
+		#searches h2{
+			margin:10px 0;
+			color:black;
+			font-weight:500;
+		}
+
+		#opportunities {
+			height:auto;
+			background-color: white;
+			border-top:5px solid #E34010;
+			margin:10px 0;
+			padding: 5px;
+			min-height: 200px;
+		}
+
+		#opportunities h2{
+			margin:10px 0;
+			color:black;
+			font-weight:500;
+		}
+
 		#profile-completion h2{
 			margin:10px 0;
 			color:black;
@@ -64,6 +95,10 @@
 			}
 		}
 
+		#searches p {
+			color:black;
+			font-weight: bold;
+		}
 	</style>
 @stop
 
@@ -83,6 +118,23 @@
 			<div id="profile-completion" class="col-sm-3 col-xs-6">
 				<h2>Profile Completion</h2>
 				<canvas id="doughnutChart"></canvas>
+			</div>
+			<div class="col-sm-6 col-xs-6">
+				<div id="searches" class="col-sm-12 col-xs-12">
+					<h2>Recent Searches</h2>
+					<?php $counter = 1;?>
+					<div class="col-sm-12" style="text-align: center;">
+						@foreach($searches as $search)
+						<p><?php echo $counter?>&nbsp{{$search->searches}}</p>
+						<?php $counter++;?>
+						@endforeach
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 col-xs-6">
+				<div id="opportunities" class="col-sm-12 col-xs-12">
+					<h2>Opportunities</h2>
+				</div>
 			</div>
 		</div>
 	</div>

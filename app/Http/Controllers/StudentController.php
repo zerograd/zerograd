@@ -32,7 +32,18 @@ class StudentController extends Controller
     }
 
     public function home(){
-    	return view('homepages.student');
+        $searches = DB::table('user_history')
+                        ->select('searches')
+                        ->where('user_id',Session::get('user_id'))
+                        ->orderBy('search_time','DESC')
+                        ->take(4)
+                        ->get();
+        $data = array(
+            'searches' => $searches
+        );
+
+        // return $data;
+    	return view('homepages.student')->with($data);
     }
 
     public function profile($id = null){
