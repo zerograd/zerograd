@@ -78,8 +78,8 @@
 
 @section('content')
 	@include('layout.main-layout')
-		<div id="content" style="height:100%">
-			<div class="col-sm-12 scroll" style="height:90%;overflow-y: scroll;">	
+		<div id="container" class="scroll" style="height:90%;overflow-y: scroll;">
+			<div class="col-sm-12 scroll">	
 				<div class="panel-name">
 					<h2>Profile</h2>
 				</div>	
