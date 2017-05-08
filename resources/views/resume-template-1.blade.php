@@ -6,7 +6,7 @@
 		font-family: 'Raleway', sans-serif;
 	}
 </style>
-
+	<title>{{$student->student_name}}</title>
 </head>
 
 <div style="width:100%;">
