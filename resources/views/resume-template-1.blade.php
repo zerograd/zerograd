@@ -17,13 +17,10 @@
 	</div>
 	<!-- Contact and Personal info -->
 	<div style="display: block;width: 100%;text-align: center;">
-		<h4 class="font-style" style="display: inline-block;margin:0;">{{$resume->address}},</h4>
-		<h4 class="font-style" style="display: inline-block;margin:0;">{{$resume->city}},</h4>
-		<h4 class="font-style" style="display: inline-block;margin:0;">{{$resume->state}},</h4>
-		<h4 class="font-style" style="display: inline-block;margin:0;">{{$resume->zipcode}}</h4>
+		<h4 class="font-style" style="display:block;margin:0;text-align: center;">{{$resume->address}},{{$resume->city}},{{$resume->state}},{{$resume->zipcode}}</h4>
 	</div>
 	<div style="display: block;width: 100%;text-align: center;">
-		<h4 class="font-style" style="display: inline-block;margin:0;">{{$resume->telephone_number}}</h4>
+		<h4 class="font-style" style="display:block;margin:0;">{{$resume->telephone_number}}</h4>
 	</div>
 
 	<!-- Objective -->
