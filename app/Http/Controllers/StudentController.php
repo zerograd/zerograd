@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Session;
+use Dompdf\Dompdf;
 
 class StudentController extends Controller
 {
@@ -90,7 +91,8 @@ class StudentController extends Controller
             'skills' => $skills,
             'profileProjects' => $profileProjects,
             'workExperience' => $workExperience,
-            'volunteering' => $volunteering
+            'volunteering' => $volunteering,
+            'id' => $id
         );
         
 
@@ -105,5 +107,34 @@ class StudentController extends Controller
             'companies' => $companies
         );
         return view('search-tool')->with($data);
+    }
+
+    //For the resume add preview panel that says "Education and projects are populated from profile. As it is good to have a resume and profile that are closely related"
+    public function previewResume($id = null){
+        $student = DB::table('students')
+                    ->select('student_name','email')
+                    ->where('student_id',$id)
+                    ->first();
+        $resume = DB::table('resume')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->first();
+        $education = DB::table('education')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+        $data = array(
+            'student' => $student,
+            'resume'  => $resume,
+            'education' => $education
+        );
+
+        $html = view('resume-template-1')->with($data)->render();
+        $pdf = new Dompdf();
+
+        $pdf->loadHtml($html);
+
+        $pdf->render();
+        return $pdf->stream($student->student_name. '.pdf',array('Attachment'=> 0));
     }
 }

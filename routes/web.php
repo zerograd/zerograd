@@ -33,6 +33,10 @@ Route::get('/student/profile/{id}','StudentController@profile');
 Route::get('/student/search-tool','StudentController@searchTool');
 
 
+Route::get('/resume/{id}',array(
+	'as' => 'preview-resume',
+	'uses' => 'StudentController@previewResume'		
+));
 //CompanyController
 Route::get('/company/{id}',array(
 	'as' => 'company-get',

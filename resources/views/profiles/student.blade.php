@@ -179,7 +179,7 @@
 										</div>
 										<div class="col-sm-12" style="">
 										<button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Save</button>
-										<button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Preview Resume</button>
+										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Preview Resume</button></a>
 										</div>
 									</div>
 									<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
