@@ -17,7 +17,8 @@
 			    <option style="font-weight:bold;" value="2011">2011</option>
 			</select>
 		</div>
-		<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editSchool(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button></div>
+		<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editSchool(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+
 	</div>
 @endforeach
 
