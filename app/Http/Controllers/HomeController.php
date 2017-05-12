@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Response;
+use Session;
+use App\SearchLog;
 
 class HomeController extends Controller
 {
@@ -24,6 +26,15 @@ class HomeController extends Controller
 
     //Search
     public function search(Request $request){
+
+    	if(Session::has('user_id')){
+		  	SearchLog::log(array(
+    		  'user_id' => Session::get('user_id'),
+    		  'ip_address' => $request->ip(),
+    		  'searches' => str_replace(' ',',',$request->searchkeywords),
+    		  'search_time' => date('Y-m-d H:i:s')
+			));
+    	}
 
     	if($request->searchkeywords){
     		$keywords = explode(' ',$request->searchkeywords);
@@ -89,6 +100,7 @@ class HomeController extends Controller
     public function filter(Request $request){
     	//For now filter by experience. will need to filter by location and date later
     	if($request->experience != 0){
+
     		$keywords = explode(' ',$request->searchkeywords);
     		$postings = array();
     		foreach($keywords as $keyword){

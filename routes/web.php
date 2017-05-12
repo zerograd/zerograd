@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Data Seed **************************REMAIN COMMENTED IF NOT NEEDED****************************************
+Route::get('/seed','SeedController@seedPostings');
 
 //Zerograd page
 Route::get('/','HomeController@index');

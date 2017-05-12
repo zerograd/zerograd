@@ -1,6 +1,6 @@
 
 @foreach($educations as $education)
-	<div class="form-group" style="margin:10px 0;" class="entered-school">
+	<div class="form-group entered-school" style="margin:10px 0;">
 		<div class="col-sm-4"><label class="label-color">School</label><input type="text" class="form-control" style="font-weight: bold;" value="{{$education->school}}"readonly></div>
 		<div class="col-sm-3"><label class="label-color">Program</label><input type="text" class="form-control" style="font-weight: bold;" value="{{$education->program}}" readonly></div>
 		<div class="col-sm-2"><label class="label-color">Start Year</label>

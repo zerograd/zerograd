@@ -105,8 +105,7 @@
                 <div class="row" style="text-align: center;">
                     <h6 style="font-weight: bold;">Company Overview</h6>
                     <div class="col-sm-8 col-sm-offset-2">
-                        <p style="font-weight: bold;">The National Aeronautics and Space Administration is an independent agency of the executive branch of the United States federal government responsible for the civilian space program, as well as aeronautics and aerospace research.
-                        President Dwight D. Eisenhower established NASA in 1958[10] with a distinctly civilian (rather than military) orientation encouraging peaceful applications in space science. The National Aeronautics and Space Act was passed on July 29, 1958, disestablishing NASA's predecessor, the National Advisory Committee for Aeronautics (NACA). The new agency became operational on October 1, 1958.<p>
+                        <p style="font-weight: bold;">{{$company->company_overview}}<p>
                     </div>
                 </div>
             </div>
