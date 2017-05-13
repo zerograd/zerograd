@@ -47,6 +47,10 @@ Route::post('/student/profile-project-update',array(
 	'as' => 'profile-project-update',
 	'uses' => 'StudentController@updateProfileProject'		
 ));
+Route::post('/student/profile-project-delete',array(
+	'as' => 'profile-project-delete',
+	'uses' => 'StudentController@deleteProfileProject'		
+));
 
 //CompanyController
 Route::get('/company/{id}',array(

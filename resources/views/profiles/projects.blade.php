@@ -24,6 +24,7 @@
 			<textarea name="project_overview" class="form-control" style="height:150px;" col="50" placeholder="" readonly>{{$project->project_overview}}</textarea>
 		</div>
 		<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editProject(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+		<button type="button" class="delete-project-button btn btn-danger" style="margin-top: 130px" onClick=""><i class="fa fa-window-close" aria-hidden="true"></i></button>
 			<input type="text" name="project_id" value="{{$project->id}}" hidden>
 			
 		</div>

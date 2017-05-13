@@ -144,6 +144,13 @@ class StudentController extends Controller
         }
     }
 
+    public function deleteProfileProject(Request $request){
+        DB::table('profile_projects')
+            ->where('id',$request->project_id)
+            ->delete();
+        return "Deleted";
+    }
+
     //For the resume add preview panel that says "Education and projects are populated from profile. As it is good to have a resume and profile that are closely related"
     public function previewResume($id = null){
         $student = DB::table('students')

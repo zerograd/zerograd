@@ -254,6 +254,7 @@
 			});
 		}
 
+
 	</script>
 
 	<!-- Page specific plugins -->
@@ -389,6 +390,8 @@
 			button.replaceWith('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateSchool(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
 		}
 		
+
+
 		function removeSchool(){
 			var div = $('.new-school').last().remove();
 		}
@@ -424,7 +427,7 @@
 			var divGroup = button.parent();
 			var formSerialized = divGroup.parent().serialize() + '&_token=' + "{{csrf_token()}}";
 			$.post('{{route('profile-project-update')}}',formSerialized,function(data){
-
+				alert('Refresh Page to see latest Project(s) that were added.')
 			});
 			var inputs = divGroup.find('input');
 			var textareas = divGroup.find('textarea');
@@ -465,5 +468,18 @@
 		function removeProject(){
 			var div = $('#projects-div .new-project').last().remove();
 		}
+
+		$('.delete-project-button').click(function(event){
+			if(confirm('Are you sure you want to delete this project?')){
+				event.preventDefault();
+				var div = $(this).parent();
+				var form = $(this).parent().parent().serialize() + '&_token=' + "{{csrf_token()}}";
+				$.post('{{route('profile-project-delete')}}',form,function(data){
+					console.log('Deleted');
+					div.remove();
+					form.remove();
+				});
+			}
+		});
 	</script>
 @stop
