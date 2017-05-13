@@ -119,6 +119,7 @@ class StudentController extends Controller
     }
 
     public function updateProfileProject(Request $request){
+        $previousInsertId;
         foreach($request->except('_token','project_id') as $key=>$value){
             if(isset($request->project_id)){
                 DB::table('profile_projects')
@@ -126,10 +127,17 @@ class StudentController extends Controller
                 ->update(array(
                     "$key" => "$value"
                 ));
-            }else{//Create if doesn't exist
-                DB::table('profile_projects')
-                ->where('id',$request->project_id)
-                ->insert(array(
+            }else if(!isset($previousInsertId)){//Create if doesn't exist
+                
+                    $previousInsertId = DB::table('profile_projects')->insertGetId(array(
+                            "$key" => "$value"
+                        )
+                    );
+                
+            }else{
+                  DB::table('profile_projects')
+                ->where('id',$previousInsertId)
+                ->update(array(
                     "$key" => "$value"
                 ));
             }
