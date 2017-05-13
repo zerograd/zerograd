@@ -119,7 +119,21 @@ class StudentController extends Controller
     }
 
     public function updateProfileProject(Request $request){
-        return Response::json($request);
+        foreach($request->except('_token','project_id') as $key=>$value){
+            if(isset($request->project_id)){
+                DB::table('profile_projects')
+                ->where('id',$request->project_id)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }else{//Create if doesn't exist
+                DB::table('profile_projects')
+                ->where('id',$request->project_id)
+                ->insert(array(
+                    "$key" => "$value"
+                ));
+            }
+        }
     }
 
     //For the resume add preview panel that says "Education and projects are populated from profile. As it is good to have a resume and profile that are closely related"
