@@ -109,6 +109,19 @@ class StudentController extends Controller
         return view('search-tool')->with($data);
     }
 
+    public function saveSkills(Request $request){
+        $skills = implode(',',$request->skills);
+        DB::table('profile_skills')
+            ->where('user_id',$request->id)
+            ->update(array(
+                'skills' => $skills
+            ));
+    }
+
+    public function updateProfileProject(Request $request){
+        return Response::json($request);
+    }
+
     //For the resume add preview panel that says "Education and projects are populated from profile. As it is good to have a resume and profile that are closely related"
     public function previewResume($id = null){
         $student = DB::table('students')
@@ -137,4 +150,5 @@ class StudentController extends Controller
         $pdf->render();
         return $pdf->stream($student->student_name. '.pdf',array('Attachment'=> 0));
     }
+
 }

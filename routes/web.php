@@ -35,10 +35,19 @@ Route::get('/student/profile/{id}','StudentController@profile');
 Route::get('/student/search-tool','StudentController@searchTool');
 
 
-Route::get('/resume/{id}',array(
+Route::get('/student/resume/{id}',array(
 	'as' => 'preview-resume',
 	'uses' => 'StudentController@previewResume'		
 ));
+Route::post('/student/skills-save',array(
+	'as' => 'skills-save',
+	'uses' => 'StudentController@saveSkills'		
+));
+Route::post('/student/profile-project-update',array(
+	'as' => 'profile-project-update',
+	'uses' => 'StudentController@updateProfileProject'		
+));
+
 //CompanyController
 Route::get('/company/{id}',array(
 	'as' => 'company-get',

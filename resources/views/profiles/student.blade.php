@@ -230,11 +230,33 @@
 				</div>
 			</div>
 		</div>
+		<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />
 @stop
 
 @section('script_plugins')
+	<!-- Requests -->
+	<script type="text/javascript">
+		function saveSkills(){
+			var id = $('#profile-id').val();
+			var buttons = $('#profile-skill-container button');
+			var skills = [];
+			buttons.each(function(){
+				skills.push($(this).text().trim());
+			});
 
+			var data = {
+				_token: $('{{ csrf_field()}}').val(),
+				id:id,
+				skills:skills
+			};
+			$.post('{{route('skills-save')}}',data,function(data){
+				console.log(data);
+			});
+		}
 
+	</script>
+
+	<!-- Page specific plugins -->
 	<script type="text/javascript">
 		$(document).ready(function(){
 			$('#current-skill').keypress(function(event){
@@ -391,6 +413,10 @@
 		function updateProject(updateButton){
 			var button = $(updateButton);
 			var divGroup = button.parent();
+			var formSerialized = divGroup.parent().serialize() + '&_token=' + "{{csrf_token()}}";
+			$.post('{{route('profile-project-update')}}',formSerialized,function(data){
+
+			});
 			var inputs = divGroup.find('input');
 			var textareas = divGroup.find('textarea');
 
