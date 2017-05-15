@@ -52,6 +52,11 @@ Route::post('/student/profile-project-delete',array(
 	'uses' => 'StudentController@deleteProfileProject'		
 ));
 
+Route::post('/student/submit-summary',array(
+	'as' => 'submit-summary',
+	'uses' => 'StudentController@submitSummary'		
+));
+
 //CompanyController
 Route::get('/company/{id}',array(
 	'as' => 'company-get',
@@ -62,4 +67,11 @@ Route::get('/company/{id}',array(
 Route::post('/posting',array(
 	'as' => 'posting-get',
 	'uses' => 'PostingController@index'		
+));
+
+//Student Profile public
+
+Route::get('/profile/{id}',array(
+	'as' => 'public-profile',
+	'uses' => 'StudentController@publicProfile'		
 ));

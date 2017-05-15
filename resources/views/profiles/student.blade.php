@@ -97,13 +97,16 @@
 					</div>
 					<!-- SUMMARY -->
 					<div class="row">
-						<div id="summary" class="active" style="width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
-							<h2>Summary</h2>
-							<div class="form-group">
-								<label class="label-color">A summary should always provide always answer the following: Who you are ? What have you done?In addition, it should show a bit of what makes you different from others.</label>
-								<textarea col="50" class="form-control" style="height:200px;">{!!$profileSummary->summary!!}</textarea>
+						<form id="summary-form">
+							<div id="summary" class="active" style="width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+								<h2>Summary</h2>
+								<div class="form-group">
+									<label class="label-color">A summary should always provide always answer the following: Who you are ? What have you done?In addition, it should show a bit of what makes you different from others.</label>
+									<textarea col="50" class="form-control" style="height:200px;" name="summary">{!!$profileSummary->summary!!}</textarea>
+								</div>
+								<button type="button" class="btn btn-primary" onClick="saveSummary();">Save Summary</button>
 							</div>
-						</div>
+						</form>
 					</div>
 					<!-- EDUCATION -->
 					<div class="row">
@@ -112,7 +115,7 @@
 							<div class="form-group" id="school-div">
 								<label class="label-color">Education is important! Tell others where you went and what you took. Maybe even mention that you are an alnumi.</label>
 								
-								
+								@include('profiles.education')
 							</div>
 							<div id="add-school-div" class="col-sm-12 label-color" style="display:none;font-weight: bold;margin-top: 10px;">
 									Add a School...
@@ -236,6 +239,12 @@
 @section('script_plugins')
 	<!-- Requests -->
 	<script type="text/javascript">
+		function saveSummary(){
+			var summaryForm = $('#summary-form').serialize() + "&id=" + $('#profile-id').val() + "&_token=" + "{{csrf_token()}}";
+			$.post('{{route('submit-summary')}}',summaryForm,function(data){
+				console.log("Saved Summary.");
+			});
+		}
 		function saveSkills(){
 			var id = $('#profile-id').val();
 			var buttons = $('#profile-skill-container button');
@@ -353,7 +362,7 @@
 			var startSelect = $('<div class="col-sm-2"><label class="label-color">Start Year</label>'+ startString + '</div>');
 			var endSelect = $('<div class="col-sm-2"><label class="label-color">Graduation Year</label>'+ endString + '</div>');
 			var programInput = $('<div class="col-sm-3"><label class="label-color">Program</label><input type="text" class="form-control"></div>');
-			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px"><i class="fa fa-check" aria-hidden="true"></i></button>');
+			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateSchool(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
 			formGroup.append(schoolInput);
 			formGroup.append(programInput);
 			formGroup.append(startSelect);

@@ -99,6 +99,15 @@ class StudentController extends Controller
     	return view('profiles.student')->with($data);
     }
 
+    // SUMMARY 
+    public function submitSummary(Request $request){
+        DB::table('profile_summary')
+            ->where('user_id',$request->id)
+            ->update(array(
+                "summary" => $request->summary
+            ));
+    } 
+
     public function searchTool(){
         $companies = DB::table('companies')
                         ->select('company_name','id')
@@ -178,6 +187,36 @@ class StudentController extends Controller
 
         $pdf->render();
         return $pdf->stream($student->student_name. '.pdf',array('Attachment'=> 0));
+    }
+
+    public function publicProfile($id = null){
+        $user = DB::table('students')
+                    ->select('*')
+                    ->join('profile_summary','profile_summary.user_id','=','students.student_id')
+                    ->where('student_id',$id)
+                    ->first();
+
+        $educations = DB::table('education')
+                        ->select('*')
+                        ->where('user_id',$id)
+                        ->get();
+        $skills = DB::table('profile_skills')
+                        ->select('*')
+                        ->where('user_id',$id)
+                        ->get();
+        $projects = DB::table('profile_projects')
+                        ->select('*')
+                        ->where('user_id',$id)
+                        ->get();
+        $data = array(
+            'user' => $user,
+            'educations' => $educations,
+            'skills' => $skills,
+            'projects' => $projects
+        );
+
+        
+        return view('student')->with($data);
     }
 
 }
