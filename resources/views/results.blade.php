@@ -1,5 +1,5 @@
 @foreach ($postings as $posting)
-                            <li class="col-sm-12" name="{{$posting->id}}" style="height:150px;">
+                            <li class="col-sm-12" name="{{$posting->id}}" style="height:150px; padding:2px;">
                                 <div class="col-sm-2" style="height:100%">
                                 	<img class="img-responsive" style="height:100%" src="{{URL::asset('/images/nasa.png')}}"/>
                                 </div>
@@ -14,6 +14,18 @@
     float: right;">Posted: <strong>{{$posting->posted_date}}</strong></h5></div>
 	                                <div class="col-sm-6 keywords"><h5 style="display: block;float: left;">Keywords: <strong>{{$posting->keywords}}</strong></h5></div>
 	                                <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>REQUIRED EXPERIENCE: {{$posting->required_experience}} years</strong></h5></div>
+                                    <div class="col-sm-6 keywords"><h5 style="display: block;float: left;">Employment Status: <strong>{{$posting->status}}</strong></h5></div>
+                                    <?php if($posting->salary > 10000){
+                                        $number = $posting->salary / 1000 . 'k' ;
+                                    }
+
+                                    ?>
+                                    @if($posting->showSalary == 'yes')
+                                        
+                                        <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>Salary: $ {{$number}} </strong></h5></div>
+                                    @else
+                                        <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>Salary: <a href="#">Contact Employer</a></strong></h5></div>
+                                    @endif
                                 </div>
                             </li>
-@endforeach
+@endforeach 
