@@ -10,7 +10,7 @@
                 </div>
                 <div class="collapse navbar-collapse col-md-4" id="myNavbar">
                   <ul class="navigation nav navbar-nav">
-                    <li><a href="{{URL::to('/about')}}">About</a></li>
+                    <li style="text-align: center;"><a href="{{URL::to('/about')}}">About</a></li>
                     <li><a>Contact Us</a></li>
 
                     @if(!Session::has('user_id'))

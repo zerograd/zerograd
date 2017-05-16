@@ -45,9 +45,6 @@ html, body {
             .navigation > li {
                 display: inline-block;
                 color:white;
-                
-                margin-right:50px;
-                margin-top:50px;
 
             }
             .navigation > li > a {
