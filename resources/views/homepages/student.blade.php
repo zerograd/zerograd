@@ -77,6 +77,10 @@
 			color:black;
 			font-weight:500;
 		}
+		#opportunities p {
+			color:black;
+			font-weight: bold;
+		}
 
 		#profile-completion h2{
 			margin:10px 0;
@@ -134,6 +138,11 @@
 			<div class="col-sm-6 col-xs-6">
 				<div id="opportunities" class="col-sm-12 col-xs-12">
 					<h2>Opportunities</h2>
+					<div class="col-sm-12" style="text-align: center;">
+						@foreach($opportunities as $opp)
+							<p>{{$opp->title}}</p>
+						@endforeach
+					</div>
 				</div>
 			</div>
 		</div>

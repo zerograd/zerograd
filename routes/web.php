@@ -29,6 +29,8 @@ Route::get('/about','HomeController@about');
 //StudentController
 Route::get('/student-login','StudentController@index');
 Route::post('/student-login/login','StudentController@verifyLogin');
+Route::get('/student-register','StudentController@getRegister');
+Route::post('/student-register/register','StudentController@postRegister');
 Route::get('/student/home','StudentController@home');
 Route::get('/student/profile/{id}','StudentController@profile');
 

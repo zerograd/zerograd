@@ -15,6 +15,50 @@ class StudentController extends Controller
     	return view('logins.student-login');
     }
 
+    public function getRegister(){
+        $data = array(
+
+        );
+
+        return view('registrations.student')->with($data);
+    }
+
+    public function postRegister(Request $request){
+        $count = DB::table('students')->where('email',$request->email)->count();
+        if($count > 0){
+            return "User Already Exist";
+        }
+
+        $previousInsertId;
+        foreach($request->except('_token','project_id') as $key=>$value){
+             if(!isset($previousInsertId)){//Create if doesn't exist
+                
+                    $previousInsertId = DB::table('students')->insertGetId(array(
+                            "$key" => "$value"
+                        )
+                    );
+                
+            }else{
+                  if($key == 'password'){
+                        DB::table('students')
+                    ->where('student_id',$previousInsertId)
+                    ->update(array(
+                        "$key" => md5($value)
+                    ));
+                  }else{
+                    DB::table('students')
+                    ->where('student_id',$previousInsertId)
+                    ->update(array(
+                        "$key" => "$value"
+                    ));
+                  }
+            }
+        }
+
+        return "success";
+
+    }
+
     public function verifyLogin(Request $request){
     	$student = DB::table('students')
 	    		->select('*')
@@ -39,11 +83,43 @@ class StudentController extends Controller
                         ->orderBy('search_time','DESC')
                         ->take(4)
                         ->get();
+
+        
+                            
+        $keywords = array();
+        foreach($searches as $search){
+            array_push($keywords,explode(',',$search->searches));
+        }
+        $keywords = array_flatten($keywords);
+
+        //Get Posting keywords
+        $postings = DB::table('postings')
+                    ->select('*')
+                    ->inRandomOrder()
+                    ->get();
+
+        $opportunities = array();
+        $count = 0;
+        for($i = 0; $i < sizeof($postings) ; $i++){
+            if($count == 4){
+                break;
+            }
+            for($j = 0 ; $j < sizeof($keywords) ; $j++){
+                if(!strpos($postings[$i]->keywords,$keywords[$j])){
+                    //do nothing
+                }else{
+                    array_push($opportunities,$postings[$i]);
+                    $count++;
+                }
+            }
+        }
+        
         $data = array(
-            'searches' => $searches
+            'searches' => $searches,
+            'opportunities' => $opportunities
         );
 
-        // return $data;
+   
     	return view('homepages.student')->with($data);
     }
 
