@@ -66,6 +66,29 @@ Route::post('/student/education-delete',array(
 	'uses' => 'StudentController@deleteSchool'	
 ));
 
+Route::post('/student/update-work',array(
+	'as' => 'update-work',
+	'uses' => 'StudentController@updateWork'	
+));
+Route::post('/student/update-volunteer',array(
+	'as' => 'update-volunteer',
+	'uses' => 'StudentController@updateVolunteer'	
+));
+
+Route::post('/student/save-top-resume',array(
+	'as' => 'save-top-resume',
+	'uses' => 'StudentController@saveTopResume'	
+));
+
+Route::post('/student/experience-delete',array(
+	'as' => 'experience-delete',
+	'uses' => 'StudentController@deleteExperience'	
+));
+
+Route::post('/student/volunteer-delete',array(
+	'as' => 'volunteer-delete',
+	'uses' => 'StudentController@deleteVolunteer'	
+));
 
 
 //CompanyController

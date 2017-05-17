@@ -186,6 +186,76 @@ class StudentController extends Controller
         return "Deleted";
     }
 
+    public function saveTopResume(Request $request){
+        
+    }
+
+    public function updateWork(Request $request){
+        $previousInsertId;
+        foreach($request->except('_token','id') as $key=>$value){
+            if(isset($request->id)){
+                DB::table('work_experience')
+                ->where('id',$request->id)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }else if(!isset($previousInsertId)){//Create if doesn't exist
+                
+                    $previousInsertId = DB::table('work_experience')->insertGetId(array(
+                            "$key" => "$value"
+                        )
+                    );
+                
+            }else{
+                  DB::table('work_experience')
+                ->where('id',$previousInsertId)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }
+        }
+    }
+
+    public function updateVolunteer(Request $request){
+        $previousInsertId;
+        foreach($request->except('_token','id') as $key=>$value){
+            if(isset($request->id)){
+                DB::table('volunteer')
+                ->where('id',$request->id)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }else if(!isset($previousInsertId)){//Create if doesn't exist
+                
+                    $previousInsertId = DB::table('volunteer')->insertGetId(array(
+                            "$key" => "$value"
+                        )
+                    );
+                
+            }else{
+                  DB::table('volunteer')
+                ->where('id',$previousInsertId)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }
+        }
+    }
+
+    public function deleteExperience(Request $request){
+        DB::table('work_experience')
+            ->where('id',$request->id)
+            ->delete();
+        return "Deleted";
+    }
+
+    public function deleteVolunteer(Request $request){
+        DB::table('volunteer')
+            ->where('id',$request->id)
+            ->delete();
+        return "Deleted";
+    }
+
     public function deleteProfileProject(Request $request){
         DB::table('profile_projects')
             ->where('id',$request->project_id)

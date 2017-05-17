@@ -126,7 +126,9 @@
 					</div>
 
 					<!-- RESUME -->
+					
 					<div id="resume" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+						<form id="resume-form">
 								<h2>Resume</h2>
 								<label class="label-color">A resume is the best tool for sharing your skills and knowledge with future employers. Please upload your own or click 'Resume Builder' to use our Resume building tool.</label>
 								<div class="form-group">
@@ -160,25 +162,15 @@
 										<label>Summary</label>
 										<textarea col="50" style="height:150px;" name="summary" class="form-control" placeholder="A brief description of who you are and your skills">{{$resume->summary}}</textarea>
 									</div>
-									<div class="col-sm-12">
-										<label>Skills</label>
-										<div class="input-group col-sm-12" id="skills-group">
-											<input class="form-control" name="current-skill" id="current-skill" type="text" placeholder="Enter skills here...(Press space key after each skill)" />
-											<div id="resume-skill-container" class="container-fluid">
-											@foreach($resumeSkills as $skill)
-												<button class="btn btn-info" style="margin: 5px 0;" onClick="removeSkill(this);"">{{$skill}}&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button>
-											@endforeach
-											</div>
-										</div>
-									</div>
+									</form>
 									<div class="col-sm-12">
 										<label>Work Experience</label>
 										<div class="form-group" id="work-div">
 											@include('profiles.work-experience');
 											<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
 												Add a Job...
-												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addProject();"></i>
-												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeProject();"></i>
+												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addExperience();"></i>
+												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeExperience();"></i>
 											</div>
 										</div>
 									</div>
@@ -188,8 +180,8 @@
 											@include('profiles.volunteer');
 											<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
 												Add a Volunteer...
-												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addProject();"></i>
-												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeProject();"></i>
+												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addVolunteer();"></i>
+												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeVolunteer();"></i>
 											</div>
 										</div>
 										<div class="col-sm-12" style="">
@@ -197,6 +189,7 @@
 										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Preview Resume</button></a>
 										</div>
 									</div>
+									
 									<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Skills</h2>
 							<div class="form-group">
@@ -239,6 +232,13 @@
 @section('script_plugins')
 	<!-- Requests -->
 	<script type="text/javascript">
+		function saveResume(){
+			var form = $('#resume-form').serialize() + "&user_id=" + $('#profile-id').val() + "&_token=" + "{{csrf_token()}}";
+			$.post('{{route('save-top-resume')}}',data,function(data){
+
+			});
+
+		}
 		function saveSummary(){
 			var summaryForm = $('#summary-form').serialize() + "&id=" + $('#profile-id').val() + "&_token=" + "{{csrf_token()}}";
 			$.post('{{route('submit-summary')}}',summaryForm,function(data){
@@ -426,10 +426,156 @@
 				$.post('{{route('education-delete')}}',form,function(data){
 					console.log('Deleted');
 					div.remove();
-					form.remove();
+					div.parent().remove();
 				});
 			}
 		});
+		function addExperience(){
+			var schoolDiv = $('#work-div');
+			var form = $('<form method="post">{{csrf_token()}}</form>');
+			var formGroup = $('<div class="form-group new-experience" style="margin:10px 0;"></div>');
+			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Company Name</label><input type="text" class="form-control" name="company_name"></div>');
+			var startSelect = $('<div class="col-sm-2"><label class="label-color">Started</label>'+ 
+				'<select class="form-control" name="start"><option style="font-weight:bold;"  value="2013">2013</option></select>'
+			 + '</div>');
+			var endSelect = $('<div class="col-sm-2"><label class="label-color">Completed</label>'+ '<select name="completed" class="form-control label-color"><option style="font-weight:bold;" value="2013">2013</option></select>'+ '</div>');
+			var programInput = $('<div class="col-sm-3"><label class="label-color">Job Title</label><input type="text" class="form-control label-color" name="job_title"></div>');
+			var textArea = $('<div class="col-sm-11"><label class="label-color">Duties</label><textarea class="form-control" style="height:150px;" col="50" placeholder="" name="duties"></textarea></div>')
+			@if(Session::has('user_id'))
+				var user_id = $('<input type="text" class="form-control label-color" name="user_id" value="{{Session::get('user_id')}}" style="visibility:hidden;">');
+			@endif
+			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateExperience(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
+			formGroup.append(schoolInput);
+			formGroup.append(programInput);
+			formGroup.append(startSelect);
+			formGroup.append(endSelect);
+			formGroup.append(textArea);
+			
+			formGroup.append(saveButton);
+			formGroup.append(user_id);
+			form.append(formGroup);
+			schoolDiv.append(form);
+		}
+		function removeExperience(){
+			var div = $('.new-experience').last().remove();
+		}
+
+		function editExperience(editButton){
+			var button = $(editButton);
+			var divGroup = button.parent();
+			var inputs = divGroup.find('input');
+
+			var selects =divGroup.find('select');
+			var textareas = divGroup.find('textarea');
+
+			inputs.each(function(){
+				$(this).removeAttr( 'readonly' );
+			});
+			selects.each(function(){
+				$(this).removeAttr( 'disabled' );
+			});
+			textareas.each(function(){
+				$(this).removeAttr( 'readonly' );
+			});
+
+			button.replaceWith('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateExperience(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
+		}
+
+		function updateExperience(updateButton){
+			var button = $(updateButton);
+			var divGroup = button.parent();
+			var formSerialized = divGroup.parent().serialize() + '&_token=' + "{{csrf_token()}}";
+			$.post('{{route('update-work')}}',formSerialized,function(data){
+				alert('Refresh Page to see latest changes');
+			});
+			var inputs = divGroup.find('input');
+			var textareas = divGroup.find('textarea');
+
+			var selects =divGroup.find('select');
+			inputs.each(function(){
+				$(this).attr( 'readonly','readonly'  );
+			});
+			selects.each(function(){
+				$(this).attr( 'disabled' , 'disabled' );
+			});
+			textareas.each(function(){
+				$(this).attr( 'readonly' , 'readonly' );
+			});
+			button.replaceWith('<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editExperience(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button>');
+		}
+
+		function addVolunteer(){
+			var schoolDiv = $('#volunteer-div');
+			var form = $('<form method="post">{{csrf_token()}}</form>');
+			var formGroup = $('<div class="form-group new-volunteer" style="margin:10px 0;"></div>');
+			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Volunteer Name</label><input type="text" class="form-control" name="volunteer_name"></div>');
+			var startSelect = $('<div class="col-sm-2"><label class="label-color">Started</label>'+ 
+				'<select class="form-control" name="start"><option style="font-weight:bold;"  value="2013">2013</option></select>'
+			 + '</div>');
+			var endSelect = $('<div class="col-sm-2"><label class="label-color">Completed</label>'+ '<select name="completed" class="form-control label-color"><option style="font-weight:bold;" value="2013">2013</option></select>'+ '</div>');
+			var programInput = $('<div class="col-sm-3"><label class="label-color">Job Title</label><input type="text" class="form-control label-color" name="job_title"></div>');
+			var textArea = $('<div class="col-sm-11"><label class="label-color">Duties</label><textarea class="form-control" style="height:150px;" col="50" placeholder="" name="duties"></textarea></div>')
+			@if(Session::has('user_id'))
+				var user_id = $('<input type="text" class="form-control label-color" name="user_id" value="{{Session::get('user_id')}}" style="visibility:hidden;">');
+			@endif
+			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateVolunteer(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
+			formGroup.append(schoolInput);
+			formGroup.append(programInput);
+			formGroup.append(startSelect);
+			formGroup.append(endSelect);
+			formGroup.append(textArea);
+			
+			formGroup.append(saveButton);
+			formGroup.append(user_id);
+			form.append(formGroup);
+			schoolDiv.append(form);
+		}
+		function removeVolunteer(){
+			var div = $('.new-volunteer').last().remove();
+		}
+		function editVolunteer(editButton){
+			var button = $(editButton);
+			var divGroup = button.parent();
+			var inputs = divGroup.find('input');
+
+			var selects =divGroup.find('select');
+			var textareas = divGroup.find('textarea');
+
+			inputs.each(function(){
+				$(this).removeAttr( 'readonly' );
+			});
+			selects.each(function(){
+				$(this).removeAttr( 'disabled' );
+			});
+			textareas.each(function(){
+				$(this).removeAttr( 'readonly' );
+			});
+
+			button.replaceWith('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateVolunteer(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
+		}
+
+		function updateVolunteer(updateButton){
+			var button = $(updateButton);
+			var divGroup = button.parent();
+			var formSerialized = divGroup.parent().serialize() + '&_token=' + "{{csrf_token()}}";
+			$.post('{{route('update-volunteer')}}',formSerialized,function(data){
+				alert('Refresh Page to see latest changes');
+			});
+			var inputs = divGroup.find('input');
+			var textareas = divGroup.find('textarea');
+
+			var selects =divGroup.find('select');
+			inputs.each(function(){
+				$(this).attr( 'readonly','readonly'  );
+			});
+			selects.each(function(){
+				$(this).attr( 'disabled' , 'disabled' );
+			});
+			textareas.each(function(){
+				$(this).attr( 'readonly' , 'readonly' );
+			});
+			button.replaceWith('<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editVolunteer(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button>');
+		}
 
 		function addProject(){
 			var schoolDiv = $('#projects-div');
@@ -512,7 +658,31 @@
 				$.post('{{route('profile-project-delete')}}',form,function(data){
 					console.log('Deleted');
 					div.remove();
-					form.remove();
+					div.parent().remove();
+				});
+			}
+		});
+		$('.delete-experience-button').click(function(event){
+			if(confirm('Are you sure you want to delete this Work Experience?')){
+				event.preventDefault();
+				var div = $(this).parent();
+				var form = $(this).parent().parent().serialize() + '&_token=' + "{{csrf_token()}}";
+				$.post('{{route('experience-delete')}}',form,function(data){
+					console.log('Deleted');
+					div.remove();
+					div.parent().remove();
+				});
+			}
+		});
+		$('.delete-volunteer-button').click(function(event){
+			if(confirm('Are you sure you want to delete this Volunteer Experience?')){
+				event.preventDefault();
+				var div = $(this).parent();
+				var form = $(this).parent().parent().serialize() + '&_token=' + "{{csrf_token()}}";
+				$.post('{{route('volunteer-delete')}}',form,function(data){
+					console.log('Deleted');
+					div.remove();
+					div.parent().remove();
 				});
 			}
 		});
