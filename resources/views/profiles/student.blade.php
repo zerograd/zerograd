@@ -185,7 +185,7 @@
 											</div>
 										</div>
 										<div class="col-sm-12" style="">
-										<button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Save</button>
+										<button type="button" style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary" onClick="saveResume();">Save</button>
 										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Preview Resume</button></a>
 										</div>
 									</div>
