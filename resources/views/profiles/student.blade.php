@@ -357,24 +357,36 @@
 		function addSchool(){
 			var schoolDiv = $('#school-div');
 			var lastSchoolDiv = $('.entered-school').last();
+			var form = $('<form method="post"></form>');
 			var formGroup = $('<div class="form-group new-school entered-school" style="margin:10px 0;"></div>');
-			var schoolInput = $('<div class="col-sm-4"><label class="label-color">School</label><input type="text" class="form-control"></div>');
-			var startSelect = $('<div class="col-sm-2"><label class="label-color">Start Year</label>'+ startString + '</div>');
-			var endSelect = $('<div class="col-sm-2"><label class="label-color">Graduation Year</label>'+ endString + '</div>');
-			var programInput = $('<div class="col-sm-3"><label class="label-color">Program</label><input type="text" class="form-control"></div>');
+			var schoolInput = $('<div class="col-sm-4"><label class="label-color">School</label><input type="text" class="form-control" name="school"></div>');
+			var startSelect = $('<div class="col-sm-2"><label class="label-color">Start Year</label>'+ 
+				'<select class="form-control" name="start"><option style="font-weight:bold;"  value="2013">2013</option></select>'
+			 + '</div>');
+			var endSelect = $('<div class="col-sm-2"><label class="label-color">Graduation Year</label>'+ '<select name="completed" class="form-control label-color"><option style="font-weight:bold;" value="2013">2013</option></select>'+ '</div>');
+			var programInput = $('<div class="col-sm-3"><label class="label-color">Program</label><input type="text" class="form-control" name="program"></div>');
 			var saveButton = $('<button class="save-button btn btn-success" style="float:left;margin-top: 20px" onClick="updateSchool(this);"><i class="fa fa-check" aria-hidden="true"></i></button>');
+			@if(Session::has('user_id'))
+				var user_id = $('<input type="text" class="form-control label-color" name="user_id" value="{{Session::get('user_id')}}" style="visibility:hidden;">');
+			@endif
 			formGroup.append(schoolInput);
 			formGroup.append(programInput);
 			formGroup.append(startSelect);
 			formGroup.append(endSelect);
 			formGroup.append(saveButton);
-			formGroup.insertAfter(lastSchoolDiv);
+			formGroup.append(user_id);
+			form.append(formGroup);
+			form.insertAfter(lastSchoolDiv);
+			
 		}
 		function updateSchool(updateButton){
 			var button = $(updateButton);
 			var divGroup = button.parent();
 			var inputs = divGroup.find('input');
-
+			var form = button.parent().parent().serialize() + "&_token=" + "{{csrf_token()}}";
+			$.post('{{route('update-school')}}',form,function(data){
+				alert('Refresh page to see updated school');
+			});
 			var selects =divGroup.find('select');
 			inputs.each(function(){
 				$(this).attr( 'readonly','readonly'  );
@@ -401,19 +413,33 @@
 		
 
 
+
 		function removeSchool(){
 			var div = $('.new-school').last().remove();
 		}
+
+		$('.delete-school-button').click(function(event){
+			if(confirm('Are you sure you want to delete this school?')){
+				event.preventDefault();
+				var div = $(this).parent();
+				var form = $(this).parent().parent().serialize() + '&_token=' + "{{csrf_token()}}";
+				$.post('{{route('education-delete')}}',form,function(data){
+					console.log('Deleted');
+					div.remove();
+					form.remove();
+				});
+			}
+		});
 
 		function addProject(){
 			var schoolDiv = $('#projects-div');
 			var form = $('<form method="post">{{csrf_token()}}</form>');
 			var formGroup = $('<div class="form-group new-project" style="margin:10px 0;"></div>');
 			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Project Name</label><input type="text" class="form-control" name="project_name"></div>');
-			var startSelect = $('<div class="col-sm-2"><label class="label-color">Start Year</label>'+ 
+			var startSelect = $('<div class="col-sm-2"><label class="label-color">Started</label>'+ 
 				'<select class="form-control" name="project_start"><option style="font-weight:bold;"  value="2013">2013</option></select>'
 			 + '</div>');
-			var endSelect = $('<div class="col-sm-2"><label class="label-color">Graduation Year</label>'+ '<select name="project_completed" class="form-control label-color"><option style="font-weight:bold;" value="2013">2013</option></select>'+ '</div>');
+			var endSelect = $('<div class="col-sm-2"><label class="label-color">Completed</label>'+ '<select name="project_completed" class="form-control label-color"><option style="font-weight:bold;" value="2013">2013</option></select>'+ '</div>');
 			var programInput = $('<div class="col-sm-3"><label class="label-color">Project Skills</label><input type="text" class="form-control label-color" name="project_skills"></div>');
 			var textArea = $('<div class="col-sm-11"><label class="label-color">Overview</label><textarea class="form-control" style="height:150px;" col="50" placeholder="" name="project_overview"></textarea></div>')
 			@if(Session::has('user_id'))

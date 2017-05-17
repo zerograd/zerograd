@@ -153,6 +153,39 @@ class StudentController extends Controller
         }
     }
 
+    public function updateSchool(Request $request){
+        $previousInsertId;
+        foreach($request->except('_token','education_id') as $key=>$value){
+            if(isset($request->education_id)){
+                DB::table('education')
+                ->where('education_id',$request->project_id)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }else if(!isset($previousInsertId)){//Create if doesn't exist
+                
+                    $previousInsertId = DB::table('education')->insertGetId(array(
+                            "$key" => "$value"
+                        )
+                    );
+                
+            }else{
+                  DB::table('education')
+                ->where('education_id',$previousInsertId)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+            }
+        }
+    }
+
+    public function deleteSchool(Request $request){
+        DB::table('education')
+            ->where('education_id',$request->education_id)
+            ->delete();
+        return "Deleted";
+    }
+
     public function deleteProfileProject(Request $request){
         DB::table('profile_projects')
             ->where('id',$request->project_id)

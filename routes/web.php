@@ -57,6 +57,17 @@ Route::post('/student/submit-summary',array(
 	'uses' => 'StudentController@submitSummary'		
 ));
 
+Route::post('/student/update-school',array(
+	'as' => 'update-school',
+	'uses' => 'StudentController@updateSchool'	
+));
+Route::post('/student/education-delete',array(
+	'as' => 'education-delete',
+	'uses' => 'StudentController@deleteSchool'	
+));
+
+
+
 //CompanyController
 Route::get('/company/{id}',array(
 	'as' => 'company-get',

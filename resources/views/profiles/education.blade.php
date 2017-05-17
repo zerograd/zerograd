@@ -19,7 +19,8 @@
 				</select>
 			</div>
 			<button class="edit-button btn btn-warning" style="float:left;margin-top: 20px" onClick="editSchool(this);"><i class="fa fa-pencil" aria-hidden="true"></i></button>
-
+			<button type="button" class="delete-school-button btn btn-danger" style="float:left;margin-top:20px;margin-left:2px;" onClick=""><i class="fa fa-window-close" aria-hidden="true"></i></button>
+			<input type="text" name="education_id" value="{{$education->education_id}}" hidden/>
 		</div>
 	</form>
 @endforeach
