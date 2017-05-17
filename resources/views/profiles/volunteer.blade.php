@@ -25,7 +25,7 @@
 		</div>
 
 		<input type="text" name="id" value="{{$volunteer->id}}" hidden/>
-	</div>
+
 
 </form>
 @endforeach
