@@ -234,8 +234,8 @@
 	<script type="text/javascript">
 		function saveResume(){
 			var form = $('#resume-form').serialize() + "&user_id=" + $('#profile-id').val() + "&_token=" + "{{csrf_token()}}";
-			$.post('{{route('save-top-resume')}}',data,function(data){
-
+			$.post('{{route('save-top-resume')}}',form,function(data){
+				alert('Resume Saved.');
 			});
 
 		}

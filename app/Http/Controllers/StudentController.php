@@ -187,7 +187,13 @@ class StudentController extends Controller
     }
 
     public function saveTopResume(Request $request){
-
+        foreach($request->except('_token','project_id') as $key=>$value){
+                DB::table('resume')
+                ->where('user_id',$request->user_id)
+                ->update(array(
+                    "$key" => "$value"
+                ));
+        }
     }
 
     public function updateWork(Request $request){
