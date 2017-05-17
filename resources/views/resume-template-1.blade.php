@@ -43,4 +43,31 @@
 			<p style="margin: 0;">({{$educate->start}}-{{$educate->completed}})</p>
 		@endforeach
 	</div>
+	<div style="display: block;width: 100%;text-align: center;">
+		<h3 class="font-style" style="text-decoration: underline;">Work Experience</h3>
+		@foreach($works as $work)
+			<p style="margin: 0;"><strong>{{$work->job_title}}</strong> at {{$work->company_name}}</p>
+			<p style="margin: 0;">({{$work->start}}-{{$work->completed}})</p>
+		@endforeach
+	</div>
+	<div style="display: block;width: 100%;text-align: center;">
+		<h3 class="font-style" style="text-decoration: underline;">Volunteer</h3>
+		@foreach($volunteers as $volunteer)
+			<p style="margin: 0;"><strong>{{$volunteer->job_title}}</strong> at {{$volunteer->volunteer_name}}</p>
+			<p style="margin: 0;">({{$volunteer->start}}-{{$volunteer->completed}})</p>
+		@endforeach
+	</div>
+	<div style="display: block;width: 100%;text-align: center;">
+		<h3 class="font-style" style="text-decoration: underline;">Skills</h3>
+		@foreach($skills as $skill)
+			<p style="margin: 0;"><strong>{{$skill->skills}}</strong></p>
+		@endforeach
+	</div>
+	<div style="display: block;width: 100%;text-align: center;">
+		<h3 class="font-style" style="text-decoration: underline;">Projects</h3>
+		@foreach($projects as $project)
+			<p style="margin: 0;"><strong>{{$project->project_name}}</strong></p>
+			<p style="margin: 0;">{{$project->project_overview}}</p>
+		@endforeach
+	</div>
 </div>

@@ -187,7 +187,7 @@ class StudentController extends Controller
     }
 
     public function saveTopResume(Request $request){
-        
+
     }
 
     public function updateWork(Request $request){
@@ -277,10 +277,33 @@ class StudentController extends Controller
                     ->select('*')
                     ->where('user_id',$id)
                     ->get();
+
+        $workExperience = DB::table('work_experience')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+        $volunteerExperience = DB::table('volunteer')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        $skills = DB::table('profile_skills')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        $projects = DB::table('profile_projects')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
         $data = array(
             'student' => $student,
             'resume'  => $resume,
-            'education' => $education
+            'education' => $education,
+            'works' => $workExperience,
+            'volunteers' => $volunteerExperience,
+            'skills' => $skills,
+            'projects' => $projects
         );
 
         $html = view('resume-template-1')->with($data)->render();
