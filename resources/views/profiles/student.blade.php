@@ -190,7 +190,9 @@
 										</div>
 									</div>
 									
-									<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+						
+								</div>
+								<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Skills</h2>
 							<div class="form-group">
 								<label class="label-color">List all those wonderful skills that you have accquired over the years.(Press Enter after each skill)</label>
@@ -219,7 +221,6 @@
 								</div>
 							</div>
 						</div>
-								</div>
 
 						</div>
 					</div>
