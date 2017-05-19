@@ -10,7 +10,7 @@ html, body {
 
             }
             #navigation {
-                background-color: #354886;
+                
             }
             #header{
                 background-color: #354886;
@@ -19,8 +19,7 @@ html, body {
             }
             #Container{
                 width:100%;
-                height:75%;
-                
+                height:110%;
             }
             .container-fluid {
                 height:85%;
@@ -56,14 +55,25 @@ html, body {
                 text-decoration: none;
                 /* background-color: #eee; */
             }
-                        
-            .white-btn{
-                border:2px solid white;
-                background-color: transparent;
+            .search-btn{
+                background-color: #354886;
+                padding:30px;
+                border:none;
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
                 color:white;
-                font-weight: bold;
-                border-radius: 5px;
+                width:100%;
+                font-size:18px;
             }
+            .white-btn{
+                background-color: #354886;
+                border:none;
+                padding: 20px;
+                border-radius: 5px;
+                color:white;
+                font-size:18px;
+            }
+
             .zeroLogo {
                 color:#29C9C8;
                 font-size: 36px;
@@ -77,11 +87,14 @@ html, body {
                 margin-left:50px;
             }
             .search-header{
-                color:#354886;
+                margin:180px 0;
+                color:white;
             }
-            .search-header > h1{
-                /*font-weight: bold;*/
+
+            .search-header p {
+                font-size:24px;
             }
+            
             .search-boxes > input {
                 padding:10px;
                 border:2px solid #354886;
@@ -91,7 +104,8 @@ html, body {
                 font-family: 'Raleway', sans-serif;
             }
            input::-webkit-input-placeholder {
-                color:#354886;
+                color:#B6B6B6;
+                font-size:18px;
                 font-weight: bold;
                 font-family: 'Raleway', sans-serif;
             }
@@ -99,11 +113,21 @@ html, body {
                 text-align: center;
             }
             .advanced-search{
-                color:#354886;
+                color:white;
+                line-height: 4;
             }
             .advanced-search:hover {
                 color:#354886;
                 text-decoration: underline;
+            }
+
+            /*RECENT JOBS*/
+            .recent-job {
+                 transition: border 0s linear 0s;
+            }
+            .recent-job:hover{
+                border:2px solid #354886;
+                cursor: pointer;
             }
 
             /*Social media icons*/

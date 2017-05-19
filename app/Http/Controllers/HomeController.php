@@ -18,9 +18,20 @@ class HomeController extends Controller
     					->inRandomOrder()
     					->get();
 
+		$postings = DB::table('postings')
+						->select('*')
+						->join('companies','companies.id','=','postings.company_id')
+						->take(5)
+						->inRandomOrder()
+						->get();
+
+		$badges = ['#E3C610','#10E358','#108EE3'];
     	$data = array(
-    		'advices' => $advices
+    		'advices' => $advices,
+    		'postings' => $postings,
+    		'badges' => $badges
 		);
+		
 		return view('welcome')->with($data);
     }
 
@@ -87,6 +98,7 @@ class HomeController extends Controller
 
 		$found = "no";
     	 if($postings) $found = "yes"; 
+
 
     	$data = array(
     		'postings' => $postings,
