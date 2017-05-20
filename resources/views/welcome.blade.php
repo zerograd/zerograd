@@ -162,4 +162,22 @@
                 @endforeach
             </div>
         </div>
+    <a href="#Container">        <div id="float-back" style="text-align:center; display:none; background-color:#23CCF3;width:70px;height:70px;opacity: 0.5">
+            <i class="fa fa-arrow-up" aria-hidden="true" style="margin:0 auto;line-height:2;font-size:30px;color:white;"></i>
+        </div></a>
+@stop
+
+@section('script_plugins')
+    <script type="text/javascript">
+        $(document).ready(function(){
+             $(document).scroll(function(){
+                    if($(document).scrollTop() > 216){
+                        $('#float-back').fadeIn(800);
+                        
+                    }else{
+                        $('#float-back').fadeOut(800);
+                    }
+             });
+        });
+    </script>
 @stop
