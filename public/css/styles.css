@@ -167,7 +167,9 @@ html, body {
             .category:hover {
                 background-color: #23CCF3;
                 cursor: pointer;
+                color:white;
             }
+            
             .icon-div {
                 text-align: center;
             }
