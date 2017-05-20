@@ -10,7 +10,13 @@
                                 <div class="row" style="margin-top:20px;">
                                     
                                     <h3 style="margin:0 40px;color:black;display:inline-block;float:left;">{{$posting->company_name}}</h3>
-                                    <h4 style="margin:0;display:inline-block;padding:5px;color:#FFFFFF;font-weight: bold;float:right;text-transform: uppercase;font-size:14px;background-color: {{ $badges[mt_rand(0,2)]}};">{{$posting->status}}</h4>
+                                    <h4 style="margin:0;display:inline-block;padding:5px;color:#FFFFFF;font-weight: bold;float:right;text-transform: uppercase;font-size:14px;background-color: {{ $badges[mt_rand(0,2)]}};">{{ $badges[mt_rand(0,2)]}};">
+                                            
+                                            @if(isset($posting->status))
+                                                {{$posting->status}}
+                                            @else
+                                                Not Specified
+                                            @endif</h4>
                                 </div>
                             </div>
                         </div>
