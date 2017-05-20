@@ -17,10 +17,10 @@
                 </div>
                 <div class="search-area col-md-10 col-md-offset-1">
                     <div class="col-md-5" style="padding:0;">
-                        <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;color:#354886;font-weight: bold;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
+                        <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;color:#23CCF3;font-weight: bold;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
                     </div>
                     <div class="col-md-5" style="padding:0;">
-                        <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#354886;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
+                        <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#23CCF3;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
                     </div>
                     <div class="col-md-2" style="padding:0;">
                         <button class="search-btn"  type="submit">Search</button>
@@ -34,7 +34,7 @@
                 <h4 class="text-center" style="margin: 50px 0 10px 0;text-transform: uppercase;color: black;">Latest</h4>
                 <div class="col-sm-12" style="text-align: center;">
                     <h2 style="margin-bottom: 35px;font-weight: bold;font-size: 32px;">Recent jobs</h2>
-                    <div style="margin:5px auto;background-color:##354886;width:80px;height:3px;">
+                    <div style="margin:5px auto;background-color:##23CCF3;width:80px;height:3px;">
                     </div>
                 </div>
                 
@@ -74,8 +74,8 @@
                 <div class="container-fluid">
                     <!-- Jobs -->
                 <div class="counter col-md-3 ">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfJobs}} + </h2>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div class="row" style="text-align: center;"><h2 >{{$sizeOfJobs}} + </h2>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
                     </div>
 
                     <div class="row"><h4>Jobs</h4></div>
@@ -85,7 +85,7 @@
                 <!-- Members -->
                 <div class="counter col-md-3">
                     <div class="row" style="text-align: center;"><h2>{{$sizeOfMembers}} + </h2></div>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
                     <div class="row"><h4>Members</h4></div>
 
                 </div>
@@ -93,7 +93,7 @@
                 <!-- Resumes -->
                 <div class="counter col-md-3">
                     <div class="row" style="text-align: center;"><h2>{{$sizeOfResumes}} + </h2></div>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
                     <div class="row"><h4>Resume</h4></div>
 
                 </div>
@@ -101,7 +101,7 @@
                 <!-- Companies -->
                 <div class="counter col-md-3">
                     <div class="row" style="text-align: center;"><h2>{{$sizeOfCompanies}} + </h2></div>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
                     <div class="row"><h4>Company</h4></div>
 
                 </div>
@@ -133,23 +133,25 @@
         </div>
 
         <!-- POPULAR CATEGORIES -->
-        <div id="popular-categories" style="margin-top:170px;background-color:#F6F6F6;width:100%;height:1200px;padding:50px;">
+        <div id="popular-categories" style="margin-top:170px;background-color:#F6F6F6;width:100%;height:1000px;padding:50px;">
             <div class="col-md-12">
                 <h3 class="text-center" style="margin: 0;font-size: 20px;">CATEGORIES</h3>
                 <h3 class="text-center" style="margin: 30px 0;font-size: 48px;font-weight: bold;">Popular Categories</h3>
-                    <div style="margin:30px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div style="margin:30px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
                 <h3 class="text-center" style="margin: 0;font-size: 20px;font-weight: bold;">The most popular categories</h3>
             </div>
             <div class="col-md-12" style="margin:40px 0;height:auto;">
-                @for ($i = 0 ; $i < 6 ; $i++)
+                @foreach ($categories as $category)
                 <div class="category">
                     <div class="icon-div">
                         <div class="inner-icon-div">
-                            <i class="fa fa-laptop" aria-hidden="true"></i>
+                            <i class="{{$category->icon}}" aria-hidden="true"></i>
                         </div>
                     </div>
+                    <h1 class="text-center" style="font-size: 28px;font-weight: bold;">{{$category->cat_name}}</h1>
+                    <p class="text-center" style="margin:20px;font-size: 18px;font-weight: bold;color:#C6C6C6;">{{$category->cat_description}}</p>
                 </div>
-                @endfor
+                @endforeach
             </div>
         </div>
 

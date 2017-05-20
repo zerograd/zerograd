@@ -30,6 +30,11 @@ class HomeController extends Controller
 		$sizeOfMembers = DB::table('students')->select('*')->count();
 		$sizeOfResumes = DB::table('resume')->select('*')->count();
 		$sizeOfCompanies = DB::table('companies')->select('*')->count();
+
+		$categories = DB::table('categories')
+						->select('*')
+						->take(3)
+						->get();
     	$data = array(
     		'advices' => $advices,
     		'postings' => $postings,
@@ -38,6 +43,7 @@ class HomeController extends Controller
     		'sizeOfMembers' => $sizeOfMembers,
     		'sizeOfResumes' => $sizeOfResumes,
     		'sizeOfCompanies' => $sizeOfCompanies,
+    		'categories' => $categories
 
 		);
 		
