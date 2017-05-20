@@ -5,7 +5,7 @@
 @stop
 
 @section('content')    
-        <div id="Container" style="background: url('{{URL::asset('/images/background.jpg')}}');background-size:100% 100%;">
+        <div class="class-sm-12" id="Container" style="background: url('{{URL::asset('/images/background.jpg')}}');background-size:100% 100%;">
             @include('nav')
             <form action="{{route('submit-search')}}" method="post">
             {{ csrf_field() }}
@@ -29,6 +29,7 @@
                 </div>
             </form>
         </div>
+
         <!-- LATEST JOBS -->
             <div id="latest-jobs" style="background-color:white;width:100%;height:1000px;padding:5px;">
                 <h4 class="text-center" style="margin: 50px 0 10px 0;text-transform: uppercase;color: black;">Latest</h4>
@@ -161,5 +162,4 @@
                 @endforeach
             </div>
         </div>
-
 @stop
