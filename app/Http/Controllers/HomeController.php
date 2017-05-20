@@ -34,6 +34,7 @@ class HomeController extends Controller
 		$categories = DB::table('categories')
 						->select('*')
 						->take(3)
+						->inRandomOrder()
 						->get();
     	$data = array(
     		'advices' => $advices,
