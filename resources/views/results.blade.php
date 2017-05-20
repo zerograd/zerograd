@@ -1,31 +1,18 @@
-@foreach ($postings as $posting)
-                            <li class="col-sm-12" name="{{$posting->id}}" style="height:150px; padding:2px;">
-                                <div class="col-sm-2" style="height:100%">
-                                	<img class="img-responsive" style="height:100%" src="{{URL::asset('/images/nasa.png')}}"/>
+@foreach($postings as $posting)
+                        <li class="recent-job" style="padding:40px;">
+                        <div class="container-fluid">
+                            <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
+                            <div class="col-md-11">
+                                <div class="row">
+                                    <h3 style="margin:0 40px;color:black;font-weight: bold;display:inline-block;float:left;">{{$posting->title}}</h3>
+                                    <h4 style="margin:0;display:inline-block;color:#C6C6C6;font-weight: bold;float:right;">{{$posting->location}}</h4>
                                 </div>
-                                <div class="col-sm-10">
-                                	<div class="col-sm-12">
-                                		<a href="#" onClick="showPost({{$posting->id}});"class="posting"><h4 style="display:block;float:left;">{{$posting->title}}</h4></a>
-                                	</div>
-                                	<div class="col-sm-6"><h5 style="display: block;float: left;"><a href="{{route('company-get',$posting->companyID)}}"><strong style="text-transform: capitalize;">{{$posting->company_name}} - </strong></a>
-                                	<span>{{$posting->location}}</span>
-                                	</h5></div>
-	                                <div class="col-sm-6"><h5 style="display: block;
-    float: right;">Posted: <strong>{{$posting->posted_date}}</strong></h5></div>
-	                                <div class="col-sm-6 keywords"><h5 style="display: block;float: left;">Keywords: <strong>{{$posting->keywords}}</strong></h5></div>
-	                                <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>REQUIRED EXPERIENCE: {{$posting->required_experience}} years</strong></h5></div>
-                                    <div class="col-sm-6 keywords"><h5 style="display: block;float: left;">Employment Status: <strong>{{$posting->status}}</strong></h5></div>
-                                    <?php if($posting->salary > 10000){
-                                        $number = $posting->salary / 1000 . 'k' ;
-                                    }
-
-                                    ?>
-                                    @if($posting->showSalary == 'yes')
-                                        
-                                        <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>Salary: $ {{$number}} </strong></h5></div>
-                                    @else
-                                        <div class="col-sm-6 keywords"><h5 style="display: block;float: right;"><strong>Salary: <a href="#">Contact Employer</a></strong></h5></div>
-                                    @endif
+                                <div class="row" style="margin-top:20px;">
+                                    
+                                    <h3 style="margin:0 40px;color:black;display:inline-block;float:left;">{{$posting->company_name}}</h3>
+                                    <h4 style="margin:0;display:inline-block;padding:5px;color:#FFFFFF;font-weight: bold;float:right;text-transform: uppercase;font-size:14px;background-color: {{ $badges[mt_rand(0,2)]}};">{{$posting->status}}</h4>
                                 </div>
-                            </li>
-@endforeach 
+                            </div>
+                        </div>
+                        </li>
+@endforeach

@@ -21,15 +21,24 @@ class HomeController extends Controller
 		$postings = DB::table('postings')
 						->select('*')
 						->join('companies','companies.id','=','postings.company_id')
-						->take(5)
+						->take(4)
 						->inRandomOrder()
 						->get();
 
 		$badges = ['#E3C610','#10E358','#108EE3'];
+		$sizeOfJobs = DB::table('postings')->select('*')->count();
+		$sizeOfMembers = DB::table('students')->select('*')->count();
+		$sizeOfResumes = DB::table('resume')->select('*')->count();
+		$sizeOfCompanies = DB::table('companies')->select('*')->count();
     	$data = array(
     		'advices' => $advices,
     		'postings' => $postings,
-    		'badges' => $badges
+    		'badges' => $badges,
+    		'sizeOfJobs' => $sizeOfJobs,
+    		'sizeOfMembers' => $sizeOfMembers,
+    		'sizeOfResumes' => $sizeOfResumes,
+    		'sizeOfCompanies' => $sizeOfCompanies,
+
 		);
 		
 		return view('welcome')->with($data);
@@ -70,10 +79,12 @@ class HomeController extends Controller
     	$found = "no";
     	 if(isset($postings) && sizeof($postings) > 0) {
     	 	$found = "yes"; 
+    	 	$badges = ['#E3C610','#10E358','#108EE3'];
     	 	$data = array(
 	    		'postings' => $postings,
 	    		'found' => $found,
-	    		'keywords' => $request->searchkeywords
+	    		'keywords' => $request->searchkeywords,
+	    		'badges' => $badges
 			);
     	 }else{
     	 	$data = array(
@@ -99,11 +110,13 @@ class HomeController extends Controller
 		$found = "no";
     	 if($postings) $found = "yes"; 
 
+    	 $badges = ['#E3C610','#10E358','#108EE3'];
 
     	$data = array(
     		'postings' => $postings,
     		'found' => $found,
-    		'keywords'=>isset($request->searchkeywords)?$request->searchkeywords:""
+    		'keywords'=>isset($request->searchkeywords)?$request->searchkeywords:"",
+    		'badges' => $badges
 		);
     	
 		return view('search-results')->with($data);

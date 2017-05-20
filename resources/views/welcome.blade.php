@@ -17,10 +17,10 @@
                 </div>
                 <div class="search-area col-md-10 col-md-offset-1">
                     <div class="col-md-5" style="padding:0;">
-                        <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
+                        <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;color:#354886;font-weight: bold;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
                     </div>
                     <div class="col-md-5" style="padding:0;">
-                        <input class="col-md-12" style="width:100%;margin:0;padding:30px;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
+                        <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#354886;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
                     </div>
                     <div class="col-md-2" style="padding:0;">
                         <button class="search-btn"  type="submit">Search</button>
@@ -30,61 +30,85 @@
             </form>
         </div>
         <!-- LATEST JOBS -->
-        <div id="latest-jobs" style="background-color:white;width:100%;height:120%;">
-            <h4 class="text-center" style="margin: 50px 0 10px 0;text-transform: uppercase;color: black;">Latest</h4>
-            <div class="col-sm-12" style="text-align: center;">
-                <h2 style="margin-bottom: 35px;font-weight: bold;font-size: 32px;">Recent jobs</h2>
-                <div style="margin:5px auto;background-color:#354886;width:80px;height:3px;">
+            <div id="latest-jobs" style="background-color:white;width:100%;height:1000px;padding:5px;">
+                <h4 class="text-center" style="margin: 50px 0 10px 0;text-transform: uppercase;color: black;">Latest</h4>
+                <div class="col-sm-12" style="text-align: center;">
+                    <h2 style="margin-bottom: 35px;font-weight: bold;font-size: 32px;">Recent jobs</h2>
+                    <div style="margin:5px auto;background-color:##354886;width:80px;height:3px;">
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <ul style="margin:0;padding:100px;list-style: none;">
-                    @foreach($postings as $posting)
-                        <li class="recent-job" style="padding:40px;">
-                        <div class="container">
-                            <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
-                            <div class="col-md-11">
-                                <div class="row">
-                                    <h3 style="margin:0 40px;color:black;font-weight: bold;display:inline-block;float:left;">{{$posting->title}}</h3>
-                                    <h4 style="margin:0;display:inline-block;color:#C6C6C6;font-weight: bold;float:right;">{{$posting->location}}</h4>
-                                </div>
-                                <div class="row" style="margin-top:20px;">
-                                    
-                                    <h3 style="margin:0 40px;color:black;display:inline-block;float:left;">{{$posting->company_name}}</h3>
-                                    <h4 style="margin:0;display:inline-block;padding:5px;color:#FFFFFF;font-weight: bold;float:right;text-transform: uppercase;font-size:14px;background-color: {{ $badges[mt_rand(0,2)]}};">{{$posting->status}}</h4>
+                
+                    <div class="container-fluid">
+                        <ul style="margin:0;padding:100px;list-style: none;">
+                        @foreach($postings as $posting)
+                            <li class="recent-job" style="padding:40px;">
+                            <div class="container">
+                                <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
+                                <div class="col-md-11">
+                                    <div class="row">
+                                        <h3 style="margin:0 40px;color:black;font-weight: bold;display:inline-block;float:left;">{{$posting->title}}</h3>
+                                        <h4 style="margin:0;display:inline-block;color:#C6C6C6;font-weight: bold;float:right;">{{$posting->location}}</h4>
+                                    </div>
+                                    <div class="row" style="margin-top:20px;">
+                                        
+                                        <h3 style="margin:0 40px;color:black;display:inline-block;float:left;">{{$posting->company_name}}</h3>
+                                        <h4 style="margin:0;display:inline-block;padding:5px;color:#FFFFFF;font-weight: bold;float:right;text-transform: uppercase;font-size:14px;background-color: {{ $badges[mt_rand(0,2)]}};">{{$posting->status}}</h4>
+                                    </div>
                                 </div>
                             </div>
+                            </li>
+                        @endforeach
+                        </ul>
+                        <div class="col-md-12" style="text-align: center;">
+                        <a href="{{URL::to('/search')}}"><button type="button" style="margin:0 auto;padding:10px 40px;font-weight: 600;letter-spacing: 1px;font-size: 18px"class="btn btn-info">BROWSE ALL JOBS</button></a>
                         </div>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-        </div>
-        <!-- <div id="otherContainer">
-            <div id="social-medias" class="col-md-3 col-xs-12">
-                <h2 class="text-center">Social Media</h2>
-                <div id="twitter" class="col-md-12 col-xs-4">
-                    <a>
-                    <h3 class="col-xs-12 text-center"><i class="fa fa-twitter-square" aria-hidden="true"></i>&nbspTwitter</h3></a>
-                </div>
-                <div id="instagram" class="col-md-12 col-xs-4">
-                    <a href="https://instagram.com/zerograd" target="_blank">
+                    </div>
                     
-                    <h3 class="col-xs-12 text-center"><i class="fa fa-facebook-square text-center" aria-hidden="true"></i>&nbspInstagram</h3></a>
+                
+            </div>
+
+        <!-- Database info -->
+        
+            <div id="database-info" style="background-color:white;width:100%;height:221px;text-align: center;margin-top:120px;">
+
+                <!-- Jobs -->
+                <div class="counter col-md-3 ">
+                    <div class="row" style="text-align: center;"><h2>{{$sizeOfJobs}} + </h2>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    </div>
+
+                    <div class="row"><h4>Jobs</h4></div>
+
                 </div>
-                <div id="facebook" class="col-md-12 col-xs-4">
-                    <a>
-                    <h3 class="col-xs-12 text-center"><i class="fa fa-instagram fa-2 text-center" aria-hidden="true"></i>&nbspFacebook</h3></a>
+
+                <!-- Members -->
+                <div class="counter col-md-3">
+                    <div class="row" style="text-align: center;"><h2>{{$sizeOfMembers}} + </h2></div>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div class="row"><h4>Members</h4></div>
+
+                </div>
+
+                <!-- Resumes -->
+                <div class="counter col-md-3">
+                    <div class="row" style="text-align: center;"><h2>{{$sizeOfResumes}} + </h2></div>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div class="row"><h4>Resume</h4></div>
+
+                </div>
+
+                <!-- Companies -->
+                <div class="counter col-md-3">
+                    <div class="row" style="text-align: center;"><h2>{{$sizeOfCompanies}} + </h2></div>
+                    <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
+                    <div class="row"><h4>Company</h4></div>
+
                 </div>
             </div>
-            <div id="tips" class="col-md-6 col-xs-12" >
-                <h2 class="text-center">Tips &amp; Advice </h2>
-                <div class="col-xs-12">
-                    @foreach ($advices as $advice)
-                        <p style="font-size:16px;color:white;text-align: center;"><i class="fa fa-circle fa-1" aria-hidden="true"></i>&nbsp{{$advice->advice}}</p>
-                    @endforeach
-                </div>
-            </div>
-        </div> -->  
+        
+         <!-- HOW IT WORKS  -->
+         <div id="how-it-works" style="background-color:white;width:100%;height:50%;">
+           
+        </div>
 
 @stop

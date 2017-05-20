@@ -1,33 +1,13 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <title>ZeroGrad</title>
+@extends('layout.header-layout')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-        <link rel="stylesheet" href="/resources/demos/style.css">
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        
-        <!-- Styles -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+@section('title')
+    Results
+@stop
 
-        
+@section('styles')
+    <style>
 
-  
-        <!-- Styles -->
-
-        <!-- Styles -->
-        {{ HTML::style('css/styles.css') }}
-        <style>
             #Container{
                 height:85%;
             }
@@ -80,42 +60,21 @@
             color:white;
         }
 
+        #navigation {
+            background-color:#354886; 
+        }
+
+        .navigation button {
+            border:1px solid white;
+        }
         </style>
-        <script>
-  $( function() {
-    $( "#slider" ).slider({
-      value:0,
-      min: 0,
-      max: 3,
-      step: 1,
-      slide: function( event, ui ) {
+@stop
 
-        postExperience(ui);
-        $( "#amount" ).text( 'Years of Experience: ' + ui.value );
-      }
-    });
-    $( "#amount" ).text( 'Years of Experience: ' + $( "#slider" ).slider( "value" ) );
-  } );
- $( function() {
-    $( "#slider-distance" ).slider({
-      value:0,
-      min: 0,
-      max: 100,
-      step: 25,
-      slide: function( event, ui ) {
-         // postFilter(ui);
-        $( "#distance" ).text( 'Distance: ' + ui.value );
-      }
-    });
-    $( "#distance" ).text( 'Distance: ' + $( "#slider-distance" ).slider( "value" ) );
-  } );
-
-  </script>
-    </head>
-    <body>
-        <div id="header">
-            <a href="{{URL::to('/')}}"><h1 id="logo" style="margin:0;padding:15px; color:white;display:block;">Zer<span class="zeroLogo">0</span>Grad</h1></a>
-        </div>
+@section('style_plugins')
+    
+@stop        
+        @section('content')
+            @include('nav');
         <div id="Container">
                   <div class="preloader-wrapper big active">
                     <div class="spinner-layer spinner-blue-only">
@@ -172,7 +131,48 @@
         <div id="otherContainer">
 
         </div>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
+        
+        <div id="post-overlay" style="display:none;position:absolute;z-index:3;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);">
+            <div class="container">
+                
+            </div>
+            <div style="position:absolute;top:0;right:10px;" id="close-overlay" onClick="closeOverlay();">
+                <button type="button" class="btn btn-danger">X</button>
+            </div>
+        </div>
+        @stop
+        @section('script_plugins')
+            <script>
+      $( function() {
+        $( "#slider" ).slider({
+          value:0,
+          min: 0,
+          max: 3,
+          step: 1,
+          slide: function( event, ui ) {
+
+            postExperience(ui);
+            $( "#amount" ).text( 'Years of Experience: ' + ui.value );
+          }
+        });
+        $( "#amount" ).text( 'Years of Experience: ' + $( "#slider" ).slider( "value" ) );
+      } );
+     $( function() {
+        $( "#slider-distance" ).slider({
+          value:0,
+          min: 0,
+          max: 100,
+          step: 25,
+          slide: function( event, ui ) {
+             // postFilter(ui);
+            $( "#distance" ).text( 'Distance: ' + ui.value );
+          }
+        });
+        $( "#distance" ).text( 'Distance: ' + $( "#slider-distance" ).slider( "value" ) );
+      } );
+
+      </script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             function postExperience(ui){
                 var li = $('#results li');
@@ -223,14 +223,4 @@
         }
 
         </script>
-        <div id="post-overlay" style="display:none;position:absolute;z-index:3;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);">
-            <div class="container">
-                
-            </div>
-            <div style="position:absolute;top:0;right:10px;" id="close-overlay" onClick="closeOverlay();">
-                <button type="button" class="btn btn-danger">X</button>
-            </div>
-        </div>
-        
-    </body>
-</html>
+        @stop

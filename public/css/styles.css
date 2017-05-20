@@ -123,11 +123,32 @@ html, body {
 
             /*RECENT JOBS*/
             .recent-job {
-                 transition: border 0s linear 0s;
+                 border:2px solid #FFFFFF;
+                 transition: border 0.1s linear 0s;
             }
             .recent-job:hover{
                 border:2px solid #354886;
                 cursor: pointer;
+            }
+
+
+            /*Database info*/
+            .counter {
+                height: 300px;
+                padding: 90px;
+                background-color: #F6F6F6;
+                border: 1px solid #E6E6E6;
+            }
+            .counter:last-child{
+                border-right: none;
+            }
+            .counter h2{
+                font-size: 48px;
+                font-weight: bold;
+            }
+            .counter h4 {
+                font-size: 18px;
+                font-weight: bold;
             }
 
             /*Social media icons*/
