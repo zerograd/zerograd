@@ -71,7 +71,8 @@
         
             <div id="database-info" style="background-color:white;width:100%;height:221px;text-align: center;margin-top:120px;">
 
-                <!-- Jobs -->
+                <div class="container-fluid">
+                    <!-- Jobs -->
                 <div class="counter col-md-3 ">
                     <div class="row" style="text-align: center;"><h2>{{$sizeOfJobs}} + </h2>
                     <div style="margin:20px auto;width:60px;height:2px;background-color:#354886; "></div>
@@ -104,11 +105,31 @@
                     <div class="row"><h4>Company</h4></div>
 
                 </div>
+                </div>
             </div>
         
          <!-- HOW IT WORKS  -->
-         <div id="how-it-works" style="background-color:white;width:100%;height:50%;">
-           
+         <div id="how-it-works" style="margin-top:170px;background-color:white;width:100%;height:762px;padding:50px;">
+            <div class="col-md-12">
+                <h3 style="float:left;margin: 0;font-size: 16px;">WORKFLOW</h3>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6" style="padding:0;">
+                    <h1 style="font-size: 48px;font-weight: bold;">How it Works</h1>
+                    <div class="btn-info" style="float:left;margin:20px auto;width:60px;height:2px;"></div>
+                    <div class="col-md-12" style="margin-top: 40px;">
+                            <p style="font-size: 22px;">Pellentesque et pulvinar orci. Suspendisse sed euismod purus. Pellentesque nunc ex, ultrices eu enim non, consectetur interdum nisl. Nam congue interdum mauris, sed ultrices augue lacinia in. Praesent turpis purus, faucibus in tempor vel, dictum ac eros.</p>
+                        <br>
+                        <p style="font-size: 22px; ">
+                            Nulla quis felis et orci luctus semper sit amet id dui. Aenean ultricies lectus nunc, vel rhoncus odio sagittis eu. Sed at felis eu tortor mattis imperdiet et sed tortor. Nullam ac porttitor arcu. Vivamus tristique elit id tempor lacinia. Donec auctor at nibh eget tincidunt. Nulla facilisi. Nunc condimentum dictum mattis.
+                        </p>
+                        <button type="submit" class="btn btn-primary" style="margin-top:70px;border-radius: 3px;padding: 15px 40px;">LEARN MORE</button>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <img src="{{URL::asset('/images/iphone.png')}}" class="img-responsive">
+                </div>
+            </div>
         </div>
 
 @stop
