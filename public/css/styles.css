@@ -151,6 +151,39 @@ html, body {
                 font-weight: bold;
             }
 
+            /*Popular Category*/
+
+            .category {
+                width:31%;
+                float:left;
+                height:350px;
+                background-color: #FFFFFF;
+                margin: 0 15px;
+                margin-top: 30px;
+                box-shadow: 1px 1px 1px #E6E6E6;
+                transition: background-color 0.3s ease-in-out 0s;
+            }
+
+            .category:hover {
+                background-color: #23CCF3;
+                cursor: pointer;
+            }
+            .icon-div {
+                text-align: center;
+            }
+            .inner-icon-div{
+                display: inline-block;
+                padding:20px;
+                margin: 40px; 
+                border-radius: 50%;
+                background-color: white;
+            }
+            .icon-div i {
+                display:inline-block;
+                font-size: 48px;
+                line-height: 1;
+                color:#23CCF3;
+            }
             /*Social media icons*/
             #social-medias {
                 padding: 10px 0;

@@ -132,4 +132,25 @@
             </div>
         </div>
 
+        <!-- POPULAR CATEGORIES -->
+        <div id="popular-categories" style="margin-top:170px;background-color:#F6F6F6;width:100%;height:1200px;padding:50px;">
+            <div class="col-md-12">
+                <h3 class="text-center" style="margin: 0;font-size: 20px;">CATEGORIES</h3>
+                <h3 class="text-center" style="margin: 30px 0;font-size: 48px;font-weight: bold;">Popular Categories</h3>
+                    <div style="margin:30px auto;width:60px;height:2px;background-color:#354886; "></div>
+                <h3 class="text-center" style="margin: 0;font-size: 20px;font-weight: bold;">The most popular categories</h3>
+            </div>
+            <div class="col-md-12" style="margin:40px 0;height:auto;">
+                @for ($i = 0 ; $i < 6 ; $i++)
+                <div class="category">
+                    <div class="icon-div">
+                        <div class="inner-icon-div">
+                            <i class="fa fa-laptop" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                </div>
+                @endfor
+            </div>
+        </div>
+
 @stop
