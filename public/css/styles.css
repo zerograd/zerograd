@@ -9,6 +9,10 @@ html, body {
             body {
 
             }
+
+            .nav > li > a:hover{
+                background:none;
+            }
             #navigation {
                 
             }
