@@ -5,31 +5,33 @@
 @stop
 
 @section('content')    
-        <div class="class-sm-12" id="Container" style="background: url('{{URL::asset('/images/background.jpg')}}');background-size:100% 100%;">
-            @include('nav')
-            <form action="{{route('submit-search')}}" method="post">
-            {{ csrf_field() }}
-                <div id="title-div" class="col-sm-12">
-                    <div class="search-header col-md-12 col-xs-12">
-                        <h1 class="text-center" style="">Start your search to gain worlds of experience. </h1>
-                        <p class="text-center">Find a job within minutes</p>
+    <section style="background: url('{{URL::asset('/images/background.jpg')}}');">
+            <div class="class-sm-12" id="Container" style="background-size:100% 100%;">
+                @include('nav')
+                <form action="{{route('submit-search')}}" method="post">
+                {{ csrf_field() }}
+                    <div id="title-div" class="col-sm-12">
+                        <div class="search-header col-md-12 col-xs-12">
+                            <h1 class="text-center" style="">Start your search to gain worlds of experience. </h1>
+                            <p class="text-center">Find a job within minutes</p>
+                        </div>
                     </div>
-                </div>
-                <div class="search-area col-md-10 col-md-offset-1">
-                    <div class="col-md-5" style="padding:0;">
-                        <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;color:#23CCF3;font-weight: bold;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
+                    <div class="search-area col-md-10 col-md-offset-1">
+                        <div class="col-md-5" style="padding:0;">
+                            <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;color:#23CCF3;font-weight: bold;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
+                        </div>
+                        <div class="col-md-5" style="padding:0;">
+                            <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#23CCF3;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
+                        </div>
+                        <div class="col-md-2" style="padding:0;">
+                            <button class="search-btn"  type="submit">Search</button>
+                                <a style="display:block;font-weight:bold;" class="advanced-search text-center" href="#"> Advanced Search </a>
+                        </div>
                     </div>
-                    <div class="col-md-5" style="padding:0;">
-                        <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#23CCF3;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
-                    </div>
-                    <div class="col-md-2" style="padding:0;">
-                        <button class="search-btn"  type="submit">Search</button>
-                            <a style="display:block;font-weight:bold;" class="advanced-search text-center" href="#"> Advanced Search </a>
-                    </div>
-                </div>
-            </form>
-        </div>
-
+                </form>
+            </div>
+    </section>
+    <section>
         <!-- LATEST JOBS -->
             <div id="latest-jobs" style="background-color:white;width:100%;height:1000px;padding:5px;">
                 <h4 class="text-center" style="margin: 50px 0 10px 0;text-transform: uppercase;color: black;">Latest</h4>
@@ -74,9 +76,10 @@
                     
                 
             </div>
-
-        <!-- Database info -->
-        
+    </section>
+            <!-- Database info -->
+        <section>
+                 
             <div id="database-info" style="background-color:white;width:100%;height:221px;text-align: center;margin-top:120px;">
 
                 <div class="container-fluid">
@@ -115,33 +118,37 @@
                 </div>
                 </div>
             </div>
+        </section>
         
          <!-- HOW IT WORKS  -->
-         <div id="how-it-works" style="margin-top:170px;background-color:white;width:100%;height:762px;padding:50px;">
-            <div class="col-md-12">
-                <h3 style="float:left;margin: 0;font-size: 16px;">WORKFLOW</h3>
-            </div>
-            <div class="col-md-12">
-                <div class="col-md-6" style="padding:0;">
-                    <h1 style="font-size: 48px;font-weight: bold;">How it Works</h1>
-                    <div class="btn-info" style="float:left;margin:20px auto;width:60px;height:2px;"></div>
-                    <div class="col-md-12" style="margin-top: 40px;">
-                            <p style="font-size: 22px;">Pellentesque et pulvinar orci. Suspendisse sed euismod purus. Pellentesque nunc ex, ultrices eu enim non, consectetur interdum nisl. Nam congue interdum mauris, sed ultrices augue lacinia in. Praesent turpis purus, faucibus in tempor vel, dictum ac eros.</p>
-                        <br>
-                        <p style="font-size: 22px; ">
-                            Nulla quis felis et orci luctus semper sit amet id dui. Aenean ultricies lectus nunc, vel rhoncus odio sagittis eu. Sed at felis eu tortor mattis imperdiet et sed tortor. Nullam ac porttitor arcu. Vivamus tristique elit id tempor lacinia. Donec auctor at nibh eget tincidunt. Nulla facilisi. Nunc condimentum dictum mattis.
-                        </p>
-                        <button type="submit" class="btn btn-primary" style="margin-top:70px;border-radius: 3px;padding: 15px 40px;">LEARN MORE</button>
+         <section>
+             <div id="how-it-works" style="margin-top:170px;background-color:white;width:100%;height:762px;padding:50px;">
+                <div class="col-md-12">
+                    <h3 style="float:left;margin: 0;font-size: 16px;">WORKFLOW</h3>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6" style="padding:0;">
+                        <h1 style="font-size: 48px;font-weight: bold;">How it Works</h1>
+                        <div class="btn-info" style="float:left;margin:20px auto;width:60px;height:2px;"></div>
+                        <div class="col-md-12" style="margin-top: 40px;">
+                                <p style="font-size: 22px;">Pellentesque et pulvinar orci. Suspendisse sed euismod purus. Pellentesque nunc ex, ultrices eu enim non, consectetur interdum nisl. Nam congue interdum mauris, sed ultrices augue lacinia in. Praesent turpis purus, faucibus in tempor vel, dictum ac eros.</p>
+                            <br>
+                            <p style="font-size: 22px; ">
+                                Nulla quis felis et orci luctus semper sit amet id dui. Aenean ultricies lectus nunc, vel rhoncus odio sagittis eu. Sed at felis eu tortor mattis imperdiet et sed tortor. Nullam ac porttitor arcu. Vivamus tristique elit id tempor lacinia. Donec auctor at nibh eget tincidunt. Nulla facilisi. Nunc condimentum dictum mattis.
+                            </p>
+                            <button type="submit" class="btn btn-primary" style="margin-top:70px;border-radius: 3px;padding: 15px 40px;">LEARN MORE</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{{URL::asset('/images/iphone.png')}}" class="img-responsive">
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <img src="{{URL::asset('/images/iphone.png')}}" class="img-responsive">
-                </div>
             </div>
-        </div>
+         </section>
 
         <!-- POPULAR CATEGORIES -->
-        <div id="popular-categories" style="margin-top:170px;background-color:#F6F6F6;width:100%;height:1000px;padding:50px;">
+        <section>
+            <div id="popular-categories" style="margin-top:170px;background-color:#F6F6F6;width:100%;height:1000px;padding:50px;">
             <div class="col-md-12">
                 <h3 class="text-center" style="margin: 0;font-size: 20px;">CATEGORIES</h3>
                 <h3 class="text-center" style="margin: 30px 0;font-size: 48px;font-weight: bold;">Popular Categories</h3>
@@ -162,7 +169,94 @@
                 @endforeach
             </div>
         </div>
-    <a href="#Container">        <div id="float-back" style="text-align:center; display:none; background-color:#23CCF3;width:70px;height:70px;opacity: 0.5">
+        </section>
+        <section style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');"">
+            <div id="subscribe-section" style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');background-color:#F6F6F6;width:100%;height:500px;">
+                <div style="width:100%;height:100%;background: rgba(0,0,0,0.5);">
+                    <div class="col-md-12" style="margin:140px 0 0 0;">
+                    <h3 class="text-center" style="margin: 0;font-size: 48px;color:white;font-weight: bold;">Subscribe</h3>
+                    </div>
+                    <div class="col-md-12" style="margin:30px 0 0 0;">
+                    <h3 class="text-center" style="margin:0;color:white;font-weight: bold;">Get weekly top new jobs delivered to your inbox</h3>
+                    </div>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <div class="input-group">
+                          <input type="text" style="margin:30px 0 0 0;padding:30px;" class="form-control" placeholder="Your email address">
+                          <span class="input-group-btn">
+                            <button class="btn btn-success" style="margin:30px 0 0 0;text-transform:uppercase;font-weight:bold; color:white;padding: 21px;" type="button">Subscribe</button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div>
+        </section>
+        <footer class="site-footer">
+
+      <!-- Top section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h6>About</h6>
+            <p class="text-justify">An employment website is a web site that deals specifically with employment or careers. Many employment websites are designed to allow employers to post job requirements for a position to be filled and are commonly known as job boards. Other employment sites offer employer reviews, career and job-search advice, and describe different job descriptions or employers. Through a job website a prospective employee can locate and fill out a job application.</p>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Company</h6>
+            <ul class="footer-links">
+              <li><a href="page-about.html">About us</a></li>
+              <li><a href="page-typography.html">How it works</a></li>
+              <li><a href="page-faq.html">Help center</a></li>
+              <li><a href="page-typography.html">Privacy policy</a></li>
+              <li><a href="page-contact.html">Contact us</a></li>
+            </ul>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Trendeing jobs</h6>
+            <ul class="footer-links">
+              <li><a href="job-list.html">Front-end developer</a></li>
+              <li><a href="job-list.html">Android developer</a></li>
+              <li><a href="job-list.html">iOS developer</a></li>
+              <li><a href="job-list.html">Full stack developer</a></li>
+              <li><a href="job-list.html">Project administrator</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <hr>
+      </div>
+      <!-- END Top section -->
+
+      <!-- Bottom section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyrights © 2016 All Rights Reserved by <a href="http://themeforest.net/user/shamsoft">ShaMSofT</a>.</p>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- END Bottom section -->
+
+    </footer>
+
+
+
+
+
+        <!-- floating arrow -->
+        <a href="#Container">        <div id="float-back" style="text-align:center; display:none; background-color:#23CCF3;width:70px;height:70px;opacity: 0.5">
             <i class="fa fa-arrow-up" aria-hidden="true" style="margin:0 auto;line-height:2;font-size:30px;color:white;"></i>
         </div></a>
 @stop

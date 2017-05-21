@@ -241,6 +241,72 @@ html, body {
                 text-decoration: none;
             }
 
+            .site-footer {
+                background-color: #26272b;
+                padding: 45px 0 20px;
+                font-size: 14px;
+                line-height: 24px;
+                color: #bbb;
+            }
+
+            .site-footer ul {
+                list-style: none;
+            }
+
+            .site-footer a {
+                text-decoration: none;
+                color:white;
+            }
+
+            .fa {
+                display: inline-block;
+                font: normal normal normal 14px/1 FontAwesome;
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            .site-footer .social-icons {
+                    text-align: right;
+            }
+            .social-icons li {
+                display: inline-block;
+                margin-bottom: 4px;
+            }
+           .site-footer .social-icons a {
+                width: 40px;
+                height: 40px;
+                line-height: 40px;
+                margin-left: 6px;
+                margin-right: 0;
+                border-radius: 100%;
+                background-color: #33353d;
+            }
+
+            .social-icons a {
+                background-color: #eceeef;
+                color: #818a91;
+                font-size: 16px;
+                display: inline-block;
+                line-height: 44px;
+                width: 44px;
+                height: 44px;
+                text-align: center;
+                margin-right: 8px;
+                border-radius: 100%;
+                -webkit-transition: all .2s linear;
+                -o-transition: all .2s linear;
+                transition: all .2s linear;
+            }
+
+            .site-footer .social-icons a:hover {
+                color: #29aafe;
+                text-decoration: none;
+                -webkit-transition: color .3s linear;
+                -o-transition: color .3s linear;
+                transition: color .3s linear;
+                outline: 0;
+            }
 .navbar-header .navbar-toggle .icon-bar {
     background-color: white;
 }
