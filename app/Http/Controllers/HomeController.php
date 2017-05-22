@@ -63,7 +63,24 @@ class HomeController extends Controller
 			));
     	}
 
-    	if($request->searchkeywords){
+    	if($request->searchkeywords && $request->searchlocation ){
+    		$keywords = explode(' ',$request->searchkeywords);
+	    	$postings = array();
+	    	foreach($keywords as $keyword){
+	    		$posting =	DB::table('postings')
+	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    					->where('keywords','like','%'. $keyword .'%')
+	    					->where('location',$request->searchlocation)
+	    					->get();
+				if(sizeof($posting) > 0){
+					foreach($posting as $post){
+						array_push($postings,$post);
+					}
+				}
+	    	}
+    	}
+    	else if($request->searchkeywords){
     		$keywords = explode(' ',$request->searchkeywords);
 	    	$postings = array();
 	    	foreach($keywords as $keyword){
@@ -77,11 +94,18 @@ class HomeController extends Controller
 						array_push($postings,$post);
 					}
 				}
-	    	}if($request->searchlocation){
-	    		//later
 	    	}
 
 	    	
+    	}else if($request->searchlocation){
+	    		$posting =	DB::table('postings')
+	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    					->where('location','=',$request->searchlocation)
+	    					->get();
+				if(sizeof($posting) > 0){
+					$postings = $posting;
+				}
     	}
     	$found = "no";
     	 if(isset($postings) && sizeof($postings) > 0) {
