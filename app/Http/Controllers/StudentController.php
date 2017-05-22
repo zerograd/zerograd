@@ -170,7 +170,7 @@ class StudentController extends Controller
         }
 
         return array(
-            'timeline' => $timeline,
+            'timeline' => isset($timeline)?$timeline:"",
             'post_notifications' => $post_notifications
         );
     }
@@ -276,7 +276,7 @@ class StudentController extends Controller
 
         $notifications = $this->getNotifications();
         $post_notifications = $notifications['post_notifications'];
-        
+
         $data = array(
             'educations' => $education,
             'resume' => $resume,
