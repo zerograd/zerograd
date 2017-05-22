@@ -22,12 +22,13 @@
 		</div>
 		<ul id="main-navigation" class="nav col-sm-12" style="margin-top:15px;">
 			<li class="first">MAIN NAVIGATION</li>
-			<li class="other-list-item" onClick="goTo('{{URL::to('/student/profile/1')}}');">
+			
+	<a href="{{route('student-profile',$id)}}" style="text-decoration: none;color:white;"><li class="other-list-item">
 					<i class="material-icons">perm_identity</i>
-					<p>	Profile </p>	
-			</li>
+					<p>	Profile </p>		
+			</li></a>
 			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Search Tool</p></li>
-			<li class="other-list-item"><i class="material-icons">view_agenda</i><p>Resume Builder</p></li>
+			<a href="{{route('resume-builder',$id)}}" style="text-decoration: none;color:white;" target="_blank"><li class="other-list-item" ><i class="material-icons">view_agenda</i><p>Resume Builder</p></li></a>
 		</ul>
 	</div>
 	<div id="main-area" class="col-sm-10">

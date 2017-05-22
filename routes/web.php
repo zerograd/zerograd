@@ -32,8 +32,10 @@ Route::post('/student-login/login','StudentController@verifyLogin');
 Route::get('/student-register','StudentController@getRegister');
 Route::post('/student-register/register','StudentController@postRegister');
 Route::get('/student/home','StudentController@home');
-Route::get('/student/profile/{id}','StudentController@profile');
-
+Route::get('/student/profile/{id}',array(
+	'as' => 'student-profile',
+	'uses' => 'StudentController@profile'		
+));
 Route::get('/student/search-tool','StudentController@searchTool');
 
 
@@ -126,3 +128,17 @@ Route::post('/seen-notification',array(
 	'as' => 'seen-notification',
 	'uses' => 'StudentController@seenNotification'
 ));
+
+
+//EmployerController 
+
+Route::get('/employer-register','EmployerController@getRegister');
+Route::post('/employer-register/register','EmployerController@postRegister');
+
+//ResumeController
+Route::get('/resume-builder/profile/{id}',array(
+	'as' => 'resume-builder',
+	'uses' => 'ResumeController@resumeBuilder'		
+));
+
+

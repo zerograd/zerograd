@@ -55,7 +55,7 @@ class StudentController extends Controller
             }
         }
 
-        
+
         return "success";
 
     }
@@ -87,45 +87,7 @@ class StudentController extends Controller
         return $sum;
     }
 
-    public function home(){
-        $searches = DB::table('user_history')
-                        ->select('searches')
-                        ->where('user_id',Session::get('user_id'))
-                        ->orderBy('search_time','DESC')
-                        ->take(4)
-                        ->get();
-
-        
-                            
-        $keywords = array();
-        foreach($searches as $search){
-            array_push($keywords,explode(',',$search->searches));
-        }
-        $keywords = array_flatten($keywords);
-
-        //Get Posting keywords
-        $postings = DB::table('postings')
-                    ->select('*')
-                    ->inRandomOrder()
-                    ->get();
-
-        $opportunities = array();
-        $count = 0;
-        for($i = 0; $i < sizeof($postings) ; $i++){
-            if($count == 4){
-                break;
-            }
-            for($j = 0 ; $j < sizeof($keywords) ; $j++){
-                if(!strpos($postings[$i]->keywords,$keywords[$j])){
-                    //do nothing
-                }else{
-                    array_push($opportunities,$postings[$i]);
-                    $count++;
-                }
-            }
-        }
-        
-
+    public function getNotifications(){
         $get_notifications = DB::table('notifications')
                             ->select('*')
                             ->where('user_id',Session::get('user_id'))
@@ -207,8 +169,58 @@ class StudentController extends Controller
             }
         }
 
+        return array(
+            'timeline' => $timeline,
+            'post_notifications' => $post_notifications
+        );
+    }
+
+    public function home(){
+        $searches = DB::table('user_history')
+                        ->select('searches')
+                        ->where('user_id',Session::get('user_id'))
+                        ->orderBy('search_time','DESC')
+                        ->take(4)
+                        ->get();
+
+        
+                            
+        $keywords = array();
+        foreach($searches as $search){
+            array_push($keywords,explode(',',$search->searches));
+        }
+        $keywords = array_flatten($keywords);
+
+        //Get Posting keywords
+        $postings = DB::table('postings')
+                    ->select('*')
+                    ->inRandomOrder()
+                    ->get();
+
+        $opportunities = array();
+        $count = 0;
+        for($i = 0; $i < sizeof($postings) ; $i++){
+            if($count == 4){
+                break;
+            }
+            for($j = 0 ; $j < sizeof($keywords) ; $j++){
+                if(!strpos($postings[$i]->keywords,$keywords[$j])){
+                    //do nothing
+                }else{
+                    array_push($opportunities,$postings[$i]);
+                    $count++;
+                }
+            }
+        }
+        
+
+        
+
         
         //Timeline : for now connections only
+
+        $notifications = $this->getNotifications();
+        $post_notifications = $notifications['post_notifications'];
 
         
                 $data = array(
@@ -217,7 +229,7 @@ class StudentController extends Controller
             'notifications' => isset($post_notifications)?$post_notifications:"",
             'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
             'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
-            'timeline' =>$timeline
+            'timeline' =>$notifications['timeline']
         );
 
 
@@ -261,6 +273,10 @@ class StudentController extends Controller
                             ->select('*')
                             ->where('user_id',$id)
                             ->get();
+
+        $notifications = $this->getNotifications();
+        $post_notifications = $notifications['post_notifications'];
+        
         $data = array(
             'educations' => $education,
             'resume' => $resume,
@@ -270,7 +286,11 @@ class StudentController extends Controller
             'profileProjects' => $profileProjects,
             'workExperience' => $workExperience,
             'volunteering' => $volunteering,
-            'id' => $id
+            'id' => $id,
+            'notifications' => isset($post_notifications)?$post_notifications:"",
+            'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
+            'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
+            'timeline' =>$notifications['timeline']
         );
         
 

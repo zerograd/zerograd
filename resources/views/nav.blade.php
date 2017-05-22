@@ -21,6 +21,7 @@
                     <li><a href="{{URL::to('/student-login')}}"><button class="white-btn">LOGIN</button></a></li>
                     <li style="padding:40px 0;">or</li>
                     <li style="padding:20px 0;"><a href="{{URL::to('/student-register')}}">register</a></li>
+                    <li><a href="{{URL::to('/employer-register')}}"><button class="white-btn">Employer?</button></a></li>
                     @else
                     <li><a href="{{URL::to('/student/home')}}"><button class="white-btn">{{Session::get('student_name')}}</button></a></li>
           @endif
