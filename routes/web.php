@@ -121,3 +121,8 @@ Route::post('/accept-request',array(
 	'as' => 'accept-request',
 	'uses' => 'StudentController@acceptRequest'
 ));
+
+Route::post('/seen-notification',array(
+	'as' => 'seen-notification',
+	'uses' => 'StudentController@seenNotification'
+));

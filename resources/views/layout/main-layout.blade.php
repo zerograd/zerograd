@@ -46,18 +46,25 @@
 							<i class="fa fa-bell-o notification-icon" aria-hidden="true" onClick="notifications();"></i>
 						
 						<div class="notification-alert">
-							@if(isset($notifications))
-								{{$notificationsSize}}
+							@if($sumOfUnSeen > 0)
+								{{$sumOfUnSeen}}
+							@elseif($sumOfUnSeen > 10)
+								10+
+							@else 
+								0
 							@endif
 						</div>
 						@if(isset($notifications))
 							<div id="notifies" class="dropdown-content">
-							    <ul>
+							    <ul id="notification-list">
 							    	@foreach($notifications as $notification)
 							    		@if($notification->type == 1)
 							    			@include('friend-request')
 						    			@elseif($notification->type == 2)
 					    					@include('accepted-request')
+
+				    					@elseif($notification->type == 3)
+					    					@include('now-friends')
 							    		@endif
 							    	@endforeach
 							    </ul>
@@ -88,6 +95,14 @@
 		}
 
 		function notifications() {
+			var listItems = $('#notification-list').find('li');
+			listItems.each(function(){
+				var $input = $(this).find('input');
+				var notificationId = $input.val();
+				$.post('{{route('seen-notification')}}',{id:notificationId,_token:"{{csrf_token()}}"},function(data){
+					console.log('seen it');
+				});
+			});	
 			$('.notification-alert').css('opacity','0');
     		document.getElementById("notifies").classList.toggle("show");
 		}

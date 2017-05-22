@@ -115,6 +115,11 @@
 			<div class="col-sm-7 col-xs-6">
 				<div id="timeline" class="col-sm-12 col-xs-12">
 					<h2>Timeline</h2>
+					@foreach($timeline as $event)
+						@if($event['type'] == 3)
+							<h4 style="color:black;">{{$event['from']->student_name}} and {{$event['to']->student_name}} are now connected. </h4>
+						@endif
+					@endforeach
 				</div>
 			</div>
 			

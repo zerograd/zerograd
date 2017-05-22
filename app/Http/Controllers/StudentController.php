@@ -76,6 +76,16 @@ class StudentController extends Controller
 	    }
     }
 
+    public function getSumUnseen($obj){
+        $sum = 0;
+        foreach($obj as $o){
+            if($o->seen == 'no'){
+                $sum++;
+            }
+        }
+        return $sum;
+    }
+
     public function home(){
         $searches = DB::table('user_history')
                         ->select('searches')
@@ -126,6 +136,7 @@ class StudentController extends Controller
 
         foreach($get_notifications as $notification){
             $type = $notification->type_id;
+            
             if($type == 1){//a friend request was sent to user
               $allRequests =  DB::table('friend_request')
                     ->select('*')
@@ -137,11 +148,14 @@ class StudentController extends Controller
                     $request->student_name = $fromInfo->student_name;
                     $request->student_id = $fromInfo->student_id;
                     $request->type = 1;
+                    $request->seen = $notification->seen;
+                    $request->notification_id = $notification->id;
                     array_push($post_notifications, $request);
                 }
 
                 
-            }if($type == 2){//your request was accept
+            }else if($type == 2){//your request was accept
+                $timeline = array();
               $acceptRequest =  DB::table('friends')
                     ->select('*')
                     ->where('friend_id',Session::get('user_id'))
@@ -152,23 +166,61 @@ class StudentController extends Controller
                     $request->student_name = $fromInfo->student_name;
                     $request->student_id = $fromInfo->student_id;
                     $request->type = 2;
+                    $request->seen = $notification->seen;
+                    $request->notification_id = $notification->id;
                     array_push($post_notifications, $request);
+                    $currentUser = DB::table('students')->select('student_id','student_name')->where('student_id',Session::get('user_id'))->first();
+                    $friends = array(
+                        'type' => 3,
+                        'from' => $request,
+                        'to' => $currentUser
+                    );
+                    array_push($timeline,$friends);
                 }
 
                 
+            }else if($type == 3){//now friends
+                $timeline = array();
+                $acceptRequest =  DB::table('friends')
+                    ->select('*')
+                    ->where('friend_id',Session::get('user_id'))
+                    ->get();
+                foreach($acceptRequest as $request){
+                    $fromInfo = DB::table('students')->select('student_id','student_name')->where('student_id',$request->user_id)
+                        ->first();
+                    $request->student_name = $fromInfo->student_name;
+                    $request->student_id = $fromInfo->student_id;
+                    $request->type = 3;
+                    $request->seen = $notification->seen;
+                    $request->notification_id = $notification->id;
+                    array_push($post_notifications, $request);
+
+                    $currentUser = DB::table('students')->select('student_id','student_name')->where('student_id',Session::get('user_id'))->first();
+                    $friends = array(
+                        'type' => 3,
+                        'from' => $request,
+                        'to' => $currentUser
+                    );
+                    array_push($timeline,$friends);
+                }
             }
         }
 
         
-        $data = array(
+        //Timeline : for now connections only
+
+        
+                $data = array(
             'searches' => $searches,
             'opportunities' => $opportunities,
             'notifications' => isset($post_notifications)?$post_notifications:"",
-            'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):""
+            'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
+            'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
+            'timeline' =>$timeline
         );
 
 
-   
+        // return $data;
     	return view('homepages.student')->with($data);
     }
 
@@ -516,9 +568,18 @@ class StudentController extends Controller
                 'user_id' => $currentUser,
                 'friend_id' => $from
             ));
+             DB::table('friends')
+            ->insert(array(
+                'user_id' => $from,
+                'friend_id' => $currentUser
+            ));
         DB::table('friend_request')
             ->where('user_id',$currentUser)
-            ->orWhere('friend_id',$from)
+            ->where('friend_id',$from)
+            ->delete();
+        DB::table('friend_request')
+            ->where('user_id',$from)
+            ->where('friend_id',$currentUser)
             ->delete();
         //send the notification
         
@@ -527,5 +588,18 @@ class StudentController extends Controller
                 'user_id' => $from,
                 'type_id' => 2
         ));
+            DB::table('notifications')
+            ->insert(array(
+                'user_id' => $currentUser,
+                'type_id' => 3
+        ));
+    }
+
+    public function seenNotification(Request $request){
+        DB::table('notifications')
+            ->where('id',$request->id)
+            ->update(array(
+                'seen' => 'yes'
+            ));
     }
 }

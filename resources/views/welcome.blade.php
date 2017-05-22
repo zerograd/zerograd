@@ -5,7 +5,7 @@
 @stop
 
 @section('content')    
-    <section style="background: url('{{URL::asset('/images/background.jpg')}}');">
+    <section style="background: url('{{URL::asset('/images/background.jpg')}}') no-repeat;background-size: 100%;">
             <div class="class-sm-12" id="Container" style="background-size:100% 100%;">
                 @include('nav')
                 <form action="{{route('submit-search')}}" method="post">
@@ -171,7 +171,7 @@
         </div>
         </section>
         <section style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');"">
-            <div id="subscribe-section" style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');background-color:#F6F6F6;width:100%;height:500px;">
+            <div id="subscribe-section" style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');no-repeat;background-size: 100% 100%;background-color:#F6F6F6;width:100%;height:500px;">
                 <div style="width:100%;height:100%;background: rgba(0,0,0,0.5);">
                     <div class="col-md-12" style="margin:140px 0 0 0;">
                     <h3 class="text-center" style="margin: 0;font-size: 48px;color:white;font-weight: bold;">Subscribe</h3>

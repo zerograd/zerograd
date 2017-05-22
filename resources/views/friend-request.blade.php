@@ -9,4 +9,5 @@
 			<input type="text" value="{{$notification->student_id}}" hidden>
 		</div>
 	</div>
+	<input type="text" value="{{$notification->notification_id}}" hidden>
 </li>
