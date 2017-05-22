@@ -113,6 +113,8 @@
 
  @section('script_plugins')
  	<script type="text/javascript">
+
+
  		function saveResume(){
 			var form = $('#resume-form').serialize() + "&user_id=" + $('#profile-id').val() + "&_token=" + "{{csrf_token()}}";
 			$.post('{{route('save-top-resume')}}',form,function(data){
@@ -121,6 +123,8 @@
 			});
 
 		}
+
+		// setInterval(saveResume,3000);
 
 		function addExperience(){
 			var schoolDiv = $('#work-div');
