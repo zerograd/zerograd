@@ -229,7 +229,8 @@ class StudentController extends Controller
             'notifications' => isset($post_notifications)?$post_notifications:"",
             'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
             'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
-            'timeline' =>$notifications['timeline']
+            'timeline' =>$notifications['timeline'],
+            'id' => Session::get('user_id')
         );
 
 
