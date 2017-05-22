@@ -46,21 +46,23 @@
 							<i class="fa fa-bell-o notification-icon" aria-hidden="true" onClick="notifications();"></i>
 						
 						<div class="notification-alert">
-							1
+							@if(isset($notifications))
+								{{$notificationsSize}}
+							@endif
 						</div>
-						<div id="notifies" class="dropdown-content">
-						    <ul>
-						    	<li>
-						    		<img src="{{URL::asset('/images/me.jpg')}}"></img>
-						    		<p>John Sent a Request</p>
-						    		<div class="container-fluid">
-						    			<button class="btn btn-success">Accept</button>
-							    		<button class="btn btn-secondary">Decline</button>
-							    		<button class="btn btn-danger">Block</button>
-						    		</div>
-						    	</li>
-						    </ul>
-					  	</div>
+						@if(isset($notifications))
+							<div id="notifies" class="dropdown-content">
+							    <ul>
+							    	@foreach($notifications as $notification)
+							    		@if($notification->type == 1)
+							    			@include('friend-request')
+						    			@elseif($notification->type == 2)
+					    					@include('accepted-request')
+							    		@endif
+							    	@endforeach
+							    </ul>
+						  	</div>
+					  	@endif
 					</div>
 				</li>
 				<li id="user-list-item">
@@ -104,4 +106,13 @@
 			    }
 			  }
 			}
+
+
+		function acceptRequest(button){
+			var parentDiv = $(button).parent();
+			var from = parentDiv.find('input');
+			$.post('{{route('accept-request')}}',{id:from.val(),_token:"{{csrf_token()}}"},function(data){
+				alert('You are now friends');
+			});
+		}
 	</script>

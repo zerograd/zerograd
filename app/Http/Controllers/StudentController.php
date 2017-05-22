@@ -114,10 +114,59 @@ class StudentController extends Controller
             }
         }
         
+
+        $get_notifications = DB::table('notifications')
+                            ->select('*')
+                            ->where('user_id',Session::get('user_id'))
+                            ->orderBy('created','DESC')
+                            ->take(4)
+                            ->get();
+
+        $post_notifications = array();
+
+        foreach($get_notifications as $notification){
+            $type = $notification->type_id;
+            if($type == 1){//a friend request was sent to user
+              $allRequests =  DB::table('friend_request')
+                    ->select('*')
+                    ->where('friend_id',Session::get('user_id'))
+                    ->get();
+                foreach($allRequests as $request){
+                    $fromInfo = DB::table('students')->select('student_id','student_name')->where('student_id',$request->user_id)
+                        ->first();
+                    $request->student_name = $fromInfo->student_name;
+                    $request->student_id = $fromInfo->student_id;
+                    $request->type = 1;
+                    array_push($post_notifications, $request);
+                }
+
+                
+            }if($type == 2){//your request was accept
+              $acceptRequest =  DB::table('friends')
+                    ->select('*')
+                    ->where('friend_id',Session::get('user_id'))
+                    ->get();
+                foreach($acceptRequest as $request){
+                    $fromInfo = DB::table('students')->select('student_id','student_name')->where('student_id',$request->user_id)
+                        ->first();
+                    $request->student_name = $fromInfo->student_name;
+                    $request->student_id = $fromInfo->student_id;
+                    $request->type = 2;
+                    array_push($post_notifications, $request);
+                }
+
+                
+            }
+        }
+
+        
         $data = array(
             'searches' => $searches,
-            'opportunities' => $opportunities
+            'opportunities' => $opportunities,
+            'notifications' => isset($post_notifications)?$post_notifications:"",
+            'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):""
         );
+
 
    
     	return view('homepages.student')->with($data);
@@ -416,15 +465,67 @@ class StudentController extends Controller
                         ->select('*')
                         ->where('user_id',$id)
                         ->get();
+
+        //Default no for public reason
+        $friend = 'no';
+
+        $friends = DB::table('friends')
+                    ->select('*')
+                    ->where('user_id',Session::get('user_id'))
+                    ->orWhere('friend_id',Session::get('user_id'))
+                    ->count();
+
+        if($friends > 0) $friend = "yes";
         $data = array(
             'user' => $user,
             'educations' => $educations,
             'skills' => $skills,
-            'projects' => $projects
+            'projects' => $projects,
+            'friend' => $friend
         );
 
         
         return view('student')->with($data);
     }
 
+    public function sendRequest(Request $request){
+        $from = Session::get('user_id');
+        $to = $request->id;
+
+        //add temporarily to table
+        DB::table('friend_request')
+            ->insert(array(
+                'user_id' => $from,
+                'friend_id' => $to
+            ));
+
+        //send the notification
+        DB::table('notifications')
+            ->insert(array(
+                'user_id' => $to,
+                'type_id' => 1
+        ));
+
+    }
+
+    public function acceptRequest(Request $request){
+        $from = $request->id;
+        $currentUser = Session::get('user_id');
+        DB::table('friends')
+            ->insert(array(
+                'user_id' => $currentUser,
+                'friend_id' => $from
+            ));
+        DB::table('friend_request')
+            ->where('user_id',$currentUser)
+            ->orWhere('friend_id',$from)
+            ->delete();
+        //send the notification
+        
+        DB::table('notifications')
+            ->insert(array(
+                'user_id' => $from,
+                'type_id' => 2
+        ));
+    }
 }

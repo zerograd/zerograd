@@ -26,6 +26,14 @@
                         <h4 class="text-center" style="float:left; margin:0;font-weight: bold;font-size:24px;clear:both;">
                             {{$user->student_name}}
                         </h4>
+                        <div class="col-sm-12">
+                            @if($friend != 'no')
+                                <button class="btn btn-info">Connected</button>
+                            @else
+                                <button class="btn btn-info" type="button" onClick="sendRequest();">Send Request</button>
+                            @endif
+                                <button class="btn btn-info"><i class="fa fa-envelope" aria-hidden="true"></i>&nbspMessage</button>
+                        </div>
                         <h3 style="margin:10px 0;float:left;font-weight: bold;width:100%;">Summary</h3>
                         <div class="col-sm-12">
                                 <p style="font-weight: bold;">{{$user->summary}}<p>
@@ -72,4 +80,16 @@
                 </div>
             </div>
         </div>
+        <input id="user-id" type="text" value="{{$user->student_id}}" hidden>
+@stop
+
+@section('script_plugins')
+    <script type="text/javascript">
+        function sendRequest(){
+            var id = $('#user-id').val();
+            $.post('{{route('student-request')}}',{id:id,_token:"{{csrf_token()}}"},function(data){
+                alert('Request sent.');
+            });
+        }
+    </script>
 @stop

@@ -111,3 +111,13 @@ Route::get('/profile/{id}',array(
 	'as' => 'public-profile',
 	'uses' => 'StudentController@publicProfile'		
 ));
+
+Route::post('/student-request',array(
+	'as' => 'student-request',
+	'uses' => 'StudentController@sendRequest'
+));
+
+Route::post('/accept-request',array(
+	'as' => 'accept-request',
+	'uses' => 'StudentController@acceptRequest'
+));
