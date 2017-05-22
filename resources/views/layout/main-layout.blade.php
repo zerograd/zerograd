@@ -33,11 +33,35 @@
 	<div id="main-area" class="col-sm-10">
 		<div class="container-fluid" style="background-color: #354886">
 			<ul class="nav navbar-nav col-md-4 col-md-push-8 col-xs-12 " style="margin:0 auto;text-align: center;">
-				<li>
-					<i class="material-icons " style="color:white;margin:5px;">textsms</i>
-					<i class="material-icons" style="color:white;margin:5px;">new_releases</i>
-				
-					<i class="material-icons" style="color:white;margin:5px;">chat</i>
+				<li class="notifications">
+					<div>
+						<i class="fa fa-envelope" aria-hidden="true"></i>
+						<div class="notification-number">
+							1
+						</div>
+					</div>
+					
+					<div onClick="notifications()">
+						
+							<i class="fa fa-bell-o notification-icon" aria-hidden="true" onClick="notifications();"></i>
+						
+						<div class="notification-alert">
+							1
+						</div>
+						<div id="notifies" class="dropdown-content">
+						    <ul>
+						    	<li>
+						    		<img src="{{URL::asset('/images/me.jpg')}}"></img>
+						    		<p>John Sent a Request</p>
+						    		<div class="container-fluid">
+						    			<button class="btn btn-success">Accept</button>
+							    		<button class="btn btn-secondary">Decline</button>
+							    		<button class="btn btn-danger">Block</button>
+						    		</div>
+						    	</li>
+						    </ul>
+					  	</div>
+					</div>
 				</li>
 				<li id="user-list-item">
 					<img src="{{URL::asset('/images/me.jpg')}}" alt="user-list-item">
@@ -49,10 +73,35 @@
 		</div>       
 
 			<script>
+			$(document).ready(function(){
+				$('.notification-icon').on('click',function(){
+					notifications();
+				});
+			});
 		function show(div){
 			$("#" + div).show("slow");
 		}
 		function goTo(loc){
 			window.location = loc;
 		}
+
+		function notifications() {
+			$('.notification-alert').css('opacity','0');
+    		document.getElementById("notifies").classList.toggle("show");
+		}
+
+			// Close the dropdown menu if the user clicks outside of it
+			window.onclick = function(event) {
+			  if (!event.target.matches('.notifications div')) {
+
+			    var dropdowns = document.getElementsByClassName("dropdown-content");
+			    var i;
+			    for (i = 0; i < dropdowns.length; i++) {
+			      var openDropdown = dropdowns[i];
+			      if (openDropdown.classList.contains('show')) {
+			        openDropdown.classList.remove('show');
+			      }
+			    }
+			  }
+			}
 	</script>
