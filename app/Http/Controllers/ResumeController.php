@@ -70,4 +70,65 @@ class ResumeController extends Controller
                 ));
         }
     }
+
+    public function processResume(Request $request){
+
+        $id = $request->id;
+        $templateChosen = isset($request->template)?$request->template:1;
+        $student = DB::table('students')
+                    ->select('student_name','email')
+                    ->where('student_id',$id)
+                    ->first();
+        $resume = DB::table('resume')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->first();
+        $education = DB::table('education')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        $workExperience = DB::table('work_experience')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+        $volunteerExperience = DB::table('volunteer')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        $skills = DB::table('profile_skills')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        $projects = DB::table('profile_projects')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        $summary = DB::table('profile_summary')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->first();
+        $data = array(
+            'student' => $student,
+            'resume'  => $resume,
+            'education' => $education,
+            'works' => $workExperience,
+            'volunteers' => $volunteerExperience,
+            'skills' => $skills,
+            'projects' => $projects,
+            'summary' => $summary
+        );
+
+        if($templateChosen == 1){
+            $html = view('resume-template-' . $templateChosen)->with($data);
+        }else if($templateChosen == 2){
+            $html = view('resume-template-' . $templateChosen)->with($data);
+        }
+        
+
+        return $html;
+    }
 }

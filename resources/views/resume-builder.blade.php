@@ -98,12 +98,13 @@
 										</div>
 										<div class="col-sm-12" style="">
 										<button type="button" style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary" onClick="saveResume();">Save</button>
+										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Download as PDF</button></a>
 										</div>
 									</div>
 				
 			</div>
 			<div id="resume-view" style="float:left;width:45%;margin:2% 2.5%; border:1px solid white;border-radius:3px;height:90%;">
-			<iframe id="resume-iframe" class="scroll" src="{{route('preview-resume',$id)}}" style="width: 100%;height:100%;">
+			<iframe id="resume-iframe" class="scroll" style="background-color:white;width: 100%;height:100%;">
 				
 			</iframe>
 			</div>
@@ -114,12 +115,27 @@
  @section('script_plugins')
  	<script type="text/javascript">
 
+ 		function processResume(){
+ 			$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:2},function(data){
+ 			var doc = document.getElementById('resume-iframe').contentWindow.document;
+			doc.open();
+			doc.write(data);
+			doc.close();
+ 			});
+ 		}
+ 	$(document).ready(function(){
+ 		processResume();
+
+ 		$('input').keyup(function(){
+ 			saveResume();
+ 			processResume();
+ 		})
+ 	});
 
  		function saveResume(){
 			var form = $('#resume-form').serialize() + "&user_id=" + $('#profile-id').val() + "&_token=" + "{{csrf_token()}}";
 			$.post('{{route('save-top-resume')}}',form,function(data){
-				var iframe = document.getElementById('resume-iframe');
-				iframe.src = iframe.src;
+				processResume();
 			});
 
 		}

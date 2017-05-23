@@ -141,4 +141,8 @@ Route::get('/resume-builder/profile/{id}',array(
 	'uses' => 'ResumeController@resumeBuilder'		
 ));
 
+Route::post('/process-resume',array(
+	'as' => 'process-resume',
+	'uses' => 'ResumeController@processResume'		
+));
 
