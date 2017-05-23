@@ -23,6 +23,10 @@
 		    border-radius: 10px;
 		    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 		}
+
+		.scroll::-webkit-scrollbar-corner {
+			background:none;
+		}
 		input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
 		  color: #000000;
 		  font-weight: bold;
@@ -30,6 +34,10 @@
 		input,textarea {
 			color:black;
 			font-weight: bold;
+		}
+
+		.selectedResume {
+			border:5px solid #F4B825;
 		}
 	</style>
 @stop
@@ -85,8 +93,7 @@
 												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeExperience();"></i>
 											</div>
 										</div>
-									</div>
-									<div class="col-sm-12">
+										<div class="col-sm-12">
 										<label>Volunteer Work</label>
 										<div class="form-group" id="volunteer-div">
 											@include('profiles.volunteer');
@@ -101,6 +108,8 @@
 										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Download as PDF</button></a>
 										</div>
 									</div>
+									</div>
+									
 				
 			</div>
 			<div id="resume-view" style="float:left;width:45%;margin:2% 2.5%; border:1px solid white;border-radius:3px;height:90%;">
@@ -108,20 +117,86 @@
 				
 			</iframe>
 			</div>
+
+			<!-- Resume div Selector -->
+			<div id="resume-selector" class="col-sm-12 scroll" style="position:absolute; z-index: 1;bottom:0;background: rgba(0,0,0,0.8);height:300px;overflow-x: scroll;padding:5px;">
+				<div id="close-div" class="col-sm-12">
+					<button class="hideselector btn btn-danger" style="float:right;" type="button" onClick="shrink(this);">Close</button>
+					<button class="showselector btn btn-success" style="display:none;float:right;" type="button" onClick="show(this);">Show</button>
+
+				</div>
+				<div class="col-sm-12" style="margin:5px;">
+					
+					<h3 style="margin:0;color:white;font-weight: bold;">Choose a Resume</h3>
+					
+				</div>
+				<?php $counter = 1;?>
+				@foreach($snaps as $snap)
+				<div class="col-sm-1" style="padding:0;margin:10px;" onClick="processResume(this);">
+					<img src="{{$snap}}" class="snapimg img-responsive">
+					<input type="text" value="{{$counter}}" hidden>
+				</div>
+					<?php $counter++;?>
+				@endforeach
+			</div>
 	</div>
 	<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />
 @stop
 
  @section('script_plugins')
  	<script type="text/javascript">
+ 		function shrink(button){
+            var parent = $(button).parent();
+            var showButton = parent.find('.showselector');
+            $( "#resume-selector" ).animate({
+			    height: $('#resume-selector').height() - 220
+			  }, 100);
 
- 		function processResume(){
- 			$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:2},function(data){
- 			var doc = document.getElementById('resume-iframe').contentWindow.document;
-			doc.open();
-			doc.write(data);
-			doc.close();
+            $(button).hide();
+            showButton.show();
+ 		}
+ 		function show(button){
+            var parent = $(button).parent();
+            var hideButton = parent.find('.hideselector');
+            $( "#resume-selector" ).animate({
+			    height: $('#resume-selector').height() + 220
+			  }, 100);
+            $(button).hide();
+            hideButton.show();
+ 		}
+ 		function processResume(div){
+ 			if(div === undefined){
+ 				$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:1},function(data){
+		 			var doc = document.getElementById('resume-iframe').contentWindow.document;
+		 			$('.snapimg').eq(0).addClass('selectedResume');
+		 			$('.snapimg').eq(0).siblings().removeClass('selectedResume');
+					doc.open();
+					doc.write(data);
+					doc.close();
+	 			});
+	 			return false;
+ 			}
+ 			var inputValue = $(div).find('input').val();
+ 			if(inputValue == 1){
+ 				$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:1},function(data){
+		 			var doc = document.getElementById('resume-iframe').contentWindow.document;
+		 			$('.snapimg').removeClass('selectedResume');
+		 			$('.snapimg').eq(0).addClass('selectedResume');
+		 			
+					doc.open();
+					doc.write(data);
+					doc.close();
+	 			});
+ 			}else if (inputValue == 2){
+ 				$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:2},function(data){
+	 			var doc = document.getElementById('resume-iframe').contentWindow.document;
+	 			$('.snapimg').removeClass('selectedResume');
+	 			$('.snapimg').eq(1).addClass('selectedResume');
+	 			doc.open();
+				doc.write(data);
+				doc.close();
  			});
+ 			}
  		}
  	$(document).ready(function(){
  		processResume();

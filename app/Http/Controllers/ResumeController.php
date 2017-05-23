@@ -46,6 +46,8 @@ class ResumeController extends Controller
                             ->select('*')
                             ->where('user_id',$id)
                             ->get();
+
+        $snaps = array(asset('images/resume-1-snap.png'),asset('images/resume-2-snap.png'));
     	$data = array(
     		'educations' => $education,
             'resume' => $resume,
@@ -55,7 +57,8 @@ class ResumeController extends Controller
             'profileProjects' => $profileProjects,
             'workExperience' => $workExperience,
             'volunteering' => $volunteering,
-            'id' => $id
+            'id' => $id,
+            'snaps' => $snaps
 		);
 
 		return view('resume-builder')->with($data);
