@@ -149,7 +149,7 @@
             var parent = $(button).parent();
             var showButton = parent.find('.showselector');
             $( "#resume-selector" ).animate({
-			    height: $('#resume-selector').height() - 220
+			    height: 80
 			  }, 100);
 
             $(button).hide();
@@ -159,7 +159,7 @@
             var parent = $(button).parent();
             var hideButton = parent.find('.hideselector');
             $( "#resume-selector" ).animate({
-			    height: $('#resume-selector').height() + 220
+			    height: 300
 			  }, 100);
             $(button).hide();
             hideButton.show();
