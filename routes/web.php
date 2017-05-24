@@ -13,8 +13,19 @@
 //Data Seed **************************REMAIN COMMENTED IF NOT NEEDED****************************************
 Route::get('/seed','SeedController@seedPostings');
 
+
 //Zerograd page
 Route::get('/','HomeController@index');
+Route::get('/login','HomeController@login');
+Route::get('/student-form',function(){
+	return view('logins.student');
+});
+Route::get('/employer-form',function(){
+	return view('logins.employer');
+});
+Route::get('/employee-form',function(){
+	return view('logins.student');
+});
 Route::post('/search',array(
 	'as' => 'submit-search',
 	'uses' => 'HomeController@search'
@@ -132,8 +143,13 @@ Route::post('/seen-notification',array(
 
 //EmployerController 
 
+Route::get('/employer/home','EmployerController@home');
 Route::get('/employer-register','EmployerController@getRegister');
+Route::get('/employer-confirmation',function(){
+	return view('confirmations.employer-confirmation');
+});
 Route::post('/employer-register/register','EmployerController@postRegister');
+Route::post('/employer-login/login','EmployerController@verifyLogin');
 
 //ResumeController
 Route::get('/resume-builder/profile/{id}',array(

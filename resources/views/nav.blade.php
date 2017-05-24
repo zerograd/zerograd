@@ -18,7 +18,7 @@
       <div class="col-md-5" style="padding: 0;">
         <ul class="navigation nav navbar-nav" style="float:right;padding:15px;">
           @if(!Session::has('user_id'))
-                    <li><a href="{{URL::to('/student-login')}}"><button class="white-btn">LOGIN</button></a></li>
+                    <li><a href="{{URL::to('/login')}}"><button class="white-btn">LOGIN</button></a></li>
                     <li style="padding:40px 0;">or</li>
                     <li style="padding:20px 0;"><a href="{{URL::to('/student-register')}}">register</a></li>
                     <li><a href="{{URL::to('/employer-register')}}"><button class="white-btn">Employer?</button></a></li>

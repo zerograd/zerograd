@@ -59,21 +59,18 @@
 @section('style_plugins')
 	<script>
        function verifyLogin(){
-       	 	var email = document.getElementById('email');
-       	 	var password = document.getElementById('password');
-       	 	var name = document.getElementById('student_name');
+       	 	var email = document.getElementById('company_email');
+       	 	var name = document.getElementById('company_name');
        	 	if(email.value.length == 0){
        	 		alert("Please enter your email.");
        	 		}else if(name.value.length == 0){
        	 		alert("Please enter your name.");
-       	 	}else if(password.value.length == 0){
-       	 		alert("Please enter your password.");
        	 	}else{
        	 		var data = $("#register-form").serialize();
-       	 		$.post('{{URL::to('/student-register/register')}}'
+       	 		$.post('{{URL::to('/employer-register/register')}}'
        	 			,data,function(data){
        	 				if(data == "success"){
-       	 					window.location = "{{URL::to('/')}}";
+       	 					window.location = "{{URL::to('/employer-confirmation')}}";
        	 				}else if(data == "User Already Exist"){
        	 					alert('User Already Exist');
        	 				}
@@ -96,9 +93,8 @@
 		<form id="register-form" class="col-sm-12" >
 			{{ csrf_field() }}
 			<h2 style="color:#29C9C8;;">Please complete form below</h2>
-			<input type="text" id="student_name" name="student_name" placeholder="Name" value=""/>
-			<input type="text" id="email" name="email" placeholder="Email" value=""/>
-			<input type="password" id="password" name="password" placeholder="Password" value=""/>
+			<input type="text" id="company_name" name="company_name" placeholder="Company Name" value=""/>
+			<input type="text" id="company_email" name="company_email" placeholder="Email" value=""/>
 			
 			<button type="button" class="white-btn" style="margin:0 auto;padding:15px;" onClick="verifyLogin();">Register</button>
 			<div class="links col-sm-12" style="margin-top: 5px;">

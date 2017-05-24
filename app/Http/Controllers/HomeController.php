@@ -51,6 +51,10 @@ class HomeController extends Controller
 		return view('welcome')->with($data);
     }
 
+    public function login(){
+    	return view('logins.main-login');
+    }
+
     //Search
     public function search(Request $request){
 

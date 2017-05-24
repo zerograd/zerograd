@@ -15,6 +15,7 @@ class StudentController extends Controller
     	return view('logins.student-login');
     }
 
+
     public function getRegister(){
         $data = array(
 
