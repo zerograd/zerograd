@@ -54,8 +54,8 @@
 				</li>
 				<li id="user-list-item">
 					<img src="{{URL::asset('/images/google.png')}}" alt="user-list-item">
-					@if(Session::has('student_name'))
-						<p>{{Session::get('student_name')}}</p>
+					@if(Session::has('company_name'))
+						<p>{{Session::get('company_name')}}</p>
 					@endif()
 				</li>
 			</ul>
