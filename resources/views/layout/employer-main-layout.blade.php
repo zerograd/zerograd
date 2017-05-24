@@ -28,7 +28,7 @@
 					<p>	Employees </p>		
 			</li></a>
 			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Create a Posting</p></li>
-			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>All Postings</p></li>
+			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Company Profile</p></li>
 		</ul>
 	</div>
 	<div id="main-area" class="col-sm-10">

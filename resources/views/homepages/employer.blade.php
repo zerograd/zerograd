@@ -117,10 +117,11 @@
 					<h2>Who Applied?</h2>
 				</div>
 			</div>
-			
-
-			
-			
+			<div class="col-sm-5 col-xs-6">
+				<div id="profile-completion" class="col-sm-12 col-xs-12">
+					<h2>List of Postings</h2>
+				</div>
+			</div>
 		</div>
 @stop
 
