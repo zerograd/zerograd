@@ -93,20 +93,14 @@
                   </div>
                   @if($found == "yes" && isset($found))
                 <div id="filters" class="col-md-2" style="border-right:1px solid grey;height:100%;">
-                    <div id="relevance-div" class="col-sm-12" style="height:33%;line-height: 2;">
-                        <label>Sort By:</label>
-                        <select id="relevance" style="color:#5CF0EF;font-weight: bold;">
-                            <option value="relevance" style="color:#5CF0EF;font-weight: bold;">Relevance</option>
-                            <option value="date" style="color:#5CF0EF;font-weight: bold;">Recent</option>
-                        </select>
-                    </div>
-                    <div id="radius" class="col-sm-12" style="height:33%;line-height: 2;">
-                        <label id="distance"></label>
-                        <div id="slider-distance" style="background-color: #5CF0EF;"></div>
-                    </div>
-                    <div id="experience" class="col-sm-12" style="height:33%;line-height: 2;">
-                        <label id="amount">Years of Experience:</label>
-                        <div id="slider" style="background-color: #5CF0EF;"></div>
+                    <h1>Years of Experience</h1>
+                    <div id="radios">
+                        <input class="years" id="option1" name="options" type="radio" value="1">
+                        <label for="option1">1 year</label>
+                        <input class="years" id="option2" name="options" type="radio" value="2">
+                        <label for="option2">2 years</label>
+                        <input  class="years" id="option3" name="options" type="radio" value="3">
+                        <label for="option3">3 years</label>
                     </div>
                 </div>
                 @endif
@@ -145,37 +139,16 @@
         @stop
         @section('script_plugins')
             <script>
-      $( function() {
-        $( "#slider" ).slider({
-          value:0,
-          min: 0,
-          max: 3,
-          step: 1,
-          slide: function( event, ui ) {
+            $('#radios').radiosToSlider({
+                animation: true,
+            });
 
-            postExperience(ui);
-            $( "#amount" ).text( 'Years of Experience: ' + ui.value );
-          }
-        });
-        $( "#amount" ).text( 'Years of Experience: ' + $( "#slider" ).slider( "value" ) );
-      } );
-     $( function() {
-        $( "#slider-distance" ).slider({
-          value:0,
-          min: 0,
-          max: 100,
-          step: 25,
-          slide: function( event, ui ) {
-             // postFilter(ui);
-            $( "#distance" ).text( 'Distance: ' + ui.value );
-          }
-        });
-        $( "#distance" ).text( 'Distance: ' + $( "#slider-distance" ).slider( "value" ) );
-      } );
-
+            $('#radios').click(function(){
+                console.log($('.slider-bar.transition-enabled').width());
+            });
       </script>
-            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
         <script type="text/javascript">
+        
             function postExperience(ui){
                 var li = $('#results li');
                 li.each(function(){

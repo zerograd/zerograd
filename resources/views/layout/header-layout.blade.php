@@ -17,6 +17,7 @@
         <script src="{{URL::asset('/js/jquery.min.js')}}"></script>
         
         <link href="{{URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" type="text/css" href="{{URL::asset('/radios-to-slider/css/radios-to-slider.css')}}">
         
         <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
         
@@ -36,6 +37,7 @@
         @yield('content')
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script> -->
         <script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
+        <script src="{{URL::asset('radios-to-slider/js/jquery.radios-to-slider.js')}}"></script>
         @yield('script_plugins')
     </body>
 </html>
