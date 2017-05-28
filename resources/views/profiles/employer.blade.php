@@ -1,7 +1,7 @@
 @extends('layout.homepage-layout')
 
 @section('title')
-	Home
+	Edit Profile
 @stop
 
 @section('styles')
@@ -27,7 +27,7 @@
 		}
 
 		#timeline{
-			height:400px;
+			height:auto;
 			background-color: white;
 			border-top:5px solid #D7D131;
 			margin:10px 0;
@@ -103,6 +103,16 @@
 			color:black;
 			font-weight: bold;
 		}
+
+		label,input,textarea {
+			color:black;
+			font-weight: bold;
+		}
+
+		select,option {
+			color:black;
+			font-weight: bold;
+		}
 	</style>
 @stop
 
@@ -112,26 +122,30 @@
 	
 		@include('layout.employer-main-layout')
 		<div class="container-fluid">
-			<div class="col-sm-7 col-xs-6">
+			<div class="col-sm-8 col-sm-offset-2 col-xs-6">
 				<div id="timeline" class="col-sm-12 col-xs-12">
-					<h2>Who Applied?</h2>
-				</div>
-			</div>
-			<div class="col-sm-5 col-xs-6">
-				<div id="profile-completion" class="col-sm-12 col-xs-12">
-					<h2>List of Postings</h2>
-					<ul style="list-style: none;padding:0;margin:0;">
-						@foreach($postings as $posting)
-							<li style="padding:20px;">
-								<p style="color:black;font-weight: bold;">Job Title : {{$posting->title}}</p>
-								<p style="color:black;font-weight: bold;">Posted: {{$posting->posted_date}}</p>
-							</li>
-						@endforeach
-					</ul>
-					<a href="#"><p style="float:right;color: black;font-weight: bold;">View all postings</p></a>
+				<form id="create-post" action="{{route('update-company-profile')}}" method="POST">
+				{{csrf_field()}}
+						<h2>Edit Profile</h2>
+					@if(isset($profileInfo))
+						<div class="form-group">
+							<label>Company Name</label>
+							<input type="text" name="company_name" id="company_name" class="form-control" value="{{$profileInfo->company_name}}" />
+							<label>Company Overview</label>
+							<textarea name="company_overview" id="company_overview" col="50" class="form-control">{{$profileInfo->company_overview}}</textarea>
+							<label>Company Location</label>
+							<input type="text" name="company_location" id="company_location" class="form-control" value="{{$profileInfo->company_location}}" />
+						</div>
+					@endif
+					<div class="col-sm-12" style="padding:10px;">
+						<button class="btn btn-info" style="float:right;" type="submit">Update Profile</button>
+					</div>
+					
+				</form>
 				</div>
 			</div>
 		</div>
+		<input id="employer-id" type="text" value="{{$id}}" hidden>
 @stop
 
 @section('script_plugins')

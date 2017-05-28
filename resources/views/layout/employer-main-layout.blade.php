@@ -28,7 +28,7 @@
 					<p>	Employees </p>		
 			</li></a>
 			<a href="{{URL::to('/employer/create-posting')}}" style="text-decoration: none;color:white;"><li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Create a Posting</p></li></a>
-			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Company Profile</p></li>
+			<a href="{{URL::to('/employer/profile/')}}/{{Session::get('employer_id')}}" style="text-decoration: none;color:white;"><li class="other-list-item" ><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Company Profile</p></li></a>
 		</ul>
 	</div>
 	<div id="main-area" class="col-sm-10">

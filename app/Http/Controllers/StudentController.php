@@ -69,6 +69,7 @@ class StudentController extends Controller
 	    		->first();
 
 	    if(sizeof($student) > 0){
+            Session::put('logged','yes');
 	    	Session::put('user_id',$student->student_id);
 	    	Session::put('student_name',$student->student_name);
 	    	Session::put('email',$student->email);

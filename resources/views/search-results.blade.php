@@ -67,6 +67,10 @@
         .navigation button {
             border:1px solid white;
         }
+
+        #otherContainer {
+            height:50px;
+        }
         </style>
 @stop
 
@@ -128,9 +132,7 @@
                     <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
                 </div>
         </div> 
-        <div id="otherContainer">
-
-        </div>
+        
         
         <div id="post-overlay" style="display:none;position:absolute;z-index:3;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);">
             <div class="container">

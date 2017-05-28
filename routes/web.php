@@ -37,73 +37,78 @@ Route::post('/filter',array(
 ));
 Route::get('/about','HomeController@about');
 
+
+// STUDENT GROUP PREFIX
+Route::group(['prefix' => 'student','middleware' => 'redirectsession'], function () {
+	Route::get('/home','StudentController@home');
+	Route::get('/profile/{id}',array(
+		'as' => 'student-profile',
+		'uses' => 'StudentController@profile'		
+	));
+	Route::get('/search-tool','StudentController@searchTool');
+
+
+	Route::get('/resume/{id}',array(
+		'as' => 'preview-resume',
+		'uses' => 'StudentController@previewResume'		
+	));
+	Route::post('/skills-save',array(
+		'as' => 'skills-save',
+		'uses' => 'StudentController@saveSkills'		
+	));
+	Route::post('/profile-project-update',array(
+		'as' => 'profile-project-update',
+		'uses' => 'StudentController@updateProfileProject'		
+	));
+	Route::post('/profile-project-delete',array(
+		'as' => 'profile-project-delete',
+		'uses' => 'StudentController@deleteProfileProject'		
+	));
+
+	Route::post('/submit-summary',array(
+		'as' => 'submit-summary',
+		'uses' => 'StudentController@submitSummary'		
+	));
+
+	Route::post('/update-school',array(
+		'as' => 'update-school',
+		'uses' => 'StudentController@updateSchool'	
+	));
+	Route::post('/education-delete',array(
+		'as' => 'education-delete',
+		'uses' => 'StudentController@deleteSchool'	
+	));
+
+	Route::post('/update-work',array(
+		'as' => 'update-work',
+		'uses' => 'StudentController@updateWork'	
+	));
+	Route::post('/update-volunteer',array(
+		'as' => 'update-volunteer',
+		'uses' => 'StudentController@updateVolunteer'	
+	));
+
+	Route::post('/save-top-resume',array(
+		'as' => 'save-top-resume',
+		'uses' => 'StudentController@saveTopResume'	
+	));
+
+	Route::post('/experience-delete',array(
+		'as' => 'experience-delete',
+		'uses' => 'StudentController@deleteExperience'	
+	));
+
+	Route::post('/volunteer-delete',array(
+		'as' => 'volunteer-delete',
+		'uses' => 'StudentController@deleteVolunteer'	
+	));
+
+});
 //StudentController
 Route::get('/student-login','StudentController@index');
 Route::post('/student-login/login','StudentController@verifyLogin');
 Route::get('/student-register','StudentController@getRegister');
 Route::post('/student-register/register','StudentController@postRegister');
-Route::get('/student/home','StudentController@home');
-Route::get('/student/profile/{id}',array(
-	'as' => 'student-profile',
-	'uses' => 'StudentController@profile'		
-));
-Route::get('/student/search-tool','StudentController@searchTool');
-
-
-Route::get('/student/resume/{id}',array(
-	'as' => 'preview-resume',
-	'uses' => 'StudentController@previewResume'		
-));
-Route::post('/student/skills-save',array(
-	'as' => 'skills-save',
-	'uses' => 'StudentController@saveSkills'		
-));
-Route::post('/student/profile-project-update',array(
-	'as' => 'profile-project-update',
-	'uses' => 'StudentController@updateProfileProject'		
-));
-Route::post('/student/profile-project-delete',array(
-	'as' => 'profile-project-delete',
-	'uses' => 'StudentController@deleteProfileProject'		
-));
-
-Route::post('/student/submit-summary',array(
-	'as' => 'submit-summary',
-	'uses' => 'StudentController@submitSummary'		
-));
-
-Route::post('/student/update-school',array(
-	'as' => 'update-school',
-	'uses' => 'StudentController@updateSchool'	
-));
-Route::post('/student/education-delete',array(
-	'as' => 'education-delete',
-	'uses' => 'StudentController@deleteSchool'	
-));
-
-Route::post('/student/update-work',array(
-	'as' => 'update-work',
-	'uses' => 'StudentController@updateWork'	
-));
-Route::post('/student/update-volunteer',array(
-	'as' => 'update-volunteer',
-	'uses' => 'StudentController@updateVolunteer'	
-));
-
-Route::post('/student/save-top-resume',array(
-	'as' => 'save-top-resume',
-	'uses' => 'StudentController@saveTopResume'	
-));
-
-Route::post('/student/experience-delete',array(
-	'as' => 'experience-delete',
-	'uses' => 'StudentController@deleteExperience'	
-));
-
-Route::post('/student/volunteer-delete',array(
-	'as' => 'volunteer-delete',
-	'uses' => 'StudentController@deleteVolunteer'	
-));
 
 
 //CompanyController
@@ -143,17 +148,28 @@ Route::post('/seen-notification',array(
 
 //EmployerController 
 
-Route::get('/employer/home','EmployerController@home');
-Route::get('/employer/create-posting','EmployerController@getCreatePosting');
-Route::get('/employer-register','EmployerController@getRegister');
+Route::group(['prefix' => 'employer','middleware' => 'redirectsession'], function () {
+	Route::get('/home','EmployerController@home');
+Route::get('/create-posting','EmployerController@getCreatePosting');
+
+Route::get('/profile/{id}','EmployerController@getProfile');
+
+
+});
+
 Route::get('/employer-confirmation',function(){
 	return view('confirmations.employer-confirmation');
 });
+Route::get('/employer-register','EmployerController@getRegister');
 Route::post('/employer-register/register','EmployerController@postRegister');
 Route::post('/employer-login/login','EmployerController@verifyLogin');
 Route::post('/create-posting',array(
 	'as' => 'create-posting',
 	'uses' => 'EmployerController@postCreatePosting'		
+));
+Route::post('/update-company-profile',array(
+	'as' => 'update-company-profile',
+	'uses' => 'EmployerController@postProfile'		
 ));
 
 

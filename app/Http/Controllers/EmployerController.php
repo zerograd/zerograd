@@ -61,6 +61,7 @@ class EmployerController extends Controller
                 ->where('password',md5($request->password))
                 ->first();      
         if(sizeof($employer) > 0){
+            Session::put('logged','yes');
             Session::put('employer_id',$employer->id);
             Session::put('company_name',$employer->company_name);
             Session::put('company_email',$employer->company_email);
@@ -71,8 +72,16 @@ class EmployerController extends Controller
     }
 
     public function home(){
+
+        $allPostings = DB::table('postings')
+                        ->select('*')
+                        ->where('company_id',Session::get('employer_id'))
+                        ->orderBy('posted_date','DESC')
+                        ->take(4)
+                        ->get();
         $data = array(
-            'id' => Session::get('employer_id')
+            'id' => Session::get('employer_id'),
+            'postings' => $allPostings
         );
 
 
@@ -112,5 +121,38 @@ class EmployerController extends Controller
         }
 
         return redirect('/employer/home');
+    }
+
+    public function getProfile(){
+
+      $profileInfo =  DB::table('companies')
+            ->select('*')
+            ->where('id',Session::get('employer_id'))
+            ->first();
+ 
+
+        $data = array(
+            'id' => Session::get('employer_id'),
+            'profileInfo' => $profileInfo
+        );
+        // return $data;
+        return view('profiles.employer')->with($data);
+    }
+
+    public function postProfile(Request $request){
+        
+        foreach($request->except('_token') as $key=>$value){
+                  
+                    DB::table('companies')
+                    ->where('id',Session::get('employer_id'))
+                    ->update(array(
+                        "$key" => "$value"
+                    ));
+        
+        
+        }
+
+        return redirect('/employer/home');
+
     }
 }
