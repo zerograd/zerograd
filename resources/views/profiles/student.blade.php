@@ -126,8 +126,7 @@
 					</div>
 
 					<!-- RESUME -->
-					
-					<div id="resume" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+						<div id="resume" class="" style="width:95%;height:100%;border-radius: 5px;padding:10px;">
 						<form id="resume-form">
 								<h2>Resume</h2>
 								<label class="label-color">A resume is the best tool for sharing your skills and knowledge with future employers. Please upload your own or click 'Resume Builder' to use our Resume building tool.</label>
@@ -162,7 +161,9 @@
 										<label>Summary</label>
 										<textarea col="50" style="height:150px;" name="summary" class="form-control" placeholder="A brief description of who you are and your skills">{{$resume->summary}}</textarea>
 									</div>
-									</form>
+
+								</div>
+						</form>
 									<div class="col-sm-12">
 										<label>Work Experience</label>
 										<div class="form-group" id="work-div">
@@ -173,26 +174,27 @@
 												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeExperience();"></i>
 											</div>
 										</div>
-									</div>
-									<div class="col-sm-12">
+										<div class="col-sm-12">
 										<label>Volunteer Work</label>
-										<div class="form-group" id="volunteer-div">
-											@include('profiles.volunteer');
-											<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
-												Add a Volunteer...
-												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addVolunteer();"></i>
-												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeVolunteer();"></i>
+											<div class="form-group" id="volunteer-div">
+												@include('profiles.volunteer');
+												<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
+													Add a Volunteer...
+													<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addVolunteer();"></i>
+													&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeVolunteer();"></i>
+												</div>
 											</div>
-										</div>
-										<div class="col-sm-12" style="">
-										<button type="button" style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary" onClick="saveResume();">Save</button>
-										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Preview Resume</button></a>
+											<div class="col-sm-12" style="">
+											<button type="button" style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary" onClick="saveResume();">Save</button>
+											<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Download as PDF</button></a>
+											</div>
 										</div>
 									</div>
 									
-						
-								</div>
-								<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+				
+						</div>
+				</div>
+				<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Skills</h2>
 							<div class="form-group">
 								<label class="label-color">List all those wonderful skills that you have accquired over the years.(Press Enter after each skill)</label>
@@ -205,8 +207,8 @@
 									</div>
 								</div>
 							</div>
-						</div>
-						<div id="projects" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+				</div>
+				<div id="projects" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Projects</h2>
 							<div class="form-group">
 								<label class="label-color">Project Descriptions are great for providing more detail on what you have done to get where you are in your profession.</label>
@@ -221,10 +223,6 @@
 								</div>
 							</div>
 						</div>
-
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 		<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />

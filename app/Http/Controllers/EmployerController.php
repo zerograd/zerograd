@@ -79,4 +79,38 @@ class EmployerController extends Controller
         // return $data;
         return view('homepages.employer')->with($data);
     }
+
+    public function getCreatePosting(){
+        $data = array(
+            'id' => Session::get('employer_id')
+        );
+
+
+        // return $data;
+        return view('create-posting')->with($data);
+    }
+
+    public function postCreatePosting(Request $request){
+        $previousInsertId;
+        foreach($request->except('_token') as $key=>$value){
+             if(!isset($previousInsertId)){//Create if doesn't exist
+                
+                    $previousInsertId = DB::table('postings')->insertGetId(array(
+                            "$key" => "$value"
+                        )
+                    );
+                
+            }else{
+                  
+                    DB::table('postings')
+                    ->where('id',$previousInsertId)
+                    ->update(array(
+                        "$key" => "$value"
+                    ));
+        
+            }
+        }
+
+        return redirect('/employer/home');
+    }
 }

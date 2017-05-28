@@ -144,12 +144,18 @@ Route::post('/seen-notification',array(
 //EmployerController 
 
 Route::get('/employer/home','EmployerController@home');
+Route::get('/employer/create-posting','EmployerController@getCreatePosting');
 Route::get('/employer-register','EmployerController@getRegister');
 Route::get('/employer-confirmation',function(){
 	return view('confirmations.employer-confirmation');
 });
 Route::post('/employer-register/register','EmployerController@postRegister');
 Route::post('/employer-login/login','EmployerController@verifyLogin');
+Route::post('/create-posting',array(
+	'as' => 'create-posting',
+	'uses' => 'EmployerController@postCreatePosting'		
+));
+
 
 //ResumeController
 Route::get('/resume-builder/profile/{id}',array(
