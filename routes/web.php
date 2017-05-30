@@ -35,6 +35,10 @@ Route::post('/filter',array(
 	'as' => 'filter-results',
 	'uses' => 'HomeController@filter'
 ));
+Route::get('/filter-by-category/{id}',array(
+	'as' => 'filter-by-category',
+	'uses' => 'HomeController@getfilterByCategory'
+));
 Route::get('/about','HomeController@about');
 
 
@@ -118,10 +122,21 @@ Route::get('/company/{id}',array(
 ));
 
 //PostingController
-Route::post('/posting',array(
+Route::get('/posting/{id}',array(
 	'as' => 'posting-get',
 	'uses' => 'PostingController@index'		
 ));
+
+Route::post('/save-job/{id}',array(
+		'as' => 'save-job',
+		'uses' => 'PostingController@saveJob'	
+));
+
+Route::post('/unsave-job/{id}',array(
+		'as' => 'unsave-job',
+		'uses' => 'PostingController@unsaveJob'	
+));
+
 
 //Student Profile public
 

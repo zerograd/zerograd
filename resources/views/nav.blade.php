@@ -1,4 +1,4 @@
-<nav id="navigation" class="navbar" style="">
+<nav id="navigation" class="navbar" style="margin-bottom: 0;">
   <div class="container-fluid">
     <div class="navbar-header col-md-3">
       <button type="button" class="navbar-toggle white-btn" data-toggle="collapse" data-target="#myNavbar" style="z-index: 1">

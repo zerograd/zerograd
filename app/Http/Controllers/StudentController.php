@@ -199,21 +199,21 @@ class StudentController extends Controller
                     ->inRandomOrder()
                     ->get();
 
-        $opportunities = array();
-        $count = 0;
-        for($i = 0; $i < sizeof($postings) ; $i++){
-            if($count == 4){
-                break;
-            }
-            for($j = 0 ; $j < sizeof($keywords) ; $j++){
-                if(!strpos($postings[$i]->keywords,$keywords[$j])){
-                    //do nothing
-                }else{
-                    array_push($opportunities,$postings[$i]);
-                    $count++;
-                }
-            }
-        }
+        // $opportunities = array();
+        // $count = 0;
+        // for($i = 0; $i < sizeof($postings) ; $i++){
+        //     if($count == 4){
+        //         break;
+        //     }
+        //     for($j = 0 ; $j < sizeof($keywords) ; $j++){
+        //         if(!strpos($postings[$i]->keywords,$keywords[$j])){
+        //             //do nothing
+        //         }else{
+        //             array_push($opportunities,$postings[$i]);
+        //             $count++;
+        //         }
+        //     }
+        // }
         
 
         
@@ -227,7 +227,7 @@ class StudentController extends Controller
         
                 $data = array(
             'searches' => $searches,
-            'opportunities' => $opportunities,
+            // 'opportunities' => $opportunities,
             'notifications' => isset($post_notifications)?$post_notifications:"",
             'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
             'sumOfUnSeen' => $this->getSumUnseen($post_notifications),

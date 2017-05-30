@@ -157,15 +157,17 @@
             </div>
             <div class="col-md-12" style="margin:40px 0;height:auto;">
                 @foreach ($categories as $category)
-                <div class="category">
-                    <div class="icon-div">
-                        <div class="inner-icon-div">
-                            <i class="{{$category->icon}}" aria-hidden="true"></i>
+                <a href="{{route('filter-by-category',$category->cat_id)}}" style="text-decoration:none;">
+                    <div class="category">
+                        <div class="icon-div">
+                            <div class="inner-icon-div">
+                                <i class="{{$category->icon}}" aria-hidden="true"></i>
+                            </div>
                         </div>
+                        <h1 class="text-center" style="font-size: 28px;font-weight: bold;">{{$category->cat_name}}</h1>
+                        <p class="text-center" style="margin:20px;font-size: 18px;font-weight: bold;color:#C6C6C6;">{{$category->cat_description}}</p>
                     </div>
-                    <h1 class="text-center" style="font-size: 28px;font-weight: bold;">{{$category->cat_name}}</h1>
-                    <p class="text-center" style="margin:20px;font-size: 18px;font-weight: bold;color:#C6C6C6;">{{$category->cat_description}}</p>
-                </div>
+                </a>
                 @endforeach
             </div>
         </div>
@@ -273,5 +275,7 @@
                     }
              });
         });
+
+
     </script>
 @stop

@@ -1,4 +1,5 @@
 @foreach($postings as $posting)
+                    <a href="{{route('posting-get',$posting->id)}}" style="text-decoration: none;color:black;">
                         <li class="recent-job" style="padding:40px;">
                         <div class="container-fluid">
                             <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
@@ -21,4 +22,5 @@
                             </div>
                         </div>
                         </li>
+                    </a>
 @endforeach

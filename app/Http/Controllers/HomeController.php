@@ -75,6 +75,7 @@ class HomeController extends Controller
 	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
 	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->where('keywords','like','%'. $keyword .'%')
+	    					->orWhere('title','like','%'. $keyword .'%')
 	    					->where('location',$request->searchlocation)
 	    					->get();
 				if(sizeof($posting) > 0){
@@ -92,6 +93,7 @@ class HomeController extends Controller
 	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
 	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->where('keywords','like','%'. $keyword .'%')
+	    					->orWhere('title','like','%'. $keyword .'%')
 	    					->get();
 				if(sizeof($posting) > 0){
 					foreach($posting as $post){
@@ -106,6 +108,7 @@ class HomeController extends Controller
 	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
 	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    					->where('location','=',$request->searchlocation)
+	    					->orWhere('title','like','%'. $request->searchlocation .'%')
 	    					->get();
 				if(sizeof($posting) > 0){
 					$postings = $posting;
@@ -213,6 +216,31 @@ class HomeController extends Controller
     	 
 
 		return view('results')->with($data);
+    }
+
+    //For categories on main page
+    public function getfilterByCategory($id = null){
+
+    	$postings =	DB::table('postings')
+	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    					->leftJoin('categories',DB::raw('postings.cat_id'),'=',DB::raw('categories.cat_id'))
+	    					->where('postings.cat_id',$id)
+	    					->get();
+
+		$found = "no";
+    	 if($postings) $found = "yes"; 
+
+    	 $badges = ['#E3C610','#10E358','#108EE3'];
+
+    	$data = array(
+    		'postings' => $postings,
+    		'found' => $found,
+    		'keywords'=>isset($request->searchkeywords)?$request->searchkeywords:"",
+    		'badges' => $badges
+		);
+    	
+		return view('search-results')->with($data);
     }
 
     public function about(){

@@ -184,13 +184,7 @@
         });
 
         function showPost(id){
-            $.post('{{route('posting-get')}}',{
-                "_token": "{{ csrf_token() }}", 
-                id:id
-            },function(data){
-                $('#post-overlay').show();
-                $('#post-overlay .container').html(data);
-            })
+           
         }
 
         function closeOverlay(){

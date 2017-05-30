@@ -146,9 +146,7 @@
 				<div id="opportunities" class="col-sm-12 col-xs-12">
 					<h2>Opportunities</h2>
 					<div class="col-sm-12" style="text-align: center;">
-						@foreach($opportunities as $opp)
-							<p>{{$opp->title}}</p>
-						@endforeach
+						
 					</div>
 				</div>
 			</div>
