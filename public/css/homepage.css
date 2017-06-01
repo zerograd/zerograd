@@ -198,3 +198,19 @@ nav {
 }
 
 .show {display:block;}
+
+/*STUDENT HOMEPAGE CSS*/
+
+.recommended-job {
+    background: url('../images/flower.jpg') no-repeat;
+    background-size: 100% 100%;
+    padding:0;
+    width:300px;
+    float:left;
+    margin:2px;
+}
+
+.recommended-job h3, p {
+    text-align: center;
+    font-weight:600;
+}

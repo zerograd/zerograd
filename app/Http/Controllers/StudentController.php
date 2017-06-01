@@ -196,28 +196,23 @@ class StudentController extends Controller
         //Get Posting keywords
         $postings = DB::table('postings')
                     ->select('*')
-                    ->inRandomOrder()
+                    ->orderBy('posted_date','DESC')
+                    ->take(4)
                     ->get();
 
-        // $opportunities = array();
-        // $count = 0;
-        // for($i = 0; $i < sizeof($postings) ; $i++){
-        //     if($count == 4){
-        //         break;
-        //     }
-        //     for($j = 0 ; $j < sizeof($keywords) ; $j++){
-        //         if(strlen($keywords[$j]) == 0)//if a previous search was blank
-        //         {
-        //             break;
-        //         }
-        //         if(!strpos($postings[$i]->keywords,$keywords[$j])){
-        //             //do nothing
-        //         }else{
-        //             array_push($opportunities,$postings[$i]);
-        //             $count++;
-        //         }
-        //     }
-        // }
+        $opportunities = array();
+        $threshold = 1 ; //Posting contains at least 1 word
+        foreach($postings as $posting){
+            $keywordsArray = explode(",",$posting->keywords);
+            $currentCount = 0;
+            foreach($keywords as $keyword){
+                if(in_array($keyword, $keywordsArray)) $currentCount++;
+            }
+            if($currentCount >= $threshold){
+                array_push($opportunities,$posting);
+            }
+
+        }
         
 
         
@@ -231,7 +226,7 @@ class StudentController extends Controller
         
                 $data = array(
             'searches' => $searches,
-            // 'opportunities' => $opportunities,
+            'opportunities' => $opportunities,
             'notifications' => isset($post_notifications)?$post_notifications:"",
             'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
             'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
