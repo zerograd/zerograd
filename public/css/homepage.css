@@ -1,5 +1,5 @@
 html, body {
-    background-color: #FFFFFF;
+    background-color: #F3F3F3;
     color: #636b6f;
     font-family: 'Raleway', sans-serif;
     font-weight: 100;
@@ -13,6 +13,11 @@ body {
     color:#29C9C8;
     font-size: 30px;
     font-variant-numeric: slashed-zero;
+}
+
+nav {
+    height:10%;
+    background-color: #FFFFFF;
 }
 
 #navigation-panel{
@@ -33,7 +38,6 @@ body {
         }
         #main-area{
             padding:0;
-            background-color: #656D8A;
             height:100%;            
         }
         #header{
@@ -96,18 +100,14 @@ body {
             margin:0;
             padding:0;
         }
-        #main-navigation > li {
+        #main-navigation  li {
+            margin: 20px 0;
             padding:10px;
+            background-color: #20B0D1;
         }
-        #main-navigation .first {
-            text-align:left;
-            background-color: #192341;
-            padding:10px;
-        }
+        
 
         .other-list-item:hover{
-            background-color: #192341;
-            border-left:2px solid white;
             cursor:pointer;
         } 
 

@@ -1,87 +1,19 @@
-<div id="navigation-panel" class="col-sm-2 hidden-sm-up">
-		<div id="navigation-header" class="col-sm-12" onClick="goTo('{{URL::to('/student/home')}}');">
-       		 <h1 id="logo" style="margin:0; color:white;">Zer<span class="zeroLogo">0</span>Grad
-       		 </h1>
-		</div>
-		<div id="navigation-status-div" class="col-sm-12">
-			<div class="col-sm-12" style="text-align: center;margin-bottom: 5px;">
-				<img src="{{URL::asset('/images/me.jpg')}}" alt="navigation-status-div-image" style="margin:0 auto;">
-			</div>
-			@if(Session::has('student_name'))
-				<p class="col-xs-12">{{Session::get('student_name')}}</p>
-			@endif()
+<div id="navigation-panel" class="col-sm-1 hidden-sm-up">
+		<ul id="main-navigation" class="nav col-sm-12" style="margin-top:15px;padding:40px 10px;">
 			
-			<div class="col-xs-12">
-				<p style="display:inline-block;">Online</p>
-				<div class="status-color" style="display:inline-block;width:10px;height:10px;background-color: green;border-radius: 50%;"></div>
-			</div>
-
-			
-				
-			    
-		</div>
-		<ul id="main-navigation" class="nav col-sm-12" style="margin-top:15px;">
-			<li class="first">MAIN NAVIGATION</li>
-			
-	<a href="{{route('student-profile',$id)}}" style="text-decoration: none;color:white;"><li class="other-list-item">
-					<i class="material-icons">perm_identity</i>
-					<p>	Profile </p>		
-			</li></a>
+		<a href="{{route('student-profile',$id)}}" style="text-decoration: none;color:white;"><li class="other-list-item">
+						<i class="material-icons">perm_identity</i>
+						<p>	Profile </p>		
+				</li></a>
 			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Search Tool</p></li>
 			<a href="{{route('resume-builder',$id)}}" style="text-decoration: none;color:white;" target="_blank"><li class="other-list-item" ><i class="material-icons">view_agenda</i><p>Resume Builder</p></li></a>
 		</ul>
 	</div>
-	<div id="main-area" class="col-sm-10">
-		<div class="container-fluid" style="background-color: #354886">
-			<ul class="nav navbar-nav col-md-4 col-md-push-8 col-xs-12 " style="margin:0 auto;text-align: center;">
-				<li class="notifications">
-					<div>
-						<i class="fa fa-envelope" aria-hidden="true"></i>
-						<div class="notification-number">
-							1
-						</div>
-					</div>
-					
-					<div onClick="notifications()">
-						
-							<i class="fa fa-bell-o notification-icon" aria-hidden="true" onClick="notifications();"></i>
-						
-						<div class="notification-alert">
-							@if($sumOfUnSeen > 0)
-								{{$sumOfUnSeen}}
-							@elseif($sumOfUnSeen > 10)
-								10+
-							@else 
-								0
-							@endif
-						</div>
-						@if(isset($notifications))
-							<div id="notifies" class="dropdown-content">
-							    <ul id="notification-list">
-							    	@foreach($notifications as $notification)
-							    		@if($notification->type == 1)
-							    			@include('friend-request')
-						    			@elseif($notification->type == 2)
-					    					@include('accepted-request')
-
-				    					@elseif($notification->type == 3)
-					    					@include('now-friends')
-							    		@endif
-							    	@endforeach
-							    </ul>
-						  	</div>
-					  	@endif
-					</div>
-				</li>
-				<li id="user-list-item">
-					<img src="{{URL::asset('/images/me.jpg')}}" alt="user-list-item">
-					@if(Session::has('student_name'))
-						<p>{{Session::get('student_name')}}</p>
-					@endif()
-				</li>
-			</ul>
-		</div>       
-
+	
+      		<nav class="col-sm-11">
+      			
+      		</nav>
+	
 			<script>
 			$(document).ready(function(){
 				$('.notification-icon').on('click',function(){

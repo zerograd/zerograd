@@ -7,102 +7,6 @@
 @section('styles')
 	<style>
 
-		#recent-search-panel{
-			height:auto;
-			background-color: white;
-			border-top:5px solid #133BB6;
-			margin:10px 0;
-			padding:5px;
-		}
-		#recent-search-panel h2{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-		}
-		#recent-search-panel h4{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-			text-align: center;
-		}
-
-		#timeline{
-			height:400px;
-			background-color: white;
-			border-top:5px solid #D7D131;
-			margin:10px 0;
-		}
-
-		#timeline h2{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-		}
-		
-		#profile-completion{
-			height:auto;
-			background-color: white;
-			border-top:5px solid #13B662;
-			margin:10px 0;
-			padding: 5px;
-
-		}
-
-		#searches {
-			height:auto;
-			background-color: white;
-			border-top:5px solid #108EE3;
-			margin:10px 0;
-			padding: 5px;
-			min-height: 200px;
-		}
-
-		#searches h2{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-		}
-
-		#opportunities {
-			height:auto;
-			background-color: white;
-			border-top:5px solid #E34010;
-			margin:10px 0;
-			padding: 5px;
-			min-height: 200px;
-		}
-
-		#opportunities h2{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-		}
-		#opportunities p {
-			color:black;
-			font-weight: bold;
-		}
-
-		#profile-completion h2{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-		}
-
-		#profile-completion > div{
-			margin:10px;
-		}
-
-
-		@media (max-width: 768px) {
-			h2{
-				font-size:24px;
-			}
-		}
-
-		#searches p {
-			color:black;
-			font-weight: bold;
-		}
 	</style>
 @stop
 
@@ -112,46 +16,14 @@
 	
 		@include('layout.main-layout')
 		<div class="container-fluid">
-			<div class="col-sm-7 col-xs-6">
-				<div id="timeline" class="col-sm-12 col-xs-12">
-					<h2>Timeline</h2>
-					@if(isset($timeline))
-						@foreach($timeline as $event)
-							@if($event['type'] == 3)
-								<h4 style="color:black;">{{$event['from']->student_name}} and {{$event['to']->student_name}} are now connected. </h4>
-							@endif
-						@endforeach
-					@endif
-				</div>
+			<div class="col-sm-6" style="height:90%;">
+				<h1 style="color:black;">Timeline</h1>
 			</div>
-			
-
-			<div id="profile-completion" class="col-sm-3 col-xs-6">
-				<h2>Profile Completion</h2>
-				<canvas id="doughnutChart"></canvas>
-			</div>
-			<div class="col-sm-6 col-xs-6">
-				<div id="searches" class="col-sm-12 col-xs-12">
-					<h2>Recent Searches</h2>
-					<?php $counter = 1;?>
-					<div class="col-sm-12" style="text-align: center;">
-						@foreach($searches as $search)
-						<p><?php echo $counter?>&nbsp{{$search->searches}}</p>
-						<?php $counter++;?>
-						@endforeach
-					</div>
-				</div>
-			</div>
-			<div class="col-sm-6 col-xs-6">
-				<div id="opportunities" class="col-sm-12 col-xs-12">
-					<h2>Opportunities</h2>
-					<div class="col-sm-12" style="text-align: center;">
-						
-					</div>
-				</div>
+			<div class="col-sm-5" style="height:90%;">
+				<h2 style="color:black;">Recommended Jobs</h2>
+				
 			</div>
 		</div>
-	</div>
 @stop
 
 @section('script_plugins')

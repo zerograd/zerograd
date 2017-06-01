@@ -206,6 +206,10 @@ class StudentController extends Controller
         //         break;
         //     }
         //     for($j = 0 ; $j < sizeof($keywords) ; $j++){
+        //         if(strlen($keywords[$j]) == 0)//if a previous search was blank
+        //         {
+        //             break;
+        //         }
         //         if(!strpos($postings[$i]->keywords,$keywords[$j])){
         //             //do nothing
         //         }else{
