@@ -8,7 +8,7 @@
     <section style="background: url('{{URL::asset('/images/background.jpg')}}') no-repeat;background-size: 100%;">
             <div class="class-sm-12" id="Container" style="background-size:100% 100%;">
                 @include('nav')
-                <form action="{{route('submit-search')}}" method="post">
+                <form action="{{route('submit-search')}}" method="post" id="search-form">
                 {{ csrf_field() }}
                     <div id="title-div" class="col-sm-12">
                         <div class="search-header col-md-12 col-xs-12">
@@ -24,7 +24,7 @@
                             <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#23CCF3;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
                         </div>
                         <div class="col-md-2" style="padding:0;">
-                            <button class="search-btn"  type="submit">Search</button>
+                            <button class="search-btn"  type="button" onClick="submitSearch();">Search</button>
                                 <a style="display:block;font-weight:bold;" class="advanced-search text-center" href="#"> Advanced Search </a>
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     <div class="container-fluid">
                         <ul style="margin:0;padding:100px;list-style: none;">
                         @foreach($postings as $posting)
-                            <li class="recent-job" style="padding:40px;">
+                        <a href="{{route('posting-get',$posting->id)}}" style="text-decoration: none;">    <li class="recent-job" style="padding:40px;">
                             <div class="container">
                                 <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
                                 <div class="col-md-11">
@@ -66,7 +66,7 @@
                                     </div>
                                 </div>
                             </div>
-                            </li>
+                            </li></a>
                         @endforeach
                         </ul>
                         <div class="col-md-12" style="text-align: center;">
@@ -277,5 +277,14 @@
         });
 
 
+        function submitSearch(){
+            var keywords = $('#searchkeywords').val();
+            var location = $('#searchlocation').val();
+            if(location.length > 0 || keywords.length > 0){
+                $('#search-form').submit();
+            }else if(location.length == 0 || keywords.length == 0){
+                alert('Please enter a keyword and/or location');                
+            }
+        }
     </script>
 @stop
