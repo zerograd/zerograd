@@ -18,6 +18,7 @@
 	<div class="container">
             <div  style="margin:50px 0;height:100%;border:1px solid #354886;border-radius: 10px;padding:30px;">
                 <div class="row-fluid" style="margin-top: 15px;">
+                 @if(!Session::has('user_id'))
                     <div class="col-sm-6" style="display:inline-block;position: relative;"> 
                     	<img class="center-block img-responsive" style="float:left;width:400px;height:315px;" src="{{URL::asset('images/me.jpg')}}" alt="Profile Photo">
                     	<!-- <i class="fa fa-star fa-5x star" style="position: absolute;top:-20px;right:-30px;" aria-hidden="true"></i> -->
@@ -26,6 +27,21 @@
                         <h4 class="text-center" style="float:left; margin:0;font-weight: bold;font-size:24px;clear:both;">
                             {{$user->student_name}}
                         </h4>
+                    </div>
+                    <h3 style="margin:10px 0;float:left;font-weight: bold;width:100%;">Please login to view the rest of this content.</h3>
+                     </div>
+                </div>
+                </div>
+                @else
+                     <div class="col-sm-6" style="display:inline-block;position: relative;"> 
+                        <img class="center-block img-responsive" style="float:left;width:400px;height:315px;" src="{{URL::asset('images/me.jpg')}}" alt="Profile Photo">
+                        <!-- <i class="fa fa-star fa-5x star" style="position: absolute;top:-20px;right:-30px;" aria-hidden="true"></i> -->
+                    </div>
+                    <div class="col-sm-6" style="display:inline-block;position: relative;"> 
+                        <h4 class="text-center" style="float:left; margin:0;font-weight: bold;font-size:24px;clear:both;">
+                            {{$user->student_name}}
+                        </h4>
+                              
                         <div class="col-sm-12">
                             @if($friend != 'no')
                                 <button class="btn btn-info">Connected</button>
@@ -81,6 +97,7 @@
             </div>
         </div>
         <input id="user-id" type="text" value="{{$user->student_id}}" hidden>
+        @endif
 @stop
 
 @section('script_plugins')
@@ -88,7 +105,12 @@
         function sendRequest(){
             var id = $('#user-id').val();
             $.post('{{route('student-request')}}',{id:id,_token:"{{csrf_token()}}"},function(data){
-                alert('Request sent.');
+                if(data == "Login"){
+                    alert('Please Login to send this request');
+                }else{
+                    alert('Request sent.');
+                }
+    
             });
         }
     </script>

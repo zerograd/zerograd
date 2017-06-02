@@ -201,6 +201,20 @@ nav {
 
 /*STUDENT HOMEPAGE CSS*/
 
+#timeline {
+    background: url('../images/ocean.jpg') no-repeat;
+    background-size: 100% 100%;
+    height:90%;
+    padding: 0;
+
+}
+
+#timeline > div {
+    background: rgba(0,0,0,0.6);
+    height:100%;
+    overflow-y: scroll;
+}
+
 .recommended-job {
     background: url('../images/flower.jpg') no-repeat;
     background-size: 100% 100%;
@@ -217,4 +231,18 @@ nav {
 
 .notification-icon {
     color:black;
+}
+
+.scroll::-webkit-scrollbar {
+    width: 12px;
+}
+ 
+.scroll::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+}
+ 
+.scroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }

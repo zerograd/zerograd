@@ -6,7 +6,7 @@
 
 @section('styles')
 	<style>
-
+	
 	</style>
 @stop
 
@@ -15,9 +15,14 @@
 @section('content')
 	 
 		@include('layout.main-layout')
-		<div class="container-fluid">
+		<div class="container-fluid" style="height:100%;">
 			<div class="col-sm-6" style="height:90%;">
 				<h1 style="color:black;">Timeline</h1>
+				<div id="timeline" class="col-sm-12">
+					<div class="col-sm-12 scroll">
+
+					</div>
+				</div>
 			</div>
 			<div class="col-sm-5" style="height:90%;">
 				<h2 style="color:black;">Recommended Jobs</h2>

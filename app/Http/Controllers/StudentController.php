@@ -525,6 +525,11 @@ class StudentController extends Controller
     }
 
     public function sendRequest(Request $request){
+
+        if(!Session::has('user_id')){
+            return "Login";
+        }
+
         $from = Session::get('user_id');
         $to = $request->id;
 
