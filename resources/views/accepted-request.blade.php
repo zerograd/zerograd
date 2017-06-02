@@ -6,11 +6,6 @@
 	<input type="text" value="{{$notification->notification_id}}" hidden>
 </li>
 @else
-	<li>
-	<img src="{{URL::asset('/images/me.jpg')}}"></img>
-	<p>{{$notification->student_name}}accepted your request</p>
-	<input type="text" value="{{$notification->notification_id}}" hidden>
-</li>
 
 @endif
 </a> 

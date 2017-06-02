@@ -13,7 +13,7 @@
 
 
 @section('content')
-	
+	 
 		@include('layout.main-layout')
 		<div class="container-fluid">
 			<div class="col-sm-6" style="height:90%;">

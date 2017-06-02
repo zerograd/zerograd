@@ -1,6 +1,6 @@
 <li>
 	<img src="{{URL::asset('/images/me.jpg')}}"></img>
-	<p>{{$notification->student_name}} Sent a Request</p>
+	<p style="color:black;">{{$notification->student_name}} Sent a Request</p>
 	<div class="container-fluid">
 		<div class="col-xs-12">
 			<button class="btn btn-success" type="button" onClick="acceptRequest(this);">Accept</button>
@@ -10,4 +10,4 @@
 		</div>
 	</div>
 	<input type="text" value="{{$notification->notification_id}}" hidden>
-</li>
+</li> 

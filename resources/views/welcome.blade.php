@@ -235,7 +235,7 @@
       <div class="container">
         <div class="row">
           <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyrights © 2016 All Rights Reserved by <a href="http://themeforest.net/user/shamsoft">ShaMSofT</a>.</p>
+            <p class="copyright-text">Copyrights © 2017 All Rights Reserved by <a href="{{URL::to('/')}}">ZeroGrad</a>.</p>
           </div>
 
           <div class="col-md-4 col-sm-6 col-xs-12">

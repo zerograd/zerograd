@@ -11,13 +11,55 @@
 	</div>
 	
       		<nav class="col-sm-11">
-      			
+      			<ul class="nav navbar-nav col-md-4 col-md-push-7 col-xs-12 " style="margin:0 auto;text-align: center;">
+				<li class="notifications" style="width:20%;">
+					<div>
+						<i class="fa fa-envelope notification-icon" aria-hidden="true"></i>
+						<div class="notification-number">
+							1
+						</div>
+					</div>
+					
+					<div onClick="notifications()">
+						
+							<i class="fa fa-bell-o notification-icon" aria-hidden="true" onClick="notifications();" ></i>
+						
+						<div class="notification-alert">
+							@if(isset($notifications))
+								{{$notificationsSize}}
+							@endif
+						</div>
+						@if(isset($notifications))
+							<div id="notifies" class="dropdown-content">
+							    <ul>
+							    	@foreach($notifications as $notification)
+							    		@if($notification->type == 1)
+							    			@include('friend-request')
+						    			@elseif($notification->type == 2)
+					    					@include('accepted-request')
+
+				    					@elseif($notification->type == 3)
+					    					@include('now-friends')
+							    		@endif
+							    	@endforeach
+							    </ul>
+						  	</div>
+					  	@endif
+					</div>
+				</li>
+					<li id="user-list-item">
+						<img src="{{URL::asset('/images/me.jpg')}}" alt="user-list-item">
+						@if(Session::has('student_name'))
+							<p>{{Session::get('student_name')}}</p>
+						@endif()
+					</li>
+				</ul>
       		</nav>
 	
 			<script>
 			$(document).ready(function(){
 				$('.notification-icon').on('click',function(){
-					notifications();
+					// notifications();
 				});
 			});
 		function show(div){
