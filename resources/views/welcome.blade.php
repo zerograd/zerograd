@@ -5,7 +5,7 @@
 @stop
 
 @section('content')    
-    <section style="background: url('{{URL::asset('/images/background.jpg')}}') no-repeat;background-size: 100%;">
+    <section style="background: url('{{URL::asset('/images/background.jpg')}}') no-repeat;background-size: 100% 100%;">
             <div class="class-sm-12" id="Container" style="background-size:100% 100%;">
                 @include('nav')
                 <form action="{{route('submit-search')}}" method="post" id="search-form">
@@ -18,10 +18,10 @@
                     </div>
                     <div class="search-area col-md-10 col-md-offset-1">
                         <div class="col-md-5" style="padding:0;">
-                            <input  style="width:100%;margin:0;padding:30px;border-top-left-radius: 5px;border-bottom-left-radius: 5px;color:#23CCF3;font-weight: bold;" type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
+                            <input type="text" name="searchkeywords" id="searchkeywords" placeholder="Keywords" />
                         </div>
                         <div class="col-md-5" style="padding:0;">
-                            <input class="col-md-12" style="width:100%;margin:0;padding:30px;color:#23CCF3;font-weight: bold;" type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
+                            <input class="col-md-12"  type="text" name="searchlocation" id="searchlocation" placeholder="Location"/>
                         </div>
                         <div class="col-md-2" style="padding:0;">
                             <button class="search-btn"  type="button" onClick="submitSearch();">Search</button>
@@ -31,227 +31,7 @@
                 </form>
             </div>
     </section>
-    <section>
-        <!-- LATEST JOBS -->
-            <div id="latest-jobs" style="background-color:white;width:100%;height:1000px;padding:5px;">
-                <h4 class="text-center" style="margin: 50px 0 10px 0;text-transform: uppercase;color: black;">Latest</h4>
-                <div class="col-sm-12" style="text-align: center;">
-                    <h2 style="margin-bottom: 35px;font-weight: bold;font-size: 32px;">Recent jobs</h2>
-                    <div style="margin:5px auto;background-color:##23CCF3;width:80px;height:3px;">
-                    </div>
-                </div>
-                
-                    <div class="container-fluid">
-                        <ul style="margin:0;padding:100px;list-style: none;">
-                        @foreach($postings as $posting)
-                        <a href="{{route('posting-get',['title' => $posting->title,'id' => $posting->id])}}" style="text-decoration: none;">    <li class="recent-job" style="padding:40px;">
-                            <div class="container">
-                                <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
-                                <div class="col-md-11">
-                                    <div class="row">
-                                        <h3 style="margin:0 40px;color:black;font-weight: bold;display:inline-block;float:left;">{{$posting->title}}</h3>
-                                        <h4 style="margin:0;display:inline-block;color:#C6C6C6;font-weight: bold;float:right;">{{$posting->location}}</h4>
-                                    </div>
-                                    <div class="row" style="margin-top:20px;">
-                                        
-                                        <h3 style="margin:0 40px;color:black;display:inline-block;float:left;">{{$posting->company_name}}</h3>
-                                        <h4 style="margin:0;display:inline-block;padding:5px;color:#FFFFFF;font-weight: bold;float:right;text-transform: uppercase;font-size:14px;background-color: {{ $badges[mt_rand(0,2)]}};">
-                                            
-                                            @if(isset($posting->status))
-                                                {{$posting->status}}
-                                            @else
-                                                Not Specified
-                                            @endif
-                                        </h4>
-                                    </div>
-                                </div>
-                            </div>
-                            </li></a>
-                        @endforeach
-                        </ul>
-                        <div class="col-md-12" style="text-align: center;">
-                        <a href="{{URL::to('/search')}}"><button type="button" style="margin:0 auto;padding:10px 40px;font-weight: 600;letter-spacing: 1px;font-size: 18px"class="btn btn-info">BROWSE ALL JOBS</button></a>
-                        </div>
-                    </div>
-                    
-                
-            </div>
-    </section>
-            <!-- Database info -->
-        <section>
-                 
-            <div id="database-info" style="background-color:white;width:100%;height:221px;text-align: center;margin-top:120px;">
-
-                <div class="container-fluid">
-                    <!-- Jobs -->
-                <div class="counter col-md-3 ">
-                    <div class="row" style="text-align: center;"><h2 >{{$sizeOfJobs}} + </h2>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    </div>
-
-                    <div class="row"><h4>Jobs</h4></div>
-
-                </div>
-
-                <!-- Members -->
-                <div class="counter col-md-3">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfMembers}} + </h2></div>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    <div class="row"><h4>Members</h4></div>
-
-                </div>
-
-                <!-- Resumes -->
-                <div class="counter col-md-3">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfResumes}} + </h2></div>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    <div class="row"><h4>Resume</h4></div>
-
-                </div>
-
-                <!-- Companies -->
-                <div class="counter col-md-3">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfCompanies}} + </h2></div>
-                    <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    <div class="row"><h4>Company</h4></div>
-
-                </div>
-                </div>
-            </div>
-        </section>
-        
-         <!-- HOW IT WORKS  -->
-         <section>
-             <div id="how-it-works" style="margin-top:170px;background-color:white;width:100%;height:762px;padding:50px;">
-                <div class="col-md-12">
-                    <h3 style="float:left;margin: 0;font-size: 16px;">WORKFLOW</h3>
-                </div>
-                <div class="col-md-12">
-                    <div class="col-md-6" style="padding:0;">
-                        <h1 style="font-size: 48px;font-weight: bold;">How it Works</h1>
-                        <div class="btn-info" style="float:left;margin:20px auto;width:60px;height:2px;"></div>
-                        <div class="col-md-12" style="margin-top: 40px;">
-                                <p style="font-size: 22px;">Pellentesque et pulvinar orci. Suspendisse sed euismod purus. Pellentesque nunc ex, ultrices eu enim non, consectetur interdum nisl. Nam congue interdum mauris, sed ultrices augue lacinia in. Praesent turpis purus, faucibus in tempor vel, dictum ac eros.</p>
-                            <br>
-                            <p style="font-size: 22px; ">
-                                Nulla quis felis et orci luctus semper sit amet id dui. Aenean ultricies lectus nunc, vel rhoncus odio sagittis eu. Sed at felis eu tortor mattis imperdiet et sed tortor. Nullam ac porttitor arcu. Vivamus tristique elit id tempor lacinia. Donec auctor at nibh eget tincidunt. Nulla facilisi. Nunc condimentum dictum mattis.
-                            </p>
-                            <button type="submit" class="btn btn-primary" style="margin-top:70px;border-radius: 3px;padding: 15px 40px;">LEARN MORE</button>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img src="{{URL::asset('/images/iphone.png')}}" class="img-responsive">
-                    </div>
-                </div>
-            </div>
-         </section>
-
-        <!-- POPULAR CATEGORIES -->
-        <section>
-            <div id="popular-categories" style="margin-top:170px;background-color:#F6F6F6;width:100%;height:1000px;padding:50px;">
-            <div class="col-md-12">
-                <h3 class="text-center" style="margin: 0;font-size: 20px;">CATEGORIES</h3>
-                <h3 class="text-center" style="margin: 30px 0;font-size: 48px;font-weight: bold;">Popular Categories</h3>
-                    <div style="margin:30px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                <h3 class="text-center" style="margin: 0;font-size: 20px;font-weight: bold;">The most popular categories</h3>
-            </div>
-            <div class="col-md-12" style="margin:40px 0;height:auto;">
-                @foreach ($categories as $category)
-                <a href="{{route('filter-by-category',$category->cat_id)}}" style="text-decoration:none;">
-                    <div class="category">
-                        <div class="icon-div">
-                            <div class="inner-icon-div">
-                                <i class="{{$category->icon}}" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                        <h1 class="text-center" style="font-size: 28px;font-weight: bold;">{{$category->cat_name}}</h1>
-                        <p class="text-center" style="margin:20px;font-size: 18px;font-weight: bold;color:#C6C6C6;">{{$category->cat_description}}</p>
-                    </div>
-                </a>
-                @endforeach
-            </div>
-        </div>
-        </section>
-        <section style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');"">
-            <div id="subscribe-section" style="background: url('{{URL::asset('/images/bg-facts.jpg')}}');no-repeat;background-size: 100% 100%;background-color:#F6F6F6;width:100%;height:500px;">
-                <div style="width:100%;height:100%;background: rgba(0,0,0,0.5);">
-                    <div class="col-md-12" style="margin:140px 0 0 0;">
-                    <h3 class="text-center" style="margin: 0;font-size: 48px;color:white;font-weight: bold;">Subscribe</h3>
-                    </div>
-                    <div class="col-md-12" style="margin:30px 0 0 0;">
-                    <h3 class="text-center" style="margin:0;color:white;font-weight: bold;">Get weekly top new jobs delivered to your inbox</h3>
-                    </div>
-                    <div class="col-lg-6 col-lg-offset-3">
-                        <div class="input-group">
-                          <input type="text" style="margin:30px 0 0 0;padding:30px;" class="form-control" placeholder="Your email address">
-                          <span class="input-group-btn">
-                            <button class="btn btn-success" style="margin:30px 0 0 0;text-transform:uppercase;font-weight:bold; color:white;padding: 21px;" type="button">Subscribe</button>
-                          </span>
-                        </div>
-                    </div>
-                </div>
-                
-            
-            </div>
-        </section>
-        <footer class="site-footer">
-
-      <!-- Top section -->
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 col-md-6">
-            <h6>About</h6>
-            <p class="text-justify">An employment website is a web site that deals specifically with employment or careers. Many employment websites are designed to allow employers to post job requirements for a position to be filled and are commonly known as job boards. Other employment sites offer employer reviews, career and job-search advice, and describe different job descriptions or employers. Through a job website a prospective employee can locate and fill out a job application.</p>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Company</h6>
-            <ul class="footer-links">
-              <li><a href="page-about.html">About us</a></li>
-              <li><a href="page-typography.html">How it works</a></li>
-              <li><a href="page-faq.html">Help center</a></li>
-              <li><a href="page-typography.html">Privacy policy</a></li>
-              <li><a href="page-contact.html">Contact us</a></li>
-            </ul>
-          </div>
-
-          <div class="col-xs-6 col-md-3">
-            <h6>Trendeing jobs</h6>
-            <ul class="footer-links">
-              <li><a href="job-list.html">Front-end developer</a></li>
-              <li><a href="job-list.html">Android developer</a></li>
-              <li><a href="job-list.html">iOS developer</a></li>
-              <li><a href="job-list.html">Full stack developer</a></li>
-              <li><a href="job-list.html">Project administrator</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <hr>
-      </div>
-      <!-- END Top section -->
-
-      <!-- Bottom section -->
-      <div class="container">
-        <div class="row">
-          <div class="col-md-8 col-sm-6 col-xs-12">
-            <p class="copyright-text">Copyrights © 2017 All Rights Reserved by <a href="{{URL::to('/')}}">ZeroGrad</a>.</p>
-          </div>
-
-          <div class="col-md-4 col-sm-6 col-xs-12">
-            <ul class="social-icons">
-              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
-              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
-              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
-              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
-              <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <!-- END Bottom section -->
-
-    </footer>
+    
 
 
 

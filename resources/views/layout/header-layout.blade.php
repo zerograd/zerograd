@@ -30,7 +30,7 @@
 
         <!-- Styles -->
         {{ HTML::style('css/styles.css') }}
-        {{ HTML::style('css/responsive.css') }}
+        {{ HTML::style('css/main-responsive.css') }}
             @yield('styles')
             
             @yield('style_plugins')
@@ -38,6 +38,7 @@
 
     </head>
     <body>
+        <div class="container-fluid">
         @yield('content')
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script> -->
         <script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
@@ -45,5 +46,6 @@
         <script src="{{URL::asset('radios-to-slider/js/jquery.radios-to-slider.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.js"></script>
         @yield('script_plugins')
+        </div>
     </body>
 </html>
