@@ -122,7 +122,7 @@ Route::get('/company/{id}',array(
 ));
 
 //PostingController
-Route::get('/posting/{id}',array(
+Route::get('/posting/{title}/{id}',array(
 	'as' => 'posting-get',
 	'uses' => 'PostingController@index'		
 ));

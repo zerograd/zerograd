@@ -56,6 +56,11 @@ class StudentController extends Controller
             }
         }
 
+        DB::table('resume')
+            ->insert(array(
+                'user_id' => $previousInsertId
+            ));
+            
 
         return "success";
 

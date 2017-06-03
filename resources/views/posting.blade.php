@@ -2,7 +2,7 @@
 @extends('layout.header-layout')
 
 @section('title')
-  {{$posting->title}}
+  {{$posting->title}} : {{$posting->keywords}}
 @stop
 
 @section('styles')
@@ -14,12 +14,29 @@
             color:black;
             font-weight: 600;
         }
+        #register-form{
+        border: 1px solid white;
+        margin-top:5px;
+        height:auto;
+        text-align:center;
+        padding:30px 10px;
+        border-radius:10px;
+    }
+    #register-form > input {
+        padding:10px;
+        margin:10px 0;
+        width:100%;
+        color: #354886;
+        margin-top: 20px;
+        font-weight: bold;
+        font-family: 'Raleway', sans-serif;
+    }
     </style>
 
 @stop
 @section('content')
     @include('nav')
-    <div class="container-fluid">
+    <div class="container-fluid remodal-bg">
         <div class="col-sm-3" style="height:100%;text-align:center;border-right:1px solid black;">
             <div class="col-sm-12" style="margin-top:40px;">
             <img class="center-block" style="width: 200px;height: 155px;margin:0 auto;" src="{{URL::asset('/images/nasa.png')}}" alt="Company Photo">
@@ -40,7 +57,7 @@
                 @if($saved > 0)
                     <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
                 @else
-                    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button>
+                 <a data-remodal-target="modal">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
                 @endif
                 
             </div>
@@ -63,6 +80,25 @@
         </div>
     </div>
 
+    <!-- Sign Up Modal -->
+<div class="remodal" data-remodal-id="modal">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <div id="login-panel">
+        <form id="register-form">
+            {{ csrf_field() }}
+            <h2 style="color:#29C9C8;;">Sign Up Today and begin your search</h2>
+            <input type="text" id="student_name" name="student_name" placeholder="Name" value=""/>
+            <input type="text" id="email" name="email" placeholder="Email" value=""/>
+            <input type="password" id="password" name="password" placeholder="Password" value=""/>
+            
+            <button data-remodal-action="confirm" type="button" class="white-btn" style="margin:0 auto;padding:15px;" onClick="verifyLogin();">Register</button>
+            <div class="links col-sm-12" style="margin-top: 5px;">
+                <a href="#" style="color:black;font-weight: 600;">Need to Contact Us?</a>
+            </div>
+        </form>
+    </div>
+</div>
+
     <input type="text" name="post_id" id="post_id" value="{{$post_id}}" hidden>
 @stop
 
@@ -74,7 +110,7 @@
                     $(button).text('Saved');
                     $(button).attr('onClick','unsaveJob(this)');
                 }else{
-                    alert('Please Login to save this Job');
+                    
                 }  
             });
         }
@@ -87,5 +123,28 @@
                 }  
             });
         }
+        function verifyLogin(){
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+            var name = document.getElementById('student_name');
+            if(email.value.length == 0){
+                alert("Please enter your email.");
+                }else if(name.value.length == 0){
+                alert("Please enter your name.");
+            }else if(password.value.length == 0){
+                alert("Please enter your password.");
+            }else{
+                var data = $("#register-form").serialize();
+                $.post('{{URL::to('/student-register/register')}}'
+                    ,data,function(data){
+                        if(data == "success"){
+                            window.location = "{{URL::to('/')}}";
+                        }else if(data == "User Already Exist"){
+                            alert('User Already Exist');
+                        }
+                    }
+                );
+            }
+       }
     </script>
 @stop

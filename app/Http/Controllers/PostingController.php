@@ -10,7 +10,7 @@ use Session;
 class PostingController extends Controller
 {
     //
-    public function index($id = null){
+    public function index($title=null,$id = null){
     	$posting = DB::table('postings')
     				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
     				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))

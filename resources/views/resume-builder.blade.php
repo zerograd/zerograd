@@ -44,78 +44,82 @@
 
 @section('content')
 	<div class="container-fluid" style="height:100%;">
-			<div id="resume-info" class="scroll" style="float:left;width:45%;margin:2% 2.5%; border:1px solid white;border-radius:3px;height:90%;overflow-y: scroll;background-color: white;padding: 2%">
-				<div id="resume" class="" style="width:95%;height:100%;border-radius: 5px;padding:10px;">
-						<form id="resume-form">
-								<h2>Resume</h2>
-								<label class="label-color">A resume is the best tool for sharing your skills and knowledge with future employers. Please upload your own or click 'Resume Builder' to use our Resume building tool.</label>
-								<div class="form-group">
-									
-									<div class="col-sm-4">
-										<label>Street Address</label>
-										<input name="address" type="text" placeholder="Street Address" class="form-control" value="{{$resume->address}}">
-									</div>
-									<div class="col-sm-4">
-										<label>City</label>
-										<input name="city" type="text" placeholder="City" class="form-control" value="{{$resume->city}}">
-									</div>
-									<div class="col-sm-4">
-										<label>Province/State</label>
-										<input name="state" type="text" placeholder="Province/State" class="form-control" value="{{$resume->state}}">
-									</div>
-									<div class="col-sm-4">
-										<label>Postal Code</label>
-										<input name="zipcode" type="text" placeholder="Postal Code/Zip Code" class="form-control" value="{{$resume->zipcode}}">
-									</div>
-									<div class="col-sm-4">
-										<label>Telephone</label>
-										<input name="telephone_number" type="text" placeholder="Telephone Number" class="form-control" value="{{$resume->telephone_number}}" >
-									</div>
-									<div class="col-sm-4"></div>
-									<div class="col-sm-6">
-										<label>Objective</label>
-										<textarea col="50" style="height:150px;"  name="objective" class="form-control" placeholder="Talk about the type of job you are looking for.">{{$resume->objective}}</textarea>
-									</div>
-									<div class="col-sm-6">
-										<label>Summary</label>
-										<textarea col="50" style="height:150px;" name="summary" class="form-control" placeholder="A brief description of who you are and your skills">{{$resume->summary}}</textarea>
-									</div>
+			<div class="row-fluid" style="height:100%;padding: 30px;">
+				<div id="resume-info" class="scroll col-sm-6" style="border:1px solid white;border-radius:3px;height:90%;overflow-y: scroll;background-color: white;padding: 2%">
+					<div id="resume" class="" style="width:95%;height:100%;border-radius: 5px;padding:10px;">
+							<form id="resume-form">
+									<h2>Resume</h2>
+									<label class="label-color">A resume is the best tool for sharing your skills and knowledge with future employers. Please upload your own or click 'Resume Builder' to use our Resume building tool.</label>
+									<div class="form-group">
+										
+										<div class="col-sm-4">
+											<label>Street Address</label>
+											<input name="address" type="text" placeholder="Street Address" class="form-control" value="{{$resume->address}}">
+										</div>
+										<div class="col-sm-4">
+											<label>City</label>
+											<input name="city" type="text" placeholder="City" class="form-control" value="{{$resume->city}}">
+										</div>
+										<div class="col-sm-4">
+											<label>Province/State</label>
+											<input name="state" type="text" placeholder="Province/State" class="form-control" value="{{$resume->state}}">
+										</div>
+										<div class="col-sm-4">
+											<label>Postal Code</label>
+											<input name="zipcode" type="text" placeholder="Postal Code/Zip Code" class="form-control" value="{{$resume->zipcode}}">
+										</div>
+										<div class="col-sm-4">
+											<label>Telephone</label>
+											<input name="telephone_number" type="text" placeholder="Telephone Number" class="form-control" value="{{$resume->telephone_number}}" >
+										</div>
+										<div class="col-sm-4"></div>
+										<div class="col-sm-6">
+											<label>Objective</label>
+											<textarea col="50" style="height:150px;"  name="objective" class="form-control" placeholder="Talk about the type of job you are looking for.">{{$resume->objective}}</textarea>
+										</div>
+										<div class="col-sm-6">
+											<label>Summary</label>
+											<textarea col="50" style="height:150px;" name="summary" class="form-control" placeholder="A brief description of who you are and your skills">{{$resume->summary}}</textarea>
+										</div>
 
-								</div>
-						</form>
-									<div class="col-sm-12">
-										<label>Work Experience</label>
-										<div class="form-group" id="work-div">
-											@include('profiles.work-experience');
-											<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
-												Add a Job...
-												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addExperience();"></i>
-												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeExperience();"></i>
-											</div>
-										</div>
+									</div>
+							</form>
 										<div class="col-sm-12">
-										<label>Volunteer Work</label>
-										<div class="form-group" id="volunteer-div">
-											@include('profiles.volunteer');
-											<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
-												Add a Volunteer...
-												<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addVolunteer();"></i>
-												&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeVolunteer();"></i>
+											<label>Work Experience</label>
+											<div class="form-group" id="work-div">
+												@include('profiles.work-experience');
+												<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
+													Add a Job...
+													<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addExperience();"></i>
+													&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeExperience();"></i>
+												</div>
 											</div>
 										</div>
-										<div class="col-sm-12" style="">
-										<button type="button" style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary" onClick="saveResume();">Save</button>
-										<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Download as PDF</button></a>
+
+										<div class="col-sm-12">
+												<label>Volunteer Work</label>
+												<div class="form-group" id="volunteer-div">
+													@include('profiles.volunteer');
+													<div class="col-sm-12 label-color" style="font-weight: bold;margin-top: 10px;">
+														Add a Volunteer...
+														<i class="fa fa-plus label-color" aria-hidden="true" style="cursor: pointer" onClick="addVolunteer();"></i>
+														&nbsp<i class="fa fa-minus label-color" aria-hidden="true" style="cursor: pointer" onClick="removeVolunteer();"></i>
+													</div>
+												</div>
+												<div class="col-sm-12" style="">
+													<button type="button" style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary" onClick="saveResume();">Save</button>
+													<a href="{{route('preview-resume',$id)}}" target="_blank"><button style="margin: 10px;float:right;color:black;font-weight: bold;" class="btn btn-secondary">Download as PDF</button></a>
+												</div>
 										</div>
-									</div>
-									</div>
-									
-				
-			</div>
-			<div id="resume-view" style="float:left;width:45%;margin:2% 2.5%; border:1px solid white;border-radius:3px;height:90%;">
-			<iframe id="resume-iframe" class="scroll" style="background-color:white;width: 100%;height:100%;">
-				
-			</iframe>
+											
+										
+					</div>
+				</div>
+				<div id="resume-view"  class="col-sm-6" style="border:1px solid white;border-radius:3px;height:90%;">
+				<iframe id="resume-iframe" class="scroll" style="background-color:white;width: 100%;height:100%;">
+					
+				</iframe>
+				</div>
 			</div>
 
 			<!-- Resume div Selector -->

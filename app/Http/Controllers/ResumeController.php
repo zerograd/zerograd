@@ -31,7 +31,11 @@ class ResumeController extends Controller
                             ->select('skills')
                             ->where('user_id',$id)
                             ->first();
-        $skills = explode(',', $profileSkills->skills);
+
+        if($profileSkills){
+            $skills = explode(',', $profileSkills->skills);
+        }
+        
 
         $profileProjects = DB::table('profile_projects')
                             ->select('*')
@@ -53,7 +57,7 @@ class ResumeController extends Controller
             'resume' => $resume,
             'profileSummary' => $profileSummary,
             'resumeSkills' => $resumeSkills,
-            'skills' => $skills,
+            'skills' => isset($skills)?$skills:"",
             'profileProjects' => $profileProjects,
             'workExperience' => $workExperience,
             'volunteering' => $volunteering,

@@ -44,7 +44,7 @@
                     <div class="container-fluid">
                         <ul style="margin:0;padding:100px;list-style: none;">
                         @foreach($postings as $posting)
-                        <a href="{{route('posting-get',$posting->id)}}" style="text-decoration: none;">    <li class="recent-job" style="padding:40px;">
+                        <a href="{{route('posting-get',['title' => $posting->title,'id' => $posting->id])}}" style="text-decoration: none;">    <li class="recent-job" style="padding:40px;">
                             <div class="container">
                                 <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
                                 <div class="col-md-11">
@@ -257,6 +257,7 @@
 
 
 
+
         <!-- floating arrow -->
         <a href="#Container">        <div id="float-back" style="text-align:center; display:none; background-color:#23CCF3;width:70px;height:70px;opacity: 0.5">
             <i class="fa fa-arrow-up" aria-hidden="true" style="margin:0 auto;line-height:2;font-size:30px;color:white;"></i>
@@ -283,7 +284,7 @@
             if(location.length > 0 || keywords.length > 0){
                 $('#search-form').submit();
             }else if(location.length == 0 || keywords.length == 0){
-                alert('Please enter a keyword and/or location');                
+                swal('Please enter a keyword and/or location');                
             }
         }
     </script>
