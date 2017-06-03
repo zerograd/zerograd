@@ -53,7 +53,12 @@
                 
             </div>
             <div id="buttons" class="col-sm-12">
-                <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button>
+                @if(!Session::has('user_id'))
+                <a data-remodal-target="modal">    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button></a>
+
+                @else
+                    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button>
+                @endif
                 @if($saved > 0)
                     <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
                 @else
