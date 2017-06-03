@@ -60,7 +60,22 @@ class StudentController extends Controller
             ->insert(array(
                 'user_id' => $previousInsertId
             ));
-            
+
+        DB::table('profile_projects')
+            ->insert(array(
+                'user_id' => $previousInsertId
+            ));
+
+        DB::table('profile_skills')
+            ->insert(array(
+                'user_id' => $previousInsertId
+            ));
+
+        DB::table('profile_summary')
+            ->insert(array(
+                'user_id' => $previousInsertId
+            ));
+        
 
         return "success";
 

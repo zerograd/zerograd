@@ -145,6 +145,7 @@
 			</div>
 	</div>
 	<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />
+	<input type="text" id="current-snap" name="current-snap" value="{{$currentSnap}}" hidden />
 @stop
 
  @section('script_plugins')
@@ -186,7 +187,7 @@
 		 			var doc = document.getElementById('resume-iframe').contentWindow.document;
 		 			$('.snapimg').removeClass('selectedResume');
 		 			$('.snapimg').eq(0).addClass('selectedResume');
-		 			
+		 			$('#current-snap').val(1);
 					doc.open();
 					doc.write(data);
 					doc.close();
@@ -196,10 +197,21 @@
 	 			var doc = document.getElementById('resume-iframe').contentWindow.document;
 	 			$('.snapimg').removeClass('selectedResume');
 	 			$('.snapimg').eq(1).addClass('selectedResume');
+	 			$('#current-snap').val(2);
 	 			doc.open();
 				doc.write(data);
 				doc.close();
- 			});
+ 				});
+ 			}else if (inputValue == 3){
+ 				$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:3},function(data){
+	 			var doc = document.getElementById('resume-iframe').contentWindow.document;
+	 			$('.snapimg').removeClass('selectedResume');
+	 			$('.snapimg').eq(2).addClass('selectedResume');
+	 			$('#current-snap').val(3);
+	 			doc.open();
+				doc.write(data);
+				doc.close();
+ 				});
  			}
  		}
  	$(document).ready(function(){

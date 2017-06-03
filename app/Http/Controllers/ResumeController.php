@@ -51,7 +51,7 @@ class ResumeController extends Controller
                             ->where('user_id',$id)
                             ->get();
 
-        $snaps = array(asset('images/resume-1-snap.png'),asset('images/resume-2-snap.png'));
+        $snaps = array(asset('images/resume-1-snap.png'),asset('images/resume-2-snap.png'),asset('images/resume-3-snap.png'));
     	$data = array(
     		'educations' => $education,
             'resume' => $resume,
@@ -62,7 +62,8 @@ class ResumeController extends Controller
             'workExperience' => $workExperience,
             'volunteering' => $volunteering,
             'id' => $id,
-            'snaps' => $snaps
+            'snaps' => $snaps,
+            'currentSnap' => 1
 		);
 
 		return view('resume-builder')->with($data);
@@ -130,9 +131,11 @@ class ResumeController extends Controller
         );
 
         if($templateChosen == 1){
-            $html = view('resume-template-' . $templateChosen)->with($data);
+            $html = view('templates.resume-template-' . $templateChosen)->with($data);
         }else if($templateChosen == 2){
-            $html = view('resume-template-' . $templateChosen)->with($data);
+            $html = view('templates.resume-template-' . $templateChosen)->with($data);
+        }else if($templateChosen == 3){
+            $html = view('templates.resume-template-' . $templateChosen)->with($data);
         }
         
 
