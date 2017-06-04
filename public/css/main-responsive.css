@@ -1,4 +1,4 @@
-@media (max-width: 320px){
+@media (min-width: 320px){
 	.navigation {
 		padding: 0;
 	}
@@ -34,10 +34,421 @@
      	color:#23CCF3;
      	font-weight: bold;
      }
+
+     .search-btn {
+     	background-color: #23CCF3;
+        padding:30px;
+        border:none;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        color:white;
+        width:100%;
+        font-size:18px;
+     }
+
+     /*Latest Jobs CSS*/
+
+     #latest-jobs ul {
+     	margin:0;
+     	padding:0;
+     	list-style: none;
+     }
+
+     .recent-job{
+     	padding: 5px;
+     	margin: 10px 0;
+     	border:2px solid #E6E6E6;
+     	border-radius: 2px;
+     }
+
+     .recent-job img {
+     	width:60px;
+     	height:60px;
+     	margin:0 auto;
+     }
+
+     .recent-job .post-title {
+     	font-size: 16px;
+     	width:100%;
+     	margin:0;
+     	color:black;
+     	font-weight: bold;
+     	float:left;
+     	text-align: center;
+     }
+
+     .recent-job .location {
+     	font-size: 12px;
+     	margin:0;
+     	color:#C6C6C6;
+     	font-weight: bold;
+     	text-align: center;
+     }
+
+     .recent-job .post-company-name{
+     	display:none;
+     }
+
+     .recent-job .status{
+     	margin:0;
+     	padding:5px;
+     	color:#FFFFFF;
+     	font-weight: bold;
+     	float:right;
+     	text-transform: uppercase;
+     	font-size:10px;
+     }
 	
 }
 
 
+@media (min-width: 576px){
+	/*Search CSS*/
+	.search-header{
+     	margin:30px 0;
+     }
+	.search-area input {
+     	width:100%;
+     	margin:0;
+     	padding:10px;
+     	border-top-left-radius: 5px;
+     	border-bottom-left-radius: 5px;
+     	color:#23CCF3;
+     	font-weight: bold;
+     }
+	.search-btn {
+     	background-color: #23CCF3;
+        padding:30px;
+        border:none;
+        border-radius: 5px;
+        color:white;
+        width:100%;
+        font-size:18px;
+     }
+
+     #latest-jobs ul {
+     	margin:50px 0 0 0;
+     	padding:0;
+     	list-style: none;
+     }
+
+     .recent-job{
+     	padding: 5px;
+     	margin: 10px 0;
+     	border:2px solid #E6E6E6;
+     	border-radius: 2px;
+     }
+
+     .recent-job img {
+     	width:60px;
+     	height:60px;
+     	margin:0 auto;
+     }
+
+     .recent-job .post-title {
+     	font-size: 16px;
+     	width:100%;
+     	margin:0;
+     	color:black;
+     	font-weight: bold;
+     	float:left;
+     	text-align: center;
+     }
+
+     .recent-job .location {
+     	font-size: 12px;
+     	margin:0;
+     	color:#C6C6C6;
+     	font-weight: bold;
+     	text-align: center;
+     }
+
+     .recent-job .post-company-name{
+     	display:none;
+     }
+
+     .recent-job .status{
+     	margin:0;
+     	padding:5px;
+     	color:#FFFFFF;
+     	font-weight: bold;
+     	float:right;
+     	text-transform: uppercase;
+     	font-size:10px;
+     }
+}
+
+@media (min-width: 768px){
+	/*Search CSS*/
+	.search-header{
+     	margin:30px 0;
+     }
+	.search-area input {
+     	width:100%;
+     	margin:0;
+     	padding:10px;
+     	border-top-left-radius: 5px;
+     	border-bottom-left-radius: 5px;
+     	color:#23CCF3;
+     	font-weight: bold;
+     }
+	.search-btn {
+     	background-color: #23CCF3;
+        padding:30px;
+        border:none;
+        border-radius: 5px;
+        color:white;
+        width:100%;
+        font-size:18px;
+     }
+
+     #latest-jobs ul {
+     	margin:80px 0 0 0;
+     	padding:0;
+     	list-style: none;
+     }
+
+     .recent-job{
+     	padding: 5px;
+     	margin: 10px 0;
+     	border:2px solid #E6E6E6;
+     	border-radius: 2px;
+     }
+
+     .recent-job img {
+     	width:60px;
+     	height:60px;
+     	float:left;
+     }
+
+     .recent-job .post-title {
+     	font-size: 16px;
+     	width:100%;
+     	margin:0;
+     	color:black;
+     	font-weight: bold;
+     	float:left;
+     	text-align: center;
+     }
+
+     .recent-job .location {
+     	font-size: 12px;
+     	margin:0;
+     	color:#C6C6C6;
+     	font-weight: bold;
+     	text-align: center;
+     }
+
+     .recent-job .post-company-name{
+     	display:none;
+     }
+
+     .recent-job .status{
+     	margin:0;
+     	padding:5px;
+     	color:#FFFFFF;
+     	font-weight: bold;
+     	float:right;
+     	text-transform: uppercase;
+     	font-size:10px;
+     }
+}
+
+@media (min-width: 992px){
+	/*Main Page CSS*/
+	.user-btn{
+		float:left;
+	}
+	.search-area input {
+     	width:100%;
+     	margin:0;
+     	padding:30px;
+     	border-top-left-radius: 5px;
+     	border-bottom-left-radius: 5px;
+     	color:#23CCF3;
+     	font-weight: bold;
+     }
+
+     #latest-jobs ul {
+     	margin:80px 0 0 0;
+     	padding:0;
+     	list-style: none;
+     }
+
+     .recent-job{
+     	padding: 5px;
+     	margin: 10px 25%;
+     	width:50%;
+     	border:2px solid #E6E6E6;
+     	border-radius: 2px;
+     }
+
+     .recent-job img {
+     	width:60px;
+     	height:60px;
+     	float:left;
+     }
+
+     .recent-job .post-title {
+     	font-size: 12px;
+     	margin:10px 0 0 0;
+     	color:black;
+     	font-weight: bold;
+     	float:left;
+     }
+
+     .recent-job .location {
+     	font-size: 12px;
+     	margin:10px 0 0 0;
+     	color:#C6C6C6;
+     	font-weight: bold;
+     	float:right;
+     }
+
+     .recent-job .post-company-name{
+     	display:none;
+     }
+
+     .recent-job .status{
+     	margin:0;
+     	padding:5px;
+     	color:#FFFFFF;
+     	font-weight: bold;
+     	float:right;
+     	text-transform: uppercase;
+     	font-size:10px;
+     }
+}
+
+@media (min-width: 1200px){
+	.user-btn{
+		float:left;
+	}
+	.search-area input {
+     	width:100%;
+     	margin:0;
+     	padding:30px;
+     	border-top-left-radius: 5px;
+     	border-bottom-left-radius: 5px;
+     	color:#23CCF3;
+     	font-weight: bold;
+     }
+
+     #latest-jobs ul {
+     	margin:80px 0 0 0;
+     	padding:0;
+     	list-style: none;
+     }
+
+     .recent-job{
+     	padding: 5px;
+     	margin: 10px 25%;
+     	width:50%;
+     	border:2px solid #E6E6E6;
+     	border-radius: 2px;
+     }
+
+     .recent-job img {
+     	width:60px;
+     	height:60px;
+     	float:left;
+     }
+
+     .recent-job .post-title {
+     	font-size: 16px;
+     	margin:10px 0 0 0;
+     	color:black;
+     	font-weight: bold;
+     	float:left;
+     }
+
+     .recent-job .location {
+     	font-size: 12px;
+     	margin:10px 0 0 0;
+     	color:#C6C6C6;
+     	font-weight: bold;
+     	float:right;
+     }
+
+     .recent-job .post-company-name{
+     	display:none;
+     }
+
+     .recent-job .status{
+     	margin:0;
+     	padding:5px;
+     	color:#FFFFFF;
+     	font-weight: bold;
+     	float:right;
+     	text-transform: uppercase;
+     	font-size:10px;
+     }
+}
+
+@media (min-width: 1201px){
+	.user-btn{
+		float:left;
+	}
+	.search-area input {
+     	width:100%;
+     	margin:0;
+     	padding:30px;
+     	border-top-left-radius: 5px;
+     	border-bottom-left-radius: 5px;
+     	color:#23CCF3;
+     	font-weight: bold;
+     }
+
+     #latest-jobs ul {
+     	margin:80px 0 0 0;
+     	padding:0;
+     	list-style: none;
+     }
+
+     .recent-job{
+     	padding: 5px;
+     	margin: 10px 25%;
+     	width:50%;
+     	border:2px solid #E6E6E6;
+     	border-radius: 2px;
+     }
+
+     .recent-job img {
+     	width:60px;
+     	height:60px;
+     	float:left;
+     }
+
+     .recent-job .post-title {
+     	font-size: 16px;
+     	margin:10px 0 0 0;
+     	color:black;
+     	font-weight: bold;
+     	float:left;
+     }
+
+     .recent-job .location {
+     	font-size: 12px;
+     	margin:10px 0 0 0;
+     	color:#C6C6C6;
+     	font-weight: bold;
+     	float:right;
+     }
+
+     .recent-job .post-company-name{
+     	display:none;
+     }
+
+     .recent-job .status{
+     	margin:0;
+     	padding:5px;
+     	color:#FFFFFF;
+     	font-weight: bold;
+     	float:right;
+     	text-transform: uppercase;
+     	font-size:10px;
+     }
+}
 
 
 
