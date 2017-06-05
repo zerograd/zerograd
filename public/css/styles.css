@@ -139,23 +139,7 @@ html, body {
 
 
             /*Database info*/
-            .counter {
-                height: 300px;
-                padding: 90px;
-                background-color: #F6F6F6;
-                border: 1px solid #E6E6E6;
-            }
-            .counter:last-child{
-                border-right: none;
-            }
-            .counter h2{
-                font-size: 48px;
-                font-weight: bold;
-            }
-            .counter h4 {
-                font-size: 18px;
-                font-weight: bold;
-            }
+            
 
             /*Popular Category*/
 

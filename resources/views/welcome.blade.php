@@ -81,40 +81,40 @@
      <!-- Database info -->
         <section>
                  
-            <div id="database-info" style="background-color:white;width:100%;height:221px;text-align: center;margin-top:120px;">
-
+            <div id="database-info" style="background-color:white;width:100%;height:221px;text-align: center;">
+                <h1 class="database-info-title">Statistics</h1>
                 <div class="container-fluid">
                     <!-- Jobs -->
-                <div class="counter col-md-3 ">
-                    <div class="row" style="text-align: center;"><h2 >{{$sizeOfJobs}} + </h2>
+                <div class="counter col-lg-2 col-lg-offset-2 col-md-3 col-xs-6">
+                    <div class="row-fluid" style="text-align: center;"><h2 >{{$sizeOfJobs}} + </h2>
                     <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
                     </div>
 
-                    <div class="row"><h4>Jobs</h4></div>
+                    <div class="row-fluid"><h4>Jobs</h4></div>
 
                 </div>
 
                 <!-- Members -->
-                <div class="counter col-md-3">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfMembers}} + </h2></div>
+                <div class="counter col-lg-2  col-md-3 col-xs-6">
+                    <div class="row-fluid" style="text-align: center;"><h2>{{$sizeOfMembers}} + </h2></div>
                     <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    <div class="row"><h4>Members</h4></div>
+                    <div class="row-fluid"><h4>Members</h4></div>
 
                 </div>
 
                 <!-- Resumes -->
-                <div class="counter col-md-3">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfResumes}} + </h2></div>
+                <div class="counter col-lg-2 col-md-3 col-xs-6">
+                    <div class="row-fluid" style="text-align: center;"><h2>{{$sizeOfResumes}} + </h2></div>
                     <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    <div class="row"><h4>Resume</h4></div>
+                    <div class="row-fluid"><h4>Resume</h4></div>
 
                 </div>
 
                 <!-- Companies -->
-                <div class="counter col-md-3">
-                    <div class="row" style="text-align: center;"><h2>{{$sizeOfCompanies}} + </h2></div>
+                <div class="counter col-lg-2 col-md-3 col-xs-6">
+                    <div class="row-fluid" style="text-align: center;"><h2>{{$sizeOfCompanies}} + </h2></div>
                     <div style="margin:20px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
-                    <div class="row"><h4>Company</h4></div>
+                    <div class="row-fluid"><h4>Company</h4></div>
 
                 </div>
                 </div>
@@ -122,7 +122,31 @@
         </section>
 
 
-
+        <!-- HOW IT WORKS  -->
+         <section>
+             <div id="how-it-works">
+                <div class="col-md-12">
+                    <h3 style="float:left;margin: 0;font-size: 16px;">WORKFLOW</h3>
+                </div>
+                <div class="col-md-12">
+                    <div class="col-md-6" style="padding:0;">
+                        <h1 style="font-size: 48px;font-weight: bold;">How it Works</h1>
+                        <div class="btn-info col-xs-8 col-xs-offset-2" style="float:left;margin:20px auto;height:2px;"></div>
+                        <div class="col-md-12" style="margin-top: 40px;text-align: center;">
+                                <p class="how-it-works-text">Pellentesque et pulvinar orci. Suspendisse sed euismod purus. Pellentesque nunc ex, ultrices eu enim non, consectetur interdum nisl. Nam congue interdum mauris, sed ultrices augue lacinia in. Praesent turpis purus, faucibus in tempor vel, dictum ac eros.</p>
+                            <br>
+                            <p class="how-it-works-text">
+                                Nulla quis felis et orci luctus semper sit amet id dui. Aenean ultricies lectus nunc, vel rhoncus odio sagittis eu. Sed at felis eu tortor mattis imperdiet et sed tortor. Nullam ac porttitor arcu. Vivamus tristique elit id tempor lacinia. Donec auctor at nibh eget tincidunt. Nulla facilisi. Nunc condimentum dictum mattis.
+                            </p>
+                            <button  type="submit" class="how-it-works-button btn btn-primary">LEARN MORE</button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="{{URL::asset('/images/iphone.png')}}" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+         </section>
 
 
         <!-- floating arrow -->
