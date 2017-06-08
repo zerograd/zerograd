@@ -1,5 +1,9 @@
 <div id="navigation-panel" class="col-sm-1 hidden-sm-up">
 		<ul id="main-navigation" class="nav col-sm-12" style="margin-top:15px;padding:40px 10px;">
+		<div  id="slide" style="height:50px;padding:10px 0;">
+			       		 <i id="hide-div-icon" class="fa fa-arrow-circle-left notification-icon" style="font-size:24px;" aria-hidden="true"></i>
+
+       </div> 
 			
 		<a href="{{route('student-profile',$id)}}" style="text-decoration: none;color:white;"><li class="other-list-item">
 						<i class="material-icons">perm_identity</i>
@@ -10,8 +14,13 @@
 		</ul>
 	</div>
 	
-      		<nav class="col-sm-11">
+      		<nav class="col-sm-12">
+			       <div  id="slide" style="height:50px;padding:10px 0;">
+			       		 <i id="show-div-icon" class="fa fa-arrow-circle-right notification-icon" style="font-size:24px;" aria-hidden="true"></i> 
+			       		 <p style="float:left;color:black;margin-right:10px;">Show Panel</p>      
+			       </div>               
       			<ul class="nav navbar-nav col-md-4 col-md-push-7 col-xs-12 " style="margin:0 auto;text-align: center;">
+      			
 				<li class="notifications" style="width:20%;">
 					<div>
 						<i class="fa fa-envelope notification-icon" aria-hidden="true"></i>
@@ -68,6 +77,29 @@
 		function goTo(loc){
 			window.location = loc;
 		}
+
+		// Slide the div out
+
+		$('#show-div-icon').click(function(){
+				
+			$("#navigation-panel").css("display","block");		
+			$( "#navigation-panel" ).animate({
+			    width: "22%"
+			  }, 200, function() {
+			    // Animation complete.
+			  });
+		});
+
+		$('#hide-div-icon').click(function(){	
+				
+			$( "#navigation-panel" ).animate({
+			    width: "0"
+			  }, 200, function() {
+			    // Animation complete.
+			    
+			    $("#navigation-panel").css("display","none");	
+			  });
+		});
 
 		function notifications() {
 			var listItems = $('#notification-list').find('li');

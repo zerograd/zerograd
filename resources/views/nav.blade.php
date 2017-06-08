@@ -11,8 +11,8 @@
     <div class="collapse navbar-collapse" id="myNavbar" style="margin: 0;">
       <div class="col-md-3" style="padding: 0;">
         <ul class="navigation nav navbar-nav">
-          <li><a href="{{URL::to('/about')}}" style="font-size:18px;">About</a></li>
-          <li><a style="font-size:18px;">Contact Us</a></li>
+          <li><a href="{{URL::to('/about')}}">About</a></li>
+          <li><a>Contact Us</a></li>
         </ul>
       </div>
       <div class="col-md-6 col-xs-12" style="padding: 0;">

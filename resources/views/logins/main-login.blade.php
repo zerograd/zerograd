@@ -39,43 +39,15 @@
 		font-size:60px;
 	}
 
-	@media (min-width: 768px) {
-
-
-	  #logo,.zeroLogo {
-	    font-size:100px;
-	  } 
-
-	  #logo-panel,#login-form{
-	  	margin-top:100px;
-	  }
-	}
-
-	.button-div{
-		box-shadow: 3px 3px 3px #000000;
-		background-color:#90C8F0;
-		text-align: center;
-		padding:150px;
-		color:black;
-		transition: background-color 0.1s linear 0s;
-	}
-
 	
 
-	.button-div i{
-		color:white;
-		font-size:48px;
-	}
-
-	.button-div:hover {
-		background-color:#379BE1;
-		cursor: pointer;
-
-	}
+	
 </style>
 @stop
 
 @section('style_plugins')
+
+{{ HTML::style('css/login-responsive.css') }}
 	<script>
        function verifyLogin(){
        	 	var email = document.getElementById('email');
@@ -125,21 +97,20 @@
 @stop
 
 @section('content')
-	<div class="container-fluid">
-		<div id="buttons" class="col-xs-12" style="margin-top: 150px;padding:0 0 0 1%;">
-			<div class="button-div"  style="float:left;width:31%;margin: 1% ; height: 400px;" onCLick="showSchoolForm();">
+		<div id="buttons" class="col-xs-12">
+			<div class="button-div"   onCLick="showSchoolForm();">
 				<span>
 					<i class="fa fa-graduation-cap" aria-hidden="true"></i>
 					<h1>Student/Graduate</h1>
 				</span>
 			</div>
-			<div class="button-div" style="float:left;width:31%;margin: 1% ; height: 400px;" onCLick="showEmployerForm();">
+			<div class="button-div"  onCLick="showEmployerForm();">
 				<span>
 					<i class="fa fa-building" aria-hidden="true"></i>
 					<h1>Employers</h1>
 				</span>
 			</div>
-			<div class="button-div" style="float:left;width:31%;margin: 1% ; height: 400px;" onCLick="showEmployeeForm();">
+			<div class="button-div" onCLick="showEmployeeForm();">
 				<span>
 					<i class="fa fa-briefcase" aria-hidden="true"></i>
 					<h1>Employees</h1>
@@ -156,7 +127,7 @@
 		<div class="login-panel col-xs-12 col-sm-4 col-sm-pull-8" style="display: none;">
 			
 		</div>
-	</div>
+	
 	
 @stop
 

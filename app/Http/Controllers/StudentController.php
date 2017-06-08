@@ -212,7 +212,7 @@ class StudentController extends Controller
             'opportunities' => $opportunities,
             'id' => Session::get('user_id'),
             'notifications' => $notifications['post_notifications'],
-            'notificationsSize' => sizeof($notifications)
+            'notificationsSize' => sizeof($notifications['post_notifications'])
         );
 
 

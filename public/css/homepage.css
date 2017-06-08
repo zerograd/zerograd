@@ -246,3 +246,14 @@ nav {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
+
+#show-div-icon:hover {
+    color:#20B0D1;
+}
+#hide-div-icon{
+    color:white;
+}
+
+#hide-div-icon:hover {
+    color:#20B0D1;
+}

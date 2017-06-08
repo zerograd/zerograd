@@ -148,6 +148,116 @@
             </div>
          </section>
 
+         <!-- POPULAR CATEGORIES -->
+        <section>
+            <div id="popular-categories">
+            <div class="col-md-12">
+                <h2 class="text-center">CATEGORIES</h2>
+                <h3 class="text-center">Popular Categories</h3>
+                    <div style="margin:30px auto;width:60px;height:2px;background-color:#23CCF3; "></div>
+                <h2 class="text-center">The most popular categories</h2>
+            </div>
+            <div class="col-md-12" style="margin:40px 0;height:auto;">
+                @foreach ($categories as $category)
+                <a href="{{route('filter-by-category',$category->cat_id)}}" style="text-decoration:none;">
+                    <div class="category">
+                        <div class="icon-div">
+                            <div class="inner-icon-div">
+                                <i class="{{$category->icon}}" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <h1 class="text-center" style="font-size: 28px;font-weight: bold;">{{$category->cat_name}}</h1>
+                        <p class="text-center" >{{$category->cat_description}}</p>
+                    </div>
+                </a>
+                @endforeach
+            </div>
+        </div>
+        </section>
+
+        <!-- SUBSCRIBE -->
+
+        <section>
+            <div id="subscribe-section">
+                <div style="width:100%;height:100%;background: rgba(0,0,0,0.5);padding:5px;">
+                    <div class="col-md-12" style="padding:30px;">
+                        <h3 class="text-center">Subscribe</h3>
+                    </div>
+                    <div class="col-md-12" style="margin:30px 0 0 0;">
+                    <h3 class="text-center">Get weekly top new jobs delivered to your inbox</h3>
+                    </div>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <div class="input-group">
+                          <input type="text" class="form-control" placeholder="Your email address">
+                          <span class="input-group-btn">
+                            <button class="btn btn-success"  type="button">Subscribe</button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                
+            
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="site-footer">
+
+      <!-- Top section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-6">
+            <h6>About</h6>
+            <p class="text-justify">An employment website is a web site that deals specifically with employment or careers. Many employment websites are designed to allow employers to post job requirements for a position to be filled and are commonly known as job boards. Other employment sites offer employer reviews, career and job-search advice, and describe different job descriptions or employers. Through a job website a prospective employee can locate and fill out a job application.</p>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Company</h6>
+            <ul class="footer-links">
+              <li><a href="page-about.html">About us</a></li>
+              <li><a href="page-typography.html">How it works</a></li>
+              <li><a href="page-faq.html">Help center</a></li>
+              <li><a href="page-typography.html">Privacy policy</a></li>
+              <li><a href="page-contact.html">Contact us</a></li>
+            </ul>
+          </div>
+
+          <div class="col-xs-6 col-md-3">
+            <h6>Trendeing jobs</h6>
+            <ul class="footer-links">
+              <li><a href="job-list.html">Front-end developer</a></li>
+              <li><a href="job-list.html">Android developer</a></li>
+              <li><a href="job-list.html">iOS developer</a></li>
+              <li><a href="job-list.html">Full stack developer</a></li>
+              <li><a href="job-list.html">Project administrator</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <hr>
+      </div>
+      <!-- END Top section -->
+
+      <!-- Bottom section -->
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-sm-6 col-xs-12">
+            <p class="copyright-text">Copyrights © 2017 All Rights Reserved by <a href="{{URL::to('/')}}">ZeroGrad</a>.</p>
+          </div>
+
+          <div class="col-md-4 col-sm-6 col-xs-12">
+            <ul class="social-icons">
+              <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+              <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+              <li><a class="instagram" href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!-- END Bottom section -->
+
 
         <!-- floating arrow -->
         <a href="#Container">        <div id="float-back" style="text-align:center; display:none; background-color:#23CCF3;width:70px;height:70px;opacity: 0.5">

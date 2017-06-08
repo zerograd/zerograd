@@ -10,26 +10,30 @@
 	</style>
 @stop
 
+@section('style_plugins')
+	{{ HTML::style('css/student-home-responsive.css') }}
+@stop
+
 
 
 @section('content')
 	 
 		@include('layout.main-layout')
 		<div class="container-fluid" style="height:100%;">
-			<div class="col-sm-6" style="height:90%;">
+			<div class="col-sm-9 col-xs-12" style="height:90%;">
 				<h1 style="color:black;">Timeline</h1>
-				<div id="timeline" class="col-sm-12">
-					<div class="col-sm-12 scroll">
+				<div id="timeline" class="col-sm-12 col-xs-12">
+					<div class="col-sm-12 col-xs-12 scroll">
 
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-5" style="height:90%;">
-				<h2 style="color:black;">Recommended Jobs</h2>
+			<div class="col-sm-3 col-xs-12" style="height:90%;">
+				<h2 id="recommend-job-header" style="color:black;">Recommended Jobs</h2>
 				@if(sizeof($opportunities) > 0)
 					@foreach ($opportunities as $oppor)
-						<div class="recommended-job" style="height: 300px;background-color:grey;">
-							<div class="col-sm-12" style="height:100%;background: rgba(0,0,0,0.6);padding: 40px;">
+						<div class="recommended-job">
+							<div class="col-sm-12">
 								<h3>{{$oppor->title}}</h3>
 								<p>{{$oppor->keywords}}</p>
 								<p>{{$oppor->posted_date}}</p>
