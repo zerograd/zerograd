@@ -78,11 +78,13 @@
 			$('#' + id).show();
 		}
 	</script>
+
+	{{ HTML::style('css/student-home-responsive.css') }}
 @stop
 
 @section('content')
 	@include('layout.main-layout')
-		<div id="container" class="scroll" style="height:90%;overflow-y: scroll;">
+			<!-- Start of MAIN AREA -->
 			<div class="col-sm-12 scroll">	
 				<div class="panel-name">
 					<h2>Profile</h2>
@@ -108,6 +110,7 @@
 							</div>
 						</form>
 					</div>
+					<!-- END OF SUMMARY -->
 					<!-- EDUCATION -->
 					<div class="row">
 						<div id="education" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
@@ -124,9 +127,9 @@
 								</div>
 						</div>
 					</div>
-
+					<!-- END OF EDUCATION -->
 					<!-- RESUME -->
-						<div id="resume" class="" style="width:95%;height:100%;border-radius: 5px;padding:10px;">
+						<div id="resume" class="" style="display:none;width:95%;height:100%;border-radius: 5px;padding:10px;">
 						<form id="resume-form">
 								<h2>Resume</h2>
 								<label class="label-color">A resume is the best tool for sharing your skills and knowledge with future employers. Please upload your own or click 'Resume Builder' to use our Resume building tool.</label>
@@ -193,8 +196,9 @@
 									
 				
 						</div>
-				</div>
-				<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+					<!-- END OF RESUME -->
+					<!-- SKILLS -->
+					<div id="skills" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Skills</h2>
 							<div class="form-group">
 								<label class="label-color">List all those wonderful skills that you have accquired over the years.(Press Enter after each skill)</label>
@@ -207,8 +211,10 @@
 									</div>
 								</div>
 							</div>
-				</div>
-				<div id="projects" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
+					</div>
+					<!-- END OF SKILLS -->
+					<!-- PROJECTS -->
+						<div id="projects" class="" style="display:none;width:95%;margin:0 2.5%;height:100%;border-radius: 5px;padding:10px;">
 							<h2>Projects</h2>
 							<div class="form-group">
 								<label class="label-color">Project Descriptions are great for providing more detail on what you have done to get where you are in your profession.</label>
@@ -223,8 +229,15 @@
 								</div>
 							</div>
 						</div>
-			</div>
-		</div>
+
+					<!-- END OF PROJECTS -->
+
+				</div>
+				<!-- END OF PROFILE -->
+
+			</div> 
+			<!-- END OF main area -->
+		
 		<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />
 @stop
 
