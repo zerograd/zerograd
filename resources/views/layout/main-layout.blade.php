@@ -1,10 +1,13 @@
-<div id="navigation-panel" class="col-sm-1 hidden-sm-up">
+<div id="navigation-panel" class="col-sm-3">
 		<ul id="main-navigation" class="nav col-sm-12" style="margin-top:15px;padding:40px 10px;">
 		<div  id="slide" style="height:50px;padding:10px 0;">
 			       		 <i id="hide-div-icon" class="fa fa-arrow-circle-left notification-icon" style="font-size:24px;" aria-hidden="true"></i>
 
        </div> 
-			
+		<a href="{{URL::to('/student/home')}}" style="text-decoration: none;color:white;"><li class="other-list-item">
+					<i class="fa fa-tachometer" aria-hidden="true"></i>
+					<p>	Dashboard </p>		
+			</li></a>
 		<a href="{{route('student-profile',$id)}}" style="text-decoration: none;color:white;"><li class="other-list-item">
 						<i class="material-icons">perm_identity</i>
 						<p>	Profile </p>		
@@ -12,16 +15,16 @@
 			<li class="other-list-item" onClick="goTo('{{URL::to('/')}}');"><i class="fa fa-search fa-5" aria-hidden="true"></i><p>Search Tool</p></li>
 			<a href="{{route('resume-builder',$id)}}" style="text-decoration: none;color:white;" target="_blank"><li class="other-list-item" ><i class="material-icons">view_agenda</i><p>Resume Builder</p></li></a>
 		</ul>
-	</div>
+</div>
 	
       		<nav class="col-sm-12">
 			       <div  id="slide" style="height:50px;padding:10px 0;">
 			       		 <i id="show-div-icon" class="fa fa-arrow-circle-right notification-icon" style="font-size:24px;" aria-hidden="true"></i> 
 			       		 <p style="float:left;color:black;margin-right:10px;">Show Panel</p>      
 			       </div>               
-      			<ul class="nav navbar-nav col-md-4 col-md-push-7 col-xs-12 " style="margin:0 auto;text-align: center;">
+      			<ul class="nav navbar-nav col-md-12 col-xs-12 " style="margin:0 auto;text-align: center;">
       			
-				<li class="notifications" style="width:20%;">
+				<li class="notifications">
 					<div>
 						<i class="fa fa-envelope notification-icon" aria-hidden="true"></i>
 						<div class="notification-number">
@@ -61,12 +64,15 @@
 						@if(Session::has('student_name'))
 							<p>{{Session::get('student_name')}}</p>
 						@endif()
+							<a href="{{URL::to('/student/logout')}}" style="display:inline-block ;text-decoration: none;text-align: center;"><h4>Logout</h4></a>
 					</li>
 				</ul>
       		</nav>
 	
 			<script>
+			var currentNavigationPanelWidth = 0;
 			$(document).ready(function(){
+				currentNavigationPanelWidth = $('#navigation-panel').width();
 				$('.notification-icon').on('click',function(){
 					// notifications();
 				});
@@ -84,7 +90,7 @@
 				
 			$("#navigation-panel").css("display","block");		
 			$( "#navigation-panel" ).animate({
-			    width: "22%"
+			    width: currentNavigationPanelWidth
 			  }, 200, function() {
 			    // Animation complete.
 			  });

@@ -26,18 +26,7 @@
 			text-align: center;
 		}
 
-		#timeline{
-			height:auto;
-			background-color: white;
-			border-top:5px solid #D7D131;
-			margin:10px 0;
-		}
-
-		#timeline h2{
-			margin:10px 0;
-			color:black;
-			font-weight:500;
-		}
+		
 		
 		#profile-completion{
 			height:auto;
@@ -116,14 +105,17 @@
 	</style>
 @stop
 
+@section('style_plugins')
+	{{ HTML::style('css/employer-home-responsive.css') }}
+@stop
 
 
 @section('content')
 	
 		@include('layout.employer-main-layout')
 		<div class="container-fluid">
-			<div class="col-sm-8 col-sm-offset-2 col-xs-6">
-				<div id="timeline" class="col-sm-12 col-xs-12">
+			<div class="col-sm-8 col-sm-offset-2 col-xs-12">
+				<div id="profile" class="col-sm-12 col-xs-12">
 				<form id="create-post" action="{{route('update-company-profile')}}" method="POST">
 				{{csrf_field()}}
 						<h2>Edit Profile</h2>

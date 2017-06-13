@@ -15,6 +15,13 @@ class StudentController extends Controller
     	return view('logins.student-login');
     }
 
+    public function logout(){
+        Session::forget('user_id');
+        Session::forget('student_name');
+        Session::forget('email');
+        return redirect('/');
+    }
+
 
     public function getRegister(){
         $data = array(
@@ -198,10 +205,15 @@ class StudentController extends Controller
         }
         
 
-        
+        $appliedTo = DB::table('applied_to')
+                        ->select('applied_to.posting_id','applied_to.created','postings.title','companies.company_name',DB::raw('companies.id as companyID'))
+                        ->join('postings','postings.id','=','applied_to.id')
+                        ->join('companies','companies.id','=','applied_to.company_id')
+                        ->where('user_id',Session::get('user_id'))
+                        ->get();
 
-        
-        //Timeline : for now connections only
+
+                //Timeline : for now connections only
 
         
 
@@ -212,7 +224,8 @@ class StudentController extends Controller
             'opportunities' => $opportunities,
             'id' => Session::get('user_id'),
             'notifications' => $notifications['post_notifications'],
-            'notificationsSize' => sizeof($notifications['post_notifications'])
+            'notificationsSize' => sizeof($notifications['post_notifications']),
+            'appliedTo' => $appliedTo
         );
 
 
@@ -235,7 +248,10 @@ class StudentController extends Controller
                         ->where('user_id',$id)
                         ->first();  
 
-        $resumeSkills = explode(',',$resume->skills);
+        if($resume){
+            $resumeSkills = explode(',',$resume->skills);
+        }
+        
 
         $profileSkills = DB::table('profile_skills')
                             ->select('skills')
@@ -260,11 +276,12 @@ class StudentController extends Controller
         $notifications = $this->getNotifications();
         $post_notifications = $notifications['post_notifications'];
 
+        
         $data = array(
             'educations' => $education,
             'resume' => $resume,
             'profileSummary' => $profileSummary,
-            'resumeSkills' => $resumeSkills,
+            'resumeSkills' => isset($resumeSkills)?$resumeSkills:"",
             'skills' => $skills,
             'profileProjects' => $profileProjects,
             'workExperience' => $workExperience,

@@ -103,8 +103,17 @@
 			color:black;
 			font-weight: bold;
 		}
+		#who-applied img {
+			width:50px;
+			height:50px;
+		}
 	</style>
 @stop
+
+@section('style_plugins')
+	{{ HTML::style('css/employer-home-responsive.css') }}
+@stop
+
 
 
 
@@ -112,12 +121,24 @@
 	
 		@include('layout.employer-main-layout')
 		<div class="container-fluid">
-			<div class="col-sm-7 col-xs-6">
-				<div id="timeline" class="col-sm-12 col-xs-12">
+			<div class="col-sm-7 col-xs-12">
+				<div id="who-applied" class="col-sm-12 col-xs-12">
 					<h2>Who Applied?</h2>
+					<div class="container-fluid">
+						@foreach($whoApplied as $student)
+							<div class="row">
+								<div class="col-xs-12" style="text-align: center;">
+									<a href="{{route('public-profile',$student->student_id)}}" style="text-decoration: none;color:white"><img src="<?php echo asset("storage/avatars/$student->avatar")?>"> 
+									<h3>{{$student->student_name}}</h3></a>
+									<p>Applied for: <a href="{{route('posting-get',['title'=> $student->title,'id'=> $student->id])}}">{{$student->title}}</a></p> 
+									<p>Skills: {{$student->skills}}</p> 
+								</div>
+							</div>
+						@endforeach
+					</div>
 				</div>
 			</div>
-			<div class="col-sm-5 col-xs-6">
+			<div class="col-sm-5 col-xs-12">
 				<div id="profile-completion" class="col-sm-12 col-xs-12">
 					<h2>List of Postings</h2>
 					<ul style="list-style: none;padding:0;margin:0;">

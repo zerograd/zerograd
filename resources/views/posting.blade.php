@@ -55,14 +55,21 @@
             <div id="buttons" class="col-sm-12">
                 @if(!Session::has('user_id'))
                 <a data-remodal-target="modal">    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button></a>
+                <a data-remodal-target="modal">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
+                @else
+                    @if($appliedTo > 0)
+                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button">Applied</button>
 
-                @else
-                    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button>
-                @endif
-                @if($saved > 0)
-                    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
-                @else
-                 <a data-remodal-target="modal">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
+                    @else
+                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onclick="applyToJob();">Apply Now</button>
+                    @endif
+                    
+                
+                    @if($saved > 0)
+                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
+                    @else
+                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button>
+                    @endif
                 @endif
                 
             </div>
@@ -150,6 +157,18 @@
                     }
                 );
             }
+       }
+
+       function applyToJob(){
+           var postID = $('#post_id').val();
+           $.post('{{route('apply-to-job')}}',{id:postID,_token:"{{csrf_token()}}"},function(data){
+                if(data == "applied already"){
+                    alert('You have already applied for this position.')
+                }else{
+                    alert('You have succesfully applied for this position.');
+                }
+                
+           });
        }
     </script>
 @stop

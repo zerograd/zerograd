@@ -106,7 +106,7 @@
 @section('script_plugins')
     <script type="text/javascript">
         $(document).ready(function(){
-            @if(!Session::has('user'))
+            @if(!Session::has('user') and !Session::has('employer_id'))
                 var inst = $('[data-remodal-id=modal]').remodal();
                 inst.open();
             @endif

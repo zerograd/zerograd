@@ -1,79 +1,89 @@
 @media (min-width: 320px){
-	.recommended-job{
-		width:100%;
-		margin:0;
-		height:150px;
-	}
+	#timeline{
+			height:400px;
+			background-color: white;
+			border-top:5px solid #D7D131;
+			margin:10px 0;
+		}
 
-	.applied-job{
-		width:100%;
-		margin:0;
-		height:150px;
-	}
-
-	.applied-job > div{
-	    height: 100%;
-	    padding: 5px;
-	    background: rgba(0,0,0,0.6);
-	}
-
+		#timeline h2{
+			margin:10px 0;
+			color:black;
+			font-weight:500;
+		}
 	nav {
-		height: 160px;
+		height:120px;
 	}
-
-	#user-list-item {
-		width:100%;
+    .nav {
+    	text-align: center;
+    }
+	#user-list-item p {
+		font-size: 12px;
 	}
 
 	#user-list-item img {
-	    width: 40px;
-    	height: 40px;
+		width:30px;
+		height:30px;
 	}
 
-	#user-list-item p {
-		font-size: 16px;
-		 word-wrap: break-word; 
-	}
-	#user-list-item a{
-		float:left;
+	#timeline {
+		padding: 5px;
 	}
 
-	label {
+	#timeline > h2 {
 		color:white;
 	}
 
-	#applied-job-header{
-		font-size: 20px;
-	}
+
+	/*CREATE POSTING PAGE*/
+	#posting{
+			height:auto;
+			background-color: white;
+			border-top:5px solid #D7D131;
+			margin:10px 0;
+			padding: 10px;
+		}
+
+		#posting h2{
+			margin:10px 0;
+			color:white;
+			font-weight:500;
+		}
+
+		label {
+			color:white;
+		}
+
+		/*PROFILE PAGE of dashboard*/
+		#profile{
+			height:auto;
+			background-color: white;
+			border-top:5px solid #D7D131;
+			margin:10px 0;
+			padding: 10px;
+		}
+
+		#profile h2{
+			margin:10px 0;
+			color:white;
+			font-weight:500;
+		}
 }
 
 
 @media (min-width: 576px) {
 
 	nav {
-		height:200px;
+		height:120px;
 	}
+	#user-list-item p {
+			font-size: 24px;
+		}
 
-	.recommended-job{
-		width:50%;
-		margin:0;
-		height:200px;
-	}
-
-	.recommended-job > div {
-		height:100%;
-		padding:5px;
-		background: rgba(0,0,0,0.6);
-	}
-
-	.recommended-job h3{
-  		font-size: 16px;
-	}
-
-	.recommended-job p {
-		font-size: 10px;
-		word-wrap: break-word;
-	}
+		#user-list-item img {
+			width:50px;
+			height:50px;
+		}
 
 	#navigation-panel {
 		position: absolute;
@@ -161,11 +171,4 @@
 		margin:0;
 		height:200px;
 	}
-
-	.applied-job{
-		width:25%;
-		margin:0;
-		height:200px;
-	}
-
 }

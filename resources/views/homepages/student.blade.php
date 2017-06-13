@@ -20,15 +20,15 @@
 	 
 		@include('layout.main-layout')
 		<div class="container-fluid" style="height:100%;">
-			<div class="col-sm-9 col-xs-12" style="height:90%;">
+			<!-- <div class="col-sm-9 col-xs-12" style="height:90%;">
 				<h1 style="color:black;">Timeline</h1>
 				<div id="timeline" class="col-sm-12 col-xs-12">
 					<div class="col-sm-12 col-xs-12 scroll">
 
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-3 col-xs-12" style="height:90%;">
+			</div> -->
+			<div class="col-sm-12 col-xs-12">
 				<h2 id="recommend-job-header" style="color:black;">Recommended Jobs</h2>
 				@if(sizeof($opportunities) > 0)
 					@foreach ($opportunities as $oppor)
@@ -42,6 +42,27 @@
 					@endforeach
 				@else
 					<h3>No new Jobs</h3>
+				@endif
+			</div>
+			<div class="col-sm-12 col-xs-12">
+				<h2 id="applied-job-header" style="color:black;">Applied Jobs</h2>
+				@if(sizeof($appliedTo) > 0)
+					@foreach ($appliedTo as $job)
+						<div class="applied-job">
+							<div class="col-sm-12">
+								<h3>{{$job->title}}</h3>
+								<p>At</p>
+								<p>{{$job->company_name}}</p>
+								<?php
+									$date=date_create($job->created);
+									$date= date_format($date,"F dS Y");
+								?>
+								<p>On &nbsp {{$date}}</p>
+							</div>
+						</div>
+					@endforeach
+				@else
+					<h3>No applied Jobs,<span><a href="{{URL::to('/')}}">Start Applying to Job</span></a></h3>
 				@endif
 			</div>
 		</div>

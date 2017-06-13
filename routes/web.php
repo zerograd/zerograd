@@ -111,6 +111,7 @@ Route::group(['prefix' => 'student','middleware' => 'redirectsession'], function
 //StudentController
 Route::get('/student-login','StudentController@index');
 Route::post('/student-login/login','StudentController@verifyLogin');
+Route::get('/student/logout','StudentController@logout');
 Route::get('/student-register','StudentController@getRegister');
 Route::post('/student-register/register','StudentController@postRegister');
 
@@ -136,6 +137,13 @@ Route::post('/unsave-job/{id}',array(
 		'as' => 'unsave-job',
 		'uses' => 'PostingController@unsaveJob'	
 ));
+
+Route::post('/apply-to-job',array(
+		'as' => 'apply-to-job',
+		'uses' => 'PostingController@applyJob'	
+));
+
+
 
 
 //Student Profile public
@@ -192,6 +200,10 @@ Route::post('/update-company-profile',array(
 Route::get('/resume-builder/profile/{id}',array(
 	'as' => 'resume-builder',
 	'uses' => 'ResumeController@resumeBuilder'		
+));
+Route::post('/resume-uploaded',array(
+	'as' => 'resume-uploaded',
+	'uses' => 'ResumeController@resumeUploaded'		
 ));
 
 Route::post('/process-resume',array(

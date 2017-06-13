@@ -17,12 +17,16 @@
       </div>
       <div class="col-md-6 col-xs-12" style="padding: 0;">
         <ul class="navigation nav navbar-nav col-xs-12">
-          @if(!Session::has('user_id'))
+          @if(!Session::has('user_id') and !Session::has('employer_id') )
                     <li class="col-md-3 col-xs-4"><a href="{{URL::to('/login')}}"><button class="white-btn">LOGIN</button></a></li>
                     <li class="col-md-3 col-xs-4"><a href="{{URL::to('/student-register')}}"><button class="white-btn">Register</button></a></li>
                     <li class="col-md-3 col-xs-4"><a href="{{URL::to('/employer-register')}}"><button class="white-btn">Employer?</button></a></li>
-                    @else
+                    @else 
+                      @if(Session::has('user_id'))
                     <li><a href="{{URL::to('/student/home')}}"><button class="white-btn user-btn">{{Session::get('student_name')}}</button></a></li>
+                    @else
+                    <li><a href="{{URL::to('/employer/home')}}"><button class="white-btn user-btn">{{Session::get('company_name')}}</button></a></li>
+                    @endif
           @endif
         </ul>
       </div>

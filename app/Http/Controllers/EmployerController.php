@@ -18,6 +18,13 @@ class EmployerController extends Controller
         return view('registrations.employer')->with($data);
     }
 
+    public function logout(){
+        Session::forget('employer_id');
+        Session::forget('company_name');
+        Session::forget('company_email');
+        return redirect('/');
+    }
+
     public function postRegister(Request $request){
     	$count = DB::table('companies')->where('company_email',$request->email)->count();
         if($count > 0){
@@ -79,9 +86,20 @@ class EmployerController extends Controller
                         ->orderBy('posted_date','DESC')
                         ->take(4)
                         ->get();
+
+        $whoApplied = DB::table('applied_to')
+                        ->select('students.student_name','students.student_id','students.avatar','profile_skills.skills','postings.title','postings.id')
+                        ->join('students','students.student_id','=','applied_to.user_id')
+                        ->join('profile_skills','profile_skills.user_id','=','students.student_id')
+                        ->join('postings','postings.id','=','applied_to.posting_id')
+                        ->where('applied_to.company_id',Session::get('employer_id'))
+                        ->get();
+
+        // return $whoApplied;
         $data = array(
             'id' => Session::get('employer_id'),
-            'postings' => $allPostings
+            'postings' => $allPostings,
+            'whoApplied' => $whoApplied
         );
 
 

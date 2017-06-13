@@ -51,6 +51,7 @@ class ResumeController extends Controller
                             ->where('user_id',$id)
                             ->get();
 
+        $resumeUploaded = DB::table('students')->select('resume_uploaded')->where('student_id',$id)->first()->resume_uploaded;
         $snaps = array(asset('images/resume-1-snap.png'),asset('images/resume-2-snap.png'),asset('images/resume-3-snap.png'));
     	$data = array(
     		'educations' => $education,
@@ -63,7 +64,8 @@ class ResumeController extends Controller
             'volunteering' => $volunteering,
             'id' => $id,
             'snaps' => $snaps,
-            'currentSnap' => 1
+            'currentSnap' => 1,
+            'resume_uploaded' => $resumeUploaded
 		);
 
 		return view('resume-builder')->with($data);
@@ -140,5 +142,14 @@ class ResumeController extends Controller
         
 
         return $html;
+    }
+
+    public function resumeUploaded(Request $request){
+        $choice = $request->choice;
+        DB::table('students')
+            ->where('student_id',$request->student_id)
+            ->update(array(
+                'resume_uploaded' => $choice
+            ));
     }
 }

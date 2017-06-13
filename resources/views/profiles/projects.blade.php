@@ -1,7 +1,7 @@
 
 @foreach($profileProjects as $project)
 <form method="post">
-{{csrf_token()}}
+{{csrf_field()}}
 	<div class="form-group" style="margin:10px 0;" class="entered-school">
 	 
 		<div class="col-sm-4"><label class="label-color">Project Name</label><input name="project_name" type="text" class="form-control" style="font-weight: bold;" value="{{$project->project_name}}"readonly></div>

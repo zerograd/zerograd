@@ -43,7 +43,7 @@
 @stop
 
 @section('content')
-	<div class="container-fluid" style="height:100%;">
+	<div id="resume-builder-view" class="container-fluid remodal-bg" style="height:100%;">
 			<div class="row-fluid" style="height:100%;padding: 30px;">
 				<div id="resume-info" class="scroll col-sm-6" style="border:1px solid white;border-radius:3px;height:90%;overflow-y: scroll;background-color: white;padding: 2%">
 					<div id="resume" class="" style="width:95%;height:100%;border-radius: 5px;padding:10px;">
@@ -144,12 +144,32 @@
 				@endforeach
 			</div>
 	</div>
+
+	<!-- Upload Resume or Use Builder Model -->
+	<div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
+	  <a href="{{URL::to('/student/home')}}"><button class="remodal-close"></button></a>
+	  <button type="button" class="btn-info btn">Upload Resume</button>
+	  <button type="button" data-remodal-action="confirm" class="btn-success btn remodal-confirm" onClick="proceedResumeBuilder('build');">Proceed to our Resume Builder</button>
+	</div>
+
 	<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />
 	<input type="text" id="current-snap" name="current-snap" value="{{$currentSnap}}" hidden />
 @stop
 
  @section('script_plugins')
  	<script type="text/javascript">
+ 	 $(document).ready(function(){
+ 	 		@if($resume_uploaded == 'no')
+                var inst = $('[data-remodal-id=modal]').remodal();
+                inst.open();
+            @endif
+
+        });
+ 	 	function proceedResumeBuilder(choice){
+ 	 		$.post('{{route('resume-uploaded')}}',{student_id:$('#profile-id').val(),_token:"{{csrf_token()}}",choice:choice},function(data){
+
+ 	 		});
+ 	 	}
  		function shrink(button){
             var parent = $(button).parent();
             var showButton = parent.find('.showselector');

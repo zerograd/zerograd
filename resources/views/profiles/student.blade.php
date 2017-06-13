@@ -9,7 +9,6 @@
 		#profile{
 			height:auto;
 			background-color: white;
-			margin:0 50px;
 			padding:5px;
 		}
 		.panel-name{
@@ -89,7 +88,7 @@
 				<div class="panel-name">
 					<h2>Profile</h2>
 				</div>	
-				<div id="profile" class="col-sm-11">
+				<div id="profile" class="col-sm-11 col-xs-12">
 					<div class="row" style="padding:5px;text-align: center;" id="profile-buttons">
 						<button class="btn btn-primary" onClick="changeActive('summary');">Summary</button>
 						<button class="btn btn-success" onClick="changeActive('education');">Education</button>
@@ -444,7 +443,7 @@
 		});
 		function addExperience(){
 			var schoolDiv = $('#work-div');
-			var form = $('<form method="post">{{csrf_token()}}</form>');
+			var form = $('<form method="post">{{csrf_field()}}</form>');
 			var formGroup = $('<div class="form-group new-experience" style="margin:10px 0;"></div>');
 			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Company Name</label><input type="text" class="form-control" name="company_name"></div>');
 			var startSelect = $('<div class="col-sm-2"><label class="label-color">Started</label>'+ 
@@ -518,7 +517,7 @@
 
 		function addVolunteer(){
 			var schoolDiv = $('#volunteer-div');
-			var form = $('<form method="post">{{csrf_token()}}</form>');
+			var form = $('<form method="post">{{csrf_field()}}</form>');
 			var formGroup = $('<div class="form-group new-volunteer" style="margin:10px 0;"></div>');
 			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Volunteer Name</label><input type="text" class="form-control" name="volunteer_name"></div>');
 			var startSelect = $('<div class="col-sm-2"><label class="label-color">Started</label>'+ 
@@ -591,7 +590,7 @@
 
 		function addProject(){
 			var schoolDiv = $('#projects-div');
-			var form = $('<form method="post">{{csrf_token()}}</form>');
+			var form = $('<form method="post">{{csrf_field()}}</form>');
 			var formGroup = $('<div class="form-group new-project" style="margin:10px 0;"></div>');
 			var schoolInput = $('<div class="col-sm-4"><label class="label-color">Project Name</label><input type="text" class="form-control" name="project_name"></div>');
 			var startSelect = $('<div class="col-sm-2"><label class="label-color">Started</label>'+ 
