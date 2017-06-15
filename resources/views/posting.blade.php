@@ -31,65 +31,123 @@
         font-weight: bold;
         font-family: 'Raleway', sans-serif;
     }
+    ul {
+        list-style: none;
+        padding: 0;
+         margin: 0;
+    }
+    #responsibilities li {
+        padding-left: 8px;
+    }
+    #responsibilities span {
+        margin:8px;
+        color:black;
+            font-weight: 600;
+    }
+    #requirements-list li {
+        padding-left: 8px;
+    }
+    #requirements-list span {
+        margin:8px;
+        color:black;
+            font-weight: 600;
+    }
+    li:before {
+      content: '■'; 
+      color:#354886; /* or whatever color you prefer */
+    }
+    
+    .container-fluid {
+        height:100%;
+    }
     </style>
 
 @stop
+
+@section('style_plugins')
+    {{ HTML::style('css/posting-responsive.css') }}
+@stop
+
 @section('content')
     @include('nav')
     <div class="container-fluid remodal-bg">
-        <div class="col-sm-3" style="height:100%;text-align:center;border-right:1px solid black;">
-            <div class="col-sm-12" style="margin-top:40px;">
-            <img class="center-block" style="width: 200px;height: 155px;margin:0 auto;" src="{{URL::asset('/images/nasa.png')}}" alt="Company Photo">
-            </div>
-            <div class="col-sm-12" style="padding:20px;">
-                <h1>{{$posting->title}}</h1>
-                <a href="{{route('company-get',$posting->companyID)}}" class="no-hover"><h2>{{$posting->company_name}}</h2></a>
-                <h3 style="font-weight: bold">REQUIRED EXPERIENCED: {{$posting->required_experience}} years</h3>
-                <h4 style="font-weight: bold">Job Type: {{$posting->status}}</h4>
-                <p style="font-weight: bold">Location: {{$posting->location}}</p>
-                <p style="font-weight: bold">Keywords: {{$posting->keywords}}</p>
-                
-                <p style="font-weight: bold">Posted: {{$posting->posted_date}}</p>
-                
-            </div>
-            <div id="buttons" class="col-sm-12">
-                @if(!Session::has('user_id'))
-                <a data-remodal-target="modal">    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button></a>
-                <a data-remodal-target="modal">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
-                @else
-                    @if($appliedTo > 0)
-                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button">Applied</button>
-
+        <div id="overview" class=" col-lg-3 col-sm-5 col-xs-12" style="text-align:center;border-right:1px solid black;">
+            <div class="container-fluid">
+                    <div class="col-sm-12" style="margin-top:40px;">
+                <img class="center-block" style="width: 200px;height: 155px;margin:0 auto;" src="{{URL::asset('/images/nasa.png')}}" alt="Company Photo">
+                </div>
+                <div class="col-sm-12" style="padding:20px;">
+                    <h1>{{$posting->title}}</h1>
+                    <a href="{{route('company-get',$posting->companyID)}}" class="no-hover"><h2>{{$posting->company_name}}</h2></a>
+                    <h3 style="font-weight: bold">REQUIRED EXPERIENCED: {{$posting->required_experience}} years</h3>
+                    <h4 style="font-weight: bold">Job Type: {{$posting->status}}</h4>
+                    <div class="col-sm-12">
+                        <p class="col-sm-6"><span><i class="fa fa-link" aria-hidden="true"></i></span>Website</p>
+                        <p class="col-sm-6"><span><i class="fa fa-twitter" aria-hidden="true"></i></span>Social Media</p>
+                    </div>
+                    <p style="font-weight: bold"><span style="margin:0 2px;color:#354886;"><i class="fa fa-map-marker" aria-hidden="true"></i></span> Location: {{$posting->location}}</p>
+                    <p style="font-weight: bold"><span style="margin:0 2px;color:#354886;"><i class="fa fa-key" aria-hidden="true"></i></span>Keywords: {{$posting->keywords}}</p>
+                    @if($posting->showSalary == 'yes')
+                    <p style="font-weight: bold"><span style="margin:0 2px;color:#354886;"><i class="fa fa-money" aria-hidden="true"></i></span>Salary: ${{$posting->salary}}</p>
                     @else
-                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onclick="applyToJob();">Apply Now</button>
+                    <p style="font-weight: bold"><span style="margin:0 2px;color:#354886;"><i class="fa fa-money" aria-hidden="true"></i></i></span>Salary: Available on Request</p>
+                    @endif
+                    <p style="font-weight: bold">Posted: {{$posting->posted_date}}</p>
+                    
+                </div>
+                <div id="buttons" class="col-sm-12">
+                    @if(!Session::has('user_id'))
+                    <a data-remodal-target="modal">    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button></a>
+                    <a data-remodal-target="modal">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
+                    @else
+                        @if($appliedTo > 0)
+                            <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button">Applied</button>
+
+                        @else
+                            <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onclick="applyToJob();">Apply Now</button>
+                        @endif
+                        
+                    
+                        @if($saved > 0)
+                            <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
+                        @else
+                            <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button>
+                        @endif
                     @endif
                     
-                
-                    @if($saved > 0)
-                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
-                    @else
-                        <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button>
-                    @endif
-                @endif
-                
+                </div>
+                <!-- END OF BUTTONS -->
+                <!-- Share icons -->
+                <div class="col-sm-12" style="margin-top: 40px;">
+                    <span class="number number-primary"><i class="fa fa-twitter" aria-hidden="true"></i>
+                    </span>
+                    <span class="number number-primary"><i class="fa fa-instagram" aria-hidden="true"></i>
+                    </span>
+                    <span class="number number-primary"><i class="fa fa-linkedin" aria-hidden="true"></i>
+                    </span>
+                </div>
             </div>
-            <div class="col-sm-12" style="margin-top: 40px;">
-                <span class="number number-primary"><i class="fa fa-facebook" aria-hidden="true"></i>
-                </span>
-                <span class="number number-primary"><i class="fa fa-twitter" aria-hidden="true"></i>
-                </span>
-                <span class="number number-primary"><i class="fa fa-instagram" aria-hidden="true"></i>
-                </span>
-                <span class="number number-primary"><i class="fa fa-linkedin" aria-hidden="true"></i>
-                </span>
-            </div>
-        </div>
-        <div class="col-sm-9">
+        </div> 
+        <!-- JOB DESCRIPTION AREA -->
+        <div id="job-area" class="col-lg-9 col-sm-7 col-xs-12">
             <h2>Job Description:</h2>
             <div class="col-sm-12">
                 <p>{{$posting->description}}</p>
             </div>
+            <h2>Key Responsibilities:</h2>
+            <div class="col-sm-12">
+                <ul id="responsibilities">
+                    <li><span>{{$posting->description}}</span></li>
+                </ul>
+            </div>
+            <h2>Requirements:</h2>
+            <div class="col-sm-12">
+                <ul id="requirements-list">
+                    <li><span>{{$posting->description}}</span></li>
+                </ul>
+            </div>
         </div>
+        <!-- END OF JOB DESCRIPTION AREA -->
     </div>
 
     <!-- Sign Up Modal -->

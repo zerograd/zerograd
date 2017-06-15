@@ -45,7 +45,7 @@
                     <div class="container-fluid">
                         <ul>
                         @foreach($postings as $posting)
-                        <a href="{{route('posting-get',['title' => $posting->title,'id' => $posting->id])}}" style="text-decoration: none;"><li class="recent-job col-md-6 col-xs-12">
+                        <a href="{{route('posting-get',['title' => $posting->title,'id' => $posting->id])}}" style="text-decoration: none;"><li class="recent-job col-lg-8 col-lg-offset-2 col-md-6 col-xs-12">
                             <div class="container-fluid" style="text-align: center;">
                                     <img src="{{URL::asset('/images/google.png')}}" alt="company logo" title="">
                                 <div class="col-md-10 col-sm-11 col-xs-12">

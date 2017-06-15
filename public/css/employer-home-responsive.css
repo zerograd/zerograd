@@ -34,6 +34,10 @@
 		color:white;
 	}
 
+	/*#navigation-panel {
+		position: absolute;
+		z-index: 3;
+	}*/
 
 	/*CREATE POSTING PAGE*/
 	#posting{
@@ -46,12 +50,12 @@
 
 		#posting h2{
 			margin:10px 0;
-			color:white;
+			color:black;
 			font-weight:500;
 		}
 
 		label {
-			color:white;
+			color:black;
 		}
 
 		/*PROFILE PAGE of dashboard*/
@@ -85,10 +89,6 @@
 			height:50px;
 		}
 
-	#navigation-panel {
-		position: absolute;
-		z-index: 3;
-	}
 
 
 }
@@ -103,7 +103,7 @@
 		margin:0;
 		height:150px;
 	}
-
+    
 	#recommend-job-header {
 		font-size: 20px;
 	}

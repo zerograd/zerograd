@@ -1,0 +1,23 @@
+@media (min-width: 320px){
+
+	#overview{
+		height:auto;
+	}
+
+	#job-area{
+		margin-top: 50px;
+	}
+
+}
+
+@media (min-width: 768px){
+
+	#overview{
+		height:100%;
+	}
+
+	#job-area{
+		margin-top: 50px;
+	}
+
+}

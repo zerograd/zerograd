@@ -98,6 +98,10 @@
 			font-weight: bold;
 		}
 
+		input,select,textarea,.input-group {
+			margin-bottom: 40px;
+		}
+
 		select,option {
 			color:black;
 			font-weight: bold;
@@ -119,21 +123,36 @@
 				{{csrf_field()}}
 					<h2>Create a Posting</h2>
 					<div class="form-group">
-						<label>Job Title</label>
+						<label>Job Title&nbsp(*)</label>
 						<input type="text" name="title" id="title" class="form-control"/>
-						<label>Description</label>
+						<label>Description&nbsp(*)</label>
 						<textarea name="description" id="description" col="50" class="form-control"></textarea>
-						<label>Location</label>
+						<label>Location <span style="color:grey;">(Optional)</span></label>
 						<input type="text" name="location" id="location" class="form-control"/>
-						
-						<label>Status</label>
+						<label>Category</label>
+						<select name="cat_id" class="form-control">
+							@foreach($categories as $category)
+							<option value="{{$category->cat_id}}">{{$category->cat_name}}</option>
+							@endforeach
+						</select>
+						<label>Status&nbsp(*)</label>
 						<select name="status" class="form-control">
 							<option value="Full-time">Full-Time</option>
 							<option value="Part-time">Part-Time</option>
 							<option value="Contract">Full-Time</option>
 							<option value="Not Specified">Not Specified</option>
 						</select>
-						<label>Required Experience</label>
+						
+						<div class="form-group">
+								<label>Keywords</label>
+								<div class="input-group col-sm-12" id="skills-group-div">
+									<input class="form-control" name="skill" id="skill" type="text" placeholder="Enter keywords here...(Press space key after each keyword)" />
+									<div id="posting-skill-container" class="container-fluid">
+								
+									</div>
+								</div>
+							</div>
+						<label>Required Experience&nbsp(*)</label>
 						<select name="required_experience" class="form-control">
 							<option value="1">1 year</option>
 							<option value="2">2 years</option>
@@ -154,9 +173,9 @@
 						</label>
 					</div>
 					<div class="col-sm-12" style="padding:10px;">
-						<button class="btn btn-info" style="float:right;" type="submit">Create Posting</button>
+						<button class="btn btn-info" style="float:right;" type="button" onClick="createPost();">Create Posting</button>
 					</div>
-
+                    <input type="text" name="keywords" id="skills" value="" hidden>
 					@if(Session::has('employer_id'))
 					<input type="text" name="company_id" value="{{Session::get('employer_id')}}" hidden>
 					@endif
@@ -170,55 +189,53 @@
 @section('script_plugins')
 
 	<script>
-	var data = {
-    datasets: [
-        {
-            data: [70,30],
-            backgroundColor: [
-                "#77C85E",
-                '#FFFFFF'
-            ],
-            hoverBackgroundColor: [
-                "#77C85E",
-                '#FFFFFF'
-            ]
-        }]
-	};
+	$(document).ready(function(){
+			
+			$('#skill').keypress(function(event){
+				if(event.keyCode == 32){
+					var currentSkill = $(this).val();
+					if(currentSkill.length > 0){
+						var skillContainer = $('#posting-skill-container');
+						$('#skills').val($('#skills').val() + ',' + currentSkill);
+						var button = $('<button class="btn btn-info" style="margin: 5px 0;" onClick="removeSkill(this);">'+ currentSkill +'&nbsp<i class="fa fa-times-circle" aria-hidden="true"></i></button>"');
+						skillContainer.append(button);
+						$('#skill').val('');
+					}
+					
+				}else{
 
-	var ctx = $('#doughnutChart').get(0).getContext('2d');
+				}
+			});
 
-	var myDoughnutChart = new Chart(ctx, {
-	    type: 'doughnut',
-	    data: data,
-	    options: {
-	    	cutoutPercentage : 50,
-	    	responsive:true,
-	    	maintainAspectRatio: true,
-	    	tooltips: {
-            enabled: false
-         }
-	    }
-	});
+		});
 
-	Chart.pluginService.register({
-  beforeDraw: function(chart) {
-    var width = chart.chart.width,
-        height = chart.chart.height,
-        ctx = chart.chart.ctx;
+		function removeSkill(skill){
+			$(skill).remove();
+		}
+	 function saveSkills(){
+			var id = $('#profile-id').val();
+			var buttons = $('#posting-skill-container button');
+			var skills = [];
+			buttons.each(function(){
+				skills.push($(this).text().trim());
+			});
 
-    ctx.restore();
-    var fontSize = (height / 114).toFixed(2);
-    ctx.font = fontSize + "em sans-serif";
-    ctx.textBaseline = "middle";
+			var data = {
+				_token: $('{{ csrf_field()}}').val(),
+				id:id,
+				skills:skills
+			};
+			$.post('{{route('skills-save')}}',data,function(data){
+				console.log(data);
+			});
+		}
 
-    var text = "70%",
-        textX = Math.round((width - ctx.measureText(text).width) / 2),
-        textY = height / 2;
+		function createPost(){
+			var formData = $('#create-post').serialize();
+			$.post('{{route('create-posting')}}',formData,function(data){
 
-    ctx.fillText(text, textX, textY);
-    ctx.save();
-  }
-});
+			});
+		}
 	
 	</script>
 @stop

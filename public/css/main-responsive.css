@@ -49,7 +49,7 @@
      /*Latest Jobs CSS*/
 
      #latest-jobs ul {
-     	margin:0;
+     	margin:0; 
      	padding:0;
      	list-style: none;
      }
@@ -904,6 +904,315 @@
      	float:right;
      	text-transform: uppercase;
      	font-size:10px;
+     }*/
+}
+
+
+
+
+
+@media (min-width: 1400px){
+
+    .navigation {
+        padding: 0;
+    }
+    .navbar-nav>li>a {
+        padding:40px 10px; 
+    }
+    .navigation a {
+        width:100%;
+    }
+    .navigation li {
+        padding:0;
+    }
+     .navigation .white-btn{
+        font-size: 20px;
+        float:left;
+        padding:20px;
+     }
+
+     /*Search CSS*/
+
+     .search-header{
+        margin:30px 0;
+        margin-top: 150px;
+     }
+
+     .search-header h1 {
+        font-size: 60px;
+     }
+
+     .search-header p {
+        font-size: 48px;
+     }
+
+     .search-area input {
+        width:100%;
+        margin:0;
+        padding:30px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        color:#23CCF3;
+        font-weight: bold;
+     }
+
+     .search-btn {
+        background-color: #23CCF3;
+        padding:30px;
+        border:none;
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
+        color:white;
+        width:100%;
+        font-size:18px;
+     }
+
+     /*Latest Jobs CSS*/
+
+     #latest-jobs ul {
+        margin:0;
+        padding:0;
+        list-style: none;
+     }
+
+     .recent-job{
+        padding: 10px;
+        margin: 10px 10%;
+        border:2px solid #E6E6E6;
+        border-radius: 2px;
+        width:80%;
+     }
+
+     .recent-job img {
+        width:60px;
+        height:60px;
+        margin:0 auto;
+     }
+
+     .recent-job .post-title {
+        font-size: 16px;
+        width:100%;
+        margin:0;
+        color:black;
+        font-weight: bold;
+        float:left;
+        text-align: center;
+     }
+
+     .recent-job .location {
+        font-size: 12px;
+        margin:0;
+        color:#C6C6C6;
+        font-weight: bold;
+        text-align: center;
+     }
+
+     .recent-job .post-company-name{
+        display:none;
+     }
+
+     .recent-job .status{
+        margin:0;
+        padding:5px;
+        color:#FFFFFF;
+        font-weight: bold;
+        float:right;
+        text-transform: uppercase;
+        font-size:10px;
+     }
+
+     /*Database Info CSS*/
+
+     .database-info-title {
+        text-align: center;
+        font-weight:bold;
+     }
+     .counter {
+        height: 300px;
+        padding: 100px;
+        background-color: #F6F6F6;
+        border: 1px solid #E6E6E6;
+     }
+
+
+    .counter:last-child{
+        border-right: none;
+    }
+    .counter h2{
+        font-size: 48px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+    .counter h4 {
+        font-size: 16px;
+        font-weight: bold;
+        margin: 10px 0;
+    }
+
+    /*HOW IT WORKS CSS*/
+
+    #how-it-works {
+        margin-top:170px;
+        background-color:white;
+        width:100%;
+        height:762px;
+    }
+
+    .how-it-works-text {
+        font-size: 18px;
+    }
+
+    .how-it-works-button{
+        margin-top:70px;
+        border-radius: 3px;
+        padding: 15px 40px;
+        text-align: center;
+    }
+    
+
+    /*POPULAR CATEGORIES*/
+
+    #popular-categories {
+        margin-top:300px;
+        background-color:#F6F6F6;
+        width:100%;
+        height:1000px;
+        padding:50px;
+    }
+
+    #popular-categories h2 {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #popular-categories h3 {
+        font-size: 32px;
+        font-weight: bold;
+    }
+
+    .category {
+        width:31%;
+        float: left;
+        height: 350px;
+        background-color: #FFFFFF;
+        margin: 0 1%;
+        margin-top: 30px;
+        box-shadow: 1px 1px 1px #E6E6E6;
+        transition: background-color 0.3s ease-in-out 0s;
+    }
+
+    .category p {
+        word-wrap: break-word;
+        margin:20px;
+        font-size: 16px;
+        font-weight: bold;
+        color:#C6C6C6;
+    }
+
+    /*SUBSCRIBE*/
+
+    #subscribe-section {
+        background: url(http://localhost/zerograd/public/images/bg-facts.jpg);
+        background-size: 100% 100%;
+        background-color: #F6F6F6;
+        width: 100%;
+        height: 400px;
+        margin-top: 10px;
+    }
+
+    #subscribe-section h3:first-child{
+        margin: 10px 0 0 0;
+        font-size: 32px;
+        color:white;
+        font-weight: bold;
+    }
+
+    #subscribe-section h3:last-child{
+        margin: 10px 0 0 0;
+        font-size: 20px;
+        color:white;
+        font-weight: bold;
+    }
+
+    #subscribe-section input {
+        margin:30px 0 0 0;
+        font-size: 12px;
+        color:black;
+        font-weight: bold;
+    }
+
+    #subscribe-section input::placeholder{
+        font-size: 12px;
+    }
+
+    #subscribe-section button {
+        margin:30px 0 0 0;
+        text-transform:uppercase;
+        font-weight:bold; 
+        color:white;
+    }
+
+    /*.user-btn{
+        float:left;
+    }
+    .search-area input {
+        width:100%;
+        margin:0;
+        padding:50px;
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+        color:#23CCF3;
+        font-weight: bold;
+     }
+
+     #latest-jobs ul {
+        margin:80px 0 0 0;
+        padding:0;
+        list-style: none;
+     }
+
+     .recent-job{
+        padding: 5px;
+        margin: 10px 25%;
+        width:50%;
+        border:2px solid #E6E6E6;
+        border-radius: 2px;
+     }
+
+     .recent-job img {
+        width:60px;
+        height:60px;
+        float:left;
+     }
+
+     .recent-job .post-title {
+        font-size: 16px;
+        margin:10px 0 0 0;
+        color:black;
+        font-weight: bold;
+        float:left;
+     }
+
+     .recent-job .location {
+        font-size: 12px;
+        margin:10px 0 0 0;
+        color:#C6C6C6;
+        font-weight: bold;
+        float:right;
+     }
+
+     .recent-job .post-company-name{
+        display:none;
+     }
+
+     .recent-job .status{
+        margin:0;
+        padding:5px;
+        color:#FFFFFF;
+        font-weight: bold;
+        float:right;
+        text-transform: uppercase;
+        font-size:10px;
      }*/
 }
 

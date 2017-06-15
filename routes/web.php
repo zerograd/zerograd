@@ -196,6 +196,8 @@ Route::post('/update-company-profile',array(
 ));
 
 
+
+
 //ResumeController
 Route::get('/resume-builder/profile/{id}',array(
 	'as' => 'resume-builder',

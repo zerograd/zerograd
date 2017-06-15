@@ -119,37 +119,40 @@
 
 @section('content')
 	
-		@include('layout.employer-main-layout')
-		<div class="container-fluid">
-			<div class="col-sm-7 col-xs-12">
-				<div id="who-applied" class="col-sm-12 col-xs-12">
-					<h2>Who Applied?</h2>
-					<div class="container-fluid">
-						@foreach($whoApplied as $student)
-							<div class="row">
-								<div class="col-xs-12" style="text-align: center;">
-									<a href="{{route('public-profile',$student->student_id)}}" style="text-decoration: none;color:white"><img src="<?php echo asset("storage/avatars/$student->avatar")?>"> 
-									<h3>{{$student->student_name}}</h3></a>
-									<p>Applied for: <a href="{{route('posting-get',['title'=> $student->title,'id'=> $student->id])}}">{{$student->title}}</a></p> 
-									<p>Skills: {{$student->skills}}</p> 
+		@include('homepages.employer-panel')
+		<div class="col-lg-9 col-xs-12" id="main-area">
+			@include('layout.employer-main-layout')
+			<div class="container-fluid">
+				<div class="col-sm-7 col-xs-12">
+					<div id="who-applied" class="col-sm-12 col-xs-12">
+						<h2>Who Applied?</h2>
+						<div class="container-fluid">
+							@foreach($whoApplied as $student)
+								<div class="row">
+									<div class="col-xs-12" style="text-align: center;">
+										<a href="{{route('public-profile',$student->student_id)}}" style="text-decoration: none;color:white"><img src="<?php echo asset("storage/avatars/$student->avatar")?>"> 
+										<h3>{{$student->student_name}}</h3></a>
+										<p>Applied for: <a href="{{route('posting-get',['title'=> $student->title,'id'=> $student->id])}}">{{$student->title}}</a></p> 
+										<p>Skills: {{$student->skills}}</p> 
+									</div>
 								</div>
-							</div>
-						@endforeach
+							@endforeach
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="col-sm-5 col-xs-12">
-				<div id="profile-completion" class="col-sm-12 col-xs-12">
-					<h2>List of Postings</h2>
-					<ul style="list-style: none;padding:0;margin:0;">
-						@foreach($postings as $posting)
-							<li style="padding:20px;">
-								<p style="color:black;font-weight: bold;">Job Title : {{$posting->title}}</p>
-								<p style="color:black;font-weight: bold;">Posted: {{$posting->posted_date}}</p>
-							</li>
-						@endforeach
-					</ul>
-					<a href="#"><p style="float:right;color: black;font-weight: bold;">View all postings</p></a>
+				<div class="col-sm-5 col-xs-12">
+					<div id="profile-completion" class="col-sm-12 col-xs-12">
+						<h2>List of Postings</h2>
+						<ul style="list-style: none;padding:0;margin:0;">
+							@foreach($postings as $posting)
+								<li style="padding:20px;">
+									<p style="color:black;font-weight: bold;">Job Title : {{$posting->title}}</p>
+									<p style="color:black;font-weight: bold;">Posted: {{$posting->posted_date}}</p>
+								</li>
+							@endforeach
+						</ul>
+						<a href="#"><p style="float:right;color: black;font-weight: bold;">View all postings</p></a>
+					</div>
 				</div>
 			</div>
 		</div>

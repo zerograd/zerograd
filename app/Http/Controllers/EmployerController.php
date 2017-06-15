@@ -108,8 +108,13 @@ class EmployerController extends Controller
     }
 
     public function getCreatePosting(){
+
+        $categories = DB::table('categories')
+                        ->select('*')
+                        ->get();
         $data = array(
-            'id' => Session::get('employer_id')
+            'id' => Session::get('employer_id'),
+            'categories' => $categories
         );
 
 
@@ -119,7 +124,7 @@ class EmployerController extends Controller
 
     public function postCreatePosting(Request $request){
         $previousInsertId;
-        foreach($request->except('_token') as $key=>$value){
+        foreach($request->except('_token','skill') as $key=>$value){
              if(!isset($previousInsertId)){//Create if doesn't exist
                 
                     $previousInsertId = DB::table('postings')->insertGetId(array(
