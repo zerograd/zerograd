@@ -917,7 +917,7 @@
         padding: 0;
     }
     .navbar-nav>li>a {
-        padding:40px 10px; 
+        padding:20px 10px; 
     }
     .navigation a {
         width:100%;
@@ -926,9 +926,9 @@
         padding:0;
     }
      .navigation .white-btn{
-        font-size: 20px;
+        font-size: 16px;
         float:left;
-        padding:20px;
+        padding:5px;
      }
 
      /*Search CSS*/

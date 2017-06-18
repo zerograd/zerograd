@@ -509,7 +509,7 @@ class StudentController extends Controller
             'projects' => $projects
         );
 
-        $html = view('resume-template-1')->with($data)->render();
+        $html = view('templates.resume-template-1')->with($data)->render();
         $pdf = new Dompdf();
 
         $pdf->loadHtml($html);

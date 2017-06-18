@@ -17,7 +17,7 @@ body {
 
 nav {
     height:10%;
-    background-color: #FFFFFF;
+    background-color: #c6c6c6;
 }
 
         #navigation-panel{
@@ -302,7 +302,9 @@ nav {
 }
 
 #who-applied {
-    background: url('../images/ocean.jpg') no-repeat;
+        margin: 10px 0;
+    border-top:5px solid #2980b9;
+    background-color: #3498db;
     background-size: 100% 100%;
     padding: 0;
 }

@@ -17,7 +17,7 @@
 		margin-top:5px;
 		height:auto;
 		text-align:center;
-		padding:30px 10px;
+		padding:30px 10px; 
 		border-radius:10px;
 	}
 	#login-form > input {
@@ -49,17 +49,29 @@
 
 {{ HTML::style('css/login-responsive.css') }}
 	<script>
+	function ValidateEmail(mail)   
+	{  
+		 var x = mail.value;
+	    var atpos = x.indexOf("@");
+	    var dotpos = x.lastIndexOf(".");
+	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+	        alert("Not a valid e-mail address");
+	        return false;
+    	}else{
+    		return true;
+    	}
+	} 
        function verifyLogin(){
        	 	var email = document.getElementById('email');
        	 	var password = document.getElementById('password');
        	 	if(email == undefined){
        	 		return false;
        	 	}
-       	 	if(email.value.length == 0){
+       	 	if(email.value.length == 0 ){
        	 		alert("Please enter your email.");
        	 	}else if(password.value.length == 0){
        	 		alert("Please enter your password.");
-       	 	}else{
+       	 	}else if(ValidateEmail(email) == true){
        	 		var data = $("#login-form").serialize();
        	 		$.post('{{URL::to('/student-login/login')}}'
        	 			,data,function(data){
@@ -80,7 +92,7 @@
        	 	if(email.value.length == 0){
        	 		alert("Please enter your email.");
        	 	
-       	 	}else{
+       	 	}else if(ValidateEmail(email) == true){
        	 		var data = $("#login-form").serialize();
        	 		$.post('{{URL::to('/employer-login/login')}}'
        	 			,data,function(data){

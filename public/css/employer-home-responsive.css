@@ -42,8 +42,8 @@
 	/*CREATE POSTING PAGE*/
 	#posting{
 			height:auto;
-			background-color: white;
-			border-top:5px solid #D7D131;
+			background-color: #16a085;
+			border-top:5px solid #13B662;
 			margin:10px 0;
 			padding: 10px;
 		}

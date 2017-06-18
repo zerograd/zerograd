@@ -41,7 +41,7 @@
 		
 		#profile-completion{
 			height:auto;
-			background-color: white;
+			background-color: #16a085;
 			border-top:5px solid #13B662;
 			margin:10px 0;
 			padding: 5px;
@@ -130,7 +130,12 @@
 							@foreach($whoApplied as $student)
 								<div class="row">
 									<div class="col-xs-12" style="text-align: center;">
-										<a href="{{route('public-profile',$student->student_id)}}" style="text-decoration: none;color:white"><img src="<?php echo asset("storage/avatars/$student->avatar")?>"> 
+										<a href="{{route('public-profile',$student->student_id)}}" style="text-decoration: none;color:white">
+										@if(strlen($student->avatar) > 0)
+											<img src="<?php echo asset("storage/avatars/$student->avatar")?>"> 
+										@else
+											<img src="{{URL::asset('/images/headshot.jpg')}}">
+										@endif
 										<h3>{{$student->student_name}}</h3></a>
 										<p>Applied for: <a href="{{route('posting-get',['title'=> $student->title,'id'=> $student->id])}}">{{$student->title}}</a></p> 
 										<p>Skills: {{$student->skills}}</p> 

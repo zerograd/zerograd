@@ -82,8 +82,10 @@
 @stop
 
 @section('content')
-	@include('layout.main-layout')
 			<!-- Start of MAIN AREA -->
+			@include('homepages.student-panel')
+		<div class="col-lg-9" id="main-area">
+		@include('layout.main-layout')
 			<div class="col-sm-12 scroll">	
 				<div class="panel-name">
 					<h2>Profile</h2>
@@ -236,7 +238,7 @@
 
 			</div> 
 			<!-- END OF main area -->
-		
+		</div>
 		<input type="text" id="profile-id" name="id" value="{{$id}}" hidden />
 @stop
 

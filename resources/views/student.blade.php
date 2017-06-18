@@ -30,10 +30,14 @@
                         <div class="col-sm-12">
                             @if($friend != 'no')
                                 <button class="btn btn-info">Connected</button>
-                            @else
+                            @elseif(!Session::has('employer_id'))
                                 <button class="btn btn-info" type="button" onClick="sendRequest();">Send Request</button>
                             @endif
                                 <button class="btn btn-info"><i class="fa fa-envelope" aria-hidden="true"></i>&nbspMessage</button>
+
+                            @if (Session::has('employer_id'))
+                             <a href="{{route('preview-resume',$user->student_id)}}" target="_blank"><button class="btn btn-info" type="button"><i class="fa fa-download" aria-hidden="true"></i>&nbspDownload Resume</button></a>
+                            @endif
                         </div>
                         <h3 style="margin:10px 0;float:left;font-weight: bold;width:100%;">Summary</h3>
                         <div class="col-sm-12">

@@ -112,30 +112,34 @@
 
 @section('content')
 	
-		@include('layout.employer-main-layout')
-		<div class="container-fluid">
-			<div class="col-sm-8 col-sm-offset-2 col-xs-12">
-				<div id="profile" class="col-sm-12 col-xs-12">
-				<form id="create-post" action="{{route('update-company-profile')}}" method="POST">
-				{{csrf_field()}}
-						<h2>Edit Profile</h2>
-					@if(isset($profileInfo))
-						<div class="form-group">
-							<label>Company Name</label>
-							<input type="text" name="company_name" id="company_name" class="form-control" value="{{$profileInfo->company_name}}" />
-							<label>Company Overview</label>
-							<textarea name="company_overview" id="company_overview" col="50" class="form-control">{{$profileInfo->company_overview}}</textarea>
-							<label>Company Location</label>
-							<input type="text" name="company_location" id="company_location" class="form-control" value="{{$profileInfo->company_location}}" />
+		@include('homepages.employer-panel')
+		<div class="col-lg-9 col-xs-12" id="main-area">
+			@include('layout.employer-main-layout')
+			<div class="container-fluid">
+				<div class="col-sm-8 col-sm-offset-2 col-xs-12">
+					<div id="profile" class="col-sm-12 col-xs-12">
+					<form id="create-post" action="{{route('update-company-profile')}}" method="POST">
+					{{csrf_field()}}
+							<h2>Edit Profile</h2>
+						@if(isset($profileInfo))
+							<div class="form-group">
+								<label>Company Name</label>
+								<input type="text" name="company_name" id="company_name" class="form-control" value="{{$profileInfo->company_name}}" />
+								<label>Company Overview</label>
+								<textarea name="company_overview" id="company_overview" col="50" class="form-control">{{$profileInfo->company_overview}}</textarea>
+								<label>Company Location</label>
+								<input type="text" name="company_location" id="company_location" class="form-control" value="{{$profileInfo->company_location}}" />
+							</div>
+						@endif
+						<div class="col-sm-12" style="padding:10px;">
+							<button class="btn btn-info" style="float:right;" type="submit">Update Profile</button>
 						</div>
-					@endif
-					<div class="col-sm-12" style="padding:10px;">
-						<button class="btn btn-info" style="float:right;" type="submit">Update Profile</button>
+						
+					</form>
 					</div>
-					
-				</form>
 				</div>
 			</div>
+
 		</div>
 		<input id="employer-id" type="text" value="{{$id}}" hidden>
 @stop

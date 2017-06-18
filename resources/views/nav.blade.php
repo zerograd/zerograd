@@ -10,13 +10,13 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar" style="margin: 0;">
       <div class="col-md-9" style="padding: 0;">
-        <ul class="navigation nav navbar-nav">
+        <ul class="navigation nav navbar-nav col-xs-12">
           <li><a href="{{URL::to('/about')}}"><button class="white-btn user-btn">About</button></a></li>
           <li><a><button class="white-btn user-btn">Contact Us</button></a></li>
           @if(!Session::has('user_id') and !Session::has('employer_id') )
-                    <li class="col-md-3 col-xs-4"><a href="{{URL::to('/login')}}"><button class="white-btn">LOGIN</button></a></li>
-                    <li class="col-md-3 col-xs-4"><a href="{{URL::to('/student-register')}}"><button class="white-btn">Register</button></a></li>
-                    <li class="col-md-3 col-xs-4"><a href="{{URL::to('/employer-register')}}"><button class="white-btn">Employer?</button></a></li>
+                    <li><a href="{{URL::to('/login')}}"><button class="white-btn">LOGIN</button></a></li>
+                    <li><a href="{{URL::to('/student-register')}}"><button class="white-btn">Register</button></a></li>
+                    <li><a href="{{URL::to('/employer-register')}}"><button class="white-btn">Employer?</button></a></li>
                     @else 
                       @if(Session::has('user_id'))
                     <li><a href="{{URL::to('/student/home')}}"><button class="white-btn user-btn"><b>Logged in as:</b>{{Session::get('student_name')}}</button></a></li>

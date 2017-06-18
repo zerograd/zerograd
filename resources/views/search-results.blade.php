@@ -8,9 +8,12 @@
 @section('styles')
     <style>
 
-            #Container{
-                height:85%;
-            }
+           
+
+           #Container{
+             height:100%;
+           }
+
             #results li  {
                     border: 1px solid #ddd; /* Add a border to all links */
                     margin-top: -1px; /* Prevent double borders */
@@ -62,6 +65,9 @@
 
         #navigation {
             background-color:#354886; 
+            position: fixed;
+            width:100%;
+             z-index: 2;
         }
 
         .navigation button {
@@ -71,14 +77,85 @@
         #otherContainer {
             height:50px;
         }
-        </style>
+
+        select {
+            
+        }
+        select,option {
+            font-weight: 600;
+        }
+        
+        label{
+            margin-top: 30px;
+        }
+        .location {
+            margin-bottom: 10px;
+        }
+        .location {
+            display: block;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 16px;
+            line-height: 1.42857143;
+            color: black;
+            font-weight: 600;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+            -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+            transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+        }
+
+        .location::placeholder{
+            font-size: 12px;
+        }
+
+        #job-types li ,
+        #years li {
+            height:40px;
+        }
+        /*Checkbox CSS*/
+        
+        .customcheckbox {
+            display:inline-block;
+            width:20px;
+            height: 20px;
+            border:1px solid grey;
+            border-radius: 2px;
+            cursor:pointer;
+        }
+        .innerspan {
+            background-color: #2980b9;
+            height:100%;
+            padding: 2px;
+        }
+
+        .checkmark {
+            position: absolute;
+            color:white;
+        }
+
+        .checkboxlabel{
+            display:inline-block;
+            color:black;
+            font-weight: 600;
+            margin-left:10px;
+            margin-right:4px;
+            text-align: center;
+            
+        }
+        
+
+                </style>
 @stop
 
-@section('style_plugins')
-    
-@stop        
+      
         @section('content')
-            @include('nav');
+            @include('nav')
         <div id="Container">
                   <div class="preloader-wrapper big active">
                     <div class="spinner-layer spinner-blue-only">
@@ -92,40 +169,114 @@
                     </div>
                   </div>
                   @if($found == "yes" && isset($found))
-                <div id="filters" class="col-md-2" style="border-right:1px solid grey;height:100%;">
-                    <h1>Years of Experience</h1>
-                    <div id="radios">
-                        <input class="years" id="option1" name="options" type="radio" value="1">
-                        <label for="option1">1 year</label>
-                        <input class="years" id="option2" name="options" type="radio" value="2">
-                        <label for="option2">2 years</label>
-                        <input  class="years" id="option3" name="options" type="radio" value="3">
-                        <label for="option3">3 years</label>
+                 <div class="container-fluid">
+                    <div id="filters" class="col-md-2 scroll" style="padding-top:77px;border-right:1px solid grey;height:100%;overflow-y: scroll">
+                    <div class="form-group">
+                        <label>Sort By</label>
+                        <select name="date" id="date" class="form-control">
+                            <option value="newest">Newest</option>
+                            <option value="relevance">Relevance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input name="location" id="location" placeholder="City" class="form-control" style="margin-bottom: 10px;color:black;font-weight: 600;">
+                    </div>
+                    <div class="form-group">
+                        <label>Job Type</label>
+                        <div  class="col-xs-12">
+                            <ul id="job-types" style="list-style: none;margin:0;padding: 0;">
+                                <li>
+                                   <div class="customcheckbox anytype type" onClick="onCustomCheckbox(this);">
+                                   </div>
+                                   <label class="checkboxlabel">All</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox type" onClick="onCustomCheckbox(this);">
+                                   </div>
+                                   <label class="checkboxlabel">Full-Time</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox type" onClick="onCustomCheckbox(this);">
+                                   </div>
+                                   <label class="checkboxlabel">Part-Time</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox type" onClick="onCustomCheckbox(this);">
+                                   </div>
+                                   <label class="checkboxlabel">Permanent</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox type" onClick="onCustomCheckbox(this);">
+                                   </div>
+                                   <label class="checkboxlabel">Internship</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Years of Experience</label>
+                        <div  class="col-xs-12">
+                            <ul id="years" style="list-style: none;margin:0;padding: 0;">
+                                <li>
+                                   <div class="customcheckbox anyyears years" onClick="onCustomCheckboxYears(this);">
+                                   </div>
+                                   <label class="checkboxlabel" value="Any">Any</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox years" onClick="onCustomCheckboxYears(this);">
+                                   </div>
+                                   <label class="checkboxlabel" value="1">1 Year</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox years" onClick="onCustomCheckboxYears(this);">
+                                   </div>
+                                   <label class="checkboxlabel" value="2">2 Years</label>
+                                </li>
+                                <li>
+                                   <div class="customcheckbox years" onClick="onCustomCheckboxYears(this);">
+                                   </div>
+                                   <label class="checkboxlabel" value="3">3 Years</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Salary</label>
+                        
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-block" type="button" onClick="filter();">Search</button>
                     </div>
                 </div>
                 @endif
 
                 @if($found == "yes" && isset($found))
-                <div id="results-area" class="col-md-10 scroll" style="height:100%;text-align: center;overflow-y: scroll;">
+                <div id="results-area" class="col-md-10 scroll" style="padding-top:77px;height:100%;text-align: center;overflow-y: scroll;">
                 @else
-                <div id="results-area" class="col-md-12 scroll" style="height:100%;text-align: center;overflow-y: scroll;">
+                <div id="results-area" class="col-md-12 scroll" style="padding-top:77px;height:100%;text-align: center;overflow-y: scroll;">
                 @endif
                 <div class="loader" style="display:none;position: absolute;z-index:1;top:40%;left:40%;"></div>
                     @if($found == "yes" && isset($found))
-                    <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
+                    <div class="row-fluid">
+                        <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
                         @include('results')
-                    </ul>
+                        </ul>
+                    </div>
                     @else
-                    <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
-                        <li class="col-sm-12">
-                                <div class="col-sm-12"><h5> <strong>NO RESULTS FOUND</strong></h5></div>
-                        </li>
-                        <a href="{{URL::to('/')}}"><button class="btn waves-effect waves-teal " style="margin:10px;font-weight: bold;">Return to Home and Try a new search.</button></a>
-                    </ul>
+                    <div class="row-fluid">
+                        <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
+                            <li class="col-sm-12">
+                                    <div class="col-sm-12"><h5> <strong>NO RESULTS FOUND</strong></h5></div>
+                            </li>
+                            <a href="{{URL::to('/')}}"><button class="btn waves-effect waves-teal " style="margin:10px;font-weight: bold;">Return to Home and Try a new search.</button></a>
+                        </ul>
+                    </div>
                     @endif
                     <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
                 </div>
         </div> 
+                 </div>
         
         
         <div id="post-overlay" style="display:none;position:absolute;z-index:3;top:0;left:0;width:100%;height:100%;background: rgba(0,0,0,0.8);">
@@ -138,17 +289,115 @@
         </div>
         @stop
         @section('script_plugins')
-            <script>
-            $('#radios').radiosToSlider({
-                animation: true,
-            });
-
-            $('#radios').click(function(){
-                console.log($('.slider-bar.transition-enabled').width());
-            });
-      </script>
+            
+      
         <script type="text/javascript">
-        
+            $(document).ready(function(){
+                var preCheckedBox = $('.anytype')[0];
+                onCustomCheckbox(preCheckedBox);
+                var preCheckedBox = $('.anyyears')[0];
+                onCustomCheckboxYears(preCheckedBox);
+            });
+            function filter(){
+
+                //Get all selected job types
+                var jobs = $('#job-types').find('.customcheckbox.checked');
+                var jobsList = '';
+                var date = $('#date').val();
+                var location = $('#location').val();
+                jobs.each(function(){
+                    var title = $(this).parent().find('label').text();
+                    jobsList = jobsList + title + " ";
+                });
+                if(jobsList.length == 0){
+                    alert('Please select a job type.');
+                    return false;
+                }
+                //Get all experience
+                var levels = $('#years').find('.customcheckbox.checked');
+                var levelsList = '';
+                levels.each(function(){
+                    var title = $(this).parent().find('label').attr('value');
+                    levelsList = levelsList + title + " ";
+                });
+                if(levelsList.length == 0){
+                    alert('Please select an experience level.');
+                    return false;
+                }
+
+                var li = $('#results li');
+                li.each(function(){
+                    $(this).hide();
+                });
+                
+                $(".loader").show();
+
+                
+                $.post('{{route('filter-results')}}',{jobtypes:jobsList,levels:levelsList,location:location,date:date,_token:"{{csrf_token()}}"},function(data){
+
+                    setTimeout(function(){
+                        $(".loader").hide();
+                        $('#results').html(data);
+                    },200);
+                });
+            }
+            function onCustomCheckbox(element){
+                if($(element).hasClass('anytype') == true && $(element).hasClass('checked') == false){
+                    $('.checked').each(function(){
+                        if(!$(this).hasClass('years')){
+                            var check = $($(this).children()[0]);
+                            check.remove();
+                            $(this).removeClass('checked');
+                        }
+                        
+                    });
+                }
+                if($('.anytype').hasClass('checked') == true && $(element).hasClass('checked') == false ){
+                    var check = $($('.anytype').children()[0]);
+                        check.remove();
+                        $('.anytype').removeClass('checked');
+                }
+
+                if($(element).hasClass('checked') == true){
+                    var check = $($(element).children()[0]);
+                    check.remove();
+                    $(element).removeClass('checked');
+                    return true;
+                }
+                var span = element;
+                var innerspan = $('<div class="innerspan"><i class="fa fa-check checkmark" aria-hidden="true"></i></div>');
+                $(span).append(innerspan);
+                $(span).addClass('checked');
+                // $(span).css('background-color','#23CCF3');
+            }
+            function onCustomCheckboxYears(element){
+                if($(element).hasClass('anyyears') == true && $(element).hasClass('checked') == false){
+                    $('.checked').each(function(){
+                        if(!$(this).hasClass('type')){
+                            var check = $($(this).children()[0]);
+                            check.remove();
+                            $(this).removeClass('checked');
+                        }
+                    });
+                }
+                if($('.anyyears').hasClass('checked') == true && $(element).hasClass('checked') == false ){
+                    var check = $($('.anyyears').children()[0]);
+                        check.remove();
+                        $('.anyyears').removeClass('checked');
+                }
+
+                if($(element).hasClass('checked') == true){
+                    var check = $($(element).children()[0]);
+                    check.remove();
+                    $(element).removeClass('checked');
+                    return true;
+                }
+                var span = element;
+                var innerspan = $('<div class="innerspan"><i class="fa fa-check checkmark" aria-hidden="true"></i></div>');
+                $(span).append(innerspan);
+                $(span).addClass('checked');
+                // $(span).css('background-color','#23CCF3');
+            }
             function postExperience(ui){
                 var li = $('#results li');
                 li.each(function(){
@@ -168,12 +417,18 @@
 
                  $.post('{{route('filter-results')}}',data,function(data){
                     
-                    setTimeout(function(){
+                    if(data == "No Results"){
+                        $('#results').html('No Results were Found. Try a different search.');
+                    }else{
+                         setTimeout(function(){
                         $(".loader").hide();
                         $('#results').html(data);
-                    },200);
+                        },200);
+                    }   
                       
                  });
+                    
+                    
             }
             
 

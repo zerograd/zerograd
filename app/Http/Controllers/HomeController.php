@@ -162,56 +162,86 @@ class HomeController extends Controller
 
     public function filter(Request $request){
     	//For now filter by experience. will need to filter by location and date later
-    	if($request->experience != 0){
 
-    		$keywords = explode(' ',$request->searchkeywords);
-    		$postings = array();
-    		foreach($keywords as $keyword){
-	    			$posting = DB::table('postings')
-	    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
-	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-	    				->where('required_experience',$request->experience)
-	    				->where('keywords','like','%'. $keyword .'%')
-	    				->get();
-
-    				if(sizeof($posting) > 0){
-					    foreach($posting as $post){
-						array_push($postings,$post);
-					}
-				}
-			}
-    	}else{
-    		$keywords = explode(' ',$request->searchkeywords);
-    		$postings = array();
-    		foreach($keywords as $keyword){
-	    			$posting = DB::table('postings')
-	    				->select('*')
-	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-	    				->where('keywords','like','%'. $keyword .'%')
-	    				->get();
-
-    				if(sizeof($posting) > 0){
-					foreach($posting as $post){
-						array_push($postings,$post);
-					}
-				}
-			}
+    	$jobStatuses = explode(' ',$request->jobtypes);
+    	$postings	= DB::table('postings');
+    	$yearsOfExperience = explode(' ',$request->levels);
+    	if(in_array("Any",$yearsOfExperience)){
+    		$yearsOfExperience = array(1,2,3);
     	}
+    	if($request->date == 'newest'){
+    		if(in_array("All",$jobStatuses)){
+    		
+	    				$postings->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    				->where('location','like','%'. $request->location .'%')
+	    				->whereIn('required_experience',$yearsOfExperience)
+	    				->orderBy('posted_date','DESC');
+	    	}else{
+	    		
+		    				$postings->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+		    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+		    				->whereIn('status',$jobStatuses)
+		    				->where('location','like','%'. $request->location .'%')
+		    				->whereIn('required_experience',$yearsOfExperience)
+		    				->orderBy('posted_date','DESC');
+	    	}
+    	}else{
+    		// calculate most relevant jobs 
+    	}
+    	
+		
+
+
+
+  //   	if($request->experience != 0){
+
+  //   		$keywords = explode(' ',$request->searchkeywords);
+  //   		$postings = array();
+  //   		foreach($keywords as $keyword){
+	 //    			$posting = DB::table('postings')
+	 //    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	 //    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	 //    				->where('required_experience',$request->experience)
+	 //    				->where('keywords','like','%'. $keyword .'%')
+	 //    				->get();
+
+  //   				if(sizeof($posting) > 0){
+		// 			    foreach($posting as $post){
+		// 				array_push($postings,$post);
+		// 			}
+		// 		}
+		// 	}
+  //   	}else{
+  //   		$keywords = explode(' ',$request->searchkeywords);
+  //   		$postings = array();
+  //   		foreach($keywords as $keyword){
+	 //    			$posting = DB::table('postings')
+	 //    				->select('*')
+	 //    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	 //    				->where('keywords','like','%'. $keyword .'%')
+	 //    				->get();
+
+  //   				if(sizeof($posting) > 0){
+		// 			foreach($posting as $post){
+		// 				array_push($postings,$post);
+		// 			}
+		// 		}
+		// 	}
+  //   	}
 
     	$found = "no";
-    	 if(isset($postings)) {
+    	$badges = ['#E3C610','#10E358','#108EE3'];
+    	 if(sizeof($postings->get()) > 0) {
     	 	$found = "yes"; 
     	 	$data = array(
-	    		'postings' => $postings,
+	    		'postings' => $postings->get(),
 	    		'found' => $found,
-	    		'keywords' => $request->searchkeywords
+	    		'keywords' => $request->searchkeywords,
+	    		'badges' => $badges
 			);
     	 }else{
-    	 	$data = array(
-	    		'postings' => array(),
-	    		'found' => $found,
-	    		'keywords' => isset($request->searchkeywords)?$request->searchkeywords:""
-			);
+    	 	return "No Results";
     	 }
     	 
 

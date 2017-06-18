@@ -12,7 +12,7 @@
 */
 //Data Seed **************************REMAIN COMMENTED IF NOT NEEDED****************************************
 Route::get('/seed','SeedController@seedPostings');
-
+Route::get('/apicheck','APIController@index');
 
 //Zerograd page
 Route::get('/','HomeController@index');
