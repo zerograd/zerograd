@@ -14,7 +14,7 @@
              height:100%;
            }
 
-            #results li  {
+            #results .recent-job  {
                     border: 1px solid #ddd; /* Add a border to all links */
                     margin-top: -1px; /* Prevent double borders */
                     background-color: #f6f6f6; /* Grey background color */
@@ -149,13 +149,17 @@
             
         }
         
-
+        .salary,.salary::placeholder{
+           font-size: 16px;
+           color:black;
+           font-weight:600; 
+        }
                 </style>
 @stop
 
       
         @section('content')
-            @include('nav')
+            <!-- @include('nav') -->
         <div id="Container">
                   <div class="preloader-wrapper big active">
                     <div class="spinner-layer spinner-blue-only">
@@ -176,6 +180,15 @@
                         <select name="date" id="date" class="form-control">
                             <option value="newest">Newest</option>
                             <option value="relevance">Relevance</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Category</label>
+                        <select name="category" id="category" class="form-control">
+                            <option value="All" selected>All</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->cat_id}}">{{$category->cat_name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -243,10 +256,11 @@
                     </div>
                     <div class="form-group">
                         <label>Salary</label>
-                        
+                        <input name="from" id="from" type="number" style="font-size: 16px;color:black;font-weight:600;" class="salary form-control col-md-6" placeholder="Min.">
+                        <input name="to" id="to" type="number" class="salary form-control col-md-6" style="margin-bottom: 10px;font-size: 16px;color:black;font-weight:600;" placeholder="Max.">
                     </div>
                     <div class="form-group">
-                        <button class="btn btn-block" type="button" onClick="filter();">Search</button>
+                        <button class="btn btn-block" type="button" onClick="filter();" >Search</button>
                     </div>
                 </div>
                 @endif
@@ -255,27 +269,33 @@
                 <div id="results-area" class="col-md-10 scroll" style="padding-top:77px;height:100%;text-align: center;overflow-y: scroll;">
                 @else
                 <div id="results-area" class="col-md-12 scroll" style="padding-top:77px;height:100%;text-align: center;overflow-y: scroll;">
-                @endif
-                <div class="loader" style="display:none;position: absolute;z-index:1;top:40%;left:40%;"></div>
-                    @if($found == "yes" && isset($found))
-                    <div class="row-fluid">
-                        <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
-                        @include('results')
-                        </ul>
-                    </div>
-                    @else
-                    <div class="row-fluid">
-                        <ul id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
-                            <li class="col-sm-12">
-                                    <div class="col-sm-12"><h5> <strong>NO RESULTS FOUND</strong></h5></div>
-                            </li>
-                            <a href="{{URL::to('/')}}"><button class="btn waves-effect waves-teal " style="margin:10px;font-weight: bold;">Return to Home and Try a new search.</button></a>
-                        </ul>
-                    </div>
                     @endif
-                    <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
-                </div>
-        </div> 
+                    <div class="loader" style="display:none;position: absolute;z-index:1;top:40%;left:40%;"></div>
+                        @if($found == "yes" && isset($found))
+                        
+                            <h2 id="resultssize">Found {{$numberOfResults}} @if($numberOfResults > 1) results @else result @endif</h2>
+                            <div id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
+                            @include('results')
+                            </div>
+                        
+                        @else
+                        <div class="row-fluid">
+                            <ul id="results" class="col-sm-12 scroll" style="list-style: none;margin:0;padding: 0;">
+                                <li class="col-sm-12">
+                                        <div class="col-sm-12"><h5> <strong>NO RESULTS FOUND</strong></h5></div>
+                                </li>
+                                <a href="{{URL::to('/')}}"><button class="btn waves-effect waves-teal " style="margin:10px;font-weight: bold;">Return to Home and Try a new search.</button></a>
+                            </ul>
+                        </div>
+                        @endif
+                        <input type="text" style="visibility: hidden" value="{{$keywords}}" id="searchkeywords" />
+                        <input type="text" hidden value="{{$page}}" id="page" />
+                        <input type="text" hidden value="{{$limit}}" id="limit" />
+                    </div>
+                </div> 
+                
+
+
                  </div>
         
         
@@ -298,9 +318,9 @@
                 var preCheckedBox = $('.anyyears')[0];
                 onCustomCheckboxYears(preCheckedBox);
             });
-            function filter(){
-
-                //Get all selected job types
+            function loadMore(){
+                var page = Number($('#page').val()) + 1;
+                $('#page').val(page);
                 var jobs = $('#job-types').find('.customcheckbox.checked');
                 var jobsList = '';
                 var date = $('#date').val();
@@ -325,19 +345,69 @@
                     return false;
                 }
 
-                var li = $('#results li');
-                li.each(function(){
-                    $(this).hide();
+                // var li = $('#results li');
+                // li.each(function(){
+                //     $(this).hide();
+                // });
+                
+
+                var from  = $('#from').val();
+                var to  = $('#to').val();
+                var category = $('#category').val();
+                $.post('{{route('load-more')}}',{page:page,limit:$('#limit').val(),category:category,jobtypes:jobsList,levels:levelsList,location:location,date:date,from:from,to:to,_token:"{{csrf_token()}}"},function(data){
+                        $('.loadmorebutton').remove();
+                        $('#results').append($(data));
                 });
+            }
+
+            function filter(){
+
+                //Get all selected job types
+                var jobs = $('#job-types').find('.customcheckbox.checked');
+                $('#page').val(1);
+                var jobsList = '';
+                var date = $('#date').val();
+                var location = $('#location').val();
+                jobs.each(function(){
+                    var title = $(this).parent().find('label').text();
+                    jobsList = jobsList + title + " ";
+                });
+                if(jobsList.length == 0){
+                    alert('Please select a job type.');
+                    return false;
+                }
+                //Get all experience
+                var levels = $('#years').find('.customcheckbox.checked');
+                var levelsList = '';
+                levels.each(function(){
+                    var title = $(this).parent().find('label').attr('value');
+                    levelsList = levelsList + title + " ";
+                });
+                if(levelsList.length == 0){
+                    alert('Please select an experience level.');
+                    return false;
+                }
+
+                $('.recent-job').hide();
                 
                 $(".loader").show();
 
-                
-                $.post('{{route('filter-results')}}',{jobtypes:jobsList,levels:levelsList,location:location,date:date,_token:"{{csrf_token()}}"},function(data){
-
+                var from  = $('#from').val();
+                var to  = $('#to').val();
+                var category = $('#category').val();
+                $.post('{{route('filter-results')}}',{category:category,jobtypes:jobsList,levels:levelsList,location:location,date:date,from:from,to:to,_token:"{{csrf_token()}}"},function(data){
+                    var results = data.numberOfResults
+                    if(results > 1){
+                        $('#resultssize').text('Found ' + results + ' results');
+                    }else if(results == 1){
+                        $('#resultssize').text('Found ' + results + ' result');
+                    }else{
+                        $('#resultssize').text('Found ' + 0 + ' results');
+                    }
+                    $('#limit').val(data.limit);
                     setTimeout(function(){
                         $(".loader").hide();
-                        $('#results').html(data);
+                        $('#results').html(data.view);
                     },200);
                 });
             }

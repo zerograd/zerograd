@@ -139,32 +139,53 @@ class HomeController extends Controller
 
     //FOR TESTING DELETE AFTER STYLING IS DONE
     public function searchResults(){
+    	$from = isset($request->from)?$request->from:0;
+    	$to = isset($request->to)?$request->to:1000000;
+    	$yearsOfExperience = array(1,2,3);
 
-    	$postings =	DB::table('postings')
-	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
-	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-	    					->get();
+    	$postings = DB::table('postings')->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    				->where('location','like','%'.'%')
+	    				->whereIn('required_experience',$yearsOfExperience)
+	    				->where('salary','>=',$from)
+	    				->where('salary','<=',$to)
+	    				->where('cat_id','like','%'.'%')
+	    				->orderBy('posted_date','DESC')
+	    				->get();
+		$numberOfResults = sizeof($postings);
+		$categories = DB::table('categories')
+						->select('*')
+						->get();
 
 		$found = "no";
     	 if($postings) $found = "yes"; 
 
     	 $badges = ['#E3C610','#10E358','#108EE3'];
 
+    	 $numberOfPages = ceil(sizeof($postings) / 6);
+
     	$data = array(
-    		'postings' => $postings,
+    		'postings' => $postings->take(6),
     		'found' => $found,
     		'keywords'=>isset($request->searchkeywords)?$request->searchkeywords:"",
-    		'badges' => $badges
+    		'badges' => $badges,
+    		'categories' => $categories,
+    		'numberOfResults' => $numberOfResults,
+    		'numberOfPages' => $numberOfPages,
+    		'page' => 1,
 		);
     	
 		return view('search-results')->with($data);
     }
 
-    public function filter(Request $request){
-    	//For now filter by experience. will need to filter by location and date later
-
+    public function loadMore(Request $request){
+    	$page = $request->page;
+    	$limit = $request->limit;
     	$jobStatuses = explode(' ',$request->jobtypes);
     	$postings	= DB::table('postings');
+    	$from = isset($request->from)?$request->from:0;
+    	$to = isset($request->to)?$request->to:1000000;
+    	$category = ($request->category == 'All')?'':$request->category;
     	$yearsOfExperience = explode(' ',$request->levels);
     	if(in_array("Any",$yearsOfExperience)){
     		$yearsOfExperience = array(1,2,3);
@@ -176,6 +197,9 @@ class HomeController extends Controller
 	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
 	    				->where('location','like','%'. $request->location .'%')
 	    				->whereIn('required_experience',$yearsOfExperience)
+	    				->where('salary','>=',$from)
+	    				->where('salary','<=',$to)
+	    				->where('cat_id','like','%'. $category .'%')
 	    				->orderBy('posted_date','DESC');
 	    	}else{
 	    		
@@ -184,6 +208,76 @@ class HomeController extends Controller
 		    				->whereIn('status',$jobStatuses)
 		    				->where('location','like','%'. $request->location .'%')
 		    				->whereIn('required_experience',$yearsOfExperience)
+		    				->where('salary','>=',$from)
+	    					->where('salary','<=',$to)
+	    					->where('cat_id','like','%'. $category .'%')
+		    				->orderBy('posted_date','DESC');
+	    	}
+    	}else{
+    		// calculate most relevant jobs 
+    	}
+    	
+
+    	$found = "no";
+    	$badges = ['#E3C610','#10E358','#108EE3'];
+    	 $offset = ($page - 1) * 6;
+    	 $temp = $postings;
+    	 $numberOfResults = sizeof($temp->get());
+    	 $numberOfPages = ceil( $numberOfResults / 6);
+    	 	$found = "yes"; 
+   
+    	 	
+    	 		$postings = $postings->skip($offset)->take(6)->get();
+    	 	
+    	 	$data = array(
+	    		'postings' => $postings,
+	    		'found' => $found,
+	    		'keywords' => $request->searchkeywords,
+	    		'badges' => $badges,
+	    		'numberOfResults' => $numberOfResults,
+	    		'limit' => $numberOfResults - 6,
+	    		'numberOfPages' => $numberOfPages,
+	    		'page' => $page,
+			);
+ 
+    	 
+
+		return view('results')->with($data);
+    }
+
+    public function filter(Request $request){
+    	//For now filter by experience. will need to filter by location and date later
+
+    	$jobStatuses = explode(' ',$request->jobtypes);
+    	$postings	= DB::table('postings');
+    	$from = isset($request->from)?$request->from:0;
+    	$to = isset($request->to)?$request->to:1000000;
+    	$category = ($request->category == 'All')?'':$request->category;
+    	$yearsOfExperience = explode(' ',$request->levels);
+    	if(in_array("Any",$yearsOfExperience)){
+    		$yearsOfExperience = array(1,2,3);
+    	}
+    	if($request->date == 'newest'){
+    		if(in_array("All",$jobStatuses)){
+    		
+	    				$postings->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	    				->where('location','like','%'. $request->location .'%')
+	    				->whereIn('required_experience',$yearsOfExperience)
+	    				->where('salary','>=',$from)
+	    				->where('salary','<=',$to)
+	    				->where('cat_id','like','%'. $category .'%')
+	    				->orderBy('posted_date','DESC');
+	    	}else{
+	    		
+		    				$postings->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+		    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+		    				->whereIn('status',$jobStatuses)
+		    				->where('location','like','%'. $request->location .'%')
+		    				->whereIn('required_experience',$yearsOfExperience)
+		    				->where('salary','>=',$from)
+	    					->where('salary','<=',$to)
+	    					->where('cat_id','like','%'. $category .'%')
 		    				->orderBy('posted_date','DESC');
 	    	}
     	}else{
@@ -191,7 +285,6 @@ class HomeController extends Controller
     	}
     	
 		
-
 
 
   //   	if($request->experience != 0){
@@ -232,20 +325,32 @@ class HomeController extends Controller
 
     	$found = "no";
     	$badges = ['#E3C610','#10E358','#108EE3'];
+    	$temp = $postings;
+    	$numberOfPages = ceil(sizeof($temp->get()) / 6);
+    	$numberOfResults = sizeof($temp->get());
     	 if(sizeof($postings->get()) > 0) {
     	 	$found = "yes"; 
     	 	$data = array(
-	    		'postings' => $postings->get(),
+	    		'postings' => $postings->take(6)->get(),
 	    		'found' => $found,
 	    		'keywords' => $request->searchkeywords,
-	    		'badges' => $badges
+	    		'badges' => $badges,
+	    		'numberOfResults' => $numberOfResults ,
+	    		'numberOfPages' => $numberOfPages,
+	    		'page' => 1,
 			);
-    	 }else{
-    	 	return "No Results";
+			return array(
+			'limit' => $numberOfResults - 6,
+			'numberOfResults' => $numberOfResults,
+			'view' => view('results')->with($data)->render()
+			);
     	 }
     	 
+    	 return array(
+    	 	'numberOfResults' => sizeof($temp->get()),
+	 	);
 
-		return view('results')->with($data);
+					
     }
 
     //For categories on main page

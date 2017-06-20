@@ -35,6 +35,10 @@ Route::post('/filter',array(
 	'as' => 'filter-results',
 	'uses' => 'HomeController@filter'
 ));
+Route::post('/load-more',array(
+	'as' => 'load-more',
+	'uses' => 'HomeController@loadMore'
+));
 Route::get('/filter-by-category/{id}',array(
 	'as' => 'filter-by-category',
 	'uses' => 'HomeController@getfilterByCategory'

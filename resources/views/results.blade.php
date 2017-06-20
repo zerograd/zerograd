@@ -1,7 +1,7 @@
+
 @foreach($postings as $posting)
-                    <a href="{{route('posting-get',['title' => $posting->title,'id' => $posting->id])}}" style="text-decoration: none;color:black;">
-                        <li class="recent-job" style="padding:40px;">
-                        <div class="container-fluid">
+                    <a href="{{route('posting-get',['title' => $posting->title,'id' => $posting->id])}}" style="text-decoration: none;color:black;">    
+                        <div class="container-fluid recent-job">
                             <img src="{{URL::asset('/images/google.png')}}" style="float:left;width:60px;height:60px;" alt="company logo" title="">
                             <div class="col-md-11">
                                 <div class="row">
@@ -21,6 +21,9 @@
                                 </div>
                             </div>
                         </div>
-                        </li>
                     </a>
 @endforeach
+
+@if($numberOfPages > $page )
+ <button id="loadmorebutton" type="button" onclick="loadMore();" class="loadmorebutton btn btn-block btn-primary">Load More Jobs</button>
+@endif
