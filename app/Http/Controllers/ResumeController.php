@@ -65,6 +65,7 @@ class ResumeController extends Controller
             'id' => $id,
             'snaps' => $snaps,
             'currentSnap' => 1,
+            'templateChosen' => $resume->selected_template,
             'resume_uploaded' => $resumeUploaded
 		);
 
@@ -132,6 +133,12 @@ class ResumeController extends Controller
             'summary' => $summary
         );
 
+        //Update chose of template
+        DB::table('resume')
+            ->where('user_id',$id)
+            ->update(array(
+                'selected_template'=>$templateChosen
+            ));
         if($templateChosen == 1){
             $html = view('templates.resume-template-' . $templateChosen)->with($data);
         }else if($templateChosen == 2){

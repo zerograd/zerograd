@@ -499,17 +499,23 @@ class StudentController extends Controller
                     ->select('*')
                     ->where('user_id',$id)
                     ->get();
+        $summary = DB::table('profile_summary')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->first();
         $data = array(
             'student' => $student,
             'resume'  => $resume,
             'education' => $education,
             'works' => $workExperience,
             'volunteers' => $volunteerExperience,
+            'summary' => isset($resume->summary)?$resume:$summary,
             'skills' => $skills,
             'projects' => $projects
         );
+        $templateChosen = $resume->selected_template;
 
-        $html = view('templates.resume-template-1')->with($data)->render();
+        $html = view('templates.resume-template-'.$templateChosen)->with($data)->render();
         $pdf = new Dompdf();
 
         $pdf->loadHtml($html);

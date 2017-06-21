@@ -191,7 +191,7 @@
  		}
  		function processResume(div){
  			if(div === undefined){
- 				$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:1},function(data){
+ 				$.post('{{route('process-resume')}}',{id:$('#profile-id').val(),_token:"{{csrf_token()}}",template:"{{$templateChosen}}"},function(data){
 		 			var doc = document.getElementById('resume-iframe').contentWindow.document;
 		 			$('.snapimg').eq(0).addClass('selectedResume');
 		 			$('.snapimg').eq(0).siblings().removeClass('selectedResume');

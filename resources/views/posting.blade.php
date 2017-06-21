@@ -97,8 +97,8 @@
                 </div>
                 <div id="buttons" class="col-sm-12">
                     @if(!Session::has('user_id'))
-                    <a data-remodal-target="modal">    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button></a>
-                    <a data-remodal-target="modal">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
+                    <a data-remodal-target="modal" href="#">    <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal">Apply Now</button></a>
+                    <a data-remodal-target="modal" href="#">   <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button></a>
                     @else
                         @if($appliedTo > 0)
                             <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button">Applied</button>
@@ -151,7 +151,7 @@
     </div>
 
     <!-- Sign Up Modal -->
-<div class="remodal" data-remodal-id="modal">
+<div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
   <button data-remodal-action="close" class="remodal-close"></button>
     <div id="login-panel">
         <form id="register-form">
