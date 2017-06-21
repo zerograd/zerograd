@@ -66,74 +66,120 @@ class HomeController extends Controller
     		  'search_time' => date('Y-m-d H:i:s')
 			));
     	}
+    	$postings =	DB::table('postings')
+					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+					->orWhere('keywords','like','%'. $request->searchkeywords .'%')
+					->orWhere('title','like','%'. $request->searchkeywords .'%')
+					->orWhere('description','like','%'. $request->searchkeywords .'%');
+					if(isset($request->location)){
+						$postings->orWhere('location','like','%'. $request->location .'%');
+					}
+					
+		$postings = $postings->get();
 
-    	if($request->searchkeywords && $request->searchlocation ){
-    		$keywords = explode(' ',$request->searchkeywords);
-	    	$postings = array();
-	    	foreach($keywords as $keyword){
-	    		$posting =	DB::table('postings')
-	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
-	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-	    					->where('keywords','like','%'. $keyword .'%')
-	    					->orWhere('title','like','%'. $keyword .'%')
-	    					->where('location',$request->searchlocation)
-	    					->get();
-				if(sizeof($posting) > 0){
-					foreach($posting as $post){
-						array_push($postings,$post);
+		
+
+		$numberOfResults = sizeof($postings); 
+		$numberOfPages = ceil($numberOfResults / 6);
+    	
+    	$postings =	DB::table('postings')
+					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+					->orWhere('keywords','like','%'. $request->searchkeywords .'%')
+					->orWhere('title','like','%'. $request->searchkeywords .'%')
+					->orWhere('description','like','%'. $request->searchkeywords .'%');
+					if(isset($request->location)){
+						$postings->orWhere('location','like','%'. $request->location .'%');
 					}
-				}
-	    	}
-    	}
-    	else if($request->searchkeywords){
-    		$keywords = explode(' ',$request->searchkeywords);
-	    	$postings = array();
-	    	foreach($keywords as $keyword){
-	    		$posting =	DB::table('postings')
-	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
-	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-	    					->where('keywords','like','%'. $keyword .'%')
-	    					->orWhere('title','like','%'. $keyword .'%')
-	    					->get();
-				if(sizeof($posting) > 0){
-					foreach($posting as $post){
-						array_push($postings,$post);
-					}
-				}
-	    	}
+					
+		$postings = $postings->take(6)->get();
+
+		
+    // 	if($request->searchkeywords && $request->searchlocation ){
+    // 		$keywords = explode(' ',$request->searchkeywords);
+	   //  	$postings = array();
+	   //  	foreach($keywords as $keyword){
+	   //  		$posting =	DB::table('postings')
+	   //  					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	   //  					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	   //  					->where('keywords','like','%'. $keyword .'%')
+	   //  					->orWhere('title','like','%'. $keyword .'%')
+	   //  					->where('location',$request->searchlocation)
+	   //  					->get();
+				// if(sizeof($posting) > 0){
+				// 	foreach($posting as $post){
+				// 		array_push($postings,$post);
+				// 	}
+				// }
+	   //  	}
+    // 	}
+    // 	else if($request->searchkeywords){
+    // 		$keywords = explode(' ',$request->searchkeywords);
+	   //  	$postings = array();
+	   //  	foreach($keywords as $keyword){
+	   //  		$posting =	DB::table('postings')
+	   //  					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	   //  					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	   //  					->where('keywords','like','%'. $keyword .'%')
+	   //  					->orWhere('title','like','%'. $keyword .'%')
+	   //  					->get();
+				// if(sizeof($posting) > 0){
+				// 	foreach($posting as $post){
+				// 		array_push($postings,$post);
+				// 	}
+				// }
+	   //  	}
 
 	    	
-    	}else if($request->searchlocation){
-	    		$posting =	DB::table('postings')
-	    					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
-	    					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-	    					->where('location','=',$request->searchlocation)
-	    					->orWhere('title','like','%'. $request->searchlocation .'%')
-	    					->get();
-				if(sizeof($posting) > 0){
-					$postings = $posting;
-				}
-    	}
+    // 	}else if($request->searchlocation){
+	   //  		$posting =	DB::table('postings')
+	   //  					->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	   //  					->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+	   //  					->where('location','=',$request->searchlocation)
+	   //  					->orWhere('title','like','%'. $request->searchlocation .'%')
+	   //  					->get();
+				// if(sizeof($posting) > 0){
+				// 	$postings = $posting;
+				// }
+    // 	}
     	$found = "no";
+    	$categories = DB::table('categories')
+						->select('*')
+						->get();
+
     	 if(isset($postings) && sizeof($postings) > 0) {
     	 	$found = "yes"; 
     	 	$badges = ['#E3C610','#10E358','#108EE3'];
+    	 	
     	 	$data = array(
 	    		'postings' => $postings,
 	    		'found' => $found,
 	    		'keywords' => $request->searchkeywords,
+	    		'categories' => $categories,
+	    		'cat_id' => 0,
+	    		'numberOfResults' => $numberOfResults,
+	    		'numberOfPages' => $numberOfPages,
+	    		'page' => 1,
+	    		'limit' => 6,
 	    		'badges' => $badges
 			);
     	 }else{
     	 	$data = array(
 	    		'postings' => array(),
 	    		'found' => $found,
+	    		'categories' => $categories,
+	    		'cat_id' => 0,
+	    		'numberOfResults' =>0,
+	    		'page' => 1,
+	    		'numberOfPages' => 0,
+	    		'limit' => 6,
 	    		'keywords' => isset($request->searchkeywords)?$request->searchkeywords:""
 			);
     	 }
     	 
     	
-
+		
 		return view('search-results')->with($data);
     }
 
@@ -171,6 +217,8 @@ class HomeController extends Controller
     		'badges' => $badges,
     		'categories' => $categories,
     		'numberOfResults' => $numberOfResults,
+    		'cat_id' => 0,
+    		'limit' => 6,
     		'numberOfPages' => $numberOfPages,
     		'page' => 1,
 		);
@@ -217,7 +265,28 @@ class HomeController extends Controller
     		// calculate most relevant jobs 
     	}
     	
+    	//Load more if request was from main search
+    	if(isset($request->keywords)){
+    		$postings = DB::table('postings');
+    		$postings = $postings->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'));
+	    				if(isset($request->location)){
+							$postings->orWhere('location','like','%'. $request->location .'%');
+						}
+	    				$postings->whereIn('required_experience',$yearsOfExperience)
+	    				->where('salary','>=',$from)
+	    				->where('salary','<=',$to);
+	    				if(isset($request->category) && $request->category != 'All'){
+							$postings->where('cat_id','like','%'. $category .'%');
+						}
+	    				$postings->where('keywords','like','%'. $request->keywords .'%')
+						->orWhere('title','like','%'. $request->keywords .'%')
+						->orWhere('description','like','%'. $request->keywords .'%');
 
+			
+    	}
+
+    	// return $postings->toSql();
     	$found = "no";
     	$badges = ['#E3C610','#10E358','#108EE3'];
     	 $offset = ($page - 1) * 6;
@@ -284,7 +353,29 @@ class HomeController extends Controller
     		// calculate most relevant jobs 
     	}
     	
-		
+		if(isset($request->keywords)){
+    		$postings = DB::table('postings');
+    		$postings = $postings->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+	    				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'));
+	    				if(isset($request->location)){
+							$postings->orWhere('location','like','%'. $request->location .'%');
+						}
+	    				$postings->whereIn('required_experience',$yearsOfExperience)
+	    				->where('salary','>=',$from)
+	    				->where('salary','<=',$to);
+	    				if(!in_array("All",$jobStatuses)){
+	    					$postings->whereIn('status',$jobStatuses);
+	    				}
+	    				
+	    				if(isset($request->category) && $request->category != 'All'){
+							$postings->where('cat_id','like','%'. $category .'%');
+						}
+	    				$postings->where('keywords','like','%'. $request->keywords .'%')
+						->orWhere('title','like','%'. $request->keywords .'%')
+						->orWhere('description','like','%'. $request->keywords .'%');
+
+			
+    	}
 
 
   //   	if($request->experience != 0){
@@ -368,11 +459,22 @@ class HomeController extends Controller
 
     	 $badges = ['#E3C610','#10E358','#108EE3'];
 
+    	 $categories = DB::table('categories')
+						->select('*')
+						->get();
+		$numberOfPages = ceil(sizeof($postings) / 6);
+		$numberOfResults = sizeof($postings);
     	$data = array(
     		'postings' => $postings,
     		'found' => $found,
     		'keywords'=>isset($request->searchkeywords)?$request->searchkeywords:"",
-    		'badges' => $badges
+    		'badges' => $badges,
+    		'cat_id' => $id,
+    		'categories'=>$categories,
+    		'numberOfResults' => $numberOfResults,
+    		'page' => 1,
+    		'numberOfPages' => $numberOfPages,
+    		'limit' => 1
 		);
     	
 		return view('search-results')->with($data);

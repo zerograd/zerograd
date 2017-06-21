@@ -187,7 +187,11 @@
                         <select name="category" id="category" class="form-control">
                             <option value="All" selected>All</option>
                             @foreach($categories as $category)
-                                <option value="{{$category->cat_id}}">{{$category->cat_name}}</option>
+                                @if($cat_id == $category->cat_id )
+                                <option value="{{$category->cat_id}}" selected>{{$category->cat_name}}</option>
+                                @else
+                                    <option value="{{$category->cat_id}}">{{$category->cat_name}}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -273,7 +277,7 @@
                     <div class="loader" style="display:none;position: absolute;z-index:1;top:40%;left:40%;"></div>
                         @if($found == "yes" && isset($found))
                         
-                            <h2 id="resultssize">Found {{$numberOfResults}} @if($numberOfResults > 1) results @else result @endif</h2>
+                            <h2 id="resultssize">Found {{$numberOfResults}} @if($numberOfResults > 1) results @else result @endif @if($keywords) for "{{$keywords}}" @endif</h2>
                             <div id="results" class="col-sm-12" style="list-style: none;margin:0;padding: 0;">
                             @include('results')
                             </div>
@@ -354,7 +358,7 @@
                 var from  = $('#from').val();
                 var to  = $('#to').val();
                 var category = $('#category').val();
-                $.post('{{route('load-more')}}',{page:page,limit:$('#limit').val(),category:category,jobtypes:jobsList,levels:levelsList,location:location,date:date,from:from,to:to,_token:"{{csrf_token()}}"},function(data){
+                $.post('{{route('load-more')}}',{page:page,limit:$('#limit').val(),keywords:$('#searchkeywords').val(),category:category,jobtypes:jobsList,levels:levelsList,location:location,date:date,from:from,to:to,_token:"{{csrf_token()}}"},function(data){
                         $('.loadmorebutton').remove();
                         $('#results').append($(data));
                 });
@@ -395,14 +399,18 @@
                 var from  = $('#from').val();
                 var to  = $('#to').val();
                 var category = $('#category').val();
-                $.post('{{route('filter-results')}}',{category:category,jobtypes:jobsList,levels:levelsList,location:location,date:date,from:from,to:to,_token:"{{csrf_token()}}"},function(data){
+                $.post('{{route('filter-results')}}',{category:category,keywords:$('#searchkeywords').val(),jobtypes:jobsList,levels:levelsList,location:location,date:date,from:from,to:to,_token:"{{csrf_token()}}"},function(data){
                     var results = data.numberOfResults
+                    var keywords = '';
+                    if($('#searchkeywords').val().length > 0){
+                        keywords = ' for "' + $('#searchkeywords').val() +'"'; 
+                    }
                     if(results > 1){
-                        $('#resultssize').text('Found ' + results + ' results');
+                        $('#resultssize').text('Found ' + results + ' results ' + keywords);
                     }else if(results == 1){
-                        $('#resultssize').text('Found ' + results + ' result');
+                        $('#resultssize').text('Found ' + results + ' result ' + keywords);
                     }else{
-                        $('#resultssize').text('Found ' + 0 + ' results');
+                        $('#resultssize').text('Found ' + 0 + ' results ' + keywords);
                     }
                     $('#limit').val(data.limit);
                     setTimeout(function(){
