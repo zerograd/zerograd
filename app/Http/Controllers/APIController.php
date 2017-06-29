@@ -59,8 +59,8 @@ class APIController extends Controller
     		$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
     	   
 
-			$location = isset($_POST['searchlocation'])?$_POST['searchlocation']:"<required>";
-			$query =isset($_POST['searchkeywords'])?$_POST['searchkeywords']:"<required>";
+			$location = (strlen($_POST['searchlocation']) > 0)?$_POST['searchlocation']:"<required>";
+			$query =(strlen($_POST['searchkeywords']) > 0)?$_POST['searchkeywords']:"<required>";
 			$co = 'ca';
     	    $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=$location&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
