@@ -12,41 +12,77 @@ use App\SearchLog;
 class APIController extends Controller
 {
     //http://localhost/zerograd/public/apicheck/ca/toronto/0/java e.g.
+
+
+
     public function index(){
-    		$opts = array(
-			  'http'=>array(
-			    'method'=>"GET",
-			    'header'=>"X-Mashape-Key:VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B"               
-			  )
-			);
+    		$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
+    	    
+   //  		$opts = array(
+			//   'http'=>array(
+			//     'method'=>"GET",
+			//     'header'=>"X-Mashape-Key:VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B"               
+			//   )
+			// );
 
-			$context = stream_context_create($opts);
+			// $context = stream_context_create($opts);
 
-			// Open the file using the HTTP headers set above
+			// // Open the file using the HTTP headers set above
 
 			$apiString = 'https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=ca&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=toronto&latlong=<required>&limit=<required>&q=java&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2';
-			$res = file_get_contents($apiString, false, $context);
-			$results = json_decode($res, true);
-			return $results;
+			// $res = file_get_contents($apiString, false, $context);
+
+    		$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$apiString); 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'X-Mashape-Key: ' . $apiKey
+			));
+			$output = curl_exec($ch);   
+
+			// convert response
+			$output = json_decode($output);
+
+			// handle error; error output
+			if(curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+
+			  var_dump($output);
+			}
+
+			return $output;
+
+			
     }
 
     public function getSearch(){
 
-    	$opts = array(
-			  'http'=>array(
-			    'method'=>"GET"             
-			  )
-			);
-
-			$context = stream_context_create($opts);
+    		$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
+    	   
 
 			$location = $_POST['searchlocation'];
 			$query = $_POST['searchkeywords'];
 			$co = 'ca';
-    	$apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=$location&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
+    	    $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=$location&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
-			$res = file_get_contents($apiString, false, $context);
-			$results = json_decode($res);
+
+    		$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$apiString); 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'X-Mashape-Key: ' . $apiKey
+			));
+			$output = curl_exec($ch);   
+
+			// convert response
+			$output = json_decode($output);
+
+			// handle error; error output
+			if(curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+
+			  var_dump($output);
+			}
+
+			$results = $output;
 			// return $results;
 
 
@@ -56,7 +92,7 @@ class APIController extends Controller
 							->get();
 
 			$postings = array();
-			foreach ($results['results'] as $post) {
+			foreach ($results->results as $post) {
 				$postings[] = $post;
 			}
 
@@ -64,7 +100,7 @@ class APIController extends Controller
 			
 
 			$found = 'no';
-			if(sizeof($results['results']) > 0) $found = 'yes';
+			if(sizeof($results->results) > 0) $found = 'yes';
 
 
 			$badges = ['#E3C610','#10E358','#108EE3'];
@@ -75,8 +111,8 @@ class APIController extends Controller
 				'limit' => 6,
 				'categories' => $categories,
 				'cat_id' => 0,
-				'numberOfResults' => $results['totalResults'],
-				'numberOfPages' => ceil($results['totalResults'] / 6),
+				'numberOfResults' => $results->totalResults,
+				'numberOfPages' => ceil($results->totalResults / 6),
 				'postings' => $postings,
 				'badges' => $badges,
 				'location' => $location
@@ -87,6 +123,8 @@ class APIController extends Controller
 
 
     public function filterAPI(){
+
+    	$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
 
     	//options for API
     	$opts = array(
@@ -140,12 +178,28 @@ class APIController extends Controller
         $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$jobQueryString&l=$location&latlong=<required>&limit=6&q=$keywords&radius=25&sort=$date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
 
-        $res = file_get_contents($apiString, false, $context);
-			$results = json_decode($res, true);
+        $ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$apiString); 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'X-Mashape-Key: ' . $apiKey
+			));
+			$output = curl_exec($ch);   
+
+			// convert response
+			$output = json_decode($output);
+
+			// handle error; error output
+			if(curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+
+			  var_dump($output);
+			}
+
+			$results = $output;
 
 
         $postings = array();
-			foreach ($results['results'] as $post) {
+			foreach ($results->results as $post) {
 				$postings[] = $post;
 			}
 
@@ -153,7 +207,7 @@ class APIController extends Controller
 			
 
 			$found = 'no';
-			if(sizeof($results['results']) > 0) $found = 'yes';
+			if(sizeof($results->results) > 0) $found = 'yes';
 
 
 			$badges = ['#E3C610','#10E358','#108EE3'];
@@ -164,15 +218,15 @@ class APIController extends Controller
 				'limit' => 6,
 				'categories' => $categories,
 				'cat_id' => 0,
-				'numberOfResults' => $results['totalResults'],
-				'numberOfPages' => ceil($results['totalResults'] / 6),
+				'numberOfResults' => $results->totalResults,
+				'numberOfPages' => ceil($results->totalResults / 6),
 				'postings' => $postings,
 				'badges' => $badges
 			);
 
         return array(
-			'limit' => $results['totalResults'] - 6,
-			'numberOfResults' => $results['totalResults'],
+			'limit' => $results->totalResults - 6,
+			'numberOfResults' => $results->totalResults,
 			'view' => view('api-results')->with($data)->render()
 		);
 
