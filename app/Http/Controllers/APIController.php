@@ -62,7 +62,8 @@ class APIController extends Controller
 			$location = isset($_POST['searchlocation'])?$_POST['searchlocation']:"<required>";
 			$query =isset($_POST['searchkeywords'])?$_POST['searchkeywords']:"<required>";
 			$co = 'ca';
-    	    $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=$location&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=$_SERVER['HTTP_USER_AGENT']&userip=<required>&v=2";
+			$useragent = $_SERVER['HTTP_USER_AGENT'];
+    	    $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=$location&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=$useragent&userip=<required>&v=2";
 
 
     		$ch = curl_init();
