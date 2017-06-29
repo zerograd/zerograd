@@ -41,6 +41,9 @@ class APIController extends Controller
 
 			$context = stream_context_create($opts);
 
+			$location = $_POST['searchlocation'];
+			$query = $_POST['searchkeywords'];
+
     	$apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=$location&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
 			$res = file_get_contents($apiString, false, $context);
@@ -76,7 +79,8 @@ class APIController extends Controller
 				'numberOfResults' => $results['totalResults'],
 				'numberOfPages' => ceil($results['totalResults'] / 6),
 				'postings' => $postings,
-				'badges' => $badges
+				'badges' => $badges,
+				'location' => $location
 			);
 			
 			return view('api-search')->with($data);
@@ -136,7 +140,7 @@ class APIController extends Controller
 
         $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$jobQueryString&l=$location&latlong=<required>&limit=6&q=$keywords&radius=25&sort=$date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
-       
+
         $res = file_get_contents($apiString, false, $context);
 			$results = json_decode($res, true);
 

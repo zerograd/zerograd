@@ -8,7 +8,7 @@
     <section style="background: url('{{URL::asset('/images/background.jpg')}}') no-repeat;background-size: 100% 100%;">
             <div class="class-sm-12" id="Container" style="background-size:100% 100%;">
                 @include('nav')
-                <form action="{{route('submit-search')}}" method="post" id="search-form">
+                <form action="{{route('apicheck')}}" method="post" id="search-form">
                 {{ csrf_field() }}
                     <div id="title-div" class="col-sm-12">
                         <div class="search-header col-md-12 col-xs-12">

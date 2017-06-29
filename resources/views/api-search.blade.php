@@ -184,7 +184,7 @@
                     </div>
                     <div class="form-group">
                         <label>Location</label>
-                        <input name="location" id="location" placeholder="City" class="form-control" style="margin-bottom: 10px;color:black;font-weight: 600;">
+                        <input name="location" id="location" placeholder="City" @if(isset($location)) value="{{$location}}" @endif class="form-control" style="margin-bottom: 10px;color:black;font-weight: 600;">
                     </div>
                     <div class="form-group">
                         <label>Job Type</label>
