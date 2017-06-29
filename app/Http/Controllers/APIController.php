@@ -30,7 +30,7 @@ class APIController extends Controller
 			return $results;
     }
 
-    public function getSearch($co = 'ca',$location = 'toronto',$latlong = 0,$query = ''){
+    public function getSearch(){
 
     	$opts = array(
 			  'http'=>array(
