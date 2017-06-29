@@ -12,8 +12,15 @@
 */
 //Data Seed **************************REMAIN COMMENTED IF NOT NEEDED****************************************
 Route::get('/seed','SeedController@seedPostings');
-Route::get('/apicheck','APIController@index');
-
+// Route::get('/apicheck','APIController@index');
+Route::get('/apicheck/{co}/{location}/{latlong}/{query}',array(
+	'as' => 'apicheck',
+	'uses' => 'APIController@getSearch'
+));
+Route::post('apicheck/filter',array(
+	'as' => 'api-filter',
+	'uses' => 'APIController@filterAPI'
+));
 //Zerograd page
 Route::get('/','HomeController@index');
 Route::get('/login','HomeController@login');
