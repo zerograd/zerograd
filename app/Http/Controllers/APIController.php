@@ -125,7 +125,7 @@ class APIController extends Controller
 
 
     public function filterAPI(){
-
+    
     	$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
 
     	//options for API
