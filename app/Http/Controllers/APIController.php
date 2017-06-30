@@ -62,6 +62,8 @@ class APIController extends Controller
 			$location = (strlen($_POST['searchlocation']) > 0)?$_POST['searchlocation']:"<required>";
 			$query =(strlen($_POST['searchkeywords']) > 0)?$_POST['searchkeywords']:"<required>";
 			$co = 'ca';
+			$query = str_replace(" ","%20",$query);
+			$location = str_replace(" ","%20",$location);
     	    $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=Toronto&latlong=<required>&limit=6&q=$query&radius=25&sort=date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
 
@@ -106,7 +108,7 @@ class APIController extends Controller
 			$badges = ['#E3C610','#10E358','#108EE3'];
 			$data = array(
 				'found' => $found,
-				'keywords' => $query,
+				'keywords' => ($query == '<required>')?'None':$query,
 				'page' => 1,
 				'limit' => 6,
 				'categories' => $categories,
@@ -115,7 +117,7 @@ class APIController extends Controller
 				'numberOfPages' => ceil($results->totalResults / 6),
 				'postings' => $postings,
 				'badges' => $badges,
-				'location' => $location
+				'location' => ($location == '<required>')?'':$location
 			);
 			
 			return view('api-search')->with($data);
@@ -143,7 +145,7 @@ class APIController extends Controller
         $date = $_POST['date'];
         $keywords = $_POST['keywords'];
         //Default values if no request sent
-        $location = isset($_POST['location'])?$_POST['location']:'toronto';
+        $location = (strlen($_POST['location']) > 0)?$_POST['location']:'toronto';
         $co = 'ca';
         if($date == 'newest') $date = 'date';
 
@@ -174,7 +176,7 @@ class APIController extends Controller
 			$categories = DB::table('categories')
 							->select('*')
 							->get();
-
+         $location = str_replace(" ","%20",$location);
         $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$jobQueryString&l=$location&latlong=<required>&limit=6&q=$keywords&radius=25&sort=$date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
 
