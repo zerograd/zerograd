@@ -176,6 +176,7 @@ class APIController extends Controller
 			$categories = DB::table('categories')
 							->select('*')
 							->get();
+		 $keywords = str_replace(" ","%20",$keywords);					
          $location = str_replace(" ","%20",$location);
         $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$jobQueryString&l=$location&latlong=<required>&limit=6&q=$keywords&radius=25&sort=$date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
 
