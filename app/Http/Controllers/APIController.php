@@ -108,7 +108,7 @@ class APIController extends Controller
 			$badges = ['#E3C610','#10E358','#108EE3'];
 			$data = array(
 				'found' => $found,
-				'keywords' => ($query == '<required>')?'None':$query,
+				'keywords' => ($query == '<required>')?'None':urldecode($query),
 				'page' => 1,
 				'limit' => 6,
 				'categories' => $categories,
@@ -117,7 +117,7 @@ class APIController extends Controller
 				'numberOfPages' => ceil($results->totalResults / 6),
 				'postings' => $postings,
 				'badges' => $badges,
-				'location' => ($location == '<required>')?'':$location
+				'location' => ($location == '<required>')?'':urldecode($location)
 			);
 			
 			return view('api-search')->with($data);
