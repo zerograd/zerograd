@@ -10,10 +10,12 @@ use Session;
 class PostingController extends Controller
 {
     //
-    public function index($title=null,$id = null){
+    public function index($id = null,$title = null){
+
     	$posting = DB::table('postings')
-    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
+    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'),DB::raw('categories.cat_name'))
     				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
+                    ->join('categories','categories.cat_id','=','postings.cat_id')
     				->where(DB::raw('postings.id'),$id)
     				->first();
 
@@ -34,7 +36,8 @@ class PostingController extends Controller
             'appliedTo' => $appliedTo
 		);
 
-		return view('posting')->with($data);
+        
+		return view('job')->with($data);
     }
 
     public function saveJob($id = null){

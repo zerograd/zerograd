@@ -159,4 +159,20 @@ class ResumeController extends Controller
                 'resume_uploaded' => $choice
             ));
     }
+
+    public function addResume(){
+        $data = array(
+
+        );
+
+        return view('add-resume')->with($data);
+    }
+
+    public function manageResume(){
+        $data = array(
+
+        );
+
+        return view('manage-resume')->with($data);
+    }
 }

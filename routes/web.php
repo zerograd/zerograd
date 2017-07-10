@@ -13,6 +13,94 @@
 //Data Seed **************************REMAIN COMMENTED IF NOT NEEDED****************************************
 Route::get('/seed','SeedController@seedPostings');
 Route::get('/apicheck','APIController@index');
+
+
+//Testing new theme
+Route::get('/newtheme','HomeController@newtheme');
+Route::get('/posting/{id}',array(
+	'as' => 'get-posting',
+	'uses' => 'PostingController@index'
+));
+Route::get('/resume-page/{id}',array(
+	'as' => 'resume-page',
+	'uses' => 'StudentController@profile'
+));
+Route::get('/contact',array(
+	'as' => 'contact-us',
+	'uses' => 'HomeController@contact'
+));
+Route::get('/resume/add',array(
+	'as' => 'add-resume',
+	'uses' => 'ResumeController@addResume'
+));
+
+Route::get('manage-resume',array(
+	'as' => 'manage-resume',
+	'uses' => 'ResumeController@manageResume'
+));
+
+Route::get('job-alerts',array(
+	'as' => 'job-alerts',
+	'uses' => 'StudentController@jobAlerts'
+));
+
+
+Route::get('/my-account',array(
+	'as' => 'my-account',
+	'uses' => 'StudentController@myAccount'
+));
+
+Route::get('/dashboard',array(
+	'as' => 'dashboard',
+	'uses' => 'StudentController@dashboard'
+));
+
+Route::get('/browse-jobs',array(
+	'as' => 'browse-jobs',
+	'uses' => 'HomeController@browseJobs'
+));
+
+Route::get('/browse-categories',array(
+	'as' => 'browse-categories',
+	'uses' => 'HomeController@browseCategories'
+));
+
+Route::get('/add-jobs',array(
+	'as' => 'add-jobs',
+	'uses' => 'EmployerController@addJob'
+));
+
+Route::get('/manage-jobs',array(
+	'as' => 'manage-jobs',
+	'uses' => 'EmployerController@manageJobs'
+));
+
+Route::get('/manage-applications',array(
+	'as' => 'manage-applications',
+	'uses' => 'EmployerController@manageApplications'
+));
+
+Route::get('/browse-resumes',array(
+	'as' => 'browse-resumes',
+	'uses' => 'EmployerController@browseResumes'
+));
+
+Route::get('/resources',array(
+	'as' => 'resources',
+	'uses' => 'HomeController@resources'
+));
+
+Route::get('/resources/{id}',array(
+	'as' => 'get-resource',
+	'uses' => 'HomeController@getResource'
+));
+
+
+
+
+
+
+
 Route::post('/results',array(
 	'as' => 'apicheck',
 	'uses' => 'APIController@getSearch'
@@ -134,10 +222,10 @@ Route::get('/company/{id}',array(
 ));
 
 //PostingController
-Route::get('/posting/{title}/{id}',array(
-	'as' => 'posting-get',
-	'uses' => 'PostingController@index'		
-));
+// Route::get('/posting/{title}/{id}',array(
+// 	'as' => 'posting-get',
+// 	'uses' => 'PostingController@index'		
+// ));
 
 Route::post('/save-job/{id}',array(
 		'as' => 'save-job',

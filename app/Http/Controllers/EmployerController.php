@@ -178,4 +178,41 @@ class EmployerController extends Controller
         return redirect('/employer/home');
 
     }
+
+    //new theme functions
+
+    public function addJob(){
+        $data = array(
+
+        );
+
+        return view('add-jobs')->with($data);
+    }
+
+
+    public function manageJobs(){
+        $data = array(
+
+        );
+
+        return view('manage-jobs')->with($data);
+    }
+
+    public function manageApplications(){
+        $data = array(
+
+        );
+
+        return view('manage-applications')->with($data);
+    }
+
+    public function browseResumes(){
+        $data = array(
+
+        );
+
+        return view('browse-resumes')->with($data);
+    }
+
+
 }

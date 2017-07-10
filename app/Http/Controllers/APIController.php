@@ -120,7 +120,7 @@ class APIController extends Controller
 				'location' => ($location == '<required>')?'':urldecode($location)
 			);
 			
-			return view('api-search')->with($data);
+			return view('browse-jobs')->with($data);
     }
 
 

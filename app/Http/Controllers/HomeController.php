@@ -484,4 +484,61 @@ class HomeController extends Controller
     	return view('about');
     }
 
+
+
+    // NEW THEME FUNCTION BELOWS
+
+    public function newtheme(){
+
+    	$postingsCount = DB::table('postings')->select('*')->count();
+
+
+    	//Recent jobs 
+    	$recentJobs = DB::table('postings')->select(DB::raw('postings.*'),DB::raw('companies.company_name'))
+    						->join('companies','companies.id','=','postings.company_id')
+    						->orderBy('postings.posted_date','DESC')
+    						->take(5)
+    						->get();
+    	$data = array(
+    		'postingsCount' => $postingsCount,
+    		'recentJobs' => $recentJobs
+		);
+    	return view('main')->with($data);
+    }
+
+    public function contact(){
+
+        $data = array(
+
+        );
+        return view('contact')->with($data);
+    }
+
+    public function browseJobs(){
+    	$data = array(
+
+        );
+        return view('browse-jobs')->with($data);
+    }
+
+    public function browseCategories(){
+    	$data = array(
+
+        );
+        return view('browse-categories')->with($data);
+    }
+
+    public function resources(){
+    	$data = array(
+
+        );
+        return view('resources')->with($data);
+    }
+
+    public function getResource($id = null){
+    	$data = array(
+
+        );
+        return view('get-resource')->with($data);
+    }
 }

@@ -276,6 +276,7 @@ class StudentController extends Controller
         $notifications = $this->getNotifications();
         $post_notifications = $notifications['post_notifications'];
 
+        $student = DB::table('students')->select('student_name','email')->where('student_id',$id)->first();
         
         $data = array(
             'educations' => $education,
@@ -287,13 +288,15 @@ class StudentController extends Controller
             'workExperience' => $workExperience,
             'volunteering' => $volunteering,
             'id' => $id,
+            'student' => $student,
             'notifications' => isset($post_notifications)?$post_notifications:"",
             'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
             'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
         );
         
+        
 
-    	return view('profiles.student')->with($data);
+    	return view('resume-page')->with($data);
     }
 
     // SUMMARY 
@@ -642,5 +645,30 @@ class StudentController extends Controller
             ->update(array(
                 'seen' => 'yes'
             ));
+    }
+
+    //NEw theme functions
+    public function myAccount(){
+        $data = array(
+
+        );
+
+        return view('my-account')->with($data);
+    }
+    
+    public function dashboard(){
+        $data = array(
+
+        );
+
+        return view('dashboard')->with($data);
+    }
+
+    public function jobAlerts(){
+        $data = array(
+
+        );
+
+        return view('job-alerts')->with($data);
     }
 }
