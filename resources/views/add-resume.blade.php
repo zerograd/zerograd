@@ -28,7 +28,7 @@
 
 			<!-- Notice -->
 			<div class="notification notice closeable margin-bottom-40">
-				<p><span>Have an account?</span> If you don’t have an account you can create one below by entering your email address. A password will be automatically emailed to you.</p>
+				<p><span>Try our new <a href="{{route('resume-builder',Session::get('user_id'))}}" style="font-size:20px">Resume Builder</a>,or fill out your information below.</p>
 			</div>
 
 
@@ -41,30 +41,30 @@
 			<!-- Email -->
 			<div class="form">
 				<h5>Your Name</h5>
-				<input class="search-field" type="text" placeholder="Your full name" value=""/>
+				<input class="search-field" type="text" placeholder="Your full name" value="{{Session::get('student_name')}}"/>
 			</div>
 
 			<!-- Email -->
 			<div class="form">
 				<h5>Your Email</h5>
-				<input class="search-field" type="text" placeholder="mail@example.com" value=""/>
+				<input class="search-field" type="text" placeholder="mail@example.com" value="{{Session::get('email')}}"/>
 			</div>
 
 			<!-- Title -->
 			<div class="form">
 				<h5>Professional Title</h5>
-				<input class="search-field" type="text" placeholder="e.g. Web Developer" value=""/>
+				<input class="search-field" type="text" name="title" placeholder="e.g. Web Developer" value=""/>
 			</div>
 
 			<!-- Location -->
 			<div class="form">
 				<h5>Location</h5>
-				<input class="search-field" type="text" placeholder="e.g. London, UK" value=""/>
+				<input class="search-field" type="text" name="city" placeholder="e.g. London, UK" value=""/>
 			</div>
 
 			<!-- Logo -->
 			<div class="form">
-				<h5>Photo <span>(optional)</span></h5>
+				<h5>Attachments <span>(DOCX/PDF)</span></h5>
 				<label class="upload-btn">
 				    <input type="file" multiple />
 				    <i class="fa fa-upload"></i> Browse
@@ -72,16 +72,13 @@
 				<span class="fake-input">No file selected</span>
 			</div>
 
-			<!-- Email -->
-			<div class="form">
-				<h5>Video <span>(optional)</span></h5>
-				<input class="search-field" type="text" placeholder="A link to a video about you" value=""/>
-			</div>
+			
 
 			<!-- Description -->
 			<div class="form">
 				<h5>Resume Content</h5>
-				<textarea class="WYSIWYG" name="summary" cols="40" rows="3" id="summary" spellcheck="true"></textarea>
+				<div id="editor" style="height:300px;">
+				</div>
 			</div>
 
 
@@ -150,4 +147,14 @@
 </div>
 
 
+
+
 @stop
+
+@section('script_plugins')
+	<script type="text/javascript">
+		var quill = new Quill('#editor', {
+	    theme: 'snow'
+	  });
+	</script>
+@stop	

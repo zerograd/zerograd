@@ -17,6 +17,8 @@
 <link rel="stylesheet" href="{{URL::asset('/theme/css/style.css')}}">
 <link rel="stylesheet" href="{{URL::asset('/theme/css/colors/green.css')}}" id="colors">
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.css">
+<link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
+
 
 @yield('styles')
 
@@ -203,6 +205,7 @@
 <script src="{{URL::asset('theme/scripts/headroom.min.js')}}"></script>
 <script src="{{URL::asset('theme/scripts/jquery.gmaps.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.js"></script>
+<script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
  @yield('script_plugins')
 
 <!-- Style Switcher

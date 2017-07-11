@@ -156,6 +156,11 @@ class ResumeController extends Controller
 
     public function resumeUploaded(Request $request){
         $choice = $request->choice;
+
+        // Uploaded resume if chosen
+
+
+
         DB::table('students')
             ->where('student_id',$request->student_id)
             ->update(array(
@@ -194,6 +199,15 @@ class ResumeController extends Controller
             'resumeSize' => sizeof($resumes)
         );
 
+        
         return view('manage-resume')->with($data);
+    }
+
+    public function deleteResume(Request $request){
+        DB::table('resume')
+            ->where('resume_id',$request->id)
+            ->delete();
+
+        return url('/manage-resume');
     }
 }
