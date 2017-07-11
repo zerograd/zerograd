@@ -161,5 +161,9 @@
 		$.post('',{},function(data){
 
 		});
+
+		@if(Session::has('message'))
+			swal('{{Session::get('message')}}'); 
+		@endif
 	</script>
 @stop

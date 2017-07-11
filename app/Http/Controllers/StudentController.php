@@ -665,10 +665,73 @@ class StudentController extends Controller
     }
 
     public function jobAlerts(){
-        $data = array(
 
+        if(!Session::has('user_id')){
+            Session::flash('message','Register to access this feature.');
+            return redirect(route('my-account'). '#tab2');
+        }
+
+        $alerts = DB::table('job_alerts')
+                    ->select('*')
+                    ->where('user_id',Session::get('user_id'))
+                    ->get(); 
+
+        $frequency = array(
+            'Daily' => 'Daily',
+            'Weekly' => 'Weekly',
+            'Fortnightly' => 'Fortnightly',
+        );
+
+        $status = array(
+            'Full-Time' => 'Full-Time',
+            'Part-Time' => 'Part-Time',
+            'Internship' => 'Internship',
+            'Freelance' => 'Freelance',
+            'Temporary' => 'Temporary'
+        );
+
+        
+                    
+
+        $data = array(
+            'alerts' => $alerts,
+            'alertSize' => sizeof($alerts),
+            'frequency' => $frequency,
+            'status' => $status
         );
 
         return view('job-alerts')->with($data);
+    }
+
+    public function createJobAlerts(Request $request){
+        DB::table('job_alerts')
+            ->insert(array(
+                'name' => $request->name,
+                'keywords' => $request->keywords,
+                'location' => $request->location,
+                'frequency' => $request->frequency,
+                'status' => $request->status,
+                'user_id' => Session::get('user_id')
+            )); 
+        return redirect('job-alerts');
+    }
+
+    public function updateJobAlerts(Request $request){
+        foreach($request->except('_token','id') as $key=>$value){
+             DB::table('job_alerts')
+                ->where('id',$request->id)
+                ->update(array(
+                    "$key" => $value
+                ));
+        }
+        return "Saved";    
+    }
+
+    public function deleteJobAlerts(Request $request){
+        DB::table('job_alerts')
+            ->where('id',$request->id)
+            ->delete();
+
+        return url('/job-alerts');
     }
 }

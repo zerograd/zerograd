@@ -12,6 +12,9 @@ class ResumeController extends Controller
 {
     //
     public function resumeBuilder($id = null){
+
+
+
     	$education = DB::table('education')
                         ->select('*')
                         ->where('user_id',$id)
@@ -161,6 +164,11 @@ class ResumeController extends Controller
     }
 
     public function addResume(){
+
+        if(!Session::has('user_id')){
+            Session::flash('message','Please sign up to access this feature.');
+            return redirect(route('my-account'). '#tab2');
+        }
         $data = array(
 
         );
@@ -169,8 +177,21 @@ class ResumeController extends Controller
     }
 
     public function manageResume(){
-        $data = array(
 
+        if(!Session::has('user_id')){
+            Session::flash('message','Please sign up to access this feature.');
+            return redirect(route('my-account'). '#tab2');
+        }
+
+        $resumes = DB::table('resume')
+                        ->select(DB::raw('resume.*'),'students.student_name')
+                        ->join('students','students.student_id','=','resume.user_id')
+                        ->where('user_id',Session::get('user_id'))
+                        ->get();
+
+        $data = array(
+            'resumes' => $resumes,
+            'resumeSize' => sizeof($resumes)
         );
 
         return view('manage-resume')->with($data);

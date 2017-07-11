@@ -44,6 +44,20 @@ Route::get('job-alerts',array(
 	'uses' => 'StudentController@jobAlerts'
 ));
 
+Route::post('job-alerts/create',array(
+	'as' => 'job-alerts-create',
+	'uses' => 'StudentController@createJobAlerts'
+));
+
+Route::post('job-alerts/update',array(
+	'as' => 'job-alerts-update',
+	'uses' => 'StudentController@updateJobAlerts'
+));
+
+Route::post('job-alerts/destroy',array(
+	'as' => 'delete-alert',
+	'uses' => 'StudentController@deleteJobAlerts'
+));
 
 Route::get('/my-account',array(
 	'as' => 'my-account',
