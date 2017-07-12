@@ -28,18 +28,30 @@
 
 			<!-- Notice -->
 			<div class="notification notice closeable margin-bottom-40">
-				<p><span>Try our new <a href="{{route('resume-builder',Session::get('user_id'))}}" style="font-size:20px">Resume Builder</a>,or fill out your information below.</p>
+				<p><span>Try our new <a href="{{route('resume-builder',Session::get('user_id'))}}" style="font-size:20px">Resume Builder</a>,or use one of the following options:</p>
 			</div>
 
+			
 
-			<!-- Linked In -->
+
+			
+
+			<!-- Logo -->
 			<div class="form">
-				<h5>LinkedIn</h5>
-				<a href="#" class="button linkedin-btn">Import from LinkedIn</a>
+				<h5>1.&nbspUpload a Resume <span>(DOCX/PDF)</span></h5>
+				<label class="upload-btn">
+				    <input type="file" multiple name="user_file" />
+				    <i class="fa fa-upload"></i> Browse
+				</label>
+				<span class="fake-input">No file selected</span>
+			</div>
+
+			<div class="form">
+				<p>2.&nbspFill out your information below.</p>
 			</div>
 
 			<!-- Email -->
-		<form id="resume-form" method="POST">
+		<form  id="resume-form" method="POST" enctype="multipart/form-data">
 			<div class="form">
 				<h5>Your Name</h5>
 				<input class="search-field" type="text"  placeholder="Your full name" value="{{Session::get('student_name')}}"/>
@@ -63,15 +75,7 @@
 				<input class="search-field" type="text" name="city" placeholder="e.g. London, UK" value=""/>
 			</div>
 
-			<!-- Logo -->
-			<div class="form">
-				<h5>Attachments <span>(DOCX/PDF)</span></h5>
-				<label class="upload-btn">
-				    <input type="file" multiple />
-				    <i class="fa fa-upload"></i> Browse
-				</label>
-				<span class="fake-input">No file selected</span>
-			</div>
+			
 
 			
 

@@ -183,6 +183,8 @@ class ResumeController extends Controller
 
     public function createResume(Request $request){
 
+        return $_FILES['user_file']['tmp_name'];
+
         $user_id = Session::get('user_id');
         $values = array();
             parse_str($request->data, $values);
