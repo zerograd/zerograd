@@ -44,6 +44,13 @@ Route::post('resume/delete',array(
 	'uses' => 'ResumeController@deleteResume'
 ));
 
+Route::post('resume/create',array(
+	'as' => 'create-resume',
+	'uses' => 'ResumeController@createResume'
+));
+
+
+
 
 
 Route::get('job-alerts',array(

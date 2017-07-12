@@ -181,6 +181,54 @@ class ResumeController extends Controller
         return view('add-resume')->with($data);
     }
 
+    public function createResume(Request $request){
+
+        $user_id = Session::get('user_id');
+        $values = array();
+            parse_str($request->data, $values);
+        $student_name = Session::get('student_name');
+        $title = $values['title'];
+        $summary = $values['summary'];
+        $city = $values['city'];
+
+        $educations = $request->education;
+        $experiences = $request->experience;
+
+        if($educations){
+           foreach($educations as $education){
+             if($education['school']){
+               DB::table('education')
+                    ->insert(array(
+                        'school' => $education['school'],
+                        'start' => $education['completion'],
+                        'program' => $education['program'],
+                        'user_id' => $user_id
+                    ));
+             }   
+                
+            } 
+        }
+        
+
+            if($experiences){
+                foreach($experiences as $experience){
+             if($experience['employer']){
+               DB::table('work_experience')
+                    ->insert(array(
+                        'company_name' => $experience['employer'],
+                        'start' => $experience['completion'],
+                        'job_title' => $experience['job_title'],
+                        'user_id' => $user_id
+                    ));
+             }   
+                
+            }
+
+        }
+
+
+        }
+
     public function manageResume(){
 
         if(!Session::has('user_id')){
@@ -199,7 +247,7 @@ class ResumeController extends Controller
             'resumeSize' => sizeof($resumes)
         );
 
-        
+
         return view('manage-resume')->with($data);
     }
 

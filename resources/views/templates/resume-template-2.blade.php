@@ -74,9 +74,7 @@
 			
 			<div class="sectionContent">
 				<ul class="keySkills">
-					@foreach($skills as $skill)
-						<li>{{$skill->skills}}</li>
-					@endforeach
+					
 				</ul>
 			</div>
 			<div class="clear"></div>
