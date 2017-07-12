@@ -36,7 +36,7 @@
 	
 		<!-- Logo -->
 		<div id="logo">
-			<h1><a href="index.html"><img src="theme/images/logo2.png" alt="Work Scout" /></a></h1>
+			<h1><a href="{{URL::to('/newtheme')}}"><img src="theme/images/logo2.png" alt="Work Scout" /></a></h1>
 		</div>
 
 		<!-- Menu -->
