@@ -109,7 +109,7 @@
 
 				<form id="search-form" action="{{route('apicheck')}}" method="POST">
 					{{csrf_field()}}
-					<h2>Find job</h2>
+					<h2>Find job an entry-level job today</h2>
 					<input type="text" class="ico-01" placeholder="job title, keywords or company name" value="" name="searchkeywords"  id="searchkeywords" />
 					<input type="text" class="ico-02" placeholder="city, province or region" value="" name="searchlocation" id="searchlocation" />
 					<button type="button" onClick="submitSearch();"><i class="fa fa-search"></i></button>
