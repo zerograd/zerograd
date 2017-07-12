@@ -226,6 +226,7 @@ class ResumeController extends Controller
 
         }
 
+        return "Created";
 
         }
 

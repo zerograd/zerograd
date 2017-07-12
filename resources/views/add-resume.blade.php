@@ -138,7 +138,7 @@
 
 		</form>
 			<div class="divider margin-top-0 padding-reset"></div>
-			<a href="#" onClick="previewResume();" class="button big margin-top-5" target="_blank">Create Resume <i class="fa fa-arrow-circle-right"></i></a>
+			<a href="javascript:previewResume();" class="button big margin-top-5" target="_blank">Create Resume <i class="fa fa-arrow-circle-right"></i></a>
 
 		</div>
 	</div>
@@ -194,7 +194,7 @@
 			data += '&summary=' + summary;
 			data += '&_token=' + "{{csrf_token()}}";
 			$.post('{{route('create-resume')}}',{data:data,education:educationJSON,experience:experienceJSON,_token:"{{csrf_token()}}"},function(data){
-
+					alert('Created');
 			});
 		}
 	</script>
