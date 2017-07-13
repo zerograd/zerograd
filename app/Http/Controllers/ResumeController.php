@@ -183,7 +183,7 @@ class ResumeController extends Controller
 
     public function createResume(Request $request){
 
-        return $_FILES['user_file']['tmp_name'];
+        
 
         $user_id = Session::get('user_id');
         $values = array();
@@ -193,19 +193,37 @@ class ResumeController extends Controller
         $summary = $values['summary'];
         $city = $values['city'];
 
+
+        //Create the resume
+        $insertID = DB::table('resume')
+                    ->insertGetId(array(
+                        'student_name' =>$student_name,
+                        'title' =>$title,
+                        'summary' =>$summary,
+                        'city' => $city,
+                        'user_id' => $user_id
+                    ));
+
+
+        //Grab education ids & experience ids
+        $educationIDs = '';      
+        $experienceIDs = '';  
+
         $educations = $request->education;
         $experiences = $request->experience;
 
         if($educations){
            foreach($educations as $education){
              if($education['school']){
-               DB::table('education')
-                    ->insert(array(
+                $id = DB::table('education')
+                    ->insertGetId(array(
                         'school' => $education['school'],
                         'start' => $education['completion'],
                         'program' => $education['program'],
                         'user_id' => $user_id
                     ));
+
+                if($id) $educationIDs .= $id . ',';
              }   
                 
             } 
@@ -215,20 +233,29 @@ class ResumeController extends Controller
             if($experiences){
                 foreach($experiences as $experience){
              if($experience['employer']){
-               DB::table('work_experience')
-                    ->insert(array(
+               $id = DB::table('work_experience')
+                    ->insertGetId(array(
                         'company_name' => $experience['employer'],
                         'start' => $experience['completion'],
                         'job_title' => $experience['job_title'],
                         'user_id' => $user_id
                     ));
+
+                 if($id) $experienceIDs .= $id . ',';
              }   
                 
             }
 
-        }
+            }
 
-        return "Created";
+            DB::table('resume')
+                ->where('resume_id',$insertID)
+                ->update(array(
+                    'education_id' => $educationIDs,
+                    'work_experience_id' => $experienceIDs
+                ));
+
+        return url('/manage-resume');
 
         }
 
@@ -255,10 +282,99 @@ class ResumeController extends Controller
     }
 
     public function deleteResume(Request $request){
+
+
+        $experienceIDs = DB::table('resume')->select('work_experience_id')->where('resume_id',$request->id)->first()->work_experience_id;
+
+        $educationIDs = DB::table('resume')->select('education_id')->where('resume_id',$request->id)->first()->education_id;
+
+
+        $educationIDs = substr($educationIDs,0,-1);
+        $experienceIDs = substr($experienceIDs,0,-1);
+
+        $educationIDs = explode(',',$educationIDs);
+        $experienceIDs = explode(',',$experienceIDs);
+
+        foreach($educationIDs as $id){
+            DB::table('education')
+                ->where('education_id',$id)
+                ->delete();
+        }
+
+        foreach($experienceIDs as $id){
+            DB::table('work_experience')
+                ->where('id',$id)
+                ->delete();
+        }
+
+        
+
         DB::table('resume')
             ->where('resume_id',$request->id)
             ->delete();
 
         return url('/manage-resume');
     }
+
+    public function uploadResume(Request $request){
+
+
+        $fileType = $request->file('user_file')->getMimeType();
+
+        
+
+        if($fileType == 'application/pdf' || $fileType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || $fileType == 'application/msword') {
+            
+
+            $path = $request->file('user_file')->store('resumes');
+
+            //Store in DB path
+            DB::table('resume')
+                ->insert(array(
+                    'student_name' => Session::get('student_name'),
+                    'email' => Session::get('email'),
+                    'user_id' => Session::get('user_id'),
+                    'resume_uploaded' => 'yes',
+                    'path' => $path
+                ));
+
+            Session::flash('message','Resume uploaded.');
+
+            return redirect('/manage-resume');
+        }
+
+        Session::flash('message','Please upload a PDF or Word doc.');
+        return redirect('/resume/add');
+        
+    }
+
+    public function updateResume(Request $request){
+
+
+        $fileType = $request->file('user_file')->getMimeType();
+
+        
+
+        if($fileType == 'application/pdf' || $fileType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' || $fileType == 'application/msword') {
+            
+
+            $path = $request->file('user_file')->store('resumes');
+
+            //Store in DB path
+            DB::table('resume')
+                ->where('resume_id',$request->id)
+                ->update(array(
+                    'path' => $path
+                ));
+
+            Session::flash('message','Resume uploaded.');
+
+            return redirect('/manage-resume');
+        }
+
+        
+        Session::flash('failed','Please upload a PDF or Word Doc.');
+        return redirect('/manage-resume');
+    }
 }
+

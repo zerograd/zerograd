@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="{{URL::asset('/theme/css/colors/green.css')}}" id="colors">
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.css">
 <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 
 @yield('styles')
@@ -206,6 +207,7 @@
 <script src="{{URL::asset('theme/scripts/jquery.gmaps.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.js"></script>
 <script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
  @yield('script_plugins')
 
 <!-- Style Switcher

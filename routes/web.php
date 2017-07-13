@@ -39,6 +39,13 @@ Route::get('manage-resume',array(
 	'uses' => 'ResumeController@manageResume'
 ));
 
+
+
+
+Route::post('update-resume',array(
+	'as' => 'update-resume',
+	'uses' => 'ResumeController@updateResume'
+));
 Route::post('resume/delete',array(
 	'as' => 'delete-resume',
 	'uses' => 'ResumeController@deleteResume'
@@ -101,6 +108,13 @@ Route::get('/add-jobs',array(
 Route::get('/manage-jobs',array(
 	'as' => 'manage-jobs',
 	'uses' => 'EmployerController@manageJobs'
+));
+
+
+
+Route::post('/upload-resume',array(
+	'as' => 'upload-resume',
+	'uses' => 'ResumeController@uploadResume'
 ));
 
 Route::get('/manage-applications',array(

@@ -33,6 +33,11 @@
 
 			
 
+			@if(Session::has('message'))
+			<div class="notification notice closeable margin-bottom-40" style="background-color: #c90c0c;color:#471414">
+				<p>{{Session::get('message')}}</p>
+			</div>
+			@endif
 
 			
 
@@ -40,10 +45,14 @@
 			<div class="form">
 				<h5>1.&nbspUpload a Resume <span>(DOCX/PDF)</span></h5>
 				<label class="upload-btn">
+				<form id="submit-file" action="{{route('upload-resume')}}" method="POST" enctype="multipart/form-data">
+					{{csrf_field()}}
 				    <input type="file" multiple name="user_file" />
 				    <i class="fa fa-upload"></i> Browse
+			    </form>
 				</label>
-				<span class="fake-input">No file selected</span>
+				<span class="fake-input" id="file-name">No file selected</span>
+				<button onClick="javascript:document.getElementById('submit-file').submit();">Submit</button>
 			</div>
 
 			<div class="form">
@@ -156,6 +165,14 @@
 
 @section('script_plugins')
 	<script type="text/javascript">
+
+	$(document).ready(function(){
+		$("input[type='file']").change(function(e) {
+			var fileName = e.target.files[0].name;
+        	$('#file-name').text(fileName);
+    	});
+	});
+
 		var quill = new Quill('#editor', {
 	    theme: 'snow'
 	  });
@@ -198,7 +215,7 @@
 			data += '&summary=' + summary;
 			data += '&_token=' + "{{csrf_token()}}";
 			$.post('{{route('create-resume')}}',{data:data,education:educationJSON,experience:experienceJSON,_token:"{{csrf_token()}}"},function(data){
-					alert('Created');
+					window.location = data;
 			});
 		}
 	</script>
