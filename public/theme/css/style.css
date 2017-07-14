@@ -1130,6 +1130,10 @@ table.manage-table td.action a:hover { color: #505050; }
 
 .my-account label {
 	position: relative;
+	display: block;
+    /* width: 100%;  */
+    margin-bottom: 5px;
+    font-weight: 700;
 }
 
 .my-account label input {

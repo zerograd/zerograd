@@ -49,20 +49,22 @@
 				<li><a href="{{route('contact-us')}}">Contact</a>
 					
 				</li>
-
+            @if(!Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="#">For Candidates</a>
 					<ul>
 						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
 						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
-						<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
+						@if(Session::has('user_id'))
+							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
+						@endif
 						<li><a href="{{route('add-resume')}}">Add Resume</a></li>
 						<li><a href="{{route('manage-resume')}}">Manage Resumes</a></li>
 						<li><a href="{{route('job-alerts')}}">Job Alerts</a></li>
 					</ul>
 				</li>
-
 				<li><a href="#">For Employers</a>
 					<ul>
+						<li><a href="{{URL::to('employer/myaccount')}}">Login/Register</a></li>
 						<li><a href="{{route('add-jobs')}}">Add Job</a></li>
 						<li><a href="{{route('manage-jobs')}}">Manage Jobs</a></li>
 						<li><a href="{{route('manage-applications')}}">Manage Applications</a></li>
@@ -71,16 +73,55 @@
 				</li>
 
 				<li><a href="{{route('resources')}}">Resources</a></li>
+			@elseif(Session::has('user_id') && !Session::has('employer_id'))
+				<li><a href="#">For Candidates</a>
+					<ul>
+						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
+						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
+						@if(Session::has('user_id'))
+							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
+						@endif
+						<li><a href="{{route('add-resume')}}">Add Resume</a></li>
+						<li><a href="{{route('manage-resume')}}">Manage Resumes</a></li>
+						<li><a href="{{route('job-alerts')}}">Job Alerts</a></li>
+					</ul>
+				</li>
+			@else
+				<li><a href="#">For Employers</a>
+					<ul>
+						<li><a href="{{URL::to('employer/myaccount')}}">Login/Register</a></li>
+						<li><a href="{{route('add-jobs')}}">Add Job</a></li>
+						<li><a href="{{route('manage-jobs')}}">Manage Jobs</a></li>
+						<li><a href="{{route('manage-applications')}}">Manage Applications</a></li>
+						<li><a href="{{route('browse-resumes')}}">Browse Resumes</a></li>
+					</ul>
+				</li>
+
+			@endif
+				<li><a href="{{route('resources')}}">Resources</a></li>
 			</ul>
 
 
 			<ul class="float-right">
 
-				@if(!Session::has('user_id'))
+				@if(!Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="{{route('my-account')}}#tab2"><i class="fa fa-user"></i> Sign Up</a></li>
 				<li><a href="{{route('my-account')}}"><i class="fa fa-lock"></i> Log In</a></li>
+
+				@elseif(Session::has('employer_id'))
+					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('company_name')}}</a>
+							<ul>
+								<li><a href="#">Settings</a></li>
+								<li><a href="{{URL::to('/employer/logout')}}">Logout</a></li>
+							</ul>
+					</li>
 				@else
-					<li><a href="#settings"><i class="fa fa-user"></i>{{Session::get('student_name')}}</a></li>
+					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('student_name')}}</a>
+							<ul>
+								<li><a href="#">Settings</a></li>
+								<li><a href="{{URL::to('/logout')}}">Logout</a></li>
+							</ul>
+					</li>
 				@endif
 			</ul>
 
@@ -109,7 +150,7 @@
 
 				<form id="search-form" action="{{route('apicheck')}}" method="POST">
 					{{csrf_field()}}
-					<h2>Find job an entry-level job today</h2>
+					<h2>Find an entry-level job today</h2>
 					<input type="text" class="ico-01" placeholder="job title, keywords or company name" value="" name="searchkeywords"  id="searchkeywords" />
 					<input type="text" class="ico-02" placeholder="city, province or region" value="" name="searchlocation" id="searchlocation" />
 					<button type="button" onClick="submitSearch();"><i class="fa fa-search"></i></button>

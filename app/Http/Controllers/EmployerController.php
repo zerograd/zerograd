@@ -22,7 +22,7 @@ class EmployerController extends Controller
         Session::forget('employer_id');
         Session::forget('company_name');
         Session::forget('company_email');
-        return redirect('/');
+        return redirect('/newtheme');
     }
 
     public function postRegister(Request $request){
@@ -182,8 +182,19 @@ class EmployerController extends Controller
     //new theme functions
 
     public function addJob(){
-        $data = array(
 
+        if(!Session::has('employer_id')){
+            Session::flash('message','Please register to access this feature.');
+            return redirect('/employer/myaccount'. '#tab2');
+        }
+
+        $categories = DB::table('categories')
+                        ->select('*')
+                        ->get();
+
+
+        $data = array(
+            'categories' => $categories
         );
 
         return view('add-jobs')->with($data);
@@ -191,6 +202,12 @@ class EmployerController extends Controller
 
 
     public function manageJobs(){
+
+        if(!Session::has('employer_id')){
+            Session::flash('message','Please register to access this feature.');
+            return redirect('/employer/myaccount'. '#tab2');
+        }
+
         $data = array(
 
         );
@@ -199,6 +216,12 @@ class EmployerController extends Controller
     }
 
     public function manageApplications(){
+
+        if(!Session::has('employer_id')){
+            Session::flash('message','Please register to access this feature.');
+            return redirect('/employer/myaccount'. '#tab2');
+        }
+
         $data = array(
 
         );
@@ -207,11 +230,25 @@ class EmployerController extends Controller
     }
 
     public function browseResumes(){
+
+        if(!Session::has('employer_id')){
+            Session::flash('message','Please register to access this feature.');
+            return redirect('/employer/myaccount'. '#tab2');
+        }
+
         $data = array(
 
         );
 
         return view('browse-resumes')->with($data);
+    }
+
+    public function myAccount(){
+        $data = array(
+
+        );
+
+        return view('employer-account')->with($data);
     }
 
 

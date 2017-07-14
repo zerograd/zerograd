@@ -19,7 +19,7 @@ class StudentController extends Controller
         Session::forget('user_id');
         Session::forget('student_name');
         Session::forget('email');
-        return redirect('/');
+        return redirect('/newtheme');
     }
 
 

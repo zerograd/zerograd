@@ -86,7 +86,11 @@
 				@endif
 				
 				<td class="action">
-					<a data-toggle="modal" data-target="#resume-modal-{{$resume->resume_id}}"><i class="fa fa-pencil"></i> Edit</a>
+					@if($resume->resume_uploaded == 'yes')
+						<a data-toggle="modal" data-target="#resume-modal-{{$resume->resume_id}}"><i class="fa fa-pencil"></i> Edit</a>
+					@elseif($resume->resume_uploaded == 'no')
+						<a data-toggle="modal" data-target="#edit-resume-modal-{{$resume->resume_id}}"><i class="fa fa-pencil"></i> Edit</a>
+					@endif
 					<a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
 					<a href="javascript:deleteResume({{$resume->resume_id}})" class="delete"><i class="fa fa-remove"></i> Delete</a>
 				</td>
@@ -123,6 +127,12 @@
 
 					  </div>
 					</div>
+
+				
+				@endif
+
+				@if($resume->resume_uploaded == 'no')
+					@include('edit-resume-modal')
 				@endif
 			@endforeach
 
@@ -143,6 +153,10 @@
 @section('script_plugins')
 	<script type="text/javascript">
 
+		var quill = new Quill('#editor', {
+	    theme: 'snow'
+	  });
+
 		$(document).ready(function(){
 		$("input[type='file']").change(function(e) {
 			var fileName = e.target.files[0].name;
@@ -162,6 +176,47 @@
 		function deleteResume(id){
 			$.post('{{route('delete-resume')}}',{id:id,_token:"{{csrf_token()}}"},function(data){
 				window.location = data;
+			});
+		}
+
+		function previewResume(id){
+			var summary = quill.container.innerText;
+			var data = $('#' + id).serialize();
+
+			//Get all education boxes that were created
+			var educations = $('.education-box');
+			var educationJSON = [];
+			educations.each(function(){
+				var school = $(this).find("input[name='school_name']").val();
+				var program = $(this).find("input[name='program']").val();
+				var completion = $(this).find("input[name='completion']").val();
+				var education = {
+					school:school,
+					program:program,
+					completion:completion
+				};
+				educationJSON.push(education);
+			});
+
+			//Get all experience boxes that were created
+			var experiences = $('.experience-box:visible');
+			var experienceJSON = [];
+			experiences.each(function(){
+				var employer = $(this).find("input[name='employer']").val();
+				var job_title = $(this).find("input[name='job_title']").val();
+				var completion = $(this).find("input[name='completion']").val();
+				var experience = {
+					employer:employer,
+					job_title:job_title,
+					completion:completion
+				};
+				experienceJSON.push(experience);
+			});
+			
+			data += '&summary=' + summary;
+			data += '&_token=' + "{{csrf_token()}}";
+			$.post('{{route('update-resume-input')}}',{data:data,education:educationJSON,experience:experienceJSON,_token:"{{csrf_token()}}"},function(data){
+					window.location = data;
 			});
 		}
 

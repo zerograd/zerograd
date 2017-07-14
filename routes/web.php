@@ -46,6 +46,19 @@ Route::post('update-resume',array(
 	'as' => 'update-resume',
 	'uses' => 'ResumeController@updateResume'
 ));
+
+
+Route::post('update-resume-input',array(
+	'as' => 'update-resume-input',
+	'uses' => 'ResumeController@updateResumeViaInput'
+));
+
+Route::get('employer/myaccount','EmployerController@myAccount');
+
+Route::get('logout','StudentController@logout');
+
+Route::get('/employer/logout','EmployerController@logout');
+
 Route::post('resume/delete',array(
 	'as' => 'delete-resume',
 	'uses' => 'ResumeController@deleteResume'
@@ -329,7 +342,7 @@ Route::post('/employer-register/register','EmployerController@postRegister');
 Route::post('/employer-login/login','EmployerController@verifyLogin');
 Route::post('/create-posting',array(
 	'as' => 'create-posting',
-	'uses' => 'EmployerController@postCreatePosting'		
+	'uses' => 'PostingController@createJob'		
 ));
 Route::post('/update-company-profile',array(
 	'as' => 'update-company-profile',

@@ -376,5 +376,79 @@ class ResumeController extends Controller
         Session::flash('failed','Please upload a PDF or Word Doc.');
         return redirect('/manage-resume');
     }
+
+    public function updateResumeViaInput(Request $request){
+        $user_id = Session::get('user_id');
+        $values = array();
+            parse_str($request->data, $values);
+        $student_name = Session::get('student_name');
+        $title = $values['title'];
+        $summary = $values['summary'];
+        $city = $values['city'];
+
+
+        //Create the resume
+        $insertID = DB::table('resume')
+                    ->insertGetId(array(
+                        'student_name' =>$student_name,
+                        'title' =>$title,
+                        'summary' =>$summary,
+                        'city' => $city,
+                        'user_id' => $user_id
+                    ));
+
+
+        //Grab education ids & experience ids
+        $educationIDs = '';      
+        $experienceIDs = '';  
+
+        $educations = $request->education;
+        $experiences = $request->experience;
+
+        if($educations){
+           foreach($educations as $education){
+             if($education['school']){
+                $id = DB::table('education')
+                    ->insertGetId(array(
+                        'school' => $education['school'],
+                        'start' => $education['completion'],
+                        'program' => $education['program'],
+                        'user_id' => $user_id
+                    ));
+
+                if($id) $educationIDs .= $id . ',';
+             }   
+                
+            } 
+        }
+        
+
+            if($experiences){
+                foreach($experiences as $experience){
+             if($experience['employer']){
+               $id = DB::table('work_experience')
+                    ->insertGetId(array(
+                        'company_name' => $experience['employer'],
+                        'start' => $experience['completion'],
+                        'job_title' => $experience['job_title'],
+                        'user_id' => $user_id
+                    ));
+
+                 if($id) $experienceIDs .= $id . ',';
+             }   
+                
+            }
+
+            }
+
+            DB::table('resume')
+                ->where('resume_id',$insertID)
+                ->update(array(
+                    'education_id' => $educationIDs,
+                    'work_experience_id' => $experienceIDs
+                ));
+
+        return url('/manage-resume');
+    }
 }
 

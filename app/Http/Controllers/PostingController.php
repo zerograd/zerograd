@@ -83,4 +83,33 @@ class PostingController extends Controller
 
         return "applied";
     }
+
+
+    public function createJob(Request $request){
+
+        $previousID = '';
+
+        foreach($request->except('_token') as $key=>$value){
+            if($previousID == ''){
+                $previousID = DB::table('postings')
+                                    ->insertGetId(array(
+                                        "$key" => $value
+                                    ));
+            }else{
+                DB::table('postings')
+                        ->where('id',$previousID)
+                        ->update(array(
+                            "$key" => $value
+                        ));
+            }
+        }
+
+        DB::table('postings')
+                        ->where('id',$previousID)
+                        ->update(array(
+                            "company_id" => Session::get('employer_id')
+                        ));
+
+        return redirect(route('manage-jobs'));
+    }
 }

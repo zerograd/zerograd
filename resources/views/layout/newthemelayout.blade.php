@@ -18,7 +18,10 @@
 <link rel="stylesheet" href="{{URL::asset('/theme/css/colors/green.css')}}" id="colors">
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.css">
 <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
+<!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+
 
 
 @yield('styles')
@@ -59,7 +62,7 @@
 				<li><a href="{{route('contact-us')}}" id="current">Contact</a>
 					
 				</li>
-
+			@if(!Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="#">For Candidates</a>
 					<ul>
 						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
@@ -72,9 +75,9 @@
 						<li><a href="{{route('job-alerts')}}">Job Alerts</a></li>
 					</ul>
 				</li>
-
 				<li><a href="#">For Employers</a>
 					<ul>
+						<li><a href="{{URL::to('employer/myaccount')}}">Login/Register</a></li>
 						<li><a href="{{route('add-jobs')}}">Add Job</a></li>
 						<li><a href="{{route('manage-jobs')}}">Manage Jobs</a></li>
 						<li><a href="{{route('manage-applications')}}">Manage Applications</a></li>
@@ -83,15 +86,54 @@
 				</li>
 
 				<li><a href="{{route('resources')}}">Resources</a></li>
+			@elseif(Session::has('user_id') && !Session::has('employer_id'))
+				<li><a href="#">For Candidates</a>
+					<ul>
+						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
+						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
+						@if(Session::has('user_id'))
+							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
+						@endif
+						<li><a href="{{route('add-resume')}}">Add Resume</a></li>
+						<li><a href="{{route('manage-resume')}}">Manage Resumes</a></li>
+						<li><a href="{{route('job-alerts')}}">Job Alerts</a></li>
+					</ul>
+				</li>
+			@else
+				<li><a href="#">For Employers</a>
+					<ul>
+						<li><a href="{{URL::to('employer/myaccount')}}">Login/Register</a></li>
+						<li><a href="{{route('add-jobs')}}">Add Job</a></li>
+						<li><a href="{{route('manage-jobs')}}">Manage Jobs</a></li>
+						<li><a href="{{route('manage-applications')}}">Manage Applications</a></li>
+						<li><a href="{{route('browse-resumes')}}">Browse Resumes</a></li>
+					</ul>
+				</li>
+
+			@endif
+				<li><a href="{{route('resources')}}">Resources</a></li>
 			</ul>
 
 
 			<ul class="responsive float-right">
-				@if(!Session::has('user_id'))
+				@if(!Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="{{route('my-account')}}#tab2"><i class="fa fa-user"></i> Sign Up</a></li>
 				<li><a href="{{route('my-account')}}"><i class="fa fa-lock"></i> Log In</a></li>
+
+				@elseif(Session::has('employer_id'))
+					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('company_name')}}</a>
+							<ul>
+								<li><a href="#">Settings</a></li>
+								<li><a href="{{URL::to('/employer/logout')}}">Logout</a></li>
+							</ul>
+					</li>
 				@else
-					<li><a href="#settings"><i class="fa fa-user"></i>{{Session::get('student_name')}}</a></li>
+					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('student_name')}}</a>
+							<ul>
+								<li><a href="#">Settings</a></li>
+								<li><a href="{{URL::to('/logout')}}">Logout</a></li>
+							</ul>
+					</li>
 				@endif
 			</ul>
 
@@ -207,7 +249,7 @@
 <script src="{{URL::asset('theme/scripts/jquery.gmaps.min.js')}}"></script>
 <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.js"></script>
 <script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
  @yield('script_plugins')
 
 <!-- Style Switcher
