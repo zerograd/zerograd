@@ -4,6 +4,19 @@
 	<title>Add Jobs</title>
 @stop
 
+@section('styles')
+	<style type="text/css">
+	</style>
+@stop
+
+@section('style_plugins')
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#datepicker-1").datepicker();
+			$('#ui-datepicker-div').css('right','100');
+		});
+	</script>
+@stop
 
 @section('content')
 <!-- Titlebar
@@ -66,6 +79,26 @@
 				</select>
 			</div>
 
+			<div class="form">
+				<h5>Required Experience</h5>
+				<select data-placeholder="Required Experience" class="chosen-select-no-single" name="required_experience">
+					<option value="0">No experience needed</option>
+					<option value="1" selected>1 years</option>
+					<option value="2">2 Years</option>
+					<option value="3">3 Years</option>
+				</select>
+			</div>
+
+			<div class="form-group">
+				<h5>Salary</h5>
+				<input type="text" name="salary" id="salary" class="form-control">
+					<br>
+				<h5>Show Salary</h5>
+			  <label><input type="radio" name="showSalary" value="yes">Yes</label>
+			  <label><input type="radio" name="showSalary" value="no">No</label>
+			</div>
+
+
 
 			<!-- Choose Category -->
 			<div class="form">
@@ -81,8 +114,8 @@
 
 			<!-- Tags -->
 			<div class="form">
-				<h5>Job Tags <span>(optional)</span></h5>
-				<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" name="keywords" value=""/>
+				<h5>Job Requirements</h5>
+				<input class="search-field" type="text" placeholder="e.g. PHP, Social Media, Management" name="requirements" value=""/>
 				<p class="note">Comma separate tags, such as required skills or technologies, for this job.</p>
 			</div>
 
@@ -93,6 +126,14 @@
 				<textarea class="WYSIWYG"  cols="40" rows="3" id="summary" name="description" spellcheck="true"></textarea>
 			</div>
 
+
+			<!-- Description -->
+			<div class="form">
+				<h5>Requirements</h5>
+				<textarea class="WYSIWYG"  cols="40" rows="3" id="summary" name="description" spellcheck="true"></textarea>
+			</div>
+
+
 			<!-- Application email/url -->
 			<div class="form">
 				<h5>Application email / URL</h5>
@@ -102,7 +143,7 @@
 			<!-- TClosing Date -->
 			<div class="form">
 				<h5>Closing Date <span>(optional)</span></h5>
-				<input data-role="date" type="text" placeholder="yyyy-mm-dd" name="closing_date">
+				<input data-role="date" type="text" placeholder="yyyy-mm-dd" name="closing_date" id="datepicker-1">
 				<p class="note">Deadline for new applicants.</p>
 			</div>
 
@@ -112,7 +153,7 @@
 
 
 			<div class="divider margin-top-0"></div>
-			<a href="javascript:document.getElementById('add-job-form').submit();" class="button big margin-top-5">Preview <i class="fa fa-arrow-circle-right"></i></a>
+			<a href="javascript:document.getElementById('add-job-form').submit();" class="button big margin-top-5" style="float:right;">Preview <i class="fa fa-arrow-circle-right"></i></a>
 
 
 		</div>
@@ -120,4 +161,10 @@
 
 </div>
 
+
+
 @stop
+
+@section('script_plugins')
+	
+@stop	

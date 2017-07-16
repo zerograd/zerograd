@@ -87,9 +87,9 @@
 				
 				<td class="action">
 					@if($resume->resume_uploaded == 'yes')
-						<a data-toggle="modal" data-target="#resume-modal-{{$resume->resume_id}}"><i class="fa fa-pencil"></i> Edit</a>
+						<a data-remodal-target="modal-{{$resume->resume_id}}"" href="#"><i class="fa fa-pencil"></i> Edit</a>
 					@elseif($resume->resume_uploaded == 'no')
-						<a data-toggle="modal" data-target="#edit-resume-modal-{{$resume->resume_id}}"><i class="fa fa-pencil"></i> Edit</a>
+						<a data-remodal-target="edit-modal-{{$resume->resume_id}}" href="#"><i class="fa fa-pencil"></i> Edit</a>
 					@endif
 					<a href="#"><i class="fa  fa-eye-slash"></i> Hide</a>
 					<a href="javascript:deleteResume({{$resume->resume_id}})" class="delete"><i class="fa fa-remove"></i> Delete</a>
@@ -97,20 +97,15 @@
 			</tr>
 				@if($resume->resume_uploaded == 'yes')
 					
-					<div id="resume-modal-{{$resume->resume_id}}" class="modal fade" role="dialog">
-					  <div class="modal-dialog">
 
-					    <!-- Modal content-->
-					    <div class="modal-content">
-					      <div class="modal-header">
-					        <button type="button" class="close" data-dismiss="modal">&times;</button>
-					        <h4 class="modal-title">Upload a New Resume</h4>
-					      </div>
-					      <div class="modal-body">
-					        <div class="form">
+					<div class="remodal" data-remodal-id="modal-{{$resume->resume_id}}" data-remodal-options="hashTracking: false">
+					  <button data-remodal-action="close" class="remodal-close"></button>
+					    <div class="form">
+					    <h2>Upload new Resume</h2>
 											<label class="upload-btn">
 												<form id="submit-file-{{$resume->resume_id}}" action="{{route('update-resume')}}" method="POST" 	enctype="multipart/form-data">
 												{{csrf_field()}}
+
 												<input type="hidden" value="{{$resume->resume_id}}" name="id">
 											    <input type="file" multiple name="user_file" />
 											    <i class="fa fa-upload"></i> Browse
@@ -119,15 +114,7 @@
 											<span class="fake-input" id="file-name">No file selected</span>
 											<button onClick="javascript:document.getElementById('submit-file-{{$resume->resume_id}}').submit();" style="color:white;">Submit</button>
 							</div>
-					      </div>
-					      <div class="modal-footer">
-					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					      </div>
-					    </div>
-
-					  </div>
 					</div>
-
 				
 				@endif
 

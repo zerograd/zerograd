@@ -19,6 +19,12 @@
  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.css">
 <link href="https://cdn.quilljs.com/1.2.6/quill.snow.css" rel="stylesheet">
 <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
+ <link rel="stylesheet" href="{{URL::asset('/Remodal-1.1.1/dist/remodal.css')}}">
+<link rel="stylesheet" href="{{URL::asset('/Remodal-1.1.1/dist/remodal-default-theme.css')}}">
+<link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
+         rel = "stylesheet">
+      <script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
+      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
 
@@ -232,7 +238,7 @@
 
 <!-- Scripts
 ================================================== -->
-<script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
+
 <script src="{{URL::asset('theme/scripts/custom.js')}}"></script>
 <script src="{{URL::asset('theme/scripts/jquery.superfish.js')}}"></script>
 <script src="{{URL::asset('theme/scripts/jquery.themepunch.tools.min.js')}}"></script>
@@ -250,6 +256,7 @@
 <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.js"></script>
 <script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
 <script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
+ <script src="{{URL::asset('/Remodal-1.1.1/dist/remodal.min.js')}}"></script>
  @yield('script_plugins')
 
 <!-- Style Switcher

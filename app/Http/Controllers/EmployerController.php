@@ -201,6 +201,10 @@ class EmployerController extends Controller
     }
 
 
+    //return an object with search and count
+    
+
+
     public function manageJobs(){
 
         if(!Session::has('employer_id')){
@@ -208,22 +212,66 @@ class EmployerController extends Controller
             return redirect('/employer/myaccount'. '#tab2');
         }
 
-        $data = array(
+        $postings = DB::table('postings')
+                        ->select('*')
+                        ->where('company_id',Session::get('employer_id'))
+                        ->get();
 
+        $whoApplied = DB::table('applied_to')
+                        ->select('posting_id')
+                        ->where('company_id',Session::get('employer_id'))
+                        ->get();
+
+        //Parse the object and get all IDs
+        $appliedIDs = array();
+        foreach($whoApplied as $applied){
+            array_push($appliedIDs,$applied->posting_id);
+        }
+
+        
+        
+        $postingCounts = array();
+
+        
+
+        $data = array(
+            'postings' => $postings,
+            'appliedIDs' =>$appliedIDs,
         );
 
+
+        
         return view('manage-jobs')->with($data);
     }
 
-    public function manageApplications(){
+    public function manageApplications($posting = null){
 
         if(!Session::has('employer_id')){
             Session::flash('message','Please register to access this feature.');
             return redirect('/employer/myaccount'. '#tab2');
         }
 
-        $data = array(
+        $forAllPositions = 'All Positions';
+        if($posting == null){
+            $applicants = DB::table('applied_to')
+                                ->select('applied_to.*','students.student_name','students.email')
+                                ->join('students','students.student_id','=','applied_to.user_id')
+                                ->where('company_id',Session::get("employer_id"))
+                                ->get();
+        }else{
+            $postingName = DB::table('postings')->select('postings.title')->where('id',$posting)->first()->title;
+            $forAllPositions = $postingName;
+            $applicants = DB::table('applied_to')
+                                ->select('applied_to.*','students.student_name','students.email')
+                                ->join('students','students.student_id','=','applied_to.user_id')
+                                ->where('company_id',Session::get("employer_id"))
+                                ->where('applied_to.posting_id',$posting)
+                                ->get();
+        }
 
+        $data = array(
+            'forAllPositions' => $forAllPositions,
+            'applicants' => $applicants
         );
 
         return view('manage-applications')->with($data);

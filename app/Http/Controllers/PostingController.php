@@ -29,11 +29,14 @@ class PostingController extends Controller
         $appliedTo = DB::table('applied_to')->where('user_id',Session::get('user_id'))->where('posting_id',$id)->count();
 
 
+        $requirements = explode(',',$posting->requirements);
+
     	$data = array(
     		'posting' => $posting,
             'post_id' => $id,
             'saved' => $saved,
-            'appliedTo' => $appliedTo
+            'appliedTo' => $appliedTo,
+            'requirements' => $requirements
 		);
 
         
@@ -96,11 +99,24 @@ class PostingController extends Controller
                                         "$key" => $value
                                     ));
             }else{
+                if($key == 'requirements') {
+                    DB::table('postings')
+                        ->where('id',$previousID)
+                        ->update(array(
+                            "$key" => $value
+                    ));
+
+                    DB::table('postings')
+                        ->where('id',$previousID)
+                        ->update(array(
+                            "keywords" => $value
+                    ));
+                }
                 DB::table('postings')
                         ->where('id',$previousID)
                         ->update(array(
                             "$key" => $value
-                        ));
+                ));
             }
         }
 
@@ -111,5 +127,20 @@ class PostingController extends Controller
                         ));
 
         return redirect(route('manage-jobs'));
+    }
+
+    public function markFilled(Request $request){
+            DB::table('postings')
+                    ->where('id',$request->id)
+                    ->update(array(
+                        'filled' => $request->mark
+                    ));
+    }
+
+    public function deleteJob(Request $request){
+        DB::table('postings')
+                    ->where('id',$request->id)
+                    ->delete();
+        return 'deleted';
     }
 }

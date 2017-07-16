@@ -110,7 +110,7 @@
                     
                         @if($saved > 0)
                             <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="unsaveJob(this);">Saved</button>
-                        @else
+                        @else 
                             <button style="margin:0 auto" class="btn btn-primary waves-effect waves-teal" type="button" onClick="saveJob(this);">Save this Job</button>
                         @endif
                     @endif

@@ -130,7 +130,7 @@ Route::post('/upload-resume',array(
 	'uses' => 'ResumeController@uploadResume'
 ));
 
-Route::get('/manage-applications',array(
+Route::get('/manage-applications/{posting?}',array(
 	'as' => 'manage-applications',
 	'uses' => 'EmployerController@manageApplications'
 ));
@@ -300,6 +300,8 @@ Route::post('/apply-to-job',array(
 
 
 
+
+
 //Student Profile public
 
 Route::get('/profile/{id}',array(
@@ -344,9 +346,19 @@ Route::post('/create-posting',array(
 	'as' => 'create-posting',
 	'uses' => 'PostingController@createJob'		
 ));
+
+Route::post('/mark-filled',array(
+	'as' => 'mark-filled',
+	'uses' => 'PostingController@markFilled'		
+));
 Route::post('/update-company-profile',array(
 	'as' => 'update-company-profile',
 	'uses' => 'EmployerController@postProfile'		
+));
+
+Route::post('/job/delete',array(
+	'as' => 'delete-job',
+	'uses' => 'PostingController@deleteJob'		
 ));
 
 
