@@ -11,7 +11,7 @@
 	<div class="container">
 		<div class="ten columns">
 			@if (isset($keywords) and $keywords != 'None')
-				<span>We found 1,412 jobs matching:</span>
+				<span>We found {{$numberOfResults}} jobs matching:</span>
 				<h2>{{$keywords}}</h2>
 
 			@else
@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="six columns">
-			<a href="add-job.html" class="button">Post a Job, It’s Free!</a>
+			<a href="{{URL::to('employer/myaccount')}}#tab2" class="button">Post a Job, It’s Free!</a>
 		</div>
 
 	</div>
@@ -31,7 +31,7 @@
 ================================================== -->
 <div class="container">
 	<!-- Recent Jobs -->
-	<div class="eleven columns">
+	<div class="ten columns">
 	<div class="padding-right">
 		
 		<form action="#" method="get" class="list-search">
@@ -41,81 +41,7 @@
 		</form>
 
 		<ul class="job-list full">
-
-			<li><a href="job-page.html">
-				<img src="images/job-list-logo-01.png" alt="">
-				<div class="job-list-content">
-					<h4>Marketing Coordinator - SEO / SEM Experience <span class="full-time">Full-Time</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> King</span>
-						<span><i class="fa fa-map-marker"></i> Sydney</span>
-						<span><i class="fa fa-money"></i> $100 / hour</span>
-					</div>
-					<p>The SEO/SEM Specialist will work with industry leaders and top retailers to define and deliver best practices through innovative SEO methodologies.</p>
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page.html">
-				<img src="images/job-list-logo-02.png" alt="">
-				<div class="job-list-content">
-					<h4>Core PHP Developer for Site Maintenance <span class="part-time">Part-Time</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> Cubico</span>
-						<span><i class="fa fa-map-marker"></i> London</span>
-						<span><i class="fa fa-money"></i> $50 / hour</span>
-					</div>
-					<p>Vivamus eleifend metus elit. Aenean facilisis placerat faucibus. Praesent commodo at mi nec imperdiet. Etiam at libero nec nunc iaculis ullamcorper.</p>
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page-alt.html">
-				<img src="images/job-list-logo-03.png" alt="">
-				<div class="job-list-content">
-					<h4>Restaurant Team Member - Crew <span class="full-time">Full-Time</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> King</span>
-						<span><i class="fa fa-map-marker"></i> Sydney</span>
-						<span><i class="fa fa-money"></i> $15 / hour</span>
-					</div>
-					<p>Duis eu sem erat. Aliquam vestibulum justo at quam facilisis, sit amet condimentum dui laoreet. Nunc feugiat ante quis pulvinar ornare. In tempus lorem ipsum.</p>
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page.html">
-				<img src="images/job-list-logo-04.png" alt="">
-				<div class="job-list-content">
-					<h4>Power Systems User Experience Designer  <span class="internship">Internship</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> Hexagon</span>
-						<span><i class="fa fa-map-marker"></i> London</span>
-						<span><i class="fa fa-money"></i> $75 / hour</span>
-					</div>
-					<p>Praesent eu imperdiet quam. Fusce posuere venenatis lorem vel lacinia. Integer orci magna, accumsan nec velit quis, porttitor pulvinar nulla. Nullam viverra risus massa.</p>
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
-
-			<li><a href="job-page-alt.html">
-				<img src="images/job-list-logo-05.png" alt="">
-				<div class="job-list-content">
-					<h4>iPhone / Android Music App Development <span class="temporary">Temporary</span></h4>
-					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> Mates</span>
-						<span><i class="fa fa-map-marker"></i> New York</span>
-						<span><i class="fa fa-money"></i> $115 / hour</span>
-					</div>
-					<p>Sodales mollis metus eget egestas. Duis sit amet sem pretium, facilisis libero ut, lobortis arcu. Cras ipsum libero, suscipit ut nisl vitae, commodo pretium mauris.</p>
-				</div>
-				</a>
-				<div class="clearfix"></div>
-			</li>
+			@include('sub-results')
 		</ul>
 		<div class="clearfix"></div>
 
@@ -164,7 +90,6 @@
 		<div class="widget">
 			<h4>Location</h4>
 			<form action="#" method="get">
-				<input type="text" placeholder="State / Province" value=""/>
 				<input type="text" placeholder="City" @if(isset($location) and $location != '') value="{{$location}}" @endif/>
 
 				<input type="text" class="miles" placeholder="Miles" value=""/>
@@ -205,7 +130,8 @@
 		</div>
 
 		<!-- Rate/Hr -->
-		<div class="widget">
+		
+		<!-- <div class="widget">
 			<h4>Rate / Hr</h4>
 
 			<ul class="checkboxes">
@@ -235,7 +161,7 @@
 				</li>
 			</ul>
 
-		</div>
+		</div> -->
 
 
 

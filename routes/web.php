@@ -110,7 +110,7 @@ Route::get('/dashboard',array(
 
 Route::get('/browse-jobs',array(
 	'as' => 'browse-jobs',
-	'uses' => 'HomeController@browseJobs'
+	'uses' => 'APIController@browseJobs'
 ));
 
 Route::get('/browse-categories',array(
