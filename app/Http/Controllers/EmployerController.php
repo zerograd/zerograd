@@ -263,6 +263,7 @@ class EmployerController extends Controller
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('status','!=','deleted')
+                                ->take(6)
                                 ->get();
         }else{
             $postingName = DB::table('postings')->select('postings.title')->where('id',$posting)->first()->title;
@@ -273,6 +274,7 @@ class EmployerController extends Controller
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('applied_to.posting_id',$posting)
                                 ->where('status','!=','deleted')
+                                ->take(6)
                                 ->get();
         }
 
@@ -284,7 +286,8 @@ class EmployerController extends Controller
         $data = array(
             'forAllPositions' => $forAllPositions,
             'applicants' => $applicants,
-            'statues' => $statues
+            'statues' => $statues,
+            'posting' => isset($posting)?$posting:''
         );
 
         return view('manage-applications')->with($data);
@@ -342,6 +345,63 @@ class EmployerController extends Controller
                         "$key" => $value
                     ));
         }
+        DB::table('applied_to')
+                    ->where('id',$applyID)
+                    ->update(array(
+                        "viewed" => 'yes'
+                    ));
     }
 
+
+    public function filterApplications(Request $request){
+
+        $status = isset($request->status)?$request->status:'';
+        $name = isset($request->name)?$request->name:'';
+        $posting = $request->id;
+        $applicants = DB::table('applied_to');
+
+        //if this is is a filter for specific posting
+        if($posting == null){
+            
+                                $applicants->select('applied_to.*','students.student_name','students.email')
+                                ->join('students','students.student_id','=','applied_to.user_id')
+                                ->where('company_id',Session::get("employer_id"))
+                                ->where('applied_to.status','!=','deleted');
+                               
+                                
+        }else{
+            $applicants->select('applied_to.*','students.student_name','students.email')
+                                ->join('students','students.student_id','=','applied_to.user_id')
+                                ->where('company_id',Session::get("employer_id"))
+                                ->where('applied_to.posting_id',$posting)
+                                ->where('applied_to.status','!=','deleted');
+        }
+
+
+        //Filters
+        if($status != ''){
+            $applicants->where('status',$status);
+        }
+        if($name != ''){
+            if($name == 'name'){
+                $applicants->orderBy('students.student_name','ASC');
+            }else if($name == 'rating'){
+                $applicants->orderBy('applied_to.rating','DESC');
+            }else{
+                $applicants->orderBy('applied_to.created','DESC');
+            }
+        }
+
+        $applicants = $applicants->take(6)->get();
+
+        $statues = array('New','Interviewed','Offer','Hired','Archived');
+
+        $data = array(
+            'applicants' => $applicants,
+            'statues' => $statues,
+            'posting' => isset($posting)?$posting:''
+        );
+
+        return view('sub-manage-applications')->with($data);
+    }
 }

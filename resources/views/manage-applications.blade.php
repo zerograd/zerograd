@@ -4,6 +4,25 @@
 	<title>Manage Applications</title>
 @stop
 
+@section('styles')
+	<style type="text/css">
+		.loader {
+		    border: 16px solid #f3f3f3; /* Light grey */
+		    border-top: 16px solid #26ae61; /* Blue */
+		    border-radius: 50%;
+		    width: 120px;
+		    height: 120px;
+		    animation: spin 2s linear infinite;
+		    margin:0 auto;
+		}
+
+		@keyframes spin {
+		    0% { transform: rotate(0deg); }
+		    100% { transform: rotate(360deg); }
+		}
+	</style>
+@stop
+
 
 @section('content')
 <!-- Titlebar
@@ -42,7 +61,7 @@
 
 	<div class="eight columns">
 		<!-- Select -->
-		<select data-placeholder="Filter by status" class="chosen-select-no-single">
+		<select data-placeholder="Filter by status" class="chosen-select-no-single" id="filter-status" name="status">
 			<option value="">Filter by status</option>
 			<option value="new">New</option>
 			<option value="interviewed">Interviewed</option>
@@ -55,8 +74,8 @@
 
 	<div class="eight columns">
 		<!-- Select -->
-		<select data-placeholder="Newest first" class="chosen-select-no-single">
-			<option value="">Newest first</option>
+		<select data-placeholder="Newest first" class="chosen-select-no-single" name="name" id="filter-name">
+			<option value="new">Newest first</option>
 			<option value="name">Sort by name</option>
 			<option value="rating">Sort by rating</option>
 		</select>
@@ -65,140 +84,12 @@
 
 
 	<!-- Applications -->
-	<div class="sixteen columns">
-	@foreach($applicants as $applicant)
-		<!-- Application #1 -->
-		<div class="application" id="application-{{$applicant->id}}">
-			<div class="app-content">
-				
-				<!-- Name / Avatar -->
-				<div class="info">
-					<img src="{{URL::asset('images/resumes-list-avatar-01.png')}}" alt="">
-					<span>{{$applicant->student_name}}</span>
-					<ul>
-						@if($applicant->cover_letter)
-						<li><a href="{{route('download-cv',[ 'postingID' => $applicant->posting_id, 'id' => $applicant->user_id])}}" target="_blank"><i class="fa fa-file-text"></i> Download CV</a></li>
-						@endif
-						<li><a href="mailto:{{$applicant->email}}"><i class="fa fa-envelope"></i> Contact</a></li>
-					</ul>
-				</div>
-				
-				<!-- Buttons -->
-				<div class="buttons">
-					<a href="#one-1" class="button gray app-link"><i class="fa fa-pencil"></i> Edit</a>
-					<a href="#two-1" class="button gray app-link"><i class="fa fa-sticky-note"></i> Add Note</a>
-					<a href="#three-1" class="button gray app-link"><i class="fa fa-plus-circle"></i> Show Details</a>
-				</div>
-				<div class="clearfix"></div>
-
-			</div>
-
-			<!--  Hidden Tabs -->
-			<div class="app-tabs">
-
-				<a href="#" class="close-tab button gray"><i class="fa fa-close"></i></a>
-				
-				<!-- First Tab -->
-			    <div class="app-tab-content" id="one-1">
-		    	<form id="status-form-{{$applicant->id}}" method="POST">
-					<div class="select-grid">
-						<select data-placeholder="Application Status" class="chosen-select-no-single" name="status">
-							@foreach($statues as $status)
-								@if(strcasecmp($applicant->status,$status) == 0)
-									<option value="{{$status}}" selected>{{$status}}</option>
-								@else
-									<option value="{{$status}}">{{$status}}</option>
-								@endif
-							@endforeach
-						</select>
-					</div>
-
-					<div class="select-grid">
-						<input type="number" min="1" max="5" name="rating" placeholder="Rating (out of 5)">
-					</div>
-				</form>
-					<div class="clearfix"></div>
-					<a href="javascript:statusRating({{$applicant->id}});" class="button margin-top-15">Save</a>
-					<a href="javascript:deleteApplication({{$applicant->id}});" class="button gray margin-top-15 delete-application">Delete this application</a>
-
-			    </div>
-			    
-			    <!-- Second Tab -->
-			    <div class="app-tab-content"  id="two-1">
-					<textarea placeholder="Private note regarding this application" name="notes" id="notes-{{$applicant->id}}">{{$applicant->notes}}</textarea>
-					<a href="javascript:addNotes({{$applicant->id}});" class="button margin-top-15">Add Note</a>
-			    </div>
-			    
-			    <!-- Third Tab -->
-			    <div class="app-tab-content"  id="three-1">
-					<i>Full Name:</i>
-					<span>{{$applicant->student_name}}</span>
-
-					<i>Email:</i>
-					<span><a href="mailto:{{$applicant->email}}">{{$applicant->email}}</a></span>
-
-					<i>Message:</i>
-					<span>{{$applicant->message}} </span>
-			    </div>
-
-			</div>
-
-			<!-- Footer -->
-			<div class="app-footer">
-
-				<!-- Get the star rating -->
-				<?php
-
-					$ratings = '';
-					switch ($applicant->rating) {
-					    case 1:
-				        	$ratings = 'one-stars';
-					        break;
-					    case 2:
-					        $ratings = 'two-stars';
-					        break;
-					    case 3:
-					        $ratings = 'three-stars';
-					        break;
-
-				        case 4:
-					        $ratings = 'four-stars';
-					        break;
-
-				        case 5:
-					        $ratings = 'five-stars';
-					        break;
-					    default:
-					        $ratings = "no-stars";
-					}
-
-				?>
-
-				<div class="rating {{$ratings}}">
-					<div class="star-rating"></div>
-					<div class="star-bg"></div>
-				</div>
-
-				<ul>
-					<li id="applicant-status-{{$applicant->id}}"style="text-transform: capitalize;"><i class="fa fa-file-text-o"></i> {{$applicant->status}}</li>
-
-					<?php
-						$date = date_create($applicant->created);
-						$applied = date_format($date,'F d, Y');
-					?>
-					<li><i class="fa fa-calendar"></i>{{$applied}}</li>
-				</ul>
-				<div class="clearfix"></div>
-
-			</div>
-		</div>
-	@endforeach
-
-		
-
-
+	<div id="results" class="sixteen columns">
+		@include('sub-manage-applications')
 	</div>
 </div>
+
+<input type="hidden" name="posting" id="posting" value="{{$posting}}">
 @stop
 
 @section('script_plugins')
@@ -225,5 +116,26 @@
 				$('#application-' + id).fadeOut();
 			});
 		}
+
+		function filterApplications(){
+			 $('#results').html('<div class="loader" style="display:none;"></div>');
+			 $('#loader').show();
+			var status = $('#filter-status').val();
+			var name = $('#filter-name').val();
+			$.post("{{route('filter-applications')}}",{name:name,status:status,_token:"{{csrf_token()}}",id:$('#posting').val()},function(data){
+				$('#loader').hide();
+				 $('#results').html(data);
+			});
+		}
+
+		$(document).ready(function(){
+			$('#filter-status').on('change',function(){
+				filterApplications();
+			});
+
+			$('#filter-name').on('change',function(){
+				filterApplications();
+			});
+		});
 	</script>
 @stop

@@ -140,6 +140,12 @@ Route::get('/browse-resumes',array(
 	'uses' => 'EmployerController@browseResumes'
 ));
 
+Route::post('/filter-applications',array(
+	'as' => 'filter-applications',
+	'uses' => 'EmployerController@filterApplications'
+));
+
+
 Route::get('/resources',array(
 	'as' => 'resources',
 	'uses' => 'HomeController@resources'
