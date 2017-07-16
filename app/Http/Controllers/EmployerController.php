@@ -6,7 +6,8 @@ use Illuminate\Http\Request;
 use Response;
 use Illuminate\Support\Facades\DB;
 use Session;
-
+use Storage;
+use File;
 class EmployerController extends Controller
 {
     //
@@ -246,6 +247,10 @@ class EmployerController extends Controller
 
     public function manageApplications($posting = null){
 
+        // $path = storage_path(). '\app\covers\6rmXU3DoneWygilNuW8RmMzK2eqwQBvGWCxwQ1IZ.pdf';
+
+        // return response()->download($path);
+
         if(!Session::has('employer_id')){
             Session::flash('message','Please register to access this feature.');
             return redirect('/employer/myaccount'. '#tab2');
@@ -257,6 +262,7 @@ class EmployerController extends Controller
                                 ->select('applied_to.*','students.student_name','students.email')
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
+                                ->where('status','!=','deleted')
                                 ->get();
         }else{
             $postingName = DB::table('postings')->select('postings.title')->where('id',$posting)->first()->title;
@@ -266,12 +272,19 @@ class EmployerController extends Controller
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('applied_to.posting_id',$posting)
+                                ->where('status','!=','deleted')
                                 ->get();
         }
 
+
+        
+
+        $statues = array('New','Interviewed','Offer','Hired','Archived');
+
         $data = array(
             'forAllPositions' => $forAllPositions,
-            'applicants' => $applicants
+            'applicants' => $applicants,
+            'statues' => $statues
         );
 
         return view('manage-applications')->with($data);
@@ -299,5 +312,36 @@ class EmployerController extends Controller
         return view('employer-account')->with($data);
     }
 
+    public function downloadCSV($postingID = null,$id = null){
+
+        //Download CSV for all positions
+        if($id == 'All'){
+
+        }else{
+
+            $applicant = DB::table('applied_to')
+                        ->select('applied_to.cover_letter','students.student_name')
+                        ->join('students','students.student_id','=','applied_to.user_id')
+                        ->where('applied_to.user_id',$id)
+                        ->where('posting_id',$postingID)
+                        ->first();
+
+
+            $path = storage_path(). "\app\\" . $applicant->cover_letter;
+
+             return response()->download($path,$applicant->student_name . '.' . File::extension($applicant->cover_letter));
+        }
+    }
+
+    public function updateApplication(Request $request){
+        $applyID = $request->id;
+        foreach($request->except('_token','id') as $key=>$value){
+                DB::table('applied_to')
+                    ->where('id',$applyID)
+                    ->update(array(
+                        "$key" => $value
+                    ));
+        }
+    }
 
 }

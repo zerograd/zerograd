@@ -297,6 +297,15 @@ Route::post('/apply-to-job/{id}',array(
 		'uses' => 'PostingController@applyJob'	
 ));
 
+Route::get('/download/{postingID}/{id}',array(
+		'as' => 'download-cv',
+		'uses' => 'EmployerController@downloadCSV'	
+));
+
+Route::post('/update-application',array(
+		'as' => 'update-application',
+		'uses' => 'EmployerController@updateApplication'	
+));
 
 
 

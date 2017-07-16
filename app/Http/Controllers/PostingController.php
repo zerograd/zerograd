@@ -89,7 +89,8 @@ class PostingController extends Controller
                 'company_id' => $posting->company_id,
                 'posting_id' => $postID,
                 'message' => $request->message,
-                'cover_letter' => isset($path)?$path:""
+                'cover_letter' => isset($path)?$path:"",
+                'status' => 'new'
             ));
 
         return "applied";
