@@ -450,5 +450,9 @@ class ResumeController extends Controller
 
         return url('/manage-resume');
     }
+
+    public function testTemplate($id = null){
+        return view('templates.resume-template-' . $id);
+    }
 }
 

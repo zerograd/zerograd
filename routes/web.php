@@ -39,6 +39,11 @@ Route::get('manage-resume',array(
 	'uses' => 'ResumeController@manageResume'
 ));
 
+Route::get('/test/template/{id}/',array(
+	'as' => 'test-template',
+	'uses' => 'ResumeController@testTemplate'
+));
+
 
 
 
@@ -171,7 +176,7 @@ Route::post('apicheck/filter',array(
 	'uses' => 'APIController@filterAPI'
 ));
 //Zerograd page
-Route::get('/','HomeController@index');
+Route::get('/','HomeController@newtheme');
 Route::get('/login','HomeController@login');
 Route::get('/student-form',function(){
 	return view('logins.student');
