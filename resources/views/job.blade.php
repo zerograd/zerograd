@@ -134,7 +134,7 @@
                 	@if($appliedTo > 0)
                 	 <a href="#!" class="button">Applied</a>
                 	 @else
-                	 <a href="#!" class="button" onClick="applyToJob();">Apply For This Job</a>
+                	 <a data-remodal-target="modal-apply" href="#"  class="button">Apply For This Job</a>
                 	 @endif
 
                 	@if($saved > 0) 
@@ -146,34 +146,7 @@
                 @endif
 
 				
-				<div id="small-dialog" class="zoom-anim-dialog mfp-hide apply-popup">
-					<div class="small-dialog-headline">
-						<h2>Apply For This Job</h2>
-					</div>
-
-					<div class="small-dialog-content">
-						<form action="#" method="get" >
-							<input type="text" placeholder="Full Name" value=""/>
-							<input type="text" placeholder="Email Address" value=""/>
-							<textarea placeholder="Your message / cover letter sent to the employer"></textarea>
-
-							<!-- Upload CV -->
-							<div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
-							<div class="clearfix"></div>
-
-							<label class="upload-btn">
-							    <input type="file" multiple />
-							    <i class="fa fa-upload"></i> Browse
-							</label>
-							<span class="fake-input">No file selected</span>
-
-							<div class="divider"></div>
-
-							<button class="send">Send Application</button>
-						</form>
-					</div>
-					
-				</div>
+				
 
 			</div>
 
@@ -202,6 +175,35 @@
         </form>
     </div>
 </div>
+<div class="remodal" data-remodal-id="modal-apply" data-remodal-options="hashTracking: false">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <div id="login-panel">
+        <form id="apply-form" action="{{route('apply-to-job',$posting->id)}}" method="POST" enctype="multipart/form-data">
+        	{{csrf_field()}}
+			<input type="text" placeholder="Full Name"  name="student_name" value="{{Session::get('student_name')}}"/>
+			<input type="text" placeholder="Email Address" name="email" value="{{Session::get('email')}}">
+			<textarea placeholder="Your message / cover letter sent to the employer" name="message" id="message"></textarea>
+
+			<!-- Upload CV -->
+			<div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
+			<div class="clearfix"></div>
+
+			<label class="upload-btn">
+			    <input type="file" multiple name="user_file" />
+			    <i class="fa fa-upload"></i> Browse
+			</label>
+			<span class="fake-input" id="file-name">No file selected</span>
+
+			<div class="divider"></div>
+
+			<button class="send button" style="color:white;" type="submit" >Send Application</button>
+		</form>
+    </div>
+</div>
+
+<div class="small-dialog-content">
+						
+					</div>
 
 <input type="hidden" name="post_id" id="post_id" value="{{$posting->id}}" >
 
@@ -209,6 +211,12 @@
 
 @section('script_plugins')
 	<script type="text/javascript">
+		$(document).ready(function(){
+		$("input[type='file']").change(function(e) {
+			var fileName = e.target.files[0].name;
+        	$('#file-name').text(fileName);
+    	});
+		});
 		function saveJob(button){
             $.post('{{route('save-job',$posting->id)}}',{_token:"{{csrf_token()}}"},function(data){
                 if(data == 1){
@@ -228,16 +236,6 @@
                 }  
             });
         }
-		function applyToJob(){
-           var postID = $('#post_id').val();
-           $.post('{{route('apply-to-job')}}',{id:postID,_token:"{{csrf_token()}}"},function(data){
-                if(data == "applied already"){
-                    alert('You have already applied for this position.')
-                }else{
-                    alert('You have succesfully applied for this position.');
-                }
-                
-           });
-       }
+		
 	</script>
 @stop

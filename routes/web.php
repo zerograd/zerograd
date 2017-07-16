@@ -292,7 +292,7 @@ Route::post('/unsave-job/{id}',array(
 		'uses' => 'PostingController@unsaveJob'	
 ));
 
-Route::post('/apply-to-job',array(
+Route::post('/apply-to-job/{id}',array(
 		'as' => 'apply-to-job',
 		'uses' => 'PostingController@applyJob'	
 ));

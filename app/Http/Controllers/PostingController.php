@@ -76,12 +76,20 @@ class PostingController extends Controller
 
         $posting = DB::table('postings')->select('company_id')->where('id',$postID)->first();
 
+
+        if($request->file('user_file')){
+            $path = $request->file('user_file')->store('covers');
+        }
+        
+
         // Create the applied to link
         DB::table('applied_to')
             ->insert(array(
                 'user_id' => $studentID,
                 'company_id' => $posting->company_id,
-                'posting_id' => $postID
+                'posting_id' => $postID,
+                'message' => $request->message,
+                'cover_letter' => isset($path)?$path:""
             ));
 
         return "applied";
