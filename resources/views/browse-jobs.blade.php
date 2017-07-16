@@ -4,6 +4,24 @@
 	<title>Browse Jobs</title>
 @stop
 
+@section('styles')
+	<style type="text/css">
+		.loader {
+            border: 16px solid #f3f3f3; /* Light grey */
+            border-top: 16px solid #26ae61; /* Blue */
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+	</style>
+@stop
+
 @section('content')
 <!-- Titlebar
 ================================================== -->
@@ -40,7 +58,7 @@
 			<div class="clearfix"></div>
 		</form>
 
-		<ul class="job-list full">
+		<ul id="results" class="job-list full">
 			@include('sub-results')
 		</ul>
 		<div class="clearfix"></div>
@@ -87,14 +105,14 @@
 		<!-- Location -->
 		<div class="widget">
 			<h4>Location</h4>
-			<form action="#" method="get">
+			<form id="location-form" action="#" method="post">
 				<input type="text" placeholder="City" @if(isset($location) and $location != '') value="{{$location}}" @endif/>
 
 				<input type="text" class="miles" placeholder="Miles" value=""/>
 				<label for="zip-code" class="from">from</label>
 				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""/><br>
 
-				<button class="button">Filter</button>
+				<button class="button" type="button" onClick="filter();">Filter</button>
 			</form>
 		</div>
 
@@ -103,26 +121,28 @@
 			<h4>Job Type</h4>
 
 			<ul class="checkboxes">
-				<li>
-					<input id="check-1" type="checkbox" name="check" value="check-1" checked>
-					<label for="check-1">Any Type</label>
-				</li>
-				<li>
-					<input id="check-2" type="checkbox" name="check" value="check-2">
-					<label for="check-2">Full-Time <span>(312)</span></label>
-				</li>
-				<li>
-					<input id="check-3" type="checkbox" name="check" value="check-3">
-					<label for="check-3">Part-Time <span>(269)</span></label>
-				</li>
-				<li>
-					<input id="check-4" type="checkbox" name="check" value="check-4">
-					<label for="check-4">Internship <span>(46)</span></label>
-				</li>
-				<li>
-					<input id="check-5" type="checkbox" name="check" value="check-5">
-					<label for="check-5">Freelance <span>(119)</span></label>
-				</li>
+				<form id="job-type-form">
+					<li>
+						<input id="check-1" type="checkbox" name="check" value="check-1" checked>
+						<label for="check-1">Any Type</label>
+					</li>
+					<li>
+						<input id="check-2" type="checkbox" name="check" value="check-2">
+						<label for="check-2">Full-Time <span>(312)</span></label>
+					</li>
+					<li>
+						<input id="check-3" type="checkbox" name="check" value="check-3">
+						<label for="check-3">Part-Time <span>(269)</span></label>
+					</li>
+					<li>
+						<input id="check-4" type="checkbox" name="check" value="check-4">
+						<label for="check-4">Internship <span>(46)</span></label>
+					</li>
+					<li>
+						<input id="check-5" type="checkbox" name="check" value="check-5">
+						<label for="check-5">Freelance <span>(119)</span></label>
+					</li>
+				</form>
 			</ul>
 
 		</div>
@@ -168,4 +188,13 @@
 
 
 </div>
+@stop
+
+@section('script_plugins')
+	<script type="text/javascript">
+		function filter(){
+			$('#results').html('<div class="loader" style="display:none;margin:0 auto;"></div>');
+			$('.loader').show();
+		}
+	</script>
 @stop
