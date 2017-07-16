@@ -80,8 +80,6 @@
 				<option selected="selected" value="recent">Newest</option>
 				<option value="oldest">Oldest</option>
 				<option value="expiry">Expiring Soon</option>
-				<option value="ratehigh">Hourly Rate – Highest First</option>
-				<option value="ratelow">Hourly Rate – Lowest First</option>
 			</select>
 
 		</div>
@@ -130,7 +128,7 @@
 		</div>
 
 		<!-- Rate/Hr -->
-		
+
 		<!-- <div class="widget">
 			<h4>Rate / Hr</h4>
 
