@@ -34,11 +34,17 @@ class StudentController extends Controller
     public function postRegister(Request $request){
         $count = DB::table('students')->where('email',$request->email)->count();
         if($count > 0){
-            return "User Already Exist";
+            Session::flash('user_exists','User already Exists');
+            return redirect('/my-account'. '#tab2');
+        }else if($request->password1 != $request->password2) {
+            Session::flash('password_match','Passwords do not match');
+            return redirect('/my-account'. '#tab2');
         }
 
+        $requestData = $request->except('_token','project_id','password1','password2');
+        $requestData['password'] = $request->password1;
         $previousInsertId;
-        foreach($request->except('_token','project_id') as $key=>$value){
+        foreach( $requestData as $key=>$value){
              if(!isset($previousInsertId)){//Create if doesn't exist
                 
                     $previousInsertId = DB::table('students')->insertGetId(array(
@@ -84,7 +90,7 @@ class StudentController extends Controller
             ));
         
 
-        return "success";
+        return redirect('/');
 
     }
 

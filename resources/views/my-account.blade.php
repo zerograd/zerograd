@@ -113,16 +113,15 @@
 
 			<!-- Register -->
 			<div class="tab-content" id="tab2" style="display: none;">
+				<form id="register-form" action="{{URL::to('/student-register/register')}}" method="post" class="register">
+					{{csrf_field()}}
 
-				<form method="post" class="register">
-					
 				<p class="form-row form-row-wide">
-					<label for="username2">Username:
-						<i class="ln ln-icon-Male"></i>
-						<input type="text" class="input-text" name="username" id="username2" value="" />
+					<label for="student_name">Name:
+						<i class="ln ln-icon-Add-User"></i>					
+				<input type="text" id="student_name" name="student_name"  value=""/>
 					</label>
 				</p>
-					
 				<p class="form-row form-row-wide">
 					<label for="email2">Email Address:
 						<i class="ln ln-icon-Mail"></i>
@@ -145,7 +144,7 @@
 				</p>
 
 				<p class="form-row">
-					<input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+					<input type="button" class="button border fw margin-top-10"  onClick="verifyRegister();" value="Register" />
 				</p>
 
 				</form>
@@ -158,10 +157,31 @@
 
 @section('script_plugins')
 	<script type="text/javascript">
-		$.post('',{},function(data){
+		function verifyRegister(){
+       	 	var email = document.getElementById('email2');
+       	 	var password = document.getElementById('password1');
+       	 	var password2 = document.getElementById('password2');
+       	 	var name = document.getElementById('student_name');
+       	 	if(email.value.length == 0){
+       	 		alert("Please enter your email.");
+       	 		}else if(name.value.length == 0){
+       	 		alert("Please enter your name.");
+       	 	}else if(password.value.length == 0){
+       	 		alert("Please enter your password.");
+       	 	}else if(password == password2){
+       	 		alert("Passwords do not match.");
+       	 	}else{
+       	 		$("#register-form").submit();
+       	 		
+       	 	}
+       }
 
-		});
-
+       @if(Session::has('password_match'))
+			swal('{{Session::get('password_match')}}'); 
+		@endif
+       @if(Session::has('user_exists'))
+			swal('{{Session::get('user_exists')}}'); 
+		@endif
 		@if(Session::has('message'))
 			swal('{{Session::get('message')}}'); 
 		@endif
