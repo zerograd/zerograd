@@ -186,14 +186,15 @@ class APIController extends Controller
 			$data = array(
 				'found' => $found,
 				'page' => 1,
-				'limit' => 6,
+				'limit' => 10,
 				'categories' => $categories,
 				'cat_id' => 0,
 				'numberOfResults' => $results->totalResults,
-				'numberOfPages' => ceil($results->totalResults / 6),
+				'numberOfPages' => ceil($results->totalResults / 10),
 				'postings' => $postings,
 				'badges' => $badges,
-				'location' => 'Toronto'
+				'location' => 'Toronto',
+				'keywords' => 'None'
 			);
 			
 			return view('browse-jobs')->with($data);
@@ -202,7 +203,7 @@ class APIController extends Controller
     }
 
 
-    public function filterAPI(){
+    public function pagination(){
     
     	$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
 
@@ -217,47 +218,52 @@ class APIController extends Controller
 			$context = stream_context_create($opts);
 
     	//For now filter by experience. will need to filter by location and date later
-			
-        $jobtypes = explode(' ',$_POST['jobtypes']);
-        $levels = ($_POST['levels'] != 'Any') ? explode(' ',$_POST['levels']):"<required>";
-        $date = $_POST['date'];
-        $keywords = $_POST['keywords'];
-        //Default values if no request sent
-        $location = (strlen($_POST['location']) > 0)?$_POST['location']:'toronto';
-        $co = 'ca';
-        if($date == 'newest') $date = 'date';
+		
+		// $_POST variables 
+		$location = $_POST['location'];
+		$category = $_POST['category'];
+		$page = isset($_POST['page'])?$_POST['page']:'10';
+		$start = '0';
+		if($page) $start = 10 * ($page -1);
+		$co = 'CA' ; //default for now 
+		$kilometers = empty($_POST['kilometers'])?'25':$_POST['kilometers'];
+		
+		$keywords = isset($_POST['keywords'])?$_POST['keywords']:'<required>';
+		$date = ($_POST['category'] == 'recent')?'date':'<required>';
+
+		//postalCode has precedence over location
+		if(!empty($postalCode)) $location = $postalCode;
 
 
 
-        //Determin the Job Types that were sent
-        $jobStatus = array(
-        	'Full-Time' => 'fulltime',
-        	'Part-Time' => 'parttime',
-        	'Internship' => 'internship'
-    	);
 
-    	$jobQueryString = '';
 
-    	if(is_array($jobtypes) && !in_array('All',$jobtypes )){
-    		foreach($jobtypes as $type){
-    			if(array_key_exists($type, $jobStatus)){
-    				$jobQueryString = $jobQueryString . $jobStatus[$type] .',';
-    			}	
-    		}
-    		$jobQueryString = substr($jobQueryString,0,-1);
-    	}else{
-    		$jobQueryString = '<required>';
-    	}
 
-    	
-    	//Get categories
-			$categories = DB::table('categories')
-							->select('*')
-							->get();
-		 $keywords = str_replace(" ","%20",$keywords);					
-         $location = str_replace(" ","%20",$location);
-        $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$jobQueryString&l=$location&latlong=<required>&limit=6&q=$keywords&radius=25&sort=$date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
+		unset($_POST['location']);
+		unset($_POST['category']);
 
+
+		$statuses = '';
+		$levels = '';
+
+		foreach($_POST as $key=>$value){
+			if(strpos($key,'type') !== false){
+				$statuses .= $value . ',';
+			}else if(strpos($key,'level') !== false){
+				$levels .= $value . ',';
+			}
+		}
+
+
+
+		$statuses = substr($statuses,0,-1);
+		$levels = substr($levels,0,-1);
+
+		
+
+        $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$statuses&l=$location&latlong=<required>&limit=6&q=$keywords&radius=$kilometers&sort=$date&st=<required>&start=$start&useragent=<required>&userip=<required>&v=2";
+
+        // return $apiString;
 
         $ch = curl_init();
 			curl_setopt($ch, CURLOPT_URL,$apiString); 
@@ -281,7 +287,7 @@ class APIController extends Controller
 
         $postings = array();
 			foreach ($results->results as $post) {
-				$postings[] = $post;
+					$postings[] = $post;				
 			}
 
 		
@@ -294,22 +300,146 @@ class APIController extends Controller
 			$badges = ['#E3C610','#10E358','#108EE3'];
 			$data = array(
 				'found' => $found,
-				'keywords' => $keywords,
-				'page' => 1,
-				'limit' => 6,
-				'categories' => $categories,
+				'page' => $page,
+				'limit' => 10,
 				'cat_id' => 0,
 				'numberOfResults' => $results->totalResults,
 				'numberOfPages' => ceil($results->totalResults / 6),
 				'postings' => $postings,
-				'badges' => $badges
+				'badges' => $badges,
+				'location' => 'Toronto'
+			);
+			
+			return array(
+				'numberOfResults' => $results->totalResults,
+				'view' => view('sub-results')->with($data)->render()
 			);
 
-        return array(
-			'limit' => $results->totalResults - 6,
-			'numberOfResults' => $results->totalResults,
-			'view' => view('api-results')->with($data)->render()
-		);
+			   
+
+        
+
+
+
+    }
+
+    public function filterAPI(){
+    
+    	$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
+
+    	//options for API
+    	$opts = array(
+			  'http'=>array(
+			    'method'=>"GET",
+			    'header'=>"X-Mashape-Key:VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B"               
+			  )
+			);
+
+			$context = stream_context_create($opts);
+
+    	//For now filter by experience. will need to filter by location and date later
+		
+		// $_POST variables 
+		$location = $_POST['location'];
+		$category = $_POST['category'];
+		$co = 'CA' ; //default for now 
+		$kilometers = empty($_POST['kilometers'])?'25':$_POST['kilometers'];
+		
+		$keywords = isset($_POST['keywords'])?$_POST['keywords']:'<required>';
+		$date = ($_POST['category'] == 'recent')?'date':'<required>';
+
+		//postalCode has precedence over location
+		if(!empty($postalCode)) $location = $postalCode;
+
+
+
+
+
+
+		unset($_POST['location']);
+		unset($_POST['category']);
+
+
+		$statuses = '';
+		$levels = '';
+
+		foreach($_POST as $key=>$value){
+			if(strpos($key,'type') !== false){
+				$statuses .= $value . ',';
+			}else if(strpos($key,'level') !== false){
+				$levels .= $value . ',';
+			}
+		}
+
+
+
+		$statuses = substr($statuses,0,-1);
+		$levels = substr($levels,0,-1);
+
+		
+
+        $apiString = "https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=$co&filter=0&format=json&fromage=<required>&highlight=<required>&jt=$statuses&l=$location&latlong=<required>&limit=6&q=$keywords&radius=$kilometers&sort=$date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2";
+
+        // return $apiString;
+
+        $ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$apiString); 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'X-Mashape-Key: ' . $apiKey
+			));
+			$output = curl_exec($ch);   
+
+			// convert response
+			$output = json_decode($output);
+
+			// handle error; error output
+			if(curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+
+			  var_dump($output);
+			}
+
+			$results = $output;
+
+
+        $postings = array();
+        $found = 'no';
+        	if(isset($results->results) && sizeof($results->results) > 0) {
+        		$found = 'yes';
+        		foreach ($results->results as $post) {
+					$postings[] = $post;				
+				}
+        	}
+			
+
+		
+			
+
+			
+			 
+
+
+			$badges = ['#E3C610','#10E358','#108EE3'];
+			$data = array(
+				'found' => $found,
+				'page' => 1,
+				'limit' => 10,
+				'cat_id' => 0,
+				'numberOfResults' => isset($results->totalResults)?$results->totalResults:0,
+				'numberOfPages' => isset($results->totalResults)?ceil($results->totalResults / 6):0,
+				'postings' => $postings,
+				'badges' => $badges,
+				'location' => 'Toronto'
+			);
+			
+			return array(
+				'numberOfResults' => isset($results->totalResults)?$results->totalResults:0,
+				'view' => view('sub-results')->with($data)->render()
+			);
+
+			   
+
+        
 
 
 

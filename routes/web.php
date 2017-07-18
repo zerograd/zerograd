@@ -118,6 +118,11 @@ Route::get('/browse-categories',array(
 	'uses' => 'HomeController@browseCategories'
 ));
 
+Route::post('/job-pagination',array(
+	'as' => 'job-pagination',
+	'uses' => 'APIController@pagination'
+));
+
 Route::get('/add-jobs',array(
 	'as' => 'add-jobs',
 	'uses' => 'EmployerController@addJob'

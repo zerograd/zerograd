@@ -19,6 +19,21 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
 	</style>
 @stop
 
@@ -29,11 +44,12 @@
 	<div class="container">
 		<div class="ten columns">
 			@if (isset($keywords) and $keywords != 'None')
-				<span>We found {{$numberOfResults}} jobs matching:</span>
-				<h2>{{$keywords}}</h2>
+				<span id="browse-title">We found {{$numberOfResults}} jobs matching:</span>
+				<h2 id="keywords-title">{{$keywords}}</h2>
 
 			@else
-				<span>Browse 15000+ jobs</span>
+				<span id="browse-title">Browse 15000+ jobs</span>
+				<h2 id="keywords-title"></h2>
 			@endif
 		</div>
 
@@ -53,8 +69,8 @@
 	<div class="padding-right">
 		
 		<form action="#" method="get" class="list-search">
-			<button><i class="fa fa-search"></i></button>
-			<input type="text" placeholder="job title, keywords or company name" value=""/>
+			<button type="button" onclick="filter();"><i class="fa fa-search"></i></button>
+			<input type="text"  id="keywords" placeholder="job title or keywords" @if($keywords != 'None') value="{{$keywords}}" @else value="" @endif name="keywords"/>
 			<div class="clearfix"></div>
 		</form>
 
@@ -63,24 +79,7 @@
 		</ul>
 		<div class="clearfix"></div>
 
-		<div class="pagination-container">
-			<nav class="pagination">
-				<ul>
-					<li><a href="#" class="current-page">1</a></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li class="blank">...</li>
-					<li><a href="#">22</a></li>
-				</ul>
-			</nav>
-
-			<nav class="pagination-next-prev">
-				<ul>
-					<li><a href="#" class="prev">Previous</a></li>
-					<li><a href="#" class="next">Next</a></li>
-				</ul>
-			</nav>
-		</div>
+		
 
 	</div>
 	</div>
@@ -94,11 +93,12 @@
 			<h4>Sort by</h4>
 
 			<!-- Select -->
-			<select data-placeholder="Choose Category" class="chosen-select-no-single">
-				<option selected="selected" value="recent">Newest</option>
-				<option value="oldest">Oldest</option>
-				<option value="expiry">Expiring Soon</option>
+			<form id="category-form">
+			<select data-placeholder="Choose Category" name="category" class="chosen-select-no-single">
+				<option value="recent">Newest</option>
+				<option value="">Relevance</option>
 			</select>
+			</form>
 
 		</div>
 
@@ -106,13 +106,15 @@
 		<div class="widget">
 			<h4>Location</h4>
 			<form id="location-form" action="#" method="post">
-				<input type="text" placeholder="City" @if(isset($location) and $location != '') value="{{$location}}" @endif/>
+				<input type="text" name="location" placeholder="City" @if(isset($location) and $location != '') value="{{$location}}" @endif/>
 
-				<input type="text" class="miles" placeholder="Miles" value=""/>
-				<label for="zip-code" class="from">from</label>
-				<input type="text" id="zip-code" class="zip-code" placeholder="Zip-Code" value=""/><br>
+				
+					<input type="number" class="from" placeholder="Radius" name="kilometers" value=""/>
+				
+				
+				<!-- <input type="text" id="zip-code" class="zip-code" placeholder="Postal Code" name="zipcode" value=""/><br> -->
 
-				<button class="button" type="button" onClick="filter();">Filter</button>
+				<button class="button" type="button" onClick="filter();" style="color:white;">Filter</button>
 			</form>
 		</div>
 
@@ -123,29 +125,52 @@
 			<ul class="checkboxes">
 				<form id="job-type-form">
 					<li>
-						<input id="check-1" type="checkbox" name="check" value="check-1" checked>
+						<input id="check-1" type="checkbox" name="type-0" value="<required>" checked>
 						<label for="check-1">Any Type</label>
 					</li>
 					<li>
-						<input id="check-2" type="checkbox" name="check" value="check-2">
-						<label for="check-2">Full-Time <span>(312)</span></label>
+						<input id="check-2" type="checkbox" name="type-1" value="fulltime">
+						<label for="check-2">Full-Time</label>
 					</li>
 					<li>
-						<input id="check-3" type="checkbox" name="check" value="check-3">
-						<label for="check-3">Part-Time <span>(269)</span></label>
+						<input id="check-3" type="checkbox" name="type-2" value="parttime">
+						<label for="check-3">Part-Time</label>
 					</li>
 					<li>
-						<input id="check-4" type="checkbox" name="check" value="check-4">
-						<label for="check-4">Internship <span>(46)</span></label>
-					</li>
-					<li>
-						<input id="check-5" type="checkbox" name="check" value="check-5">
-						<label for="check-5">Freelance <span>(119)</span></label>
+						<input id="check-4" type="checkbox" name="type-3" value="internship">
+						<label for="check-4">Internship</label>
 					</li>
 				</form>
 			</ul>
 
 		</div>
+
+		<!-- Years of Experience -->
+		<!-- <div class="widget">
+			<h4>Years Of Experience</h4>
+
+			<ul class="checkboxes">
+				<form id="level-form">
+					<li>
+						<input id="check-10" type="checkbox" name="level-0" value="Any" checked>
+						<label for="check-10">Any</label>
+					</li>
+					<li>
+						<input id="check-20" type="checkbox" name="level-1" value="1">
+						<label for="check-20">1 Year</label>
+					</li>
+					<li>
+						<input id="check-30" type="checkbox" name="level-2" value="2">
+						<label for="check-30">2 years</label>
+					</li>
+					<li>
+						<input id="check-40" type="checkbox" name="level-3" value="3">
+						<label for="check-40">3 years</label>
+					</li>
+				</form>
+			</ul>
+
+		</div> -->
 
 		<!-- Rate/Hr -->
 
@@ -188,13 +213,47 @@
 
 
 </div>
+
+<input type="hidden" name="page" id="page" value="{{$page}}">
 @stop
 
 @section('script_plugins')
 	<script type="text/javascript">
+		function pagination(page){
+			$('#page').val(page);
+			var categoryForm = $('#category-form').serialize();
+			var locationForm = $('#location-form').serialize();
+			var jobTypeForm = $('#job-type-form').serialize(); 
+			var levelForm = $('#level-form').serialize();
+			var keywords  = $('#keywords').val();
+			
+			var data = categoryForm +'&'+ locationForm +'&'+ jobTypeForm +'&'+ levelForm + '&_token={{csrf_token()}}' + '&keywords=' + keywords + '&page=' + page; 
+			$.post('{{route('job-pagination')}}',data,function(data){
+				if(keywords){
+					$('#keywords-title').text(keywords);
+				}
+				$('#browse-title').text('We found ' + data.numberOfResults +' jobs matching:');
+				$('#results').html(data.view);
+			});
+		}
 		function filter(){
 			$('#results').html('<div class="loader" style="display:none;margin:0 auto;"></div>');
 			$('.loader').show();
+			var categoryForm = $('#category-form').serialize();
+			var locationForm = $('#location-form').serialize();
+			var jobTypeForm = $('#job-type-form').serialize(); 
+			var levelForm = $('#level-form').serialize();
+			var keywords  = $('#keywords').val();
+			
+			var data = categoryForm +'&'+ locationForm +'&'+ jobTypeForm +'&'+ levelForm + '&_token={{csrf_token()}}' + '&keywords=' + keywords; 
+			$.post('{{route('api-filter')}}',data,function(data){
+				$('.loader').hide();
+				if(keywords){
+					$('#keywords-title').text(keywords);
+				}
+				$('#browse-title').text('We found ' + data.numberOfResults +' jobs matching:');
+				$('#results').html(data.view);
+			});
 		}
 	</script>
 @stop
