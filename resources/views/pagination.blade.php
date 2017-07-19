@@ -1,10 +1,14 @@
 
 <div class="pagination">
-
+  <a href="javascript:pagination(1);">First</a>
   @if($page > 1)
   <a href="javascript:pagination({{$page - 1}});">&laquo;</a>
   @endif
-  @for($i = $page ; $i < ($page + 10) ; $i++)
+
+  <?php
+     $upperBound = (($page + 10) <= $numberOfPages)? ($page + 10):$numberOfPages;
+  ?>
+  @for($i = $page ; $i < $upperBound  ; $i++)
   		@if($i == $page)
   			<a href="javascript:pagination({{$i}});" class="page active">{{$i}}</a>
   		@else
@@ -15,4 +19,5 @@
   @if($page < $numberOfPages)
   <a href="javascript:pagination({{$page + 1}});">&raquo;</a>
   @endif
+  <a href="javascript:pagination({{$numberOfPages}});">Last</a>
 </div>

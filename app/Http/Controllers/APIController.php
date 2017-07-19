@@ -228,7 +228,7 @@ class APIController extends Controller
 		$co = 'CA' ; //default for now 
 		$kilometers = empty($_POST['kilometers'])?'25':$_POST['kilometers'];
 		
-		$keywords = isset($_POST['keywords'])?$_POST['keywords']:'<required>';
+		$keywords = isset($_POST['keywords'])?str_replace(' ',',',$_POST['keywords']):'<required>';
 		$date = ($_POST['category'] == 'recent')?'date':'<required>';
 
 		//postalCode has precedence over location
@@ -345,7 +345,7 @@ class APIController extends Controller
 		$co = 'CA' ; //default for now 
 		$kilometers = empty($_POST['kilometers'])?'25':$_POST['kilometers'];
 		
-		$keywords = isset($_POST['keywords'])?$_POST['keywords']:'<required>';
+		$keywords = isset($_POST['keywords'])?str_replace(' ',',',$_POST['keywords']):'<required>';
 		$date = ($_POST['category'] == 'recent')?'date':'<required>';
 
 		//postalCode has precedence over location

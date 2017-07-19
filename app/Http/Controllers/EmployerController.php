@@ -27,9 +27,10 @@ class EmployerController extends Controller
     }
 
     public function postRegister(Request $request){
-    	$count = DB::table('companies')->where('company_email',$request->email)->count();
+    	$count = DB::table('companies')->where('company_email',$request->company_email)->count();
         if($count > 0){
-            return "User Already Exist";
+            Session::flash('user_exists','User already Exists');
+           return redirect('/employer/myaccount' . '#tab2');
         }
 
         $previousInsertId;
@@ -58,8 +59,8 @@ class EmployerController extends Controller
             }
         }
 
-        
-        return "success";
+        Session::flash('email_sent','Confirmation email sent');
+        return redirect('/');
     }
 
     public function verifyLogin(Request $request){

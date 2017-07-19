@@ -494,6 +494,11 @@
                 swal('Please enter a keyword and/or location');                
             }
         }
+
+
+        @if(Session::has('email_sent'))
+			swal('{{Session::get('email_sent')}}'); 
+		@endif
     </script>
 
 

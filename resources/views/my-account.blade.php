@@ -35,7 +35,7 @@
 	       	 				if(data == "success"){
 	       	 					window.location = "{{URL::to('/newtheme')}}";
 	       	 				}else{
-	       	 					alert('Login is invalid.Please try again.');
+	       	 					alert(data);
 	       	 				}
 	       	 			}
 	   	 			);
@@ -184,6 +184,9 @@
 		@endif
 		@if(Session::has('message'))
 			swal('{{Session::get('message')}}'); 
+		@endif
+		@if(Session::has('verified'))
+			swal('{{Session::get('verified')}}'); 
 		@endif
 	</script>
 @stop

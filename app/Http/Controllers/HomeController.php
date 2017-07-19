@@ -541,4 +541,23 @@ class HomeController extends Controller
         );
         return view('get-resource')->with($data);
     }
+
+    public function verifyAccount($id = null){
+    	$student = DB::table('students')->select('student_id,verified')->where('verifyKey',$id)->first();
+    	if($student->verified == 1){
+    		Session::flash('verified','Your account is already verified. Please Login and Enjoy!');
+
+			return redirect('/my-account');
+    	}
+    	DB::table('students')
+    		->where('student_id',$student->student_id)
+    		->update(array(
+    			'verified' => 1
+			));
+
+
+		Session::flash('verified','Your account is now verified. Login and Enjoy!');
+
+		return redirect('/my-account');
+    }
 }

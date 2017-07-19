@@ -404,3 +404,13 @@ Route::post('/process-resume',array(
 	'uses' => 'ResumeController@processResume'		
 ));
 
+
+//EmailController
+Route::get('/viewemail','EmailController@view');
+// Route::get('/send','EmailController@send');
+
+//HomeController function for retreiving hash
+Route::get('/verify/{id}',array(
+	'as' => 'verify-student',
+	'uses' => 'HomeController@verifyAccount'
+));

@@ -31,12 +31,23 @@
        	 		$.post('{{URL::to('/employer-login/login')}}'
        	 			,data,function(data){
        	 				if(data == "success"){
-       	 					window.location = "{{URL::to('/newtheme')}}";
+       	 					window.location = "{{URL::to('/')}}";
        	 				}else{
        	 					alert('Login is invalid.Please try again.');
        	 				}
        	 			}
    	 			);
+       	 	}
+       }
+       function verifyLogin(){
+       	 	var email = document.getElementById('email2');
+       	 	var name = document.getElementById('company_name');
+       	 	if(email.value.length == 0){
+       	 		alert("Please enter your email.");
+       	 		}else if(name.value.length == 0){
+       	 		alert("Please enter your name.");
+       	 	}else{
+       	 		$("#register-form").submit();
        	 	}
        }
 	</script>
@@ -111,39 +122,26 @@
 
 			<!-- Register -->
 			<div class="tab-content" id="tab2" style="display: none;">
-
-				<form method="post" class="register">
-					
+			<h5>*An email containing your password will be sent to you.</h5>
+				<form id="register-form" action="{{URL::to('/employer-register/register')}}" method="post" class="register">
+					{{csrf_field()}}
 				<p class="form-row form-row-wide">
-					<label for="username2">Username:
+					<label for="username2">Company Name:
 						<i class="ln ln-icon-Male"></i>
-						<input type="text" class="input-text" name="username" id="username2" value="" />
+						<input type="text" class="input-text" name="company_name" id="company_name" value="" />
 					</label>
 				</p>
 					
 				<p class="form-row form-row-wide">
 					<label for="email2">Email Address:
 						<i class="ln ln-icon-Mail"></i>
-						<input type="text" class="input-text" name="email" id="email2" value="" />
+						<input type="text" class="input-text" name="company_email" id="email2" value="" />
 					</label>
 				</p>
 
-				<p class="form-row form-row-wide">
-					<label for="password1">Password:
-						<i class="ln ln-icon-Lock-2"></i>
-						<input class="input-text" type="password" name="password1" id="password1"/>
-					</label>
-				</p>
-
-				<p class="form-row form-row-wide">
-					<label for="password2">Repeat Password:
-						<i class="ln ln-icon-Lock-2"></i>
-						<input class="input-text" type="password" name="password2" id="password2"/>
-					</label>
-				</p>
 
 				<p class="form-row">
-					<input type="submit" class="button border fw margin-top-10" name="register" value="Register" />
+					<input type="button" class="button border fw margin-top-10" onClick="verifyLogin();" value="Register" style="width:100%;"/>
 				</p>
 
 				</form>
@@ -159,7 +157,9 @@
 		$.post('',{},function(data){
 
 		});
-
+		@if(Session::has('user_exists'))
+			swal('{{Session::get('user_exists')}}'); 
+		@endif
 		@if(Session::has('message'))
 			swal('{{Session::get('message')}}'); 
 		@endif

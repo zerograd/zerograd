@@ -88,8 +88,21 @@ class StudentController extends Controller
             ->insert(array(
                 'user_id' => $previousInsertId
             ));
-        
 
+         $hash = md5( rand(0,1000) );
+        DB::table('students')
+                    ->where('student_id',$previousInsertId)
+                    ->update(array(
+            "verifyKey" => $hash
+        ));
+
+        //Send Email
+
+            $emailer = new EmailController();
+            $emailer->send($request,$hash);
+
+
+        Session::flash('email_sent','Confirmation email sent');
         return redirect('/');
 
     }
@@ -100,7 +113,9 @@ class StudentController extends Controller
 	    		->where('email',$request->email)
 	    		->where('password',md5($request->password))
 	    		->first();
-
+        if($student->verified != 1){
+            return 'Please verify your account using the email that was sent to you';
+        }
 	    if(sizeof($student) > 0){
             Session::put('logged','yes');
 	    	Session::put('user_id',$student->student_id);
@@ -108,7 +123,7 @@ class StudentController extends Controller
 	    	Session::put('email',$student->email);
 	    	return "success";
 	    }else{
-	    	return "failed";
+	    	return "login failed.Try Again";
 	    }
     }
 
