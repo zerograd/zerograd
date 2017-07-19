@@ -543,7 +543,7 @@ class HomeController extends Controller
     }
 
     public function verifyAccount($id = null){
-    	$student = DB::table('students')->select('student_id,verified')->where('verifyKey',$id)->first();
+    	$student = DB::table('students')->select('student_id','verified')->where('verifyKey',$id)->first();
     	if($student->verified == 1){
     		Session::flash('verified','Your account is already verified. Please Login and Enjoy!');
 
