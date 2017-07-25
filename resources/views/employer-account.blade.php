@@ -149,14 +149,48 @@
 		</div>
 	</div>
 </div>
+<div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <div id="password-panel">
+        <form id="password-form">
+            {{ csrf_field() }}
+            <h2 style="color:#29C9C8;;">Enter your company email below to receive a password reset key</h2>
+            <input type="email" placeholder="Email" name="company_email">
+            <button type="button" onClick="sendPasswordReset();">Send Key</button>
+        </form>
+        <form id="new-password-form">
+        	{{csrf_field()}}
+        	<input type="text" placeholder="Enter Password Reset Key" name="passwordReset" id="passwordReset">
+        	<input type="text" placeholder="New Password" name="password" id="password">
+        	<button type="button" onClick="resetPassword();">Change Password</button>
+        </form>
 
+        <div class="notification notice closeable margin-bottom-40" id="password-change-notify" style="display:none;">
+			Password Changed
+		</div>
+    </div>
+</div>
 @stop
 
 @section('script_plugins')
 	<script type="text/javascript">
-		$.post('',{},function(data){
+		function sendPasswordReset(){
+       		var data = $('#password-form').serialize();
+       		data += '&_token=' + "{{csrf_token()}}";
+       		$.post('{{route('password-reset')}}',data,function(data){
 
-		});
+       		});
+       }
+
+       function resetPassword(){
+       		var data = $('#new-password-form').serialize();
+       		data += '&_token=' + "{{csrf_token()}}";
+       		data += '&employer=' + "employer";
+       		$.post('{{route('new-password')}}',data,function(data){
+       			$('#password-change-notify').show();
+       			$('#password-change-notify').text(data);
+       		});
+       }
 		@if(Session::has('user_exists'))
 			swal('{{Session::get('user_exists')}}'); 
 		@endif

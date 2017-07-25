@@ -560,4 +560,78 @@ class HomeController extends Controller
 
 		return redirect('/my-account');
     }
+
+    public function passwordReset(Request $request){
+    	$email = '';
+
+    	if($request->company_email){//reseting employer password
+    		$email = $request->company_email;
+    		$hash = md5( rand(0,1000) );
+	        DB::table('companies')
+	                    ->where('company_email',$email)
+	                    ->update(array(
+	            "passwordReset" => $hash
+	        ));
+    	}else if($request->email){ //reseting student password
+    		$email = $request->email;
+    		$hash = md5( rand(0,1000) );
+	        DB::table('students')
+	                    ->where('email',$email)
+	                    ->update(array(
+	            "passwordReset" => $hash
+	        ));
+
+    	}
+
+    	
+        //Send Email
+
+        $emailer = new EmailController();
+        $emailer->sendPasswordReset($email,$hash);
+
+    }
+
+    public function newPassword(Request $request){
+    	if($request->student){// newPassword for students
+    		if($request->passwordReset) { //lost the password and are resetting
+    			$count = DB::table('students')->select('*')->where('passwordReset',$request->passwordReset)->count();
+
+    			if($count > 0){
+    				$password = $request->password;
+
+    				DB::table('students')->
+    					where('passwordReset',$request->passwordReset)
+    					->update(array(
+							'password' => md5($password)
+						));
+
+					return 'Password has been changed';
+    			}else{
+    				return 'Invalid Password Reset Key';
+    			}
+    		}else{ // logged in and changing password
+
+    		}
+    	}else if($request->employer){
+			if($request->passwordReset) { //lost the password and are resetting
+    			$count = DB::table('companies')->select('*')->where('passwordReset',$request->passwordReset)->count();
+
+    			if($count > 0){
+    				$password = $request->password;
+
+    				DB::table('companies')->
+    					where('passwordReset',$request->passwordReset)
+    					->update(array(
+							'password' => md5($password)
+						));
+
+					return 'Password has been changed';
+    			}else{
+    				return 'Invalid Password Reset Key';
+    			}
+    		}else{ // logged in and changing password
+
+    		}
+    	}
+    }
 }

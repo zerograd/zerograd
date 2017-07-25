@@ -13,6 +13,7 @@
 //Data Seed **************************REMAIN COMMENTED IF NOT NEEDED****************************************
 Route::get('/seed','SeedController@seedPostings');
 Route::get('/apicheck','APIController@index');
+Route::get('/map','APIController@map');
 
 
 //Testing new theme
@@ -43,6 +44,7 @@ Route::get('/test/template/{id}/',array(
 	'as' => 'test-template',
 	'uses' => 'ResumeController@testTemplate'
 ));
+
 
 
 
@@ -117,6 +119,17 @@ Route::get('/browse-categories',array(
 	'as' => 'browse-categories',
 	'uses' => 'HomeController@browseCategories'
 ));
+
+Route::post('/password-reset',array(
+	'as' => 'password-reset',
+	'uses' => 'HomeController@passwordReset'
+));
+
+Route::post('/newpassword',array(
+	'as' => 'new-password',
+	'uses' => 'HomeController@newPassword'
+));
+
 
 Route::post('/job-pagination',array(
 	'as' => 'job-pagination',
@@ -414,3 +427,4 @@ Route::get('/verify/{id}',array(
 	'as' => 'verify-student',
 	'uses' => 'HomeController@verifyAccount'
 ));
+

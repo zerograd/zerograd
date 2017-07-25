@@ -113,6 +113,9 @@ class StudentController extends Controller
 	    		->where('email',$request->email)
 	    		->where('password',md5($request->password))
 	    		->first();
+        if(!$student){
+            return "Login failed.Please try again";
+        }
         if($student->verified != 1){
             return 'Please verify your account using the email that was sent to you';
         }

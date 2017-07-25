@@ -72,7 +72,7 @@
 					</ul>
 				</li>
 
-				<li><a href="{{route('resources')}}">Resources</a></li>
+
 			@elseif(Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="#">For Candidates</a>
 					<ul>

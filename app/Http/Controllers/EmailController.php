@@ -32,18 +32,34 @@ class EmailController extends Controller
         return response()->json(['message' => 'Request completed']);
     }
 
-    public function sendEmployer(Request $request){
+    public function sendEmployer(Request $request,$hashValue){
     	$name  = $request->company_name;
-    	$email  = $request->email;
-    	// $password 
+    	$email  = $request->company_email;
+    	
 
-        Mail::send('confirmations.email-sent', ['name' => $name, 'email' => $email], function ($message) use ($name,$email)
+        Mail::send('confirmations.employer-confirmation', ['name' => $name, 'email' => $email], function ($message) use ($name,$email)
         {
 
             $message->from('info@zerograd.com', 'ZeroGrad');
 
             $message->to($email);
             $message->subject('ZeroGrad: Your Registration');
+
+        });
+
+        return response()->json(['message' => 'Request completed']);
+    }
+
+    public function sendPasswordReset($email,$hashValue){
+
+        $emailTo = $email;
+        Mail::send('password-reset', ['key' => $hashValue], function ($message) use ($emailTo)
+        {
+
+            $message->from('info@zerograd.com', 'ZeroGrad');
+
+            $message->to($emailTo);
+            $message->subject('ZeroGrad: Your Password Reset Key');
 
         });
 

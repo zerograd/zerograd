@@ -59,6 +59,18 @@ class EmployerController extends Controller
             }
         }
 
+        $hash = md5( rand(0,1000) );
+        DB::table('companies')
+                    ->where('id',$previousInsertId)
+                    ->update(array(
+            "password" => $hash
+        ));
+
+        //Send Email
+
+        $emailer = new EmailController();
+        $emailer->sendEmployer($request,$hash);
+
         Session::flash('email_sent','Confirmation email sent');
         return redirect('/');
     }
