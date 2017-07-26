@@ -43,32 +43,32 @@
 		<nav id="navigation" class="menu">
 			<ul id="responsive">
 
-				<li><a href="{{URL::to('/newtheme')}}" id="current">Home</a>
+				<li><a href="{{URL::to('/')}}" @if(Request::is('/')) id="current" @endif>Home</a>
 				</li>
 
-				<li><a href="{{route('contact-us')}}">Contact</a>
+				<li><a href="{{route('contact-us')}}" @if(Request::is('contact')) id="current" @endif>Contact</a>
 					
 				</li>
             @if(!Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="#">For Candidates</a>
 					<ul>
-						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
-						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
+						<li><a href="{{route('browse-jobs')}}" @if(Request::is('browse-jobs')) id="current" @endif>Browse Jobs</a></li>
+						
 						@if(Session::has('user_id'))
 							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
 						@endif
-						<li><a href="{{route('add-resume')}}">Add Resume</a></li>
-						<li><a href="{{route('manage-resume')}}">Manage Resumes</a></li>
-						<li><a href="{{route('job-alerts')}}">Job Alerts</a></li>
+						<li><a href="{{route('add-resume')}}" @if(Request::is('/add-resume')) id="current" @endif>Add Resume</a></li>
+						<li><a href="{{route('manage-resume')}}" @if(Request::is('/manage-resume')) id="current" @endif>Manage Resumes</a></li>
+						<li><a href="{{route('job-alerts')}}" @if(Request::is('/job-alerts')) id="current" @endif>Job Alerts</a></li>
 					</ul>
 				</li>
 				<li><a href="#">For Employers</a>
 					<ul>
-						<li><a href="{{URL::to('employer/myaccount')}}">Login/Register</a></li>
-						<li><a href="{{route('add-jobs')}}">Add Job</a></li>
-						<li><a href="{{route('manage-jobs')}}">Manage Jobs</a></li>
-						<li><a href="{{route('manage-applications')}}">Manage Applications</a></li>
-						<li><a href="{{route('browse-resumes')}}">Browse Resumes</a></li>
+						<li><a href="{{URL::to('employer/myaccount')}}" @if(Request::is('/employer/myaccount')) id="current" @endif>Login/Register</a></li>
+						<li><a href="{{route('add-jobs')}}" @if(Request::is('/add-jobs')) id="current" @endif>Add Job</a></li>
+						<li><a href="{{route('manage-jobs')}}" @if(Request::is('/manage-jobs')) id="current" @endif>Manage Jobs</a></li>
+						<li><a href="{{route('manage-applications')}}" @if(Request::is('/manage-applications')) id="current" @endif>Manage Applications</a></li>
+						<li><a href="{{route('browse-resumes')}}" @if(Request::is('/browse-resumes')) id="current" @endif>Browse Resumes</a></li>
 					</ul>
 				</li>
 
@@ -76,8 +76,8 @@
 			@elseif(Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="#">For Candidates</a>
 					<ul>
-						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
-						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
+						<li><a href="{{route('browse-jobs')}}" @if(Request::is('/')) id="current" @endif>Browse Jobs</a></li>
+						
 						@if(Session::has('user_id'))
 							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
 						@endif
@@ -166,36 +166,51 @@
 				</div>
 
 			</div>
-
+			<div class="clearfix"></div>
 		</div>
+		<div class="clearfix"></div>
 	</div>
+	<div class="clearfix"></div>
 </div>
 
 
 <!-- Content
 ================================================== -->
 
-<!-- Categories -->
-<div class="container">
-	<div class="sixteen columns">
-		<h3 class="margin-bottom-25">Popular Categories</h3>
-		<ul id="popular-categories">
-			<li><a href="#"><i class="ln  ln-icon-Bar-Chart"></i> Accounting / Finance</a></li>
-			<li><a href="#"><i class="ln ln-icon-Car"></i> Automotive Jobs</a></li>
-			<li><a href="#"><i class="ln ln-icon-Worker"></i> Construction / Facilities</a></li>
-			<li><a href="#"><i class="ln ln-icon-Student-Female"></i> Education Training</a></li>
-			<li><a href="#"><i class="ln  ln-icon-Medical-Sign"></i> Healthcare</a></li>
-			<li><a href="#"><i class="ln  ln-icon-Plates"></i> Restaurant / Food Service</a></li>
-			<li><a href="#"><i class="ln  ln-icon-Globe"></i> Transportation / Logistics</a></li>
-			<li><a href="#"><i class="ln  ln-icon-Laptop-3"></i> Telecommunications</a></li>
-		</ul>
+<!-- Counters -->
+<div id="counters">
+	<div class="container">
 
+		<div class="four columns">
+			<div class="counter-box">
+				<span class="counter">{{$sizeOfJobs}}</span>
+				<p>Job Offers</p>
+			</div>
+		</div>
+
+		<div class="four columns">
+			<div class="counter-box">
+				<span class="counter">{{$sizeOfMembers}}</span>
+				<p>Members</p>
+			</div>
+		</div>
+
+		<div class="four columns">
+			<div class="counter-box">
+				<span class="counter">{{$sizeOfResumes}}</span>
+				<p>Resumes Posted</p>
+			</div>
+		</div>
+
+		<div class="four columns">
+			<div class="counter-box">
+				<span class="counter">{{$sizeOfCompanies}}</span>
+				<p>Clients Who Rehire</p>
+			</div>
+		</div>
 		<div class="clearfix"></div>
-		<div class="margin-top-30"></div>
-
-		<a href="browse-categories.html" class="button centered">Browse All Categories</a>
-		<div class="margin-bottom-50"></div>
 	</div>
+	<div class="clearfix"></div>
 </div>
 
 
@@ -423,19 +438,6 @@
 				<li><a href="#">Timeline</a></li>
 			</ul>
 		</div>		
-
-		<div class="three columns">
-			<h4>Browse</h4>
-			<ul class="footer-links">
-				<li><a href="#">Freelancers by Category</a></li>
-				<li><a href="#">Freelancers in USA</a></li>
-				<li><a href="#">Freelancers in UK</a></li>
-				<li><a href="#">Freelancers in Canada</a></li>
-				<li><a href="#">Freelancers in Australia</a></li>
-				<li><a href="#">Find Jobs</a></li>
-
-			</ul>
-		</div>
 
 	</div>
 

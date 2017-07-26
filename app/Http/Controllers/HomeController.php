@@ -499,9 +499,19 @@ class HomeController extends Controller
     						->orderBy('postings.posted_date','DESC')
     						->take(5)
     						->get();
+		$sizeOfJobs = DB::table('postings')->select('*')->count();
+		$sizeOfMembers = DB::table('students')->select('*')->count();
+		$sizeOfResumes = DB::table('resume')->select('*')->count();
+		$sizeOfCompanies = DB::table('companies')->select('*')->count();
+
+		
     	$data = array(
     		'postingsCount' => $postingsCount,
-    		'recentJobs' => $recentJobs
+    		'recentJobs' => $recentJobs,
+    		'sizeOfJobs' => $sizeOfJobs,
+    		'sizeOfMembers' => $sizeOfMembers,
+    		'sizeOfResumes' => $sizeOfResumes,
+    		'sizeOfCompanies' => $sizeOfCompanies,
 		);
     	return view('main')->with($data);
     }

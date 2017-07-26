@@ -61,18 +61,18 @@
 		<nav id="navigation" class="menu">
 			<ul id="responsive">
 
-				<li><a href="{{URL::to('/newtheme')}}">Home</a>
+				<li><a href="{{URL::to('/')}}" @if(Request::is('/')) id="current" @endif>Home</a>
 					
 				</li>
 
-				<li><a href="{{route('contact-us')}}" id="current">Contact</a>
+				<li><a href="{{route('contact-us')}}" @if(Request::is('contact')) id="current" @endif>Contact</a>
 					
 				</li>
 			@if(!Session::has('user_id') && !Session::has('employer_id'))
 				<li><a href="#">For Candidates</a>
 					<ul>
 						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
-						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
+						
 						@if(Session::has('user_id'))
 							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
 						@endif
@@ -96,7 +96,7 @@
 				<li><a href="#">For Candidates</a>
 					<ul>
 						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
-						<li><a href="{{route('browse-categories')}}">Browse Categories</a></li>
+						
 						@if(Session::has('user_id'))
 							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
 						@endif

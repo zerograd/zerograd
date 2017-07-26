@@ -7,6 +7,7 @@ use Response;
 use Illuminate\Support\Facades\DB;
 use Session;
 use Dompdf\Dompdf;
+use URL;
 
 class StudentController extends Controller
 {
@@ -259,68 +260,13 @@ class StudentController extends Controller
 
     public function profile($id = null){
 
-        $education = DB::table('education')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->get();
-        $resume = DB::table('resume')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->first();
-        $profileSummary = DB::table('profile_summary')
-                        ->select('summary')
-                        ->where('user_id',$id)
-                        ->first();  
-
-        if($resume){
-            $resumeSkills = explode(',',$resume->skills);
-        }
-        
-
-        $profileSkills = DB::table('profile_skills')
-                            ->select('skills')
-                            ->where('user_id',$id)
-                            ->first();
-        $skills = explode(',', $profileSkills->skills);
-
-        $profileProjects = DB::table('profile_projects')
-                            ->select('*')
-                            ->where('user_id',$id)
-                            ->get();
-
-        $workExperience = DB::table('work_experience')
-                            ->select('*')
-                            ->where('user_id',$id)
-                            ->get();
-        $volunteering = DB::table('volunteer')
-                            ->select('*')
-                            ->where('user_id',$id)
-                            ->get();
-
-        $notifications = $this->getNotifications();
-        $post_notifications = $notifications['post_notifications'];
-
-        $student = DB::table('students')->select('student_name','email')->where('student_id',$id)->first();
-        
+       
         $data = array(
-            'educations' => $education,
-            'resume' => $resume,
-            'profileSummary' => $profileSummary,
-            'resumeSkills' => isset($resumeSkills)?$resumeSkills:"",
-            'skills' => $skills,
-            'profileProjects' => $profileProjects,
-            'workExperience' => $workExperience,
-            'volunteering' => $volunteering,
-            'id' => $id,
-            'student' => $student,
-            'notifications' => isset($post_notifications)?$post_notifications:"",
-            'notificationsSize' => isset($post_notifications)?sizeof($post_notifications):"",
-            'sumOfUnSeen' => $this->getSumUnseen($post_notifications),
+
         );
         
-        
 
-    	return view('resume-page')->with($data);
+    	return view('profile')->with($data);
     }
 
     // SUMMARY 
@@ -532,45 +478,32 @@ class StudentController extends Controller
     }
 
     public function publicProfile($id = null){
-        $user = DB::table('students')
-                    ->select('*')
-                    ->join('profile_summary','profile_summary.user_id','=','students.student_id')
-                    ->where('student_id',$id)
-                    ->first();
+        
+        $student = DB::table('students')
+                        ->select('students.email','students.student_name','students.title','profile_summary.*','profile_skills.skills')
+                        ->join('profile_summary','profile_summary.user_id','=','students.student_id')
+                        ->join('profile_skills','profile_skills.user_id','=','students.student_id')
+                        ->where('student_id',$id)
+                        ->first();
 
-        $educations = DB::table('education')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->get();
-        $skills = DB::table('profile_skills')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->get();
-        $projects = DB::table('profile_projects')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->get();
-
-        //Default no for public reason
-        $friend = 'no';
-
-        $friends = DB::table('friends')
-                    ->select('*')
-                    ->where('user_id',Session::get('user_id'))
-                    ->orWhere('friend_id',Session::get('user_id'))
-                    ->count();
-
-        if($friends > 0) $friend = "yes";
+        //Path to image
+        $path = '';
+        if($student->avatar){
+         $path = asset('storage/avatars/' . $student->avatar);
+        }else{
+            $path = URL::asset('images/resumes-list-avatar-01.png');
+        }
         $data = array(
-            'user' => $user,
-            'educations' => $educations,
-            'skills' => $skills,
-            'projects' => $projects,
-            'friend' => $friend
+            'student' => $student,
+            'path' => $path
         );
 
-        
-        return view('student')->with($data);
+        if(!Session::has('user') && !Session::has('employer_id')){
+            return view('public-profile')->with($data);
+        }
+
+        // return $data;
+        return view('profile')->with($data);
     }
 
     public function sendRequest(Request $request){

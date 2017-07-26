@@ -225,6 +225,8 @@ Route::get('/filter-by-category/{id}',array(
 Route::get('/about','HomeController@about');
 
 
+
+
 // STUDENT GROUP PREFIX
 Route::group(['prefix' => 'student','middleware' => 'redirectsession'], function () {
 	Route::get('/home','StudentController@home');
