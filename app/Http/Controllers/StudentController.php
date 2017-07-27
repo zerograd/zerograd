@@ -480,7 +480,7 @@ class StudentController extends Controller
     public function publicProfile($id = null){
         
         $student = DB::table('students')
-                        ->select('students.email','students.student_name','students.title','profile_summary.*','profile_skills.skills')
+                        ->select('students.email','students.student_name','students.title','students.website','profile_summary.*','profile_skills.skills')
                         ->join('profile_summary','profile_summary.user_id','=','students.student_id')
                         ->join('profile_skills','profile_skills.user_id','=','students.student_id')
                         ->where('student_id',$id)
@@ -498,7 +498,7 @@ class StudentController extends Controller
             'path' => $path
         );
 
-        if(!Session::has('user') && !Session::has('employer_id')){
+        if(!Session::has('user_id') && !Session::has('employer_id')){
             return view('public-profile')->with($data);
         }
 
@@ -670,5 +670,19 @@ class StudentController extends Controller
             ->delete();
 
         return url('/job-alerts');
+    }
+
+    public function seenJob(Request $request){
+        $currentValue = DB::table('students')
+                         ->select('seen')
+                         ->where('student_id',Session::get('user_id'))
+                         ->first()->seen;
+
+         //update value
+        DB::table('students')
+            ->where('student_id',Session::get('user_id'))
+            ->update(array(
+                'seen' => $currentValue + 1
+        ));
     }
 }

@@ -272,7 +272,7 @@ class EmployerController extends Controller
         $forAllPositions = 'All Positions';
         if($posting == null){
             $applicants = DB::table('applied_to')
-                                ->select('applied_to.*','students.student_name','students.email')
+                                ->select('applied_to.*','students.student_name','students.email','students.seen')
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('status','!=','deleted')
@@ -282,7 +282,7 @@ class EmployerController extends Controller
             $postingName = DB::table('postings')->select('postings.title')->where('id',$posting)->first()->title;
             $forAllPositions = $postingName;
             $applicants = DB::table('applied_to')
-                                ->select('applied_to.*','students.student_name','students.email')
+                                ->select('applied_to.*','students.student_name','students.email','students.seen')
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('applied_to.posting_id',$posting)
@@ -291,7 +291,11 @@ class EmployerController extends Controller
                                 ->get();
         }
 
-
+        
+        //Part 1 of 4 need to determine scoring system
+        //function will determine their percentage (worth 20%)
+        $applicants = $this->studentsSeen($applicants);
+        
         
 
         $statues = array('New','Interviewed','Offer','Hired','Archived');
@@ -416,5 +420,30 @@ class EmployerController extends Controller
         );
 
         return view('sub-manage-applications')->with($data);
+    }
+
+
+    //Function to get count of seen jobs for students 
+    //Complexity O(n)
+    public function studentsSeen($applicants){
+        foreach ($applicants as $applicant) {
+            $seenValue = $applicant->seen;
+            $percentage = 0;
+            //Receives 25%
+            if($seenValue >= 0 && $seenValue <= 5){
+                $percentage = 25;
+            }if($seenValue >= 6 && $seenValue <= 10){
+                $percentage = 50;
+            }if($seenValue >= 10 && $seenValue <= 15){
+                $percentage = 75;
+            }if($seenValue >= 16){
+                $percentage = 100;
+            }
+
+            //the weight of this function
+            $percentage = $percentage * 0.20;
+            $applicant->seen_percentage = $percentage;
+        }
+        return $applicants;
     }
 }

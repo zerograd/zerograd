@@ -219,6 +219,11 @@
 
 @section('script_plugins')
 	<script type="text/javascript">
+		function seen(){
+			$.post("{{route('seen')}}",{_token:"{{csrf_token()}}"},function(data){
+
+			});
+		}
 		function pagination(page){
 			$('#page').val(page);
 			var categoryForm = $('#category-form').serialize();

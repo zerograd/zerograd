@@ -76,7 +76,10 @@ Route::post('resume/create',array(
 	'uses' => 'ResumeController@createResume'
 ));
 
-
+Route::post('/seen',array(
+	'as' => 'seen',
+	'uses' => 'StudentController@seenJob'
+));
 
 
 

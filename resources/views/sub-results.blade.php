@@ -2,7 +2,7 @@
 @if($numberOfResults > 0)
 
 @foreach($postings as $posting)
-	<li><a href="{{$posting->url}}" target="_blank">
+	<li><a href="{{$posting->url}}" target="_blank" onClick="seen();">
 				<img src="{{URL::asset('/images/job-list-logo-01.png')}}" alt="">
 				<div class="job-list-content">
 					<h4>{{$posting->jobtitle}}</h4>

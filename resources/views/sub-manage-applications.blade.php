@@ -7,6 +7,8 @@
 				<div class="info">
 					<img src="{{URL::asset('images/resumes-list-avatar-01.png')}}" alt="">
 					<span>{{$applicant->student_name}}</span>
+					<!-- Sum of all four categories to calculate -->
+					<span>&nbsp({{$applicant->seen_percentage}}%)</span>
 					<ul>
 						@if($applicant->cover_letter)
 						<li><a href="{{route('download-cv',[ 'postingID' => $applicant->posting_id, 'id' => $applicant->user_id])}}" target="_blank"><i class="fa fa-file-text"></i> Download CV</a></li>
