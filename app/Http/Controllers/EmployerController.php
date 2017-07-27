@@ -293,19 +293,22 @@ class EmployerController extends Controller
 
         
         //Part 1 of 4 needed to determine scoring system
-        //function will determine their percentage (worth 20%)
+        //function will determine their percentage (worth 25%)
         $applicants = $this->studentsSeen($applicants);
 
         //Part 2 of 4 needed to determin scoring system
-        //function will determine their percentage (worth 20%)
+        //function will determine their percentage (worth 25%)
         $applicants = $this->profileCompletion($applicants);
 
         //Part 3 of 4 needed to determin scoring system
-        //function will determine their percentage (worth 20%)
+        //function will determine their percentage (worth 25%)
         $applicants = $this->frequency($applicants);
+
+        //Part 4 of 4 needed to determin scoring system
+        //function will determine their percentage (worth 25%)
+        $applicants = $this->profileMatch($applicants,$posting);
         
-        
-        
+                
 
         $statues = array('New','Interviewed','Offer','Hired','Archived');
 
@@ -451,7 +454,7 @@ class EmployerController extends Controller
             }
 
             //the weight of this function
-            $percentage = $percentage * 0.20;
+            $percentage = $percentage * 0.25;
             $applicant->seen_percentage = $percentage;
         }
         return $applicants;
@@ -487,7 +490,7 @@ class EmployerController extends Controller
             if($linkedIn) $percentage += 20;
 
             //the weight of this function
-            $percentage = $percentage * 0.20;
+            $percentage = $percentage * 0.25;
             $applicant->profilePercentage = $percentage;
         }
         return $applicants;
@@ -519,9 +522,73 @@ class EmployerController extends Controller
 
 
             //the weight of this function
-            $percentage = $percentage * 0.20;
+            $percentage = $percentage * 0.25;
             $applicant->frequencyPercentage = $percentage;
         }
         return $applicants;
+    }
+
+    public function profileMatch($applicants,$posting){
+
+        //if it is for a particular posting
+        if($posting){
+
+
+            $keywords = DB::table('postings')->select('keywords')->where('id',$posting)->first()->keywords;
+            $description = DB::table('postings')->select('description')->where('id',$posting)->first()->description;
+
+
+            //Create string of terms
+            $terms = $keywords . ' ' . $description;
+            $sizeofTerms = str_word_count($terms);
+            
+
+
+            foreach ($applicants as $applicant) {
+
+            $applicantID = $applicant->student_id;
+            $count = 0;
+
+            //Get the users skills and summary for matching
+
+            $profileSummary = DB::table('profile_summary')->select('summary')->where('id',$applicantID)->first()->summary;
+            $profileSkills = DB::table('profile_skills')->select('skills')->where('id',$applicantID)->first()->skills;
+
+            $profileSkills = explode(',',$profileSkills);
+
+            $profileSummary = str_replace(array('.', ',',"'"), ' ' , $profileSummary);
+
+            $profileSummary = explode(' ',$profileSummary);
+
+            //Check if skill is in terms
+            foreach($profileSkills as $skill){
+                if($skill != '' && strpos($terms,$skill) !== false) $count++;
+            }
+
+            //Check if summary matches terms
+
+            
+            foreach($profileSummary as $word){
+                
+
+                if($word != '' && strpos($terms,$word) !== false) $count++;
+            }
+
+            $percentage = 0;
+            
+            if($count < $sizeofTerms){
+                $percentage = $count / $sizeofTerms;
+            }
+            
+
+
+            //the weight of this function
+            $percentage = ($percentage * 100) * 0.25;
+            $applicant->profilePercentage = $percentage;
+            }  
+        }
+
+        return $applicants;
+        
     }
 }
