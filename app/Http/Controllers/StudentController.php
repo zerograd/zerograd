@@ -125,6 +125,15 @@ class StudentController extends Controller
 	    	Session::put('user_id',$student->student_id);
 	    	Session::put('student_name',$student->student_name);
 	    	Session::put('email',$student->email);
+
+
+            //Update last login 
+            DB::table('students')
+                ->where('student_id',$student->student_id)
+                ->update(array(
+                    'last_login' => date("Y-m-d H:i:s")
+                ));
+
 	    	return "success";
 	    }else{
 	    	return "login failed.Try Again";

@@ -272,7 +272,7 @@ class EmployerController extends Controller
         $forAllPositions = 'All Positions';
         if($posting == null){
             $applicants = DB::table('applied_to')
-                                ->select('applied_to.*','students.student_name','students.email','students.seen')
+                                ->select('applied_to.*','students.student_name','students.email','students.seen','students.student_id','students.last_login')
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('status','!=','deleted')
@@ -282,7 +282,7 @@ class EmployerController extends Controller
             $postingName = DB::table('postings')->select('postings.title')->where('id',$posting)->first()->title;
             $forAllPositions = $postingName;
             $applicants = DB::table('applied_to')
-                                ->select('applied_to.*','students.student_name','students.email','students.seen')
+                                ->select('applied_to.*','students.student_name','students.email','students.seen','students.student_id','students.last_login')
                                 ->join('students','students.student_id','=','applied_to.user_id')
                                 ->where('company_id',Session::get("employer_id"))
                                 ->where('applied_to.posting_id',$posting)
@@ -292,9 +292,18 @@ class EmployerController extends Controller
         }
 
         
-        //Part 1 of 4 need to determine scoring system
+        //Part 1 of 4 needed to determine scoring system
         //function will determine their percentage (worth 20%)
         $applicants = $this->studentsSeen($applicants);
+
+        //Part 2 of 4 needed to determin scoring system
+        //function will determine their percentage (worth 20%)
+        $applicants = $this->profileCompletion($applicants);
+
+        //Part 3 of 4 needed to determin scoring system
+        //function will determine their percentage (worth 20%)
+        $applicants = $this->frequency($applicants);
+        
         
         
 
@@ -306,6 +315,7 @@ class EmployerController extends Controller
             'statues' => $statues,
             'posting' => isset($posting)?$posting:''
         );
+
 
         return view('manage-applications')->with($data);
     }
@@ -443,6 +453,74 @@ class EmployerController extends Controller
             //the weight of this function
             $percentage = $percentage * 0.20;
             $applicant->seen_percentage = $percentage;
+        }
+        return $applicants;
+    }
+
+    //Function get see how complete their profile is
+    //Complexity O(n)
+    public function profileCompletion($applicants){
+        foreach ($applicants as $applicant) {
+
+            $applicantID = $applicant->student_id;
+            $percentage = 0;
+
+            //Skills 
+            $skills = DB::table('profile_skills')->select('*')->where('user_id',$applicantID)->count();
+
+            //Projects
+            $projects = DB::table('profile_projects')->select('*')->where('user_id',$applicantID)->count();
+
+            //Summary and Avatar
+            $profileSummary = DB::table('profile_summary')->select('*')->where('user_id',$applicantID)->first();
+
+            //linkedIn
+            $linkedIn = DB::table('students')->select('linkedin')->where('student_id',$applicantID)->first()->linkedin;
+
+            if($skills > 0) $percentage += 20;
+            if($projects > 0) $percentage += 20;
+            if($profileSummary){ //Summary was created 
+                $percentage += 20;
+
+                if($profileSummary->avatar) $percentage += 20;
+            }
+            if($linkedIn) $percentage += 20;
+
+            //the weight of this function
+            $percentage = $percentage * 0.20;
+            $applicant->profilePercentage = $percentage;
+        }
+        return $applicants;
+    }
+
+    //Function to get see how frequent the student is
+    public function frequency($applicants){
+        foreach ($applicants as $applicant) {
+
+            $applicantID = $applicant->student_id;
+            $percentage = 0;
+            
+            //Their last login
+            $date1 = date_create($applicant->last_login);
+
+            //current time
+            $today = date("Y-m-d H:i:s");    
+            $date2 = date_create($today);
+
+            //difference in time
+            $diff=date_diff($date1,$date2);
+
+            $days = $diff->days;
+
+            if($days >= 0 && $days <= 2) $percentage = 100;
+            else if($days >= 3 && $days <= 6) $percentage = 75;
+            else if($days >= 7 && $days <= 15) $percentage = 50;
+            else if($days >= 16) $percentage = 25;
+
+
+            //the weight of this function
+            $percentage = $percentage * 0.20;
+            $applicant->frequencyPercentage = $percentage;
         }
         return $applicants;
     }
