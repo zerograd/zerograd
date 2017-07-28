@@ -433,3 +433,11 @@ Route::get('/verify/{id}',array(
 	'uses' => 'HomeController@verifyAccount'
 ));
 
+
+
+// AdminController
+
+Route::get('/admin/home',array(
+	'as' => 'admin-home',
+	'uses' => 'AdminController@index'
+));
