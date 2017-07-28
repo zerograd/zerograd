@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{{URL::asset('/css/font-awesome-4.7.0/css/font-awesome.min.css')}}">
         <link rel="stylesheet" href="{{URL::asset('/Remodal-1.1.1/dist/remodal.css')}}">
         <link rel="stylesheet" href="{{URL::asset('/Remodal-1.1.1/dist/remodal-default-theme.css')}}">
+        <link href="https://fonts.googleapis.com/css?family=Lato:900|Roboto" rel="stylesheet">
         <title>
             @yield('title')
         </title>
@@ -21,6 +22,7 @@
         <script src="{{URL::asset('/js/jquery.min.js')}}"></script>
         
         <link href="{{URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
+        <link href="{{URL::asset('/css/admin.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{URL::asset('/radios-to-slider/css/radios-to-slider.css')}}">
         <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
         <script>
@@ -43,8 +45,12 @@
 
     </head>
     <body>
-        <div class="container-fluid">
-        @yield('content')
+        <div id="container" class="container-fluid">
+        @include('admin.admin-header')
+
+        <div id="main-area">
+            @yield('content')
+        </div>
         <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script> -->
         <script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
         <script src="{{URL::asset('/Remodal-1.1.1/dist/remodal.min.js')}}"></script>

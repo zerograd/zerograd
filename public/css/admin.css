@@ -1,0 +1,63 @@
+html,body {
+	width:100%;
+	height:100%;
+	margin:0;
+	background-color: #e6e6e6;
+	font-family: 'Roboto', sans-serif;
+}
+
+#container {
+	height:100%;
+}
+
+.container-fluid{
+	padding: 0;
+}
+
+/***********************Admin header CSS************************/
+
+#admin-header{
+	background-color: #fff;
+	height:70px;
+}
+
+#admin-header{
+	color:black;
+	font-size:24px;
+	font-weight: 600px;
+	font-family: 'Lato', sans-serif;
+}
+
+#main-area{
+	background-color: #c6c6c6;
+	margin-top: 70px;
+	height:100%;
+	padding:20px;
+}
+
+
+/*Admin Panels e.g. Add Admin Users*/
+.panel {
+	float:left;
+	width:31.33333%;
+	margin:0 1%;
+	margin-bottom: 20px;
+    height:300px;
+}
+
+.panel > h3 {
+	text-align: center;
+	color:white;
+	line-height: 5;
+	font-weight: 600;
+}
+
+.panel > p {
+	text-align: center;
+	color:white;
+	font-weight: 400;
+}
+
+.panel:hover{
+	cursor: pointer;
+}
