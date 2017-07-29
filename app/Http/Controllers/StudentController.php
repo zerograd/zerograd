@@ -495,6 +495,12 @@ class StudentController extends Controller
                         ->where('student_id',$id)
                         ->first();
 
+        //If student does not exist redirect to 404
+
+        if(!$student){
+            return view('errors.404');
+        }
+
         //Path to image
         $path = '';
         if($student->avatar){

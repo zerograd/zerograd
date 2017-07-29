@@ -21,7 +21,7 @@ Route::get('/newtheme','HomeController@newtheme');
 Route::get('/posting/{id}',array(
 	'as' => 'get-posting',
 	'uses' => 'PostingController@index'
-));
+)); 
 Route::get('/resume-page/{id}',array(
 	'as' => 'resume-page',
 	'uses' => 'StudentController@profile'
@@ -440,4 +440,9 @@ Route::get('/verify/{id}',array(
 Route::get('/admin/home',array(
 	'as' => 'admin-home',
 	'uses' => 'AdminController@index'
+));
+
+Route::post('/admin/users/manage',array(
+	'as' => 'manage-users',
+	'uses' => 'AdminController@manageUsers'
 ));

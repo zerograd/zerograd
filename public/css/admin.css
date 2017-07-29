@@ -38,6 +38,7 @@ html,body {
 
 /*Admin Panels e.g. Add Admin Users*/
 .panel {
+	position:relative;
 	float:left;
 	width:31.33333%;
 	margin:0 1%;
@@ -60,4 +61,16 @@ html,body {
 
 .panel:hover{
 	cursor: pointer;
+}
+
+.exitbutton {
+	position: absolute;
+	top:15px;
+	right:20px;
+}
+
+.panel-content{
+	width:100%;
+	height:100%;
+	background-color:#fff;
 }
