@@ -202,4 +202,21 @@ class AdminController extends Controller
 
 		Session::flash('applicant_delete','Applicant has been deleted');
     }
+
+    public function updateApplicant(Request $request){
+    	$id = $request->id;
+
+    	// ->select('students.student_name','students.student_id','students.email','students.last_login','students.linkedin','students.title')
+    	DB::table('students')
+    		->where('student_id',$id)
+    		->update(array(
+    			'student_name' => $request->student_name,
+    			'email' => $request->email,
+    			'linkedin' => $request->linkedin,
+    			'title' => $request->title,
+			));
+
+		Session::flash('applicant_updated','Applicant has been updated.');
+		return redirect('/admin/home');
+    }
 }

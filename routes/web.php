@@ -489,3 +489,9 @@ Route::post('/admin/applicants/deleteApplicant',array(
 	'as' => 'delete-applicant',
 	'uses' => 'AdminController@deleteApplicant'
 ));
+
+Route::post('/admin/applicants/update',array(
+	'as' => 'update-applicant-user',
+	'uses' => 'AdminController@updateApplicant'
+));
+

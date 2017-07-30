@@ -82,6 +82,13 @@
 				  'success'
 				);
 			@endif
+			@if(Session::has('applicant_updated'))
+				swal(
+				  'Good job!',
+				  "{{Session::get('applicant_updated')}}",
+				  'success'
+				);
+			@endif
 			@if(Session::has('email_exist'))
 				var panel = $('#add-new-user-panel')[0];
 				maximize(panel,'manage-users','email_exist');
@@ -237,5 +244,7 @@
 		});
 	 	
 	 }
+
+
 	</script>
 @stop
