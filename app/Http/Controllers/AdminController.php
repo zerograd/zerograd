@@ -288,4 +288,14 @@ class AdminController extends Controller
 
 		Session::flash('company_delete','Company has been deleted');
     }
+
+    public function selectedPricing(Request $request){
+    	DB::table('companies')
+    		->where('id',$request->id)
+    		->update(array(
+    			'pricing' => $request->title
+			));
+
+		return 'Pricing Info Confirmed.';
+    }
 }

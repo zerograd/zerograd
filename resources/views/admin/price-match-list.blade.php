@@ -1,5 +1,5 @@
 <nav>
-	<ul id="myUL" class="list-group" style="margin-top: 10px;">
+	<ul id="myUL" class="list-group scroll" style="margin-top: 10px;">
 
 		@if(isset($applicants))
 		@elseif(isset($companies))

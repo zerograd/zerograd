@@ -5,6 +5,7 @@
 	<ul class="nav nav-tabs">
 	  <li class="active"><a data-toggle="tab" href="#applicants-tab">Manage Companies</a></li>
 	  <li><a data-toggle="tab" href="#pricing-tab">Price + Match</a></li>
+	  <li><a data-toggle="tab" href="#banking-tab">Banking Details</a></li>
 	</ul>
 
 	<div class="tab-content">
@@ -18,7 +19,7 @@
 		     </div>
 		     <div class="form-group col-sm-8">
 				<label>Company:</label>
-				<div id="company-editor" class="col-sm-12" style="height:400px;border:1px solid #c6c6c6;border-radius: 3px;padding: 10px;overflow-y: scroll;">
+				<div id="company-editor" class="col-sm-12 scroll" style="height:400px;border:1px solid #c6c6c6;border-radius: 3px;padding: 10px;overflow-y: scroll;">
 					
 				</div>
 				
@@ -43,19 +44,19 @@
 						<div class="col-sm-12">
 							<label>Price (Choose one of the following options):</label>
 						</div>
-						<div class="pricing-panel">
+						<div class="pricing-panel" onClick="addBorder(this);" title="free">
 							<h3>Option #1</h3>
 							<i class="fa fa-money" aria-hidden="true"></i>
-							<p>30 Day Trial</p>
+							<p>7 Day Trial</p>
 						</div>
-						<div class="pricing-panel">
+						<div class="pricing-panel" onClick="addBorder(this);" title="150">
 							<h3>Option #2</h3>
 							<i class="fa fa-money" aria-hidden="true"></i>
 							<i class="fa fa-money" aria-hidden="true"></i>
 							<p>$150/month</p>
 							<p>up to 10 postings</p>
 						</div>
-						<div class="pricing-panel">
+						<div class="pricing-panel" onClick="addBorder(this);" title="250">
 							<h3>Option #3</h3>
 							<i class="fa fa-money" aria-hidden="true"></i>
 							<i class="fa fa-money" aria-hidden="true"></i>
@@ -70,6 +71,10 @@
 					<input type="hidden" id="chosen-company-id">
 				</form>
 			</div>
+	  	</div>
+
+	  	<div id="banking-tab" class="tab-pane fade">
+	  		
 	  	</div>
 	</div>
 </div>

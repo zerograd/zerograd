@@ -512,9 +512,14 @@ Route::post('/admin/companies/sendCompanyPassword',array(
 	'uses' => 'AdminController@sendCompanyPassword'
 ));
 
-Route::post('/admin/applicants/deleteCompany',array(
+Route::post('/admin/companies/deleteCompany',array(
 	'as' => 'delete-company',
 	'uses' => 'AdminController@deleteCompany'
+));
+
+Route::post('/admin/companies/selectedPricing',array(
+	'as' => 'selected-pricing',
+	'uses' => 'AdminController@selectedPricing'
 ));
 
 

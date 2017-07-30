@@ -342,6 +342,32 @@
 	 	$('#chosen-company-id').val(id);
 	 }
 
+	 function addBorder(element){
+	 	$('.pricing-panel').removeClass('addBorder');
+	 	$(element).addClass('addBorder');
+	 	$(element).attr('onClick','removeBorder(this);');
 
+	 }
+	 function removeBorder(element){
+	 	$(element).removeClass('addBorder');
+	 	$(element).attr('onClick','addBorder(this);');
+	 }
+
+	 function confirmPricing(){
+	 	var selectedOption = $('.pricing-panel.addBorder');
+	 	var title = selectedOption.attr('title');
+	 	var id  = $('#chosen-company-id').val();
+	 	if(id == ''){
+	 		alert('Please select a company.');
+	 		return false;
+	 	}
+	 	$.post('{{route('selected-pricing')}}',{id:id,title:title,_token:"{{csrf_token()}}"},function(data){
+	 			swal(
+				  'Good job!',
+				  data,
+				  'success'
+			);
+	 	});
+	 }
 	</script>
 @stop

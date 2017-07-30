@@ -17,7 +17,7 @@
 		     </div>
 		     <div class="form-group col-sm-8">
 				<label>Applicant:</label>
-				<div id="applicant-editor" class="col-sm-12" style="height:400px;border:1px solid #c6c6c6;border-radius: 3px;padding: 10px;overflow-y: scroll;">
+				<div id="applicant-editor" class="col-sm-12 scroll" style="height:400px;border:1px solid #c6c6c6;border-radius: 3px;padding: 10px;overflow-y: scroll;">
 					
 				</div>
 				
