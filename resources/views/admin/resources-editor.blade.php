@@ -35,5 +35,6 @@
 
 	  			<div style="text-align: center;">
 					 	<button type="submit"  class="btn btn-success" style="float:right;">Update Resource</button>
+					 	<button type="button"  class="btn btn-danger" onClick="deleteResource({{$resource->res_id}});" style="float:right;">Delete Resource</button>
 				 </div>
 </form>

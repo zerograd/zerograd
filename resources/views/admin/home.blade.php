@@ -130,6 +130,14 @@
 				);
 			@endif
 
+			@if(Session::has('res_deleted'))
+				swal(
+				  'Good job!',
+				  "{{Session::get('res_deleted')}}",
+				  'success'
+				);
+			@endif
+
 			
 
 			showAdminUser();
@@ -451,6 +459,21 @@
 	 	$('#' + id).click();
 	 }
 
+	 function deleteResource(id){
+	 	swal({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Yes, delete it!'
+		}).then(function () {
+			$.post("{{route('delete-resource')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
+				window.location = '{{URL::to('/admin/home')}}';
+			});
+		});
+	 }
 
 	</script>
 @stop

@@ -437,9 +437,14 @@ Route::get('/verify/{id}',array(
 
 // AdminController
 
+Route::get('/admin/',array(
+	'as' => 'admin-index',
+	'uses' => 'AdminController@index'
+));
+
 Route::get('/admin/home',array(
 	'as' => 'admin-home',
-	'uses' => 'AdminController@index'
+	'uses' => 'AdminController@home'
 ));
 
 Route::post('/admin/users/manage',array(

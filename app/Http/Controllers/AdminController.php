@@ -14,6 +14,12 @@ class AdminController extends Controller
     //
 
     public function index(){
+    	return view('admin.login');
+    }
+
+    //Home
+
+    public function home(){
     	$data = array(
 
 		);
@@ -413,7 +419,12 @@ class AdminController extends Controller
     }
 
     public function deleteResource(Request $request){
+    	DB::table('resources')
+    		->where('res_id',$request->id)
+    		->delete();
 
+		Session::flash('res_deleted','Resource has been deleted.');
+		
     }
 
     public function updateResource(Request $request){
