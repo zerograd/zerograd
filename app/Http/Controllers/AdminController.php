@@ -165,6 +165,7 @@ class AdminController extends Controller
 		$searchHistory = DB::table('user_history')
 							->select('*')
 							->where('user_id',$request->id)
+							->take(4)
 							->get();
 
 		$data = array(
@@ -174,5 +175,23 @@ class AdminController extends Controller
 		);
 
 		return view('admin.show-applicant')->with($data);
+    }
+
+    public function resetPassword(Request $request){
+    	$newPassword = md5( rand(0,1000) );
+
+    	DB::table('students')
+    		->where('student_id',$request->id)
+    		->update(array(
+    			'password' => $newPassword,
+    			'passwordReset' => $newPassword
+			));
+
+
+		$email  = DB::table('students')->select('email')->where('student_id',$request->id)->first()->email;
+		//Send the Email 
+
+		$emailer = new EmailController();
+        $emailer->adminPasswordReset($email,$newPassword);
     }
 }

@@ -199,5 +199,11 @@
 				$('#applicant-editor').html(data);
 		});
 	 }
+
+	 function resetPassword(id){
+	 	$.post("{{route('reset-applicant-password')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
+				swal('Email with new password sent to user.');
+		});
+	 }
 	</script>
 @stop

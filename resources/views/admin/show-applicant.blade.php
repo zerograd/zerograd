@@ -24,7 +24,10 @@
 						@include('admin.applicant-history-table')
 					</div>
 					
-			        
+			        <div style="text-align: center;">
+			        	<button type="button" class="btn btn-default" onClick="resetPassword({{$applicant->student_id}});" style="margin:10px auto;">Reset Password</button>
+					 	<button type="button" onClick="updateAdminUser();"  class="btn btn-success" style="margin:10px auto;">Update User</button>
+			 		</div>
 
 					 <input type="hidden" name="id" value="{{$applicant->student_id}}">
 

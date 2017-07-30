@@ -50,10 +50,28 @@ class EmailController extends Controller
         return response()->json(['message' => 'Request completed']);
     }
 
+    //Reset via login page
     public function sendPasswordReset($email,$hashValue){
 
         $emailTo = $email;
         Mail::send('password-reset', ['key' => $hashValue], function ($message) use ($emailTo)
+        {
+
+            $message->from('info@zerograd.com', 'ZeroGrad');
+
+            $message->to($emailTo);
+            $message->subject('ZeroGrad: Your Password Reset Key');
+
+        });
+
+        return response()->json(['message' => 'Request completed']);
+    }
+
+    //Reset by an admin
+
+    public function adminPasswordReset($email,$hashValue){
+        $emailTo = $email;
+        Mail::send('confirmations.admin-reset-password', ['key' => $hashValue], function ($message) use ($emailTo)
         {
 
             $message->from('info@zerograd.com', 'ZeroGrad');

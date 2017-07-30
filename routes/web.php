@@ -479,3 +479,8 @@ Route::post('/admin/applicants/show',array(
 	'as' => 'show-applicant-user',
 	'uses' => 'AdminController@editApplicant'
 ));
+
+Route::post('/admin/applicants/resetPassword',array(
+	'as' => 'reset-applicant-password',
+	'uses' => 'AdminController@resetPassword'
+));

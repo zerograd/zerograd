@@ -47,7 +47,7 @@ class StudentController extends Controller
         $previousInsertId;
         foreach( $requestData as $key=>$value){
              if(!isset($previousInsertId)){//Create if doesn't exist
-                
+                 
                     $previousInsertId = DB::table('students')->insertGetId(array(
                             "$key" => "$value"
                         )
@@ -114,13 +114,37 @@ class StudentController extends Controller
 	    		->where('email',$request->email)
 	    		->where('password',md5($request->password))
 	    		->first();
+
+        $passwordWasReset = DB::table('students')
+                ->select('*')
+                ->where('email',$request->email)
+                ->where('passwordReset',$request->password)
+                ->first();
+
+        if($passwordWasReset){
+            Session::put('logged','yes');
+            Session::put('user_id',$passwordWasReset->student_id);
+            Session::put('student_name',$passwordWasReset->student_name);
+            Session::put('email',$passwordWasReset->email);
+
+
+            //Update last login 
+            DB::table('students')
+                ->where('student_id',$passwordWasReset->student_id)
+                ->update(array(
+                    'last_login' => date("Y-m-d H:i:s")
+                ));
+
+            return "success";
+        }
+
         if(!$student){
             return "Login failed.Please try again";
         }
         if($student->verified != 1){
             return 'Please verify your account using the email that was sent to you';
         }
-	    if(sizeof($student) > 0){
+	    if(sizeof($student) > 0 or sizeof($passwordWasReset) > 0){
             Session::put('logged','yes');
 	    	Session::put('user_id',$student->student_id);
 	    	Session::put('student_name',$student->student_name);

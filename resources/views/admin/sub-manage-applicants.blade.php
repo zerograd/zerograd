@@ -20,10 +20,7 @@
 				<div id="applicant-editor" class="col-sm-12" style="height:400px;border:1px solid #c6c6c6;border-radius: 3px;padding: 10px;overflow-y: scroll;">
 					
 				</div>
-				<div style="text-align: center;">
-			        	<button type="button" class="btn btn-default" style="margin:10px auto;">Reset Password</button>
-					 	<button type="button" onClick="updateAdminUser();"  class="btn btn-success" style="margin:10px auto;">Update User</button>
-			 	</div>
+				
 			</div>
 
 	  	</div>
