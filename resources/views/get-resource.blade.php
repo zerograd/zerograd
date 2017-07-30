@@ -1,7 +1,7 @@
 @extends('layout.newthemelayout')
 
 @section('title')
-	<title>Resource: Title Here</title>
+	<title>Resource: {{$resource->res_title}}</title>
 @stop
 
 
@@ -12,8 +12,8 @@
 	<div class="container">
 
 		<div class="sixteen columns">
-			<h2>Blog</h2>
-			<span>Keep up to date with the latest news</span>
+			<h2>{{$resource->res_title}}</h2>
+			<span>{{$resource->sub_title}}</span>
 		</div>
 
 	</div>
@@ -25,29 +25,39 @@
 <div class="container">
 
 	<!-- Blog Posts -->
-	<div class="eleven columns">
+	<div class="ten columns">
 		<div class="padding-right">
 
 			<!-- Post -->
 			<div class="post-container">
-				<div class="post-img"><a href="#"><img src="images/blog-post-02.jpg" alt=""></a></div>
+				@if(isset($resource->res_image))
+				<div class="post-img"><a href="#"><img src="{{$image_path}}" alt=""></a></div>
+				@else
+				<div class="post-img"><a href="#"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a></div>
+				@endif
 				<div class="post-content">
-					<a href="#"><h3>How to "Woo" a Recruiter and Land Your Dream Job </h3></a>
+					<a href="#"><h3>{{$resource->res_title}}</h3></a>
 					<div class="meta-tags">
-						<span>September 12, 2015</span>
-						<span><a href="#">0 Comments</a></span>
+						<?php $date = date_create($resource->created);
+						$dateFormatted = date_format($date,'F d, Y'); 
+						?>
+						<span>{{$dateFormatted}}</span>
+						<span>{{$resource->res_author}}</span>
+						<span><a href="#">{{$resource->res_views}}&nbspComments</a></span>
 					</div>
 					<div class="clearfix"></div>
 					<div class="margin-bottom-25"></div>
 
 					<p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae, tempus sed augue. Curabitur quis lectus quis augue dapibus facilisis. Vivamus tincidunt orci est, in vehicula nisi eleifend ut. Vestibulum sagittis varius orci vitae.</p>
 
+					@if($resource->quote)
 					<div class="post-quote">
 						<span class="icon"></span>
 						<blockquote>
-							Mauris aliquet ultricies ante, non faucibus ante gravida sed. Sed ultrices pellentesque purus, vulputate volutpat ipsum hendrerit sed neque sed sapien rutrum.
+							{{$resource->quote}}
 						</blockquote>
 					</div>
+					@endif
 
 					<p>In ut odio libero, at vulputate urna. Nulla tristique mi a massa convallis cursus. Nulla eu mi magna. Etiam suscipit commodo gravida. Cras suscipit, quam vitae adipiscing faucibus, risus nibh laoreet odio, a porttitor metus eros ut enim. Morbi augue velit, tempus mattis dignissim nec, porta sed risus. Donec eget magna eu lorem tristique pellentesque eget eu dui. Fusce lacinia tempor malesuada. Ut lacus sapien, placerat a ornare nec, elementum sit amet felis. Maecenas pretium lorem hendrerit eros sagittis fermentum.</p>
 					<p class="margin-reset">Phasellus enim magna, varius et commodo ut, ultricies vitae velit. Ut nulla tellus, eleifend euismod pellentesque vel, sagittis vel justo. In libero urna, venenatis sit amet ornare non, suscipit nec risus. Sed consequat justo non mauris pretium at tempor justo sodales. Quisque tincidunt laoreet malesuada. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer vitae ante enim. Fusce sed elit est. Suspendisse sit amet mauris in quam pretium faucibus et aliquam odio. </p>
@@ -57,7 +67,7 @@
 
 			<!-- Comments -->
 			<section class="comments">
-			<h4>Comments <span class="comments-amount">(4)</span></h4>
+			<h4>Comments <span class="comments-amount">({{$resource->commentsCount}})</span></h4>
 
 				<ul>
 					<li>

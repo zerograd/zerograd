@@ -546,8 +546,20 @@ class HomeController extends Controller
     }
 
     public function getResource($id = null){
-    	$data = array(
 
+    	$resource = DB::table('resources')
+    					->select('*')
+    					->where('res_id',$id)
+    					->first();
+
+		if(!$resource) return view('errors.404');
+
+		$path = '';
+		if($resource->res_image) $path = asset('storage/' . $resource->res_image);
+
+    	$data = array(
+    		'resource' => $resource,
+    		'image_path' => $path
         );
         return view('get-resource')->with($data);
     }

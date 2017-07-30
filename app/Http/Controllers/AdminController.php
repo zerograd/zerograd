@@ -312,4 +312,82 @@ class AdminController extends Controller
 		Session::flash('company_updated','Company Profile Updated!');
 		return redirect('/admin/home');
     }
+
+    //Manage Resources Functions
+
+    public function manageResources(Request $request){
+    	$data = array();
+
+    	if($request->maximize){
+
+
+    		//Resources
+
+    		$data = array(
+    			'maximize' => 'maximize',
+    			'emailExist' => isset($request->email_exist)?$request->email_exist:null
+			);
+	    	
+    	}else{
+    		$data = array(
+    			'maximize' => 'minimize'
+			);
+    	}
+
+    	return view('admin.sub-manage-resources')->with($data);
+    }
+
+    public function createResource(Request $request){
+
+    	$path = null;
+
+    	//If image was uploaded and is a valid image 
+    	if($request->file('user_file')){
+    		$fileType = $request->file('user_file')->getMimeType();
+
+    		if($fileType == 'image/jpeg' || $fileType = 'image/png'){
+
+    			//Upload so the image will be available via public 
+    			$path = $request->file('user_file')->store('resources','public');
+    		}else{
+    			Session::flash('res_image','Not a valid image type');
+    			return redirect('/admin/home');
+    		}
+    	}
+
+    	//If image was uploaded, upload the rest by id
+    	if($path != null){
+    		DB::table('resources')
+    		->insert(array(
+    			'res_title' => $request->res_title,
+    			'sub_title' => $request->sub_title,
+    			'quote' => $request->quote,
+    			'res_image' => $path
+			));
+    	}else{
+    		DB::table('resources')
+    		->insert(array(
+    			'res_title' => $request->res_title,
+    			'sub_title' => $request->sub_title,
+    			'quote' => $request->quote
+			));
+    	}
+
+    	
+
+		Session::flash('res_created','Resource: "' . $request->res_title . '" created.');
+		return redirect('/admin/home');
+    }
+
+    public function editResource(Request $request){
+
+    }
+
+    public function deleteResource(Request $request){
+
+    }
+
+    public function updateResource(Request $request){
+
+    }
 }

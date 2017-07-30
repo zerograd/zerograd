@@ -527,13 +527,41 @@ Route::post('/admin/companies/update',array(
 	'uses' => 'AdminController@updateCompany'
 ));
 
-
-
-
 // Route::post('/admin/applicants/resetPassword',array(
 // 	'as' => 'reset-applicant-password',
 // 	'uses' => 'AdminController@resetPassword'
 // ));
+
+//Manage Resources
+
+Route::post('/admin/resources/manage',array(
+	'as' => 'manage-resources',
+	'uses' => 'AdminController@manageResources'
+));
+
+Route::post('/admin/resources/create',array(
+	'as' => 'create-resource',
+	'uses' => 'AdminController@createResource'
+));
+
+Route::post('/admin/resources/edit',array(
+	'as' => 'edit-resource',
+	'uses' => 'AdminController@editResource'
+));
+
+Route::post('/admin/resources/delete',array(
+	'as' => 'delete-resource',
+	'uses' => 'AdminController@deleteResource'
+));
+
+Route::post('/admin/resoureces/update',array(
+	'as' => 'update-resource',
+	'uses' => 'AdminController@updateResource'
+));
+
+
+
+
 
 
 

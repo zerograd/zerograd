@@ -28,9 +28,9 @@
 
 	</div>
 
-	<div id="manage-companies-panel" class="panel" style="background-color:#8e44ad;z" onClick="maximize(this,'manage-companies','0 65% 0 0');">
+	<div id="manage-companies-panel" class="panel" style="background-color:#8e44ad;z" onClick="maximize(this,'manage-resources','0 65% 0 0');">
 	
-			<h3>Edit Resources</h3>
+			<h3>Manage Resources</h3>
 			<p><i class="fa fa-book" aria-hidden="true"></i></p>
 			<p>Click here to manage resources.</p>
 
@@ -114,8 +114,20 @@
 				);
 			@endif
 
+			@if(Session::has('res_created'))
+				swal(
+				  'Good job!',
+				  "{{Session::get('res_created')}}",
+				  'success'
+				);
+			@endif
+
 			showAdminUser();
 
+			$("#user_file").change(function(e) {
+				var fileName = e.target.files[0].name;
+	        	$('#file-name').text(fileName);
+	    	});
 
 			// Initial Manage Company functions
 
@@ -198,6 +210,23 @@
 					$(panel).attr('onClick','');
 					$(panel).append(exitButton);
 				});
+			}else if(content == 'manage-resources'){
+				$.post('{{route('manage-resources')}}',{maximize:'maximize',_token:"{{csrf_token()}}",email_exist:email_exist},function(data){
+					$(panel).html(data);
+					//add exit button to panel
+
+					var exitButton = $('<button class="btn btn-danger exitbutton">X</button>');
+
+					exitButton.on('click',function(){
+						minimize(panel,content);
+					});
+
+					//Minimize all other panels
+					$(panel).siblings().hide();
+
+					$(panel).attr('onClick','');
+					$(panel).append(exitButton);
+				});
 			}
 
 			});
@@ -233,6 +262,10 @@
 			}
 			else if(content == 'manage-companies'){
 				$.post('{{route('manage-companies')}}',{_token:"{{csrf_token()}}"},function(data){
+					$(panel).html(data);
+				});
+			}else if(content == 'manage-resources'){
+				$.post('{{route('manage-resources')}}',{_token:"{{csrf_token()}}"},function(data){
 					$(panel).html(data);
 				});
 			}
@@ -382,6 +415,14 @@
 				  'success'
 			);
 	 	});
+	 }
+
+
+
+	 // Resource Functions 
+
+	 function uploadResImage(){
+	 	$('#user_file').click();
 	 }
 	</script>
 @stop
