@@ -103,6 +103,14 @@
 			@endif
 
 			showAdminUser();
+
+
+			// Initial Manage Company functions
+
+			$('.pricing-panel').each(function(){
+				var element = $(this);
+				element.toggleClass('addBorder');
+			});
 		});
 
 		//Maximize the panel
@@ -310,6 +318,11 @@
 				window.location = '{{URL::to('/admin/home')}}';
 			});
 		});
+	 }
+
+	 function setMatch(name,id){
+	 	$('#chosen-company-match').val(name);
+	 	$('#chosen-company-id').val(id);
 	 }
 
 
