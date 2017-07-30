@@ -17,12 +17,12 @@ html,body {
 /***********************Admin header CSS************************/
 
 #admin-header{
-	background-color: #fff;
+	background-color: #433A53;
 	height:70px;
 }
 
 #admin-header{
-	color:black;
+	color:white;
 	font-size:24px;
 	font-weight: 600px;
 	font-family: 'Lato', sans-serif;

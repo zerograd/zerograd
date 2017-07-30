@@ -219,4 +219,65 @@ class AdminController extends Controller
 		Session::flash('applicant_updated','Applicant has been updated.');
 		return redirect('/admin/home');
     }
+
+    // Manage Companies Functions
+
+    public function manageCompanies(Request $request){
+
+    	$data = array();
+
+    	if($request->maximize){
+
+
+    		//Applicants
+
+			$companies = DB::table('companies')
+								->select('companies.company_name','companies.id')
+								->orderBy('company_name','ASC')
+								->get();
+
+    		$data = array(
+    			'maximize' => 'maximize',
+    			'emailExist' => isset($request->email_exist)?$request->email_exist:null,
+    			'companies' => $companies
+			);
+	    	
+    	}else{
+    		$data = array(
+    			'maximize' => 'minimize'
+			);
+    	}
+
+    	return view('admin.sub-manage-companies')->with($data);
+
+    	
+    }
+
+    public function editCompany(Request $request){
+    	$company = DB::table('companies')
+    					->select('companies.company_name','companies.company_email','companies.contact','companies.company_phone','companies.company_location','companies.id')
+    					->where('id',$request->id)
+    					->first();
+
+		$data = array(
+			'company' => $company
+		);
+
+		return view('admin.show-company')->with($data);
+    }
+
+    public function sendCompanyPassword(Request $request){
+
+    	$id = $request->id;
+
+    	DB::table('companies')
+    		->where('id',$id)
+    		->update(array(
+    			'password' => md5($request->password)
+			));
+
+
+    	$emailer = new EmailController();
+        $emailer->sendEmployerPassword($request,$request->password);
+    }
 }

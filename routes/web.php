@@ -495,3 +495,38 @@ Route::post('/admin/applicants/update',array(
 	'uses' => 'AdminController@updateApplicant'
 ));
 
+// Manage Companies
+
+Route::post('/admin/companies/manage',array(
+	'as' => 'manage-companies',
+	'uses' => 'AdminController@manageCompanies'
+));
+
+Route::post('/admin/companies/show',array(
+	'as' => 'show-company',
+	'uses' => 'AdminController@editCompany'
+));
+
+Route::post('/admin/companies/sendCompanyPassword',array(
+	'as' => 'send-company-password',
+	'uses' => 'AdminController@sendCompanyPassword'
+));
+
+
+
+// Route::post('/admin/applicants/resetPassword',array(
+// 	'as' => 'reset-applicant-password',
+// 	'uses' => 'AdminController@resetPassword'
+// ));
+
+// Route::post('/admin/applicants/deleteApplicant',array(
+// 	'as' => 'delete-applicant',
+// 	'uses' => 'AdminController@deleteApplicant'
+// ));
+
+// Route::post('/admin/applicants/update',array(
+// 	'as' => 'update-applicant-user',
+// 	'uses' => 'AdminController@updateApplicant'
+// ));
+
+

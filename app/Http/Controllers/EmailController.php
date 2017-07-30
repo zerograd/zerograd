@@ -83,4 +83,22 @@ class EmailController extends Controller
 
         return response()->json(['message' => 'Request completed']);
     }
+
+    public function sendEmployerPassword(Request $request,$hashValue){
+
+        $email  = $request->email;
+        
+
+        Mail::send('confirmations.employer-password', ['email' => $email,'key' => $hashValue], function ($message) use ($email)
+        {
+
+            $message->from('info@zerograd.com', 'ZeroGrad');
+
+            $message->to($email);
+            $message->subject('ZeroGrad: Your Password');
+
+        });
+
+        return response()->json(['message' => 'Request completed']);
+    }
 }

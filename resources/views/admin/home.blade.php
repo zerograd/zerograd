@@ -18,7 +18,7 @@
 
 	</div>
 
-	<div id="manage-companies-panel" class="panel" style="background-color:#2980b9" onClick="maximize(this);">
+	<div id="manage-companies-panel" class="panel" style="background-color:#2980b9" onClick="maximize(this,'manage-companies');">
 	
 			<h3>Manage Companies</h3>
 			<p>Click here to manage a company account.</p>
@@ -147,6 +147,23 @@
 					$(panel).attr('onClick','');
 					$(panel).append(exitButton);
 				});
+			}else if(content == 'manage-companies'){
+				$.post('{{route('manage-companies')}}',{maximize:'maximize',_token:"{{csrf_token()}}",email_exist:email_exist},function(data){
+					$(panel).html(data);
+					//add exit button to panel
+
+					var exitButton = $('<button class="btn btn-danger exitbutton">X</button>');
+
+					exitButton.on('click',function(){
+						minimize(panel,content);
+					});
+
+					//Minimize all other panels
+					$(panel).siblings().hide();
+
+					$(panel).attr('onClick','');
+					$(panel).append(exitButton);
+				});
 			}
 
 			
@@ -170,6 +187,11 @@
 				});
 			}else if(content == 'manage-applicants'){
 				$.post('{{route('manage-applicants')}}',{_token:"{{csrf_token()}}"},function(data){
+					$(panel).html(data);
+				});
+			}
+			else if(content == 'manage-companies'){
+				$.post('{{route('manage-companies')}}',{_token:"{{csrf_token()}}"},function(data){
 					$(panel).html(data);
 				});
 			}
@@ -243,6 +265,27 @@
 			});
 		});
 	 	
+	 }
+
+	 //Manage Company functions
+
+	 function getCompany(id){
+ 		$.post("{{route('show-company')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
+				$('#company-editor').html(data);
+		});
+	 } 
+
+	 function sendPassword(id){
+	 	var email = $('#company-email').val();
+	 	var password = $('#new-user-password').val();
+
+	 	$.post("{{route('send-company-password')}}",{_token:"{{csrf_token()}}",email:email,password:password,id:id},function(data){
+	 		swal(
+				  'Good job!',
+				  "Company Password sent!",
+				  'success'
+			);
+	 	});
 	 }
 
 
