@@ -43,7 +43,7 @@
 						?>
 						<span>{{$dateFormatted}}</span>
 						<span>{{$resource->res_author}}</span>
-						<span><a href="#">{{$resource->res_views}}&nbspComments</a></span>
+						<span><a href="#">{{$resource->commentsCount}}&nbspComments</a></span>
 					</div>
 					<div class="clearfix"></div>
 					<div class="margin-bottom-25"></div>
@@ -157,7 +157,6 @@
 
 			<ul class="tabs-nav blog">
 				<li class="active"><a href="#tab1">Popular</a></li>
-				<li><a href="#tab2">Featured</a></li>
 				<li><a href="#tab3">Recent</a></li>
 			</ul>
 
@@ -166,143 +165,57 @@
 
 				<div class="tab-content" id="tab1">
 					
-					<!-- Recent Posts -->
+					<!-- Popular Posts -->
 					<ul class="widget-tabs">
-						
-						<!-- Post #1 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-01.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-02.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-03.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
+						@foreach($popularResources as $popularResource)	
+							<li>
+								<div class="widget-thumb">
+									@if(isset($popularResource->image_path))
+									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{$popularResource->image_path}}" alt="" /></a>
+									@else
+									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									@endif
+									
+								</div>
+								
+								<div class="widget-text">
+									<h5><a href="{{route('get-resource',$popularResource->res_id)}}">{{$popularResource->res_title}}</a></h5>
+									<?php $date = date_create($popularResource->created);
+										$dateFormatted = date_format($date,'F d, Y'); 
+									?>
+									<span>{{$dateFormatted}}</span>
+								</div>
+								<div class="clearfix"></div>
+							</li>
+						@endforeach
 					</ul>
 		
-				</div>
-
-				<div class="tab-content" id="tab2">
-				
-					<!-- Featured Posts -->
-					<ul class="widget-tabs">
-
-						<!-- Post #1 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-02.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-01.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-03.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-					</ul>
 				</div>
 
 				<div class="tab-content" id="tab3">
 				
 					<!-- Recent Posts -->
 					<ul class="widget-tabs">
-						
-						<!-- Post #1 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-03.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-02.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="blog-single-post.html"><img src="images/blog-widget-01.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="blog-single-post.html">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
+						@foreach($recentResources as $recentResource)	
+							<li>
+								<div class="widget-thumb">
+									@if(isset($recentResource->image_path))
+									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{$recentResource->image_path}}" alt="" /></a>
+									@else
+									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									@endif
+								</div>
+								
+								<div class="widget-text">
+									<h5><a href="{{route('get-resource',$recentResource->res_id)}}">{{$recentResource->res_title}}</a></h5>
+									<?php $date = date_create($recentResource->created);
+										$dateFormatted = date_format($date,'F d, Y'); 
+									?>
+									<span>{{$dateFormatted}}</span>
+								</div>
+								<div class="clearfix"></div>
+							</li>
+						@endforeach
 					</ul>
 				</div>
 				

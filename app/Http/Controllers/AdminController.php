@@ -323,9 +323,15 @@ class AdminController extends Controller
 
     		//Resources
 
+    		$resources = DB::table('resources')
+    						->select('*')
+    						->orderBy('res_title','ASC')
+    						->get();
+
     		$data = array(
     			'maximize' => 'maximize',
-    			'emailExist' => isset($request->email_exist)?$request->email_exist:null
+    			'emailExist' => isset($request->email_exist)?$request->email_exist:null,
+    			'resources' => $resources
 			);
 	    	
     	}else{
@@ -394,6 +400,16 @@ class AdminController extends Controller
 
     public function editResource(Request $request){
 
+    	$resource = DB::table('resources')
+    					->select('*')
+    					->where('res_id',$request->id)
+    					->first();
+
+    	$data = array(
+    		'resource' => $resource
+		);
+
+		return view('admin.resources-editor')->with($data);
     }
 
     public function deleteResource(Request $request){
@@ -401,6 +417,60 @@ class AdminController extends Controller
     }
 
     public function updateResource(Request $request){
+
+    	$path = null;
+
+    	//If image was uploaded and is a valid image 
+    	if($request->file('res_file')){
+    		$fileType = $request->file('res_file')->getMimeType();
+
+    		if($fileType == 'image/jpeg' || $fileType = 'image/png'){
+
+    			//Upload so the image will be available via public 
+    			$path = $request->file('res_file')->store('resources','public');
+    		}else{
+    			Session::flash('res_image','Not a valid image type');
+    			return redirect('/admin/home');
+    		}
+    	}
+
+    	//Seperate content into two
+
+    	$content = $request->res_content;
+
+		$middle = strrpos(substr($content, 0, floor(strlen($content) / 2)), ' ') + 1;
+
+		$res_content_first = substr($content, 0, $middle);
+		$res_content_second = substr($content, $middle);  
+
+    	//If image was uploaded, upload the rest by id
+    	if($path != null){
+    		DB::table('resources')
+    		->where('res_id',$request->res_id)
+    		->update(array(
+    			'res_title' => $request->res_title,
+    			'sub_title' => $request->sub_title,
+    			'quote' => $request->quote,
+    			'res_content_first' => $res_content_first,
+    			'res_content_second' => $res_content_second,
+    			'res_image' => $path
+			));
+    	}else{
+    		DB::table('resources')
+    		->where('res_id',$request->res_id)
+    		->update(array(
+    			'res_title' => $request->res_title,
+    			'sub_title' => $request->sub_title,
+    			'res_content_first' => $res_content_first,
+    			'res_content_second' => $res_content_second,
+    			'quote' => $request->quote
+			));
+    	}
+
+    	
+
+		Session::flash('res_updated','Resource: "' . $request->res_title . '" updated.');
+		return redirect('/admin/home');
 
     }
 }

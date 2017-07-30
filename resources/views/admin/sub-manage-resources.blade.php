@@ -36,7 +36,7 @@
 				    <div class="input-group"> 
 		               <input type="file" multiple name="user_file" class="form-control" id="user_file" style="display:none;"/>
 		               <span class="input-group-btn"> 
-		                  <button class="btn btn-default" type="button" onClick="uploadResImage();"> 
+		                  <button class="btn btn-default" type="button" onClick="uploadResImage('user_file');"> 
 		                     Upload Image
 		                  </button> 
 		              	</span> 
@@ -49,8 +49,21 @@
 				 </div>
 	  		</form>
 	  	</div>
-	  	<div id="edit-resource-tab" class="tab-pane fade in active">
+	  	<div id="edit-resource-tab" class="tab-pane fade">
+	  		<div class="form-group col-sm-4">
+	     		<label>Search Resources:</label>
+	     		<input type="text" name="search" id="applicant-search" placeholder="Search" onkeyup="search();" class="form-control">
+     			@include('admin.search-list')
+		     </div>
+		     <div class="form-group col-sm-8">
+				<label>Resource:</label>
+				<div id="resource-editor" class="col-sm-12 scroll" style="height:400px;border:1px solid #c6c6c6;border-radius: 3px;padding: 10px;overflow-y: scroll;">
+					
+				</div>
 
+				<input type="hidden" name="res-id" id="res-id">
+				
+			</div>
 	  	</div>
 	</div>
 </div>

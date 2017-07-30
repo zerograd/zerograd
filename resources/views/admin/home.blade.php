@@ -122,6 +122,16 @@
 				);
 			@endif
 
+			@if(Session::has('res_updated'))
+				swal(
+				  'Good job!',
+				  "{{Session::get('res_updated')}}",
+				  'success'
+				);
+			@endif
+
+			
+
 			showAdminUser();
 
 			$("#user_file").change(function(e) {
@@ -419,10 +429,28 @@
 
 
 
-	 // Resource Functions 
+	 // Resource Functions
 
-	 function uploadResImage(){
-	 	$('#user_file').click();
+	 function getResource(id){
+	 	if($('#res-id').val() == id){
+	 		alert('You have already selected this resource.');
+	 		return false;
+	 	}
+	 	setResource('',id);
+
+ 		$.post("{{route('edit-resource')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
+			$('#resource-editor').html(data);
+		});
+	 }  
+
+	 function setResource(name,id){
+	 	$('#res-id').val(id);
 	 }
+
+	 function uploadResImage(id){
+	 	$('#' + id).click();
+	 }
+
+
 	</script>
 @stop
