@@ -355,6 +355,15 @@ class AdminController extends Controller
     		}
     	}
 
+    	//Seperate content into two
+
+    	$content = $request->res_content;
+
+		$middle = strrpos(substr($content, 0, floor(strlen($content) / 2)), ' ') + 1;
+
+		$res_content_first = substr($content, 0, $middle);
+		$res_content_second = substr($content, $middle);  
+
     	//If image was uploaded, upload the rest by id
     	if($path != null){
     		DB::table('resources')
@@ -362,6 +371,8 @@ class AdminController extends Controller
     			'res_title' => $request->res_title,
     			'sub_title' => $request->sub_title,
     			'quote' => $request->quote,
+    			'res_content_first' => $res_content_first,
+    			'res_content_second' => $res_content_second,
     			'res_image' => $path
 			));
     	}else{
@@ -369,6 +380,8 @@ class AdminController extends Controller
     		->insert(array(
     			'res_title' => $request->res_title,
     			'sub_title' => $request->sub_title,
+    			'res_content_first' => $res_content_first,
+    			'res_content_second' => $res_content_second,
     			'quote' => $request->quote
 			));
     	}

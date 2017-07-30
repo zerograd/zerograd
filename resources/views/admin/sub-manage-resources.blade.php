@@ -26,6 +26,11 @@
 	  				<input type="text" name="quote" class="form-control" required>
 	  			</div>
 
+	  			<div class="form-group col-sm-12">
+	  				<label>Content:</label>
+	  				<textarea name="res_content" class="form-control" style="height:150px;" required></textarea>
+	  			</div>
+
 	  			<div class="form-group col-sm-6">
 	  				<label>Resource Image</label>
 				    <div class="input-group"> 
