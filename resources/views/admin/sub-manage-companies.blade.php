@@ -76,5 +76,6 @@
 
 @else
 	<h3>Manage Companies</h3>
+	<p><i class="fa fa-building" aria-hidden="true"></i></p>
 	<p>Click here to manage a company account.</p>
 @endif

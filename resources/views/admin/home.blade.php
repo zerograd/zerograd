@@ -5,29 +5,33 @@
 @stop
 
 @section('content')
-	<div id="add-new-user-panel" class="panel" style="background-color:#16a085;" onClick="maximize(this,'manage-users');">
+	<div id="add-new-user-panel" class="panel" style="background-color:#16a085;" onClick="maximize(this,'manage-users','0 65% 0 0');">
 			<h3>Add New Admin Users</h3>
+			<p><i class="fa fa-users" aria-hidden="true"></i><p>
 			<p>Click here to add a new user. They will have access to this dashboard.</p>
 
 	</div>
 
-	<div id="manage-applicants-panel" class="panel" style="background-color:#27ae60" onClick="maximize(this,'manage-applicants');">
+	<div id="manage-applicants-panel" class="panel" style="background-color:#27ae60;" onClick="maximize(this,'manage-applicants','0 65% 0 31.33%');">
 
 			<h3>Manage Applicants</h3>
+			<p><i class="fa fa-address-book" aria-hidden="true"></i></p>
 			<p>Click here to manage an applicant's file.</p>
 
 	</div>
 
-	<div id="manage-companies-panel" class="panel" style="background-color:#2980b9" onClick="maximize(this,'manage-companies');">
+	<div id="manage-companies-panel" class="panel" style="background-color:#2980b9;" onClick="maximize(this,'manage-companies','0 31.33% 0 65%');">
 	
 			<h3>Manage Companies</h3>
+			<p><i class="fa fa-building" aria-hidden="true"></i></p>
 			<p>Click here to manage a company account.</p>
 
 	</div>
 
-	<div id="manage-companies-panel" class="panel" style="background-color:#8e44ad" onClick="maximize(this);">
+	<div id="manage-companies-panel" class="panel" style="background-color:#8e44ad;z" onClick="maximize(this,'manage-companies','0 65% 0 0');">
 	
 			<h3>Edit Resources</h3>
+			<p><i class="fa fa-book" aria-hidden="true"></i></p>
 			<p>Click here to manage resources.</p>
 
 	</div>
@@ -114,19 +118,25 @@
 		});
 
 		//Maximize the panel
-		function maximize(panel,content,email_exist){
+		function maximize(panel,content,margin,email_exist){
+
 
 
 			//Maximize current panel
 			$(panel).animate({
-				width: "99%",
-				"z-index": 10,
-				height:"90%",
-				padding:"10px"
-			});
+				margin:margin,
+				"z-index": "10"
+			},100,function(){
+				$(panel).animate({
+					"margin-right": 0,
+					"margin-left":0,
+					"margin-bottom": "20px",
+					width: "99%",
+					height:"90%",
+					padding:"10px"
+				})
 
-
-			//Manage Users Panel
+				//Manage Users Panel
 			if(content == 'manage-users'){
 
 				//Maximize and display content
@@ -182,6 +192,11 @@
 				});
 			}
 
+			});
+
+
+			
+
 			
 
 			
@@ -191,6 +206,8 @@
 
 		function minimize(panel,content){
 			$(panel).animate({
+				"margin-right": "1%",
+				"margin-left": "1%",
 				width: "31.33%",
 				height:"300px"
 			});

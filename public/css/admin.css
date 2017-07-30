@@ -49,8 +49,15 @@ html,body {
 .panel > h3 {
 	text-align: center;
 	color:white;
-	line-height: 5;
+	margin-top: 70px;
 	font-weight: 600;
+}
+
+.panel > p > i {
+	color:white;
+	text-align: center;
+	font-size: 36px;
+	line-height: 2;
 }
 
 .panel > p {

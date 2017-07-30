@@ -82,5 +82,6 @@
 
 @else
 	<h3>Add New Admin Users</h3>
+	<p><i class="fa fa-users" aria-hidden="true"></i><p>
 	<p>Click here to add a new user. They will have access to this dashboard.</p>
 @endif

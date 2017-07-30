@@ -34,5 +34,6 @@
 
 @else
 	<h3>Manage Applicants</h3>
+	<p><i class="fa fa-address-book" aria-hidden="true"></i></p>
 	<p>Click here to manage an applicant's file.</p>
 @endif
