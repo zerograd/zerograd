@@ -512,6 +512,10 @@ Route::post('/admin/companies/sendCompanyPassword',array(
 	'uses' => 'AdminController@sendCompanyPassword'
 ));
 
+Route::post('/admin/applicants/deleteCompany',array(
+	'as' => 'delete-company',
+	'uses' => 'AdminController@deleteCompany'
+));
 
 
 // Route::post('/admin/applicants/resetPassword',array(
@@ -519,10 +523,7 @@ Route::post('/admin/companies/sendCompanyPassword',array(
 // 	'uses' => 'AdminController@resetPassword'
 // ));
 
-// Route::post('/admin/applicants/deleteApplicant',array(
-// 	'as' => 'delete-applicant',
-// 	'uses' => 'AdminController@deleteApplicant'
-// ));
+
 
 // Route::post('/admin/applicants/update',array(
 // 	'as' => 'update-applicant-user',

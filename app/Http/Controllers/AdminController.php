@@ -255,7 +255,7 @@ class AdminController extends Controller
 
     public function editCompany(Request $request){
     	$company = DB::table('companies')
-    					->select('companies.company_name','companies.company_email','companies.contact','companies.company_phone','companies.company_location','companies.id')
+    					->select('companies.company_name','companies.company_email','companies.contact','companies.company_phone','companies.company_location','companies.id','companies.company_overview')
     					->where('id',$request->id)
     					->first();
 
@@ -279,5 +279,13 @@ class AdminController extends Controller
 
     	$emailer = new EmailController();
         $emailer->sendEmployerPassword($request,$request->password);
+    }
+
+    public function deleteCompany(Request $request){
+    	DB::table('companies')
+    		->where('id',$request->id)
+    		->delete();
+
+		Session::flash('company_delete','Company has been deleted');
     }
 }

@@ -4,11 +4,12 @@
 <div class="panel-content">
 	<ul class="nav nav-tabs">
 	  <li class="active"><a data-toggle="tab" href="#applicants-tab">Manage Companies</a></li>
+	  <li><a data-toggle="tab" href="#pricing-tab">Price + Match</a></li>
 	</ul>
 
 	<div class="tab-content">
 	
-		<!-- Add new User Panel -->
+		<!-- Manage Companies -->
 	  	<div id="applicants-tab" class="tab-pane fade in active">
 		     <div class="form-group col-sm-4">
 	     		<label>Search Companies:</label>
@@ -23,6 +24,10 @@
 				
 			</div>
 
+	  	</div>
+	  	<!-- Choose pricing plan for companies-->
+	  	<div id="pricing-tab" class="tab-pane fade in active">
+		     
 	  	</div>
 	</div>
 </div>

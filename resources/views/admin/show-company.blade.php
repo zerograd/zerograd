@@ -49,17 +49,23 @@
 							<option value="No">No</option>
 						</select>
 					</div>
+
+					<div class="form-group col-sm-12">
+						<label>Company Overview:</label>
+						<textarea name="company_overiew" class="form-control" cols="50" style="height:200px;">{{$company->company_overview}}</textarea>
+					</div>
+
 					
 					
 			        <div style="text-align: center;">
 			        	<button type="button" class="btn btn-default" onClick="resetPassword();" style="margin:10px auto;">Reset Password</button>
 					 	<button type="submit"  class="btn btn-success" style="margin:10px auto;">Update Company</button>
 
-					 	<button type="button" onClick="deleteApplicant();"  class="btn btn-danger" style="margin:10px auto;">Delete Company</button>
+					 	<button type="button" onClick="deleteCompany({{$company->id}});"  class="btn btn-danger" style="margin:10px auto;">Delete Company</button>
 
 
 			 		</div>
 
-					 <input type="hidden" name="id" value="">
+					 <input type="hidden" name="id" value="{{$company->id}}">
 
  </form>
