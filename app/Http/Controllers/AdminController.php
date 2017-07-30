@@ -298,4 +298,18 @@ class AdminController extends Controller
 
 		return 'Pricing Info Confirmed.';
     }
+
+    public function updateCompany(Request $request){
+
+    	foreach($request->except('_token','id') as $key=>$value){
+    			DB::table('companies')
+    				->where('id',$request->id)
+    				->update(array(
+    					"$key" => $value
+					));
+    	}
+
+		Session::flash('company_updated','Company Profile Updated!');
+		return redirect('/admin/home');
+    }
 }

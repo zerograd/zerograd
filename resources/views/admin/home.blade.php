@@ -106,6 +106,14 @@
 				);
 			@endif
 
+			@if(Session::has('company_updated'))
+				swal(
+				  'Good job!',
+				  "{{Session::get('company_updated')}}",
+				  'success'
+				);
+			@endif
+
 			showAdminUser();
 
 
@@ -303,8 +311,14 @@
 	 //Manage Company functions
 
 	 function getCompany(id){
+	 	if($('#chosen-company-id').val() == id){
+	 		alert('You have already selected this company.');
+	 		return false;
+	 	}
+	 	setMatch('',id);
+
  		$.post("{{route('show-company')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
-				$('#company-editor').html(data);
+			$('#company-profile').html(data);
 		});
 	 } 
 

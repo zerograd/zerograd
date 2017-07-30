@@ -1,4 +1,4 @@
-<form id="company-form" action="" method="POST">
+<form id="company-form" action="{{route('update-company')}}" method="POST">
 {{csrf_field()}}
 				    <div class="form-group col-sm-6">
 						<label>Name:</label>
@@ -52,7 +52,7 @@
 
 					<div class="form-group col-sm-12">
 						<label>Company Overview:</label>
-						<textarea name="company_overiew" class="form-control" cols="50" style="height:200px;">{{$company->company_overview}}</textarea>
+						<textarea name="company_overview" class="form-control" cols="50" style="height:200px;">{{$company->company_overview}}</textarea>
 					</div>
 
 					

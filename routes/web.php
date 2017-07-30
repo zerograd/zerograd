@@ -522,6 +522,13 @@ Route::post('/admin/companies/selectedPricing',array(
 	'uses' => 'AdminController@selectedPricing'
 ));
 
+Route::post('/admin/companies/update',array(
+	'as' => 'update-company',
+	'uses' => 'AdminController@updateCompany'
+));
+
+
+
 
 // Route::post('/admin/applicants/resetPassword',array(
 // 	'as' => 'reset-applicant-password',
@@ -530,9 +537,5 @@ Route::post('/admin/companies/selectedPricing',array(
 
 
 
-// Route::post('/admin/applicants/update',array(
-// 	'as' => 'update-applicant-user',
-// 	'uses' => 'AdminController@updateApplicant'
-// ));
 
 
