@@ -11,16 +11,16 @@
 
 	</div>
 
-	<div id="manage-applicants-panel" class="panel" style="background-color:#27ae60" onClick="maximize(this);">
+	<div id="manage-applicants-panel" class="panel" style="background-color:#27ae60" onClick="maximize(this,'manage-applicants');">
 
 			<h3>Manage Applicants</h3>
-			<p>Click here to manage an applicant's.</p>
+			<p>Click here to manage an applicant's file.</p>
 
 	</div>
 
 	<div id="manage-companies-panel" class="panel" style="background-color:#2980b9" onClick="maximize(this);">
 	
-			<h3>Add New Admin Users</h3>
+			<h3>Manage Companies</h3>
 			<p>Click here to manage a company account.</p>
 
 	</div>
@@ -37,8 +37,46 @@
 @section('script_plugins')
 	<script type="text/javascript">
 
+			function showAdminUser(element){
+				var id = "";
+				if(element){
+					id = $(element).val();
+				}else{
+					id = 1;
+				}
+				$.post('{{route('show-admin-user')}}',{id:id,_token:"{{csrf_token()}}"},function(data){
+					$('#manage-editor').html(data);
+				});
+			}
+
+			function updateAdminUser(){
+				var password = $('#update-password').val();
+				var confirmPassword = $('#confirm-password').val();
+
+				if(password == confirmPassword){
+					$('#existing-users-form').submit();
+				}else{
+					swal('Passwords must match');
+				}
+			}
+
+		$(document).ready(function(){
+			@if(Session::has('user_created'))
+				swal("{{Session::get('user_created')}}");
+			@endif
+			@if(Session::has('user_updated'))
+				swal("{{Session::get('user_updated')}}");
+			@endif
+			@if(Session::has('email_exist'))
+				var panel = $('#add-new-user-panel')[0];
+				maximize(panel,'manage-users','email_exist');
+			@endif
+
+			showAdminUser();
+		});
+
 		//Maximize the panel
-		function maximize(panel,content){
+		function maximize(panel,content,email_exist){
 
 
 			//Maximize current panel
@@ -54,7 +92,24 @@
 			if(content == 'manage-users'){
 
 				//Maximize and display content
-				$.post('{{route('manage-users')}}',{maximize:'maximize',_token:"{{csrf_token()}}"},function(data){
+				$.post('{{route('manage-users')}}',{maximize:'maximize',_token:"{{csrf_token()}}",email_exist:email_exist},function(data){
+					$(panel).html(data);
+					//add exit button to panel
+
+					var exitButton = $('<button class="btn btn-danger exitbutton">X</button>');
+
+					exitButton.on('click',function(){
+						minimize(panel,content);
+					});
+
+					//Minimize all other panels
+					$(panel).siblings().hide();
+
+					$(panel).attr('onClick','');
+					$(panel).append(exitButton);
+				});
+			}else if(content == 'manage-applicants'){
+				$.post('{{route('manage-applicants')}}',{maximize:'maximize',_token:"{{csrf_token()}}",email_exist:email_exist},function(data){
 					$(panel).html(data);
 					//add exit button to panel
 
@@ -91,6 +146,10 @@
 				$.post('{{route('manage-users')}}',{_token:"{{csrf_token()}}"},function(data){
 					$(panel).html(data);
 				});
+			}else if(content == 'manage-applicants'){
+				$.post('{{route('manage-applicants')}}',{_token:"{{csrf_token()}}"},function(data){
+					$(panel).html(data);
+				});
 			}
 
 			//Show all other panels
@@ -106,5 +165,39 @@
 			
 
 		}
+
+		function generatePassword(){
+			$.post("{{route('generate-password')}}",{_token:"{{csrf_token()}}"},function(data){
+				$('#new-user-password').val(data);
+			});
+		}
+	</script>
+
+	<!-- Manage Applicants Scripts -->
+	<script>
+	function search(){
+	    // Declare variables
+	    var input, filter, ul, li, a, i;
+	    input = document.getElementById('applicant-search');
+	    filter = input.value.toUpperCase();
+	    ul = document.getElementById("myUL");
+	    li = ul.getElementsByTagName('li');
+
+	    // Loop through all list items, and hide those who don't match the search query
+	    for (i = 0; i < li.length; i++) {
+	        a = li[i].getElementsByTagName("a")[0];
+	        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+	            li[i].style.display = "";
+	        } else {
+	            li[i].style.display = "none";
+	        }
+	    }
+	}
+
+	 function getApplicant(id){
+ 		$.post("{{route('show-applicant-user')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
+				$('#applicant-editor').html(data);
+		});
+	 }
 	</script>
 @stop

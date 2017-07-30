@@ -73,4 +73,60 @@ html,body {
 	width:100%;
 	height:100%;
 	background-color:#fff;
+	overflow: hidden;
+}
+
+.tab-content{
+	padding:10px;
+}
+
+/*****************************MANAGE APPLICANTS PANEL********************************************/
+
+nav ul{height:400px;}
+nav ul{overflow:hidden; overflow-y:scroll;}
+
+ul::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+ul::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+ul::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
+}
+
+#myUL li a {
+    border: 1px solid #ddd; /* Add a border to all links */
+    margin-top: -1px; /* Prevent double borders */
+    background-color: #f6f6f6; /* Grey background color */
+    padding: 12px; /* Add some padding */
+    text-decoration: none; /* Remove default text underline */
+    font-size: 18px; /* Increase the font-size */
+    color: black; /* Add a black text color */
+    display: block; /* Make it into a block element to fill the whole list */
+}
+
+#myUL li a.header {
+    background-color: #e2e2e2; /* Add a darker background color for headers */
+    cursor: default; /* Change cursor style */
+}
+
+#myUL li a:hover:not(.header) {
+    background-color: #eee; /* Add a hover effect to all links, except for headers */
+}
+
+applicant-editor::-webkit-scrollbar {
+    width: 1em;
+}
+ 
+applicant-editor::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+ 
+applicant-editor::-webkit-scrollbar-thumb {
+  background-color: darkgrey;
+  outline: 1px solid slategrey;
 }

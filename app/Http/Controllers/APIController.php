@@ -56,6 +56,15 @@ class APIController extends Controller
 
     public function getSearch(){
 
+    		if(Session::has('user_id')){
+			  	SearchLog::log(array(
+	    		  'user_id' => Session::get('user_id'),
+	    		  'ip_address' => $_SERVER['REMOTE_ADDR'],
+	    		  'searches' => str_replace(' ',',',$_POST['searchkeywords']),
+	    		  'search_time' => date('Y-m-d H:i:s')
+				));
+	    	}
+
     		$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
     	   
 

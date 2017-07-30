@@ -446,3 +446,36 @@ Route::post('/admin/users/manage',array(
 	'as' => 'manage-users',
 	'uses' => 'AdminController@manageUsers'
 ));
+
+Route::post('/admin/users/generate-password',array(
+	'as' => 'generate-password',
+	'uses' => 'AdminController@generatePassword'
+));
+
+Route::post('/admin/users/create',array(
+	'as' => 'add-new-admin-user',
+	'uses' => 'AdminController@create'
+));
+
+Route::post('/admin/users/show',array(
+	'as' => 'show-admin-user',
+	'uses' => 'AdminController@edit'
+));
+
+Route::post('/admin/users/update',array(
+	'as' => 'update-admin-user',
+	'uses' => 'AdminController@update'
+));
+
+// Manage Applicant routes
+
+
+Route::post('/admin/applicants/manage',array(
+	'as' => 'manage-applicants',
+	'uses' => 'AdminController@manageApplicants'
+));
+
+Route::post('/admin/applicants/show',array(
+	'as' => 'show-applicant-user',
+	'uses' => 'AdminController@editApplicant'
+));
