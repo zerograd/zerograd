@@ -484,3 +484,8 @@ Route::post('/admin/applicants/resetPassword',array(
 	'as' => 'reset-applicant-password',
 	'uses' => 'AdminController@resetPassword'
 ));
+
+Route::post('/admin/applicants/deleteApplicant',array(
+	'as' => 'delete-applicant',
+	'uses' => 'AdminController@deleteApplicant'
+));

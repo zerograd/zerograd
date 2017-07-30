@@ -62,10 +62,25 @@
 
 		$(document).ready(function(){
 			@if(Session::has('user_created'))
-				swal("{{Session::get('user_created')}}");
+				swal(
+				  'Good job!',
+				  "{{Session::get('user_created')}}",
+				  'success'
+				);
 			@endif
 			@if(Session::has('user_updated'))
-				swal("{{Session::get('user_updated')}}");
+				swal(
+				  'Good job!',
+				  "{{Session::get('user_updated')}}",
+				  'success'
+				);
+			@endif
+			@if(Session::has('applicant_delete'))
+				swal(
+				  'Good job!',
+				  "{{Session::get('applicant_delete')}}",
+				  'success'
+				);
 			@endif
 			@if(Session::has('email_exist'))
 				var panel = $('#add-new-user-panel')[0];
@@ -204,6 +219,23 @@
 	 	$.post("{{route('reset-applicant-password')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
 				swal('Email with new password sent to user.');
 		});
+	 }
+
+	 function deleteApplicant(id){
+	 	swal({
+		  title: 'Are you sure?',
+		  text: "You won't be able to revert this!",
+		  type: 'warning',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33',
+		  confirmButtonText: 'Yes, delete it!'
+		}).then(function () {
+			$.post("{{route('delete-applicant')}}",{id:id,_token:"{{csrf_token()}}"},function(data){
+				window.location = '{{URL::to('/admin/home')}}';
+			});
+		});
+	 	
 	 }
 	</script>
 @stop

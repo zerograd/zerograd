@@ -194,4 +194,12 @@ class AdminController extends Controller
 		$emailer = new EmailController();
         $emailer->adminPasswordReset($email,$newPassword);
     }
+
+    public function deleteApplicant(Request $request){
+    	DB::table('students')
+    		->where('student_id',$request->id)
+    		->delete();
+
+		Session::flash('applicant_delete','Applicant has been deleted');
+    }
 }
