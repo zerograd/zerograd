@@ -539,8 +539,58 @@ class HomeController extends Controller
     }
 
     public function resources(){
-    	$data = array(
 
+    	$resources = DB::table('resources')
+    					->select('*')
+    					->orderBy('created','DESC')
+    					->take(4)
+    					->get();
+
+		foreach ($resources as $resource) {
+			$resource->image_path = null;
+			$image_path = '';
+			if($resource->res_image) {
+				$image_path = asset('storage/' . $resource->res_image);
+				$resource->image_path = $image_path;
+			}
+		}
+
+				//Popular Resources
+
+		$popularResources = DB::table('resources')
+							->select('*')
+							->orderBy('res_views','DESC')
+							->take(3)
+							->get();
+		foreach ($popularResources as $popularResource) {
+			$popularResource->image_path = null;
+			$image_path = '';
+			if($popularResource->res_image) {
+				$image_path = asset('storage/' . $popularResource->res_image);
+				$popularResource->image_path = $image_path;
+			}
+		}
+
+		//Recent Resources
+		$recentResources = DB::table('resources')
+							->select('*')
+							->orderBy('created','DESC')
+							->take(3)
+							->get();
+
+		foreach ($recentResources as $recentResource) {
+			$recentResource->image_path = null;
+			$image_path = '';
+			if($recentResource->res_image) {
+				$image_path = asset('storage/' . $recentResource->res_image);
+				$recentResource->image_path = $image_path;
+			}
+		}
+
+    	$data = array(
+    		'resources' => $resources,
+    		'popularResources' => $popularResources,
+    		'recentResources' => $recentResources
         );
         return view('resources')->with($data);
     }

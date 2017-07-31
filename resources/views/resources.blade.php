@@ -12,7 +12,7 @@
 
 		<div class="sixteen columns">
 			<h2>Resources</h2>
-			<span>Keep up to date with the latest news</span>
+			<span>Keep up to date with the latest resources</span>
 		</div>
 
 	</div>
@@ -24,50 +24,33 @@
 <div class="container">
 
 	<!-- Blog Posts -->
-	<div class="eleven columns">
+	<div class="ten columns">
 		<div class="padding-right">
 
+		@foreach($resources as $resource )
 			<!-- Post -->
 			<div class="post-container">
-				<div class="post-img"><a href="{{route('get-resource',1)}}"><img src="images/blog-post-01.jpg" alt=""></a><div class="hover-icon"></div></div>
+				@if(isset($resource->image_path))
+				<div class="post-img"><a href="{{route('get-resource',$resource->res_id)}}"><img src="{{$resource->image_path}}" alt=""></a><div class="hover-icon"></div></div>
+				@else
+				<div class="post-img"><a href="{{route('get-resource',$resource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a><div class="hover-icon"></div></div>
+				@endif
+				
 				<div class="post-content">
-					<a href="#"><h3>Hey Job Seeker, It’s Time To Get Up And Get Hired</h3></a>
+					<a href="{{route('get-resource',$resource->res_id)}}"><h3>{{$resource->res_title}}</h3></a>
 					<div class="meta-tags">
-						<span>October 10, 2015</span>
+						<?php $date = date_create($resource->created);
+										$dateFormatted = date_format($date,'F d, Y'); 
+						?>
+						<span>{{$dateFormatted}}</span>
 						<span><a href="#">0 Comments</a></span>
 					</div>
-					<p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae, tempus sed augue. Curabitur quis lectus quis augue dapibus facilisis. Vivamus tincidunt orci est, in vehicula nisi eleifend ut. Vestibulum sagittis varius orci vitae.</p>
-					<a class="button" href="{{route('get-resource',1)}}">Read More</a>
+					<p>{{substr($resource->res_content_first,0,100)}}...</p>
+					<a class="button" href="{{route('get-resource',$resource->res_id)}}">Read More</a>
 				</div>
 			</div>
+		@endforeach
 
-			<!-- Post -->
-			<div class="post-container">
-				<div class="post-img"><a href="{{route('get-resource',1)}}"><img src="images/blog-post-02.jpg" alt=""></a><div class="hover-icon"></div></div>
-				<div class="post-content">
-					<a href="#"><h3>How to "Woo" a Recruiter and Land Your Dream Job</h3></a>
-					<div class="meta-tags">
-						<span>September 12, 2015</span>
-						<span><a href="#">0 Comments</a></span>
-					</div>
-					<p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae, tempus sed augue. Curabitur quis lectus quis augue dapibus facilisis. Vivamus tincidunt orci est, in vehicula nisi eleifend ut. Vestibulum sagittis varius orci vitae.</p>
-					<a class="button" href="{{route('get-resource',1)}}">Read More</a>
-				</div>
-			</div>
-
-			<!-- Post -->
-			<div class="post-container">
-				<div class="post-img"><a href="{{route('get-resource',1)}}"><img src="images/blog-post-03.jpg" alt=""></a><div class="hover-icon"></div></div>
-				<div class="post-content">
-					<a href="#"><h3>11 Tips to Help You Get New Clients Through Cold Calling</h3></a>
-					<div class="meta-tags">
-						<span>August 27, 2015</span>
-						<span><a href="#">0 Comments</a></span>
-					</div>
-					<p>Nam nisl lacus, dignissim ac tristique ut, scelerisque eu massa. Vestibulum ligula nunc, rutrum in malesuada vitae, tempus sed augue. Curabitur quis lectus quis augue dapibus facilisis. Vivamus tincidunt orci est, in vehicula nisi eleifend ut. Vestibulum sagittis varius orci vitae.</p>
-					<a class="button" href="{{route('get-resource',1)}}">Read More</a>
-				</div>
-			</div>
 
 			<!-- Pagination -->
 			<div class="pagination-container">
@@ -116,7 +99,6 @@
 
 			<ul class="tabs-nav blog">
 				<li class="active"><a href="#tab1">Popular</a></li>
-				<li><a href="#tab2">Featured</a></li>
 				<li><a href="#tab3">Recent</a></li>
 			</ul>
 
@@ -125,143 +107,57 @@
 
 				<div class="tab-content" id="tab1">
 					
-					<!-- Recent Posts -->
+					<!-- Popular Posts -->
 					<ul class="widget-tabs">
-						
-						<!-- Post #1 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-01.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-02.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-03.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
+						@foreach($popularResources as $popularResource)	
+							<li>
+								<div class="widget-thumb">
+									@if(isset($popularResource->image_path))
+									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{$popularResource->image_path}}" alt="" /></a>
+									@else
+									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									@endif
+									
+								</div>
+								
+								<div class="widget-text">
+									<h5><a href="{{route('get-resource',$popularResource->res_id)}}">{{$popularResource->res_title}}</a></h5>
+									<?php $date = date_create($popularResource->created);
+										$dateFormatted = date_format($date,'F d, Y'); 
+									?>
+									<span>{{$dateFormatted}}</span>
+								</div>
+								<div class="clearfix"></div>
+							</li>
+						@endforeach
 					</ul>
 		
-				</div>
-
-				<div class="tab-content" id="tab2">
-				
-					<!-- Featured Posts -->
-					<ul class="widget-tabs">
-
-						<!-- Post #1 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-02.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-01.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-03.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-					</ul>
 				</div>
 
 				<div class="tab-content" id="tab3">
 				
 					<!-- Recent Posts -->
 					<ul class="widget-tabs">
-						
-						<!-- Post #1 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-03.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">11 Tips to Help You Get New Clients Through Cold Calling</a></h5>
-								<span>August 27, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
-						
-						<!-- Post #2 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-02.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">Hey Job Seeker, It’s Time To Get Up And Get Hired</a></h5>
-								<span>October 10, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-
-						</li>
-						
-						<!-- Post #3 -->
-						<li>
-							<div class="widget-thumb">
-								<a href="{{route('get-resource',1)}}"><img src="images/blog-widget-01.png" alt="" /></a>
-							</div>
-							
-							<div class="widget-text">
-								<h5><a href="{{route('get-resource',1)}}">How to "Woo" a Recruiter and Land Your Dream Job</a></h5>
-								<span>September 12, 2015</span>
-							</div>
-							<div class="clearfix"></div>
-						</li>
+						@foreach($recentResources as $recentResource)	
+							<li>
+								<div class="widget-thumb">
+									@if(isset($recentResource->image_path))
+									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{$recentResource->image_path}}" alt="" /></a>
+									@else
+									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									@endif
+								</div>
+								
+								<div class="widget-text">
+									<h5><a href="{{route('get-resource',$recentResource->res_id)}}">{{$recentResource->res_title}}</a></h5>
+									<?php $date = date_create($recentResource->created);
+										$dateFormatted = date_format($date,'F d, Y'); 
+									?>
+									<span>{{$dateFormatted}}</span>
+								</div>
+								<div class="clearfix"></div>
+							</li>
+						@endforeach
 					</ul>
 				</div>
 				
