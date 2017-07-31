@@ -20,7 +20,7 @@
         
         <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script> -->
         <script src="{{URL::asset('/js/jquery.min.js')}}"></script>
-        
+        <link rel="stylesheet" href="{{URL::asset('/theme/css/style.css')}}">
         <link href="{{URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
         <link href="{{URL::asset('/css/admin.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{URL::asset('/radios-to-slider/css/radios-to-slider.css')}}">

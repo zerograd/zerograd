@@ -21,30 +21,68 @@
 						<div class="col-sm-12">
 							<label>Price (Choose one of the following options):</label>
 						</div>
-						<div class="pricing-panel" onClick="addBorder(this);" title="free">
-							<h3>Option #1</h3>
-							<i class="fa fa-money" aria-hidden="true"></i>
-							<p>7 Day Trial</p>
+
+						<!-- Option #1 -->
+						<div class="pricing-panel">
+							<div class="plan color-2 one-third column"  title="19">
+								<div class="plan-price">
+									<h3>Start Up</h3>
+									<span class="plan-currency">$</span>
+									<span class="value">19</span>
+									
+								</div>
+								<div class="plan-features">
+									<ul>
+										<li>One Time Fee</li>
+										<li>This Plan Includes 1 Job</li>
+										<li>Non-Highlighted Post</li>
+										<li>Posted For 30 Days</li>
+									</ul>
+									<a class="button" href="javascript:confirmPricing(19);"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+								</div>
+							</div>
 						</div>
-						<div class="pricing-panel" onClick="addBorder(this);" title="150">
-							<h3>Option #2</h3>
-							<i class="fa fa-money" aria-hidden="true"></i>
-							<i class="fa fa-money" aria-hidden="true"></i>
-							<p>$150/month</p>
-							<p>up to 10 postings</p>
+
+						<!-- Option #2 -->
+						<div class="pricing-panel">
+							<div class="plan color-2 one-third column"  title="59">
+								<div class="plan-price">
+									<h3>Company</h3>
+									<span class="plan-currency">$</span>
+									<span class="value">59</span>
+								</div>
+								<div class="plan-features">
+									<ul>
+										<li>One Time Fee</li>
+										<li>This Plan Includes 2 Jobs</li>
+										<li>Highlighted Job Post</li>
+										<li>Posted For 60 Days</li>
+									</ul>
+									<a class="button" href="javascript:confirmPricing(59);"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+								</div>
+							</div>
 						</div>
-						<div class="pricing-panel" onClick="addBorder(this);" title="250">
-							<h3>Option #3</h3>
-							<i class="fa fa-money" aria-hidden="true"></i>
-							<i class="fa fa-money" aria-hidden="true"></i>
-							<i class="fa fa-money" aria-hidden="true"></i>
-							<p>$250/month</p>
-							<p>up to 20 postings</p>
+
+						<!-- Option #3 -->
+						<div class="pricing-panel">
+							<div class="plan color-2 one-third column"  title="99">
+								<div class="plan-price">
+									<h3>Enterprise</h3>
+									<span class="plan-currency">$</span>
+									<span class="value">99</span>
+								</div>
+								<div class="plan-features">
+									<ul>
+										<li>One Time Fee</li>
+										<li>This Plan Includes 4 Jobs</li>
+										<li>2 Highlighted Job Posts</li>
+										<li>Posted For 90 Days</li>
+									</ul>
+									<a class="button" href="javascript:confirmPricing(99);"><i class="fa fa-shopping-cart"></i> Add to Cart</a>
+								</div>
+							</div>
 						</div>
 					</div>
-					<div style="text-align: center;">
-					 	<button type="button" onClick="confirmPricing();"  class="btn btn-success" style="margin:10px auto;">Confirm Pricing</button>
-					 </div>
 					<input type="hidden" id="chosen-company-id">
 				</form>
 			</div>

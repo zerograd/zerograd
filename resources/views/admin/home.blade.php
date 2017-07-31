@@ -426,7 +426,7 @@
 	 }
 
 	 function addBorder(element){
-	 	$('.pricing-panel').removeClass('addBorder');
+	 	$(".plan").removeClass('addBorder');
 	 	$(element).addClass('addBorder');
 	 	$(element).attr('onClick','removeBorder(this);');
 
@@ -436,9 +436,8 @@
 	 	$(element).attr('onClick','addBorder(this);');
 	 }
 
-	 function confirmPricing(){
-	 	var selectedOption = $('.pricing-panel.addBorder');
-	 	var title = selectedOption.attr('title');
+	 function confirmPricing(title){
+	 	var title = title
 	 	var id  = $('#chosen-company-id').val();
 	 	if(id == ''){
 	 		alert('Please select a company.');
