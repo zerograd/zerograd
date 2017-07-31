@@ -106,6 +106,20 @@ html,body {
 	padding:10px;
 }
 
+.login-panel {
+	margin: 0 35%;
+	height:300px;
+}
+
+
+.login-panel > h3 {
+	margin-top:0;
+}
+
+#login-form {
+	padding: 10px;
+}
+
 /*****************************MANAGE APPLICANTS PANEL********************************************/
 
 nav ul{height:400px;}

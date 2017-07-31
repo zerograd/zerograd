@@ -17,6 +17,44 @@ class AdminController extends Controller
     	return view('admin.login');
     }
 
+    //Verify Login 
+
+    public function login(Request $request){
+
+    	$password = $request->password;
+    	$email = $request->email;
+
+    	$user = DB::table('admin_users')
+    				->select('admin_users.name','admin_users.email','admin_permissions.role','admin_users.id')
+    				->join('admin_permissions','admin_permissions.admin_perm_id','=','admin_users.role_id')
+    				->where('admin_users.password',$password)
+    				->where('admin_users.email',$email)
+    				->first();
+
+		if(!$user){
+			Session::flash('adminlogin_invalid','Login is Invalid. Try Again');
+			return redirect('/admin/');
+		}
+
+		Session::put('admin_name',$user->name);
+		Session::put('admin_email',$user->email);
+		Session::put('admin_role',$user->role);
+		Session::put('admin_id',$user->id);
+		Session::put('logged','logged');
+
+		return redirect('/admin/home');
+
+    }
+
+    public function logout(){
+    	Session::forget('admin_name');
+		Session::forget('admin_email');
+		Session::forget('admin_role');
+		Session::forget('admin_id');
+		Session::forget('logged');
+    	return redirect('/admin/');
+    }
+
     //Home
 
     public function home(){
@@ -424,7 +462,7 @@ class AdminController extends Controller
     		->delete();
 
 		Session::flash('res_deleted','Resource has been deleted.');
-		
+
     }
 
     public function updateResource(Request $request){

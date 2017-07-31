@@ -7,7 +7,7 @@
 @section('content')
 	<div id="add-new-user-panel" class="panel" style="background-color:#16a085;" onClick="maximize(this,'manage-users','0 65% 0 0');">
 			<h3>Add New Admin Users</h3>
-			<p><i class="fa fa-users" aria-hidden="true"></i><p>
+			<p><i class="fa fa-users" aria-hidden="true"></i></p>
 			<p>Click here to add a new user. They will have access to this dashboard.</p>
 
 	</div>

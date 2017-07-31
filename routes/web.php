@@ -434,40 +434,49 @@ Route::get('/verify/{id}',array(
 ));
 
 
+Route::group(['prefix' => 'admin','middleware' => 'redirectsession'], function () {
 
-// AdminController
-
-Route::get('/admin/',array(
+	Route::get('/',array(
 	'as' => 'admin-index',
 	'uses' => 'AdminController@index'
 ));
 
-Route::get('/admin/home',array(
+Route::post('/login',array(
+	'as' => 'admin-login',
+	'uses' => 'AdminController@login'
+));
+
+Route::get('/logout',array(
+	'as' => 'admin-logout',
+	'uses' => 'AdminController@logout'
+));
+
+Route::get('/home',array(
 	'as' => 'admin-home',
 	'uses' => 'AdminController@home'
 ));
 
-Route::post('/admin/users/manage',array(
+Route::post('/users/manage',array(
 	'as' => 'manage-users',
 	'uses' => 'AdminController@manageUsers'
 ));
 
-Route::post('/admin/users/generate-password',array(
+Route::post('/users/generate-password',array(
 	'as' => 'generate-password',
 	'uses' => 'AdminController@generatePassword'
 ));
 
-Route::post('/admin/users/create',array(
+Route::post('/users/create',array(
 	'as' => 'add-new-admin-user',
 	'uses' => 'AdminController@create'
 ));
 
-Route::post('/admin/users/show',array(
+Route::post('/users/show',array(
 	'as' => 'show-admin-user',
 	'uses' => 'AdminController@edit'
 ));
 
-Route::post('/admin/users/update',array(
+Route::post('/users/update',array(
 	'as' => 'update-admin-user',
 	'uses' => 'AdminController@update'
 ));
@@ -475,94 +484,101 @@ Route::post('/admin/users/update',array(
 // Manage Applicant routes
 
 
-Route::post('/admin/applicants/manage',array(
+Route::post('/applicants/manage',array(
 	'as' => 'manage-applicants',
 	'uses' => 'AdminController@manageApplicants'
 ));
 
-Route::post('/admin/applicants/show',array(
+Route::post('/applicants/show',array(
 	'as' => 'show-applicant-user',
 	'uses' => 'AdminController@editApplicant'
 ));
 
-Route::post('/admin/applicants/resetPassword',array(
+Route::post('/applicants/resetPassword',array(
 	'as' => 'reset-applicant-password',
 	'uses' => 'AdminController@resetPassword'
 ));
 
-Route::post('/admin/applicants/deleteApplicant',array(
+Route::post('/applicants/deleteApplicant',array(
 	'as' => 'delete-applicant',
 	'uses' => 'AdminController@deleteApplicant'
 ));
 
-Route::post('/admin/applicants/update',array(
+Route::post('/applicants/update',array(
 	'as' => 'update-applicant-user',
 	'uses' => 'AdminController@updateApplicant'
 ));
 
 // Manage Companies
 
-Route::post('/admin/companies/manage',array(
+Route::post('/companies/manage',array(
 	'as' => 'manage-companies',
 	'uses' => 'AdminController@manageCompanies'
 ));
 
-Route::post('/admin/companies/show',array(
+Route::post('/companies/show',array(
 	'as' => 'show-company',
 	'uses' => 'AdminController@editCompany'
 ));
 
-Route::post('/admin/companies/sendCompanyPassword',array(
+Route::post('/companies/sendCompanyPassword',array(
 	'as' => 'send-company-password',
 	'uses' => 'AdminController@sendCompanyPassword'
 ));
 
-Route::post('/admin/companies/deleteCompany',array(
+Route::post('/companies/deleteCompany',array(
 	'as' => 'delete-company',
 	'uses' => 'AdminController@deleteCompany'
 ));
 
-Route::post('/admin/companies/selectedPricing',array(
+Route::post('/companies/selectedPricing',array(
 	'as' => 'selected-pricing',
 	'uses' => 'AdminController@selectedPricing'
 ));
 
-Route::post('/admin/companies/update',array(
+Route::post('/companies/update',array(
 	'as' => 'update-company',
 	'uses' => 'AdminController@updateCompany'
 ));
 
-// Route::post('/admin/applicants/resetPassword',array(
+// Route::post('/applicants/resetPassword',array(
 // 	'as' => 'reset-applicant-password',
 // 	'uses' => 'AdminController@resetPassword'
 // ));
 
 //Manage Resources
 
-Route::post('/admin/resources/manage',array(
+Route::post('/resources/manage',array(
 	'as' => 'manage-resources',
 	'uses' => 'AdminController@manageResources'
 ));
 
-Route::post('/admin/resources/create',array(
+Route::post('/resources/create',array(
 	'as' => 'create-resource',
 	'uses' => 'AdminController@createResource'
 ));
 
-Route::post('/admin/resources/edit',array(
+Route::post('/resources/edit',array(
 	'as' => 'edit-resource',
 	'uses' => 'AdminController@editResource'
 ));
 
-Route::post('/admin/resources/delete',array(
+Route::post('/resources/delete',array(
 	'as' => 'delete-resource',
 	'uses' => 'AdminController@deleteResource'
 ));
 
-Route::post('/admin/resoureces/update',array(
+Route::post('/resoureces/update',array(
 	'as' => 'update-resource',
 	'uses' => 'AdminController@updateResource'
 ));
+
+
+});//End of Group
+
+// AdminController
+
+
 
 
 

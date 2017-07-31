@@ -19,10 +19,9 @@ class RedirectSession
         $response = $next($request);
         if(Session::has('logged')){
             return $response;
-        }else if($request->is('student/*') && !Session::has('logged')){
-            return redirect('/');
-        }else if($request->is('employer/*') && !Session::has('logged')){
-            return redirect('/');
+        }else if($request->is('admin/*') && !Session::has('logged')){
+            Session::flash('please_login','Please login to access this page.');
+            return redirect('/admin');
         }else{
             return $response;
         }
