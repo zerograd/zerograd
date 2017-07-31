@@ -103,9 +103,16 @@ class APIController extends Controller
 							->get();
 
 			$postings = array();
+			$parser = new ParseController();
+
+			//Only add if it is an entry-level position
 			foreach ($results->results as $post) {
-				$postings[] = $post;
+				$retValue = $parser->fetch($post->url);
+				if($retValue == true){
+					$postings[] = $post;
+				}
 			}
+
 
 			
 			
@@ -178,8 +185,12 @@ class APIController extends Controller
 							->get();
 
 			$postings = array();
+			$parser = new ParseController();
 			foreach ($results->results as $post) {
-				$postings[] = $post;
+				$retValue = $parser->fetch($post->url);
+				if($retValue == true){
+					$postings[] = $post;
+				}
 			}
 
 			
@@ -295,8 +306,12 @@ class APIController extends Controller
 
 
         $postings = array();
-			foreach ($results->results as $post) {
-					$postings[] = $post;				
+        $parser = new ParseController();
+		foreach ($results->results as $post) {
+				$retValue = $parser->fetch($post->url);
+				if($retValue == true){
+					$postings[] = $post;
+				}
 			}
 
 		
@@ -415,9 +430,13 @@ class APIController extends Controller
         $found = 'no';
         	if(isset($results->results) && sizeof($results->results) > 0) {
         		$found = 'yes';
+        		$parser = new ParseController();
         		foreach ($results->results as $post) {
-					$postings[] = $post;				
+				$retValue = $parser->fetch($post->url);
+				if($retValue == true){
+					$postings[] = $post;
 				}
+			}
         	}
 			
 

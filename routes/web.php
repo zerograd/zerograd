@@ -576,7 +576,13 @@ Route::post('/resoureces/update',array(
 
 });//End of Group
 
-// AdminController
+// ParseController
+
+Route::get('/parse',array(
+	'as' => 'parse',
+	'uses' => 'ParseController@fetch'
+));
+
 
 
 
