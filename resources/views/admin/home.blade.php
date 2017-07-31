@@ -5,13 +5,17 @@
 @stop
 
 @section('content')
+
+	@if(Session::get('admin_role') == 'Administrator')
 	<div id="add-new-user-panel" class="panel" style="background-color:#16a085;" onClick="maximize(this,'manage-users','0 65% 0 0');">
 			<h3>Add New Admin Users</h3>
 			<p><i class="fa fa-users" aria-hidden="true"></i></p>
 			<p>Click here to add a new user. They will have access to this dashboard.</p>
 
 	</div>
+	@endif
 
+	@if(Session::get('admin_role') == 'Customer Service Representative' or Session::get('admin_role') == 'Administrator')
 	<div id="manage-applicants-panel" class="panel" style="background-color:#27ae60;" onClick="maximize(this,'manage-applicants','0 65% 0 31.33%');">
 
 			<h3>Manage Applicants</h3>
@@ -19,7 +23,9 @@
 			<p>Click here to manage an applicant's file.</p>
 
 	</div>
+	@endif
 
+	@if(Session::get('admin_role') == 'Customer Service Representative' or Session::get('admin_role') == 'Administrator')
 	<div id="manage-companies-panel" class="panel" style="background-color:#2980b9;" onClick="maximize(this,'manage-companies','0 31.33% 0 65%');">
 	
 			<h3>Manage Companies</h3>
@@ -27,14 +33,26 @@
 			<p>Click here to manage a company account.</p>
 
 	</div>
+	@endif
 
-	<div id="manage-companies-panel" class="panel" style="background-color:#8e44ad;z" onClick="maximize(this,'manage-resources','0 65% 0 0');">
+	@if(Session::get('admin_role') == 'Administrator' or Session::get('admin_role') == 'Editor' )
+	<div id="manage-companies-panel" class="panel" style="background-color:#8e44ad;" onClick="maximize(this,'manage-resources','0 65% 0 0');">
 	
 			<h3>Manage Resources</h3>
 			<p><i class="fa fa-book" aria-hidden="true"></i></p>
 			<p>Click here to manage resources.</p>
 
 	</div>
+	@endif
+	@if(Session::get('admin_role') == 'Administrator' or Session::get('admin_role') == 'Editor' )
+	<div id="manage-our-info" class="panel" style="background-color:#2c3e50;" onClick="maximize(this,'manage-our-info','0 65% 0 0');">
+	
+			<h3>Manage Our Info</h3>
+			<p><i class="fa fa-book" aria-hidden="true"></i></p>
+			<p>Click here to manage information related to our Company.</p>
+
+	</div>
+	@endif
 @stop
 
 
@@ -65,40 +83,40 @@
 			}
 
 		$(document).ready(function(){
-			@if(Session::has('user_created'))
+			@if(Session::get('user_created'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('user_created')}}",
 				  'success'
 				);
 			@endif
-			@if(Session::has('user_updated'))
+			@if(Session::get('user_updated'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('user_updated')}}",
 				  'success'
 				);
 			@endif
-			@if(Session::has('applicant_delete'))
+			@if(Session::get('applicant_delete'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('applicant_delete')}}",
 				  'success'
 				);
 			@endif
-			@if(Session::has('applicant_updated'))
+			@if(Session::get('applicant_updated'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('applicant_updated')}}",
 				  'success'
 				);
 			@endif
-			@if(Session::has('email_exist'))
+			@if(Session::get('email_exist'))
 				var panel = $('#add-new-user-panel')[0];
 				maximize(panel,'manage-users','email_exist');
 			@endif
 
-			@if(Session::has('company_delete'))
+			@if(Session::get('company_delete'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('company_delete')}}",
@@ -106,7 +124,7 @@
 				);
 			@endif
 
-			@if(Session::has('company_updated'))
+			@if(Session::get('company_updated'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('company_updated')}}",
@@ -114,7 +132,7 @@
 				);
 			@endif
 
-			@if(Session::has('res_created'))
+			@if(Session::get('res_created'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('res_created')}}",
@@ -122,7 +140,7 @@
 				);
 			@endif
 
-			@if(Session::has('res_updated'))
+			@if(Session::get('res_updated'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('res_updated')}}",
@@ -130,7 +148,7 @@
 				);
 			@endif
 
-			@if(Session::has('res_deleted'))
+			@if(Session::get('res_deleted'))
 				swal(
 				  'Good job!',
 				  "{{Session::get('res_deleted')}}",

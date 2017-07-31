@@ -20,7 +20,6 @@ class RedirectSession
         if(Session::has('logged')){
             return $response;
         }else if($request->is('admin/*') && !Session::has('logged')){
-            Session::flash('please_login','Please login to access this page.');
             return redirect('/admin');
         }else{
             return $response;
