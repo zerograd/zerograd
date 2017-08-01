@@ -8,6 +8,7 @@ use Vendor\Unirest\Request;
 use Illuminate\Support\Facades\DB;
 use Session;
 use App\SearchLog;
+use Cache;
 
 class APIController extends Controller
 {
@@ -107,9 +108,14 @@ class APIController extends Controller
 
 			//Only add if it is an entry-level position
 			foreach ($results->results as $post) {
-				$retValue = $parser->fetch($post->url);
-				if($retValue == true){
+				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
+				}else{
+					$retValue = $parser->fetch($post->url);
+					if($retValue == true){
+						$postings[] = $post;
+						Cache::put($post->jobkey,'',22*60);
+					}
 				}
 			}
 
@@ -187,10 +193,18 @@ class APIController extends Controller
 			$postings = array();
 			$parser = new ParseController();
 			foreach ($results->results as $post) {
-				$retValue = $parser->fetch($post->url);
-				if($retValue == true){
+
+				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
+				}else{
+					$retValue = $parser->fetch($post->url);
+					if($retValue == true){
+						$postings[] = $post;
+						Cache::put($post->jobkey,'',22*60);
+					}
 				}
+
+				
 			}
 
 			
@@ -308,9 +322,14 @@ class APIController extends Controller
         $postings = array();
         $parser = new ParseController();
 		foreach ($results->results as $post) {
-				$retValue = $parser->fetch($post->url);
-				if($retValue == true){
+				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
+				}else{
+					$retValue = $parser->fetch($post->url);
+					if($retValue == true){
+						$postings[] = $post;
+						Cache::put($post->jobkey,'',22*60);
+					}
 				}
 			}
 
@@ -432,9 +451,14 @@ class APIController extends Controller
         		$found = 'yes';
         		$parser = new ParseController();
         		foreach ($results->results as $post) {
-				$retValue = $parser->fetch($post->url);
-				if($retValue == true){
+				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
+				}else{
+					$retValue = $parser->fetch($post->url);
+					if($retValue == true){
+						$postings[] = $post;
+						Cache::put($post->jobkey,'',22*60);
+					}
 				}
 			}
         	}
