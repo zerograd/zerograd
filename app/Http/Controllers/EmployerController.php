@@ -293,19 +293,19 @@ class EmployerController extends Controller
 
         
         //Part 1 of 4 needed to determine scoring system
-        //function will determine their percentage (worth 25%)
+        //function will determine their percentage (worth 27%)
         $applicants = $this->studentsSeen($applicants);
 
         //Part 2 of 4 needed to determin scoring system
-        //function will determine their percentage (worth 25%)
+        //function will determine their percentage (worth 27%)
         $applicants = $this->profileCompletion($applicants);
 
         //Part 3 of 4 needed to determin scoring system
-        //function will determine their percentage (worth 25%)
+        //function will determine their percentage (worth 27%)
         $applicants = $this->frequency($applicants);
 
         //Part 4 of 4 needed to determin scoring system
-        //function will determine their percentage (worth 25%)
+        //function will determine their percentage (worth 19%)
         $applicants = $this->profileMatch($applicants,$posting);
         
                 
@@ -454,7 +454,7 @@ class EmployerController extends Controller
             }
 
             //the weight of this function
-            $percentage = $percentage * 0.25;
+            $percentage = $percentage * 0.27;
             $applicant->seen_percentage = $percentage;
         }
         return $applicants;
@@ -490,7 +490,7 @@ class EmployerController extends Controller
             if($linkedIn) $percentage += 20;
 
             //the weight of this function
-            $percentage = $percentage * 0.25;
+            $percentage = $percentage * 0.27;
             $applicant->profilePercentage = $percentage;
         }
         return $applicants;
@@ -522,7 +522,7 @@ class EmployerController extends Controller
 
 
             //the weight of this function
-            $percentage = $percentage * 0.25;
+            $percentage = $percentage * 0.27;
             $applicant->frequencyPercentage = $percentage;
         }
         return $applicants;
@@ -583,7 +583,7 @@ class EmployerController extends Controller
 
 
             //the weight of this function
-            $percentage = ($percentage * 100) * 0.25;
+            $percentage = ($percentage * 100) * 0.19;
             $applicant->profilePercentage = $percentage;
             }  
         }
