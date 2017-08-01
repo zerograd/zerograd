@@ -186,7 +186,9 @@ Route::get('/resources/{id}',array(
 
 
 
-
+Route::get('/results',function(){
+	return redirect('/browse-jobs');
+});
 
 Route::post('/results',array(
 	'as' => 'apicheck',
