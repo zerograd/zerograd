@@ -222,14 +222,18 @@
 		<h3 class="margin-bottom-25">Recent Jobs</h3>
 		<ul class="job-list">
 		@foreach($recentJobs as $job)
-			<li class="highlighted"><a href="{{route('get-posting',$job->id)}}">
-				<img src="theme/images/job-list-logo-01.png" alt="">
+			<li class="highlighted"><a href="{{$job->url}}" target="_blank" onClick="seen();">
+				<img src="{{URL::asset('/images/job-list-logo-01.png')}}" alt="">
 				<div class="job-list-content">
-					<h4>{{$job->title}} <span class="full-time">{{$job->status}}</span></h4>
+					<h4>{{$job->jobtitle}}</h4>
 					<div class="job-icons">
-						<span><i class="fa fa-briefcase"></i> {{$job->company_name}}</span>
-						<span><i class="fa fa-map-marker"></i> {{$job->location}}</span>
-						<span><i class="fa fa-money"></i>{{$job->salary}}</span>
+						<span style="text-transform: capitalize;"><i class="fa fa-briefcase"></i>{{$job->company}}</span>
+						<span><i class="fa fa-map-marker"></i>{{$job->formattedLocation}}</span>
+						<?php 
+							$date = date_create($job->date);
+							$formattedDate = date_format($date,'F d, Y');
+						?>
+						<span><i class="fa fa-calendar" aria-hidden="true"></i></i>{{$formattedDate}}</span>
 					</div>
 				</div>
 				</a>
@@ -258,43 +262,18 @@
 		<div id="job-spotlight" class="showbiz-container">
 			<div class="showbiz" data-left="#showbiz_left_1" data-right="#showbiz_right_1" data-play="#showbiz_play_1" >
 				<div class="overflowholder">
-
 					<ul>
-
-						<li>
-							<div class="job-spotlight">
-								<a href="#"><h4>Social Media: Advertising Coordinator <span class="part-time">Part-Time</span></h4></a>
-								<span><i class="fa fa-briefcase"></i> Mates</span>
-								<span><i class="fa fa-map-marker"></i> New York</span>
-								<span><i class="fa fa-money"></i> $20 / hour</span>
-								<p>As advertising & content coordinator, you will support our social media team in producing high quality social content for a range of media channels.</p>
-								<a href="{{route('get-posting',7)}}" class="button">Apply For This Job</a>
-							</div>
-						</li>
-
-						<li>
-							<div class="job-spotlight">
-								<a href="#"><h4>Prestashop / WooCommerce Product Listing <span class="freelance">Freelance</span></h4></a>
-								<span><i class="fa fa-briefcase"></i> King</span>
-								<span><i class="fa fa-map-marker"></i> London</span>
-								<span><i class="fa fa-money"></i> $25 / hour</span>
-								<p>Etiam suscipit tellus ante, sit amet hendrerit magna varius in. Pellentesque lorem quis enim venenatis pellentesque.</p>
-								<a href="{{route('get-posting',7)}}" class="button">Apply For This Job</a>
-							</div>
-						</li>
-
-						<li>
-							<div class="job-spotlight">
-								<a href="#"><h4>Logo Design <span class="freelance">Freelance</span></h4></a>
-								<span><i class="fa fa-briefcase"></i> Hexagon</span>
-								<span><i class="fa fa-map-marker"></i> Sydney</span>
-								<span><i class="fa fa-money"></i> $10 / hour</span>
-								<p>Proin ligula neque, pretium et ipsum eget, mattis commodo dolor. Etiam tincidunt libero quis commodo.</p>
-								<a href="{{route('get-posting',7)}}" class="button">Apply For This Job</a>
-							</div>
-						</li>
-
-
+					@foreach($spotLight as $job)
+					<li>
+						<div class="job-spotlight">
+							<a href="{{$job->url}}"><h4>{{$job->jobtitle}}</a>
+							<span><i class="fa fa-briefcase"></i>{{$job->company}}</span>
+							<span><i class="fa fa-map-marker"></i>{{$job->city}}</span>
+							<p>{{substr($job->snippet,0,50)}}</p>
+							<a href="{{$job->url}}" class="button">Apply For This Job</a>
+						</div>
+					</li>
+					@endforeach
 					</ul>
 					<div class="clearfix"></div>
 

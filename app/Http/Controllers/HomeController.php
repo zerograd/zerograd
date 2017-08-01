@@ -504,6 +504,11 @@ class HomeController extends Controller
 		$sizeOfResumes = DB::table('resume')->select('*')->count();
 		$sizeOfCompanies = DB::table('companies')->select('*')->count();
 
+		$api = new APIController();
+		$recentJobs = $api->index();
+		$spotLight = $api->spotlight();
+
+
 		
     	$data = array(
     		'postingsCount' => $postingsCount,
@@ -512,6 +517,7 @@ class HomeController extends Controller
     		'sizeOfMembers' => $sizeOfMembers,
     		'sizeOfResumes' => $sizeOfResumes,
     		'sizeOfCompanies' => $sizeOfCompanies,
+    		'spotLight' => $spotLight
 		);
     	return view('main')->with($data);
     }

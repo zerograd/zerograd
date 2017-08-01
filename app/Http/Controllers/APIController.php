@@ -17,7 +17,7 @@ class APIController extends Controller
 
 
     public function index(){
-    		$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
+			$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
     	    
    //  		$opts = array(
 			//   'http'=>array(
@@ -30,7 +30,7 @@ class APIController extends Controller
 
 			// // Open the file using the HTTP headers set above
 
-			$apiString = 'https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=ca&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=toronto&latlong=<required>&limit=<required>&q=java&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2';
+			$apiString = 'https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=ca&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=toronto&latlong=<required>&limit=6&q=<required>&radius=25&sort=date&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2';
 			// $res = file_get_contents($apiString, false, $context);
 
     		$ch = curl_init();
@@ -50,9 +50,116 @@ class APIController extends Controller
 			  var_dump($output);
 			}
 
-			return $output;
+			$results = $output;
+			// return $results;
+
+
+			//Get categories
+			$categories = DB::table('categories')
+							->select('*')
+							->get();
+
+			$postings = array();
+			$parser = new ParseController();
+			foreach ($results->results as $post) {
+
+				if(Cache::has($post->jobkey)){
+					$postings[] = $post;
+				}else{
+					$retValue = $parser->fetch($post->url);
+					if($retValue == true){
+						$postings[] = $post;
+						Cache::put($post->jobkey,'',22*60);
+					}
+				}
+
+				
+			}
 
 			
+			
+
+
+
+			$found = 'no';
+			if(sizeof($results->results) > 0) $found = 'yes';
+
+
+			$badges = ['#E3C610','#10E358','#108EE3'];
+			return $postings;
+    }
+
+    public function spotlight(){
+    	$apiKey = "VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B";
+    	    
+   //  		$opts = array(
+			//   'http'=>array(
+			//     'method'=>"GET",
+			//     'header'=>"X-Mashape-Key:VkkqCtqYZ1mshzkpvgVYh664G3PVp15ust8jsnAp6PjXWDxz1B"               
+			//   )
+			// );
+
+			// $context = stream_context_create($opts);
+
+			// // Open the file using the HTTP headers set above
+
+			$apiString = 'https://indeed-indeed.p.mashape.com/apisearch?publisher=8346533341188358&callback=<required>&chnl=<required>&co=ca&filter=<required>&format=json&fromage=<required>&highlight=<required>&jt=<required>&l=toronto&latlong=<required>&limit=3&q=<required>&radius=25&sort=<required>&st=<required>&start=<required>&useragent=<required>&userip=<required>&v=2';
+			// $res = file_get_contents($apiString, false, $context);
+
+    		$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL,$apiString); 
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); 
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+			'X-Mashape-Key: ' . $apiKey
+			));
+			$output = curl_exec($ch);   
+
+			// convert response
+			$output = json_decode($output);
+
+			// handle error; error output
+			if(curl_getinfo($ch, CURLINFO_HTTP_CODE) !== 200) {
+
+			  var_dump($output);
+			}
+
+			$results = $output;
+			// return $results;
+
+
+			//Get categories
+			$categories = DB::table('categories')
+							->select('*')
+							->get();
+
+			$postings = array();
+			$parser = new ParseController();
+			foreach ($results->results as $post) {
+
+				if(Cache::has($post->jobkey)){
+					$postings[] = $post;
+				}else{
+					$retValue = $parser->fetch($post->url);
+					if($retValue == true){
+						$postings[] = $post;
+						Cache::put($post->jobkey,'',22*60);
+					}
+				}
+
+				
+			}
+
+			
+			
+
+
+
+			$found = 'no';
+			if(sizeof($results->results) > 0) $found = 'yes';
+
+
+			$badges = ['#E3C610','#10E358','#108EE3'];
+			return $postings;
     }
 
     public function getSearch(){

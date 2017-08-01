@@ -234,6 +234,7 @@
 			
 			var data = categoryForm +'&'+ locationForm +'&'+ jobTypeForm +'&'+ levelForm + '&_token={{csrf_token()}}' + '&keywords=' + keywords + '&page=' + page; 
 			$.post('{{route('job-pagination')}}',data,function(data){
+				$('.loader').hide();
 				if(keywords){
 					$('#keywords-title').text(keywords);
 				}
