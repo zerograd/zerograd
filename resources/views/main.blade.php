@@ -295,17 +295,17 @@
 				  <ul class="slides">
 				    <li>
 				      <p>I have already heard back about the internship I applied through Job Finder, that's the fastest job reply I've ever gotten and it's so much better than waiting weeks to hear back.
-				      <span>Collis Ta’eed, Envato</span></p>
+				      <span>Kyle Wilson-McCormack,&nbspStudent</span></p>
 				    </li>
 
 				    <li>
-				      <p>Nam eu eleifend nulla. Duis consectetur sit amet risus sit amet venenatis. Pellentesque pulvinar ante a tincidunt placerat. Donec dapibus efficitur arcu, a rhoncus lectus egestas elementum.
-				      <span>John Doe</span></p>
+				      <p>I did not know so many students were on the hunt for entry-level jobs.
+				      <span>John Smith,&nbspRecruiter</span></p>
 				    </li>
 				    
 				    <li>
-				      <p>Maecenas congue sed massa et porttitor. Duis placerat commodo ex, ut faucibus est facilisis ac. Donec eleifend arcu sed sem posuere aliquet. Etiam lorem metus, suscipit vel tortor vitae.
-				      <span>Tom Smith</span></p>
+				      <p>I only had to use this for a few weeks, before I found the perfect place to work. Thanks ZeroGrad!
+				      <span>Tom Smith,&nbspJob Seeker</span></p>
 				    </li>
 
 				  </ul>
@@ -315,12 +315,6 @@
 </div>
 
 
-<!-- Infobox -->
-<div class="infobox">
-	<div class="container">
-		<div class="sixteen columns">Start Building Your Own Job Board Now <a href="my-account.html">Get Started</a></div>
-	</div>
-</div>
 
 
 <!-- Recent Posts -->
