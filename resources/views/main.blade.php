@@ -6,7 +6,7 @@
 <!-- Basic Page Needs
 ================================================== -->
 <meta charset="utf-8">
-<title>Work Scout</title>
+<title>ZeroGrad</title>
 
 <!-- Mobile Specific Metas
 ================================================== -->
