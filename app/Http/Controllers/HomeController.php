@@ -509,6 +509,20 @@ class HomeController extends Controller
 		$spotLight = $api->spotlight();
 
 
+		//Resources
+		$resources = DB::table('resources')
+					->select('*')
+					->take(3)
+					->get();
+
+		foreach ($resources as $resource) {
+			$resource->image_path = null;
+			$image_path = '';
+			if($resource->res_image) {
+				$image_path = asset('storage/' . $resource->res_image);
+				$resource->image_path = $image_path;
+			}
+		}
 		
     	$data = array(
     		'postingsCount' => $postingsCount,
@@ -517,7 +531,8 @@ class HomeController extends Controller
     		'sizeOfMembers' => $sizeOfMembers,
     		'sizeOfResumes' => $sizeOfResumes,
     		'sizeOfCompanies' => $sizeOfCompanies,
-    		'spotLight' => $spotLight
+    		'spotLight' => $spotLight,
+    		'resources' => $resources
 		);
     	return view('main')->with($data);
     }

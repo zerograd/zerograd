@@ -4299,6 +4299,7 @@ a.post-img:hover:before {
 .recent-post-img {
 	position: relative;
 	overflow: hidden;
+	height:188px;
 }
 
 
