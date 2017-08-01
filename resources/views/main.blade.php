@@ -162,7 +162,7 @@
 				
 				<!-- Announce -->
 				<div class="announce">
-					We’ve over <strong>{{$postingsCount}}</strong> job offers for you!
+					We’ve over <strong>5000+</strong> job offers for you!
 				</div>
 
 			</div>
@@ -183,7 +183,7 @@
 
 		<div class="four columns">
 			<div class="counter-box">
-				<span class="counter">{{$sizeOfJobs}}</span>
+				<span class="counter">5000</span>
 				<p>Job Offers</p>
 			</div>
 		</div>
