@@ -15,7 +15,7 @@
 
 	  			<div class="form-group col-sm-12">
 	  				<label>Content:</label>
-	  				<textarea name="res_content" class="form-control" style="height:150px;" required>{{$resource->res_content_first . $resource->res_content_second}}</textarea>
+	  				<textarea name="res_content" class="resource-content form-control" style="height:150px;" required>{{$resource->res_content_first . $resource->res_content_second}}</textarea>
 	  			</div>
 
 	  			<div class="form-group col-sm-6">

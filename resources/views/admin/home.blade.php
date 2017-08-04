@@ -59,6 +59,11 @@
 @section('script_plugins')
 	<script type="text/javascript">
 
+
+			  var quill = new Quill('#resource-content', {
+			    theme: 'snow'
+			  });
+
 			function showAdminUser(element){
 				var id = "";
 				if(element){
@@ -171,6 +176,8 @@
 				var element = $(this);
 				element.toggleClass('addBorder');
 			});
+
+
 		});
 
 		//Maximize the panel
