@@ -74,7 +74,7 @@
 						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
 						
 						@if(Session::has('user_id'))
-							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
+							<li><a href="#">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">TBA</span></a></li>
 						@endif
 						<li><a href="{{route('add-resume')}}">Add Resume</a></li>
 						<li><a href="{{route('manage-resume')}}">Manage Resumes</a></li>
@@ -98,7 +98,7 @@
 						<li><a href="{{route('browse-jobs')}}">Browse Jobs</a></li>
 						
 						@if(Session::has('user_id'))
-							<li><a href="{{route('resume-builder',Session::get('user_id'))}}">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">NEW</span></a></li>
+							<li><a href="#">Resume Builder <span style="background-color: #26ae61; color:white;padding:2px;border-radius: 3px;">TBA</span></a></li>
 						@endif
 						<li><a href="{{route('add-resume')}}">Add Resume</a></li>
 						<li><a href="{{route('manage-resume')}}">Manage Resumes</a></li>
