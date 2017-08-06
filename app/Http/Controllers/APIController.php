@@ -66,11 +66,57 @@ class APIController extends Controller
 				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
 				}else{
-					$retValue = $parser->fetch($post->url);
-					if($retValue == true){
+					
+					//Check DB now
+					$count = DB::table('postings')->select('*')->where('jobkey',$post->jobkey)->count();
+					if($count > 0){
 						$postings[] = $post;
-						Cache::put($post->jobkey,'',22*60);
+					}else{
+						$retValue = $parser->fetch($post->url);
+						if($retValue == true){
+							$postings[] = $post;
+							Cache::put($post->jobkey,'',22*60);
+							$date=date_create($post->date);
+							$formatted = date_format($date,'Y-m-d');
+
+							//Check if company exist
+							$companyCount = DB::table('companies')->select('*')->where('company_name',$post->company)->first();
+
+							if($companyCount){
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyCount->id,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}else{
+								$companyID = DB::table('companies')->insertGetId(array(
+								'company_name' => $post->company,
+								'company_location' => $post->formattedLocation
+								));
+
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyID,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}
+							
+						}
 					}
+
+					
 				}
 
 				
@@ -139,10 +185,53 @@ class APIController extends Controller
 				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
 				}else{
-					$retValue = $parser->fetch($post->url);
-					if($retValue == true){
+					//Check DB now
+					$count = DB::table('postings')->select('*')->where('jobkey',$post->jobkey)->count();
+					if($count > 0){
 						$postings[] = $post;
-						Cache::put($post->jobkey,'',22*60);
+					}else{
+						$retValue = $parser->fetch($post->url);
+						if($retValue == true){
+							$postings[] = $post;
+							Cache::put($post->jobkey,'',22*60);
+							$date=date_create($post->date);
+							$formatted = date_format($date,'Y-m-d');
+
+							//Check if company exist
+							$companyCount = DB::table('companies')->select('*')->where('company_name',$post->company)->first();
+
+							if($companyCount){
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyCount->id,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}else{
+								$companyID = DB::table('companies')->insertGetId(array(
+								'company_name' => $post->company,
+								'company_location' => $post->formattedLocation
+								));
+
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyID,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}
+							
+						}
 					}
 				}
 
@@ -218,10 +307,53 @@ class APIController extends Controller
 				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
 				}else{
-					$retValue = $parser->fetch($post->url);
-					if($retValue == true){
+					//Check DB now
+					$count = DB::table('postings')->select('*')->where('jobkey',$post->jobkey)->count();
+					if($count > 0){
 						$postings[] = $post;
-						Cache::put($post->jobkey,'',22*60);
+					}else{
+						$retValue = $parser->fetch($post->url);
+						if($retValue == true){
+							$postings[] = $post;
+							Cache::put($post->jobkey,'',22*60);
+							$date=date_create($post->date);
+							$formatted = date_format($date,'Y-m-d');
+
+							//Check if company exist
+							$companyCount = DB::table('companies')->select('*')->where('company_name',$post->company)->first();
+
+							if($companyCount){
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyCount->id,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}else{
+								$companyID = DB::table('companies')->insertGetId(array(
+								'company_name' => $post->company,
+								'company_location' => $post->formattedLocation
+								));
+
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyID,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}
+							
+						}
 					}
 				}
 			}
@@ -304,10 +436,56 @@ class APIController extends Controller
 				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
 				}else{
-					$retValue = $parser->fetch($post->url);
-					if($retValue == true){
+					//Check DB now
+					$count = DB::table('postings')->select('*')->where('jobkey',$post->jobkey)->count();
+					if($count > 0){
 						$postings[] = $post;
-						Cache::put($post->jobkey,'',22*60);
+					}else{
+						$retValue = $parser->fetch($post->url);
+						if($retValue == true){
+							$postings[] = $post;
+							Cache::put($post->jobkey,'',22*60);
+							$date=date_create($post->date);
+							$formatted = date_format($date,'Y-m-d');
+
+							//Check if company exist
+							$companyCount = DB::table('companies')->select('*')->where('company_name',$post->company)->first();
+
+							if($companyCount){
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyCount->id,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}else{
+								$companyID = DB::table('companies')->insertGetId(array(
+									'company_name' => $post->company,
+									'company_location' => $post->formattedLocation
+								));
+
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyID,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}
+
+
+							
+							
+						}
 					}
 				}
 
@@ -432,10 +610,53 @@ class APIController extends Controller
 				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
 				}else{
-					$retValue = $parser->fetch($post->url);
-					if($retValue == true){
+					//Check DB now
+					$count = DB::table('postings')->select('*')->where('jobkey',$post->jobkey)->count();
+					if($count > 0){
 						$postings[] = $post;
-						Cache::put($post->jobkey,'',22*60);
+					}else{
+						$retValue = $parser->fetch($post->url);
+						if($retValue == true){
+							$postings[] = $post;
+							Cache::put($post->jobkey,'',22*60);
+							$date=date_create($post->date);
+							$formatted = date_format($date,'Y-m-d');
+
+							//Check if company exist
+							$companyCount = DB::table('companies')->select('*')->where('company_name',$post->company)->first();
+
+							if($companyCount){
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyCount->id,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}else{
+								$companyID = DB::table('companies')->insertGetId(array(
+								'company_name' => $post->company,
+								'company_location' => $post->formattedLocation
+								));
+
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyID,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}
+							
+						}
 					}
 				}
 			}
@@ -561,10 +782,53 @@ class APIController extends Controller
 				if(Cache::has($post->jobkey)){
 					$postings[] = $post;
 				}else{
-					$retValue = $parser->fetch($post->url);
-					if($retValue == true){
+					//Check DB now
+					$count = DB::table('postings')->select('*')->where('jobkey',$post->jobkey)->count();
+					if($count > 0){
 						$postings[] = $post;
-						Cache::put($post->jobkey,'',22*60);
+					}else{
+						$retValue = $parser->fetch($post->url);
+						if($retValue == true){
+							$postings[] = $post;
+							Cache::put($post->jobkey,'',22*60);
+							$date=date_create($post->date);
+							$formatted = date_format($date,'Y-m-d');
+
+							//Check if company exist
+							$companyCount = DB::table('companies')->select('*')->where('company_name',$post->company)->first();
+
+							if($companyCount){
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyCount->id,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}else{
+								$companyID = DB::table('companies')->insertGetId(array(
+								'company_name' => $post->company,
+								'company_location' => $post->formattedLocation
+								));
+
+								DB::table('postings')
+								->insert(array(
+									'title' => $post->jobtitle,
+									'company' => $post->company,
+									'company_id' => $companyID,
+									'location' => $post->formattedLocation,
+									'posted_date' => $formatted,
+									'url' => $post->url,
+									'description' => $post->snippet,
+									'jobkey' => $post->jobkey,
+								));
+							}
+							
+						}
 					}
 				}
 			}

@@ -1,7 +1,7 @@
 @extends('layout.newthemelayout')
 
 @section('title')
-	<title>{{$posting->title}} : {{$posting->keywords}}</title>
+	<title>ZeroGrad: {{$posting->title}}</title>
 @stop
 
 
@@ -12,8 +12,7 @@
 <div id="titlebar">
 	<div class="container">
 		<div class="ten columns">
-			<span><a href="browse-jobs.html">{{$posting->cat_name}}</a></span>
-			<h2>{{$posting->title}}&nbsp<span class="full-time">{{$posting->status}}</span></h2>
+			<h2>{{$posting->title}}&nbsp</h2>
 		</div>
 
 		<div class="six columns">
@@ -40,13 +39,7 @@
 		<div class="company-info">
 			<img src="{{URL::asset('images/company-logo.png')}}" alt="">
 			<div class="content">
-				<h4>{{$posting->company_name}}</h4>
-				@if($posting->external_link)
-					<span><a href="{{$posting->external_link}}"><i class="fa fa-link"></i>Website:&nbsp{{$posting->external_link}}</a></span>
-				@else
-					<span><a href="#"><i class="fa fa-link"></i>&nbspNot Specified</a></span>
-				@endif
-				<span><a href="#"><i class="fa fa-twitter"></i> @kingrestaurants</a></span>
+				<h4>{{$posting->company}}</h4>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -56,27 +49,20 @@
 		</p>
 
 		<br>
-		<p>The <strong>{{$posting->title}}</strong> will have responsibilities that include:</p>
+		<p>The <strong>{{$posting->title}}</strong> will have responsibilities that include:...</p>
 
-		<ul class="list-1">
-			<li>Executing the Food Service program, including preparing and presenting our wonderful food offerings
-			to hungry customers on the go!
-			</li>
-			<li>Greeting customers in a friendly manner and suggestive selling and sampling items to help increase sales.</li>
-			<li>Keeping our Store food area looking terrific and ready for our valued customers by managing product 
-			inventory, stocking, cleaning, etc.</li>
-			<li>We’re looking for associates who enjoy interacting with people and working in a fast-paced environment!</li>
-		</ul>
-		
+		@if(!Session::has('user_id'))                
+          <a data-remodal-target="modal" href="#" class="button">Read More!</a>
+    	@else
+		  <a href="{{$posting->url}}"  class="button">READ MORE</a>
+		@endif
 		<br>
 
-		<h4 class="margin-bottom-10">Job Requirment</h4>
+		<!-- <h4 class="margin-bottom-10">Job Requirment</h4>
 
 		<ul class="list-1">
-			@foreach($requirements as $requirement)
-				<li> {{$requirement}}</li>
-			@endforeach
-		</ul>
+
+		</ul> -->
 
 	</div>
 	</div>
@@ -134,7 +120,7 @@
                 	@if($appliedTo > 0)
                 	 <a href="#!" class="button">Applied</a>
                 	 @else
-                	 <a data-remodal-target="modal-apply" href="#"  class="button">Apply For This Job</a>
+                	 <a href="{{$posting->url}}"  class="button">Apply For This Job</a>
                 	 @endif
 
                 	@if($saved > 0) 
@@ -163,7 +149,7 @@
     <div id="login-panel">
         <form id="register-form">
             {{ csrf_field() }}
-            <h2 style="color:#29C9C8;;">Sign Up Today and begin your search</h2>
+            <h2 style="color:#29C9C8;;">Sign Up Today</h2>
             <input type="text" id="student_name" name="student_name" placeholder="Name" value=""/>
             <input type="text" id="email" name="email" placeholder="Email" value=""/>
             <input type="password" id="password" name="password" placeholder="Password" value=""/>

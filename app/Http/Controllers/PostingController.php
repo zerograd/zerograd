@@ -13,9 +13,8 @@ class PostingController extends Controller
     public function index($id = null,$title = null){
 
     	$posting = DB::table('postings')
-    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'),DB::raw('categories.cat_name'))
+    				->select(DB::raw('postings.*'),DB::raw('companies.id AS companyID'),DB::raw('companies.company_name'))
     				->leftJoin('companies',DB::raw('companies.id'),'=',DB::raw('postings.company_id'))
-                    ->join('categories','categories.cat_id','=','postings.cat_id')
     				->where(DB::raw('postings.id'),$id)
     				->first();
 
@@ -29,14 +28,14 @@ class PostingController extends Controller
         $appliedTo = DB::table('applied_to')->where('user_id',Session::get('user_id'))->where('posting_id',$id)->count();
 
 
-        $requirements = explode(',',$posting->requirements);
+        // $requirements = explode(',',$posting->requirements);
 
     	$data = array(
     		'posting' => $posting,
             'post_id' => $id,
             'saved' => $saved,
             'appliedTo' => $appliedTo,
-            'requirements' => $requirements
+            // 'requirements' => $requirements
 		);
 
         

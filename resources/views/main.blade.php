@@ -217,20 +217,20 @@
 <div class="container">
 	
 	<!-- Recent Jobs -->
-	<div class="eleven columns">
+	<div class="sixteen columns">
 	<div class="padding-right">
 		<h3 class="margin-bottom-25">Recent Jobs</h3>
 		<ul class="job-list">
 		@foreach($recentJobs as $job)
-			<li class="highlighted"><a href="{{$job->url}}" target="_blank" onClick="seen();">
+			<li class="highlighted"><a href="{{route('get-posting',$job->id)}}" target="_blank" onClick="seen();">
 				<img src="{{URL::asset('/images/job-list-logo-01.png')}}" alt="">
 				<div class="job-list-content">
-					<h4>{{$job->jobtitle}}</h4>
+					<h4>{{$job->title}}</h4>
 					<div class="job-icons">
 						<span style="text-transform: capitalize;"><i class="fa fa-briefcase"></i>{{$job->company}}</span>
-						<span><i class="fa fa-map-marker"></i>{{$job->formattedLocation}}</span>
+						<span><i class="fa fa-map-marker"></i>{{$job->location}}</span>
 						<?php 
-							$date = date_create($job->date);
+							$date = date_create($job->posted_date);
 							$formattedDate = date_format($date,'F d, Y');
 						?>
 						<span><i class="fa fa-calendar" aria-hidden="true"></i></i>{{$formattedDate}}</span>
@@ -247,42 +247,7 @@
 	</div>
 	</div>
 
-	<!-- Job Spotlight -->
-	<div class="five columns">
-		<h3 class="margin-bottom-5">Job Spotlight</h3>
-
-		<!-- Navigation -->
-		<div class="showbiz-navigation">
-			<div id="showbiz_left_1" class="sb-navigation-left"><i class="fa fa-angle-left"></i></div>
-			<div id="showbiz_right_1" class="sb-navigation-right"><i class="fa fa-angle-right"></i></div>
-		</div>
-		<div class="clearfix"></div>
-		
-		<!-- Showbiz Container -->
-		<div id="job-spotlight" class="showbiz-container">
-			<div class="showbiz" data-left="#showbiz_left_1" data-right="#showbiz_right_1" data-play="#showbiz_play_1" >
-				<div class="overflowholder">
-					<ul>
-					@foreach($spotLight as $job)
-					<li>
-						<div class="job-spotlight">
-							<a href="{{$job->url}}"><h4>{{$job->jobtitle}}</a>
-							<span><i class="fa fa-briefcase"></i>{{$job->company}}</span>
-							<span><i class="fa fa-map-marker"></i>{{$job->city}}</span>
-							<p>{{substr($job->snippet,0,50)}}</p>
-							<a href="{{$job->url}}" class="button">Apply For This Job</a>
-						</div>
-					</li>
-					@endforeach
-					</ul>
-					<div class="clearfix"></div>
-
-				</div>
-				<div class="clearfix"></div>
-			</div>
-		</div>
-
-	</div>
+	
 </div>
 
 
@@ -332,7 +297,7 @@
 		<!-- Post #1 -->
 		<div class="recent-post">
 			@if(isset($resource->image_path))
-				
+
 				<div class="recent-post-img"><a href="{{route('get-resource',['id'=> $id,'title' => $title])}}"><img src="{{$resource->image_path}}" alt=""></a><div class="hover-icon"></div></div>
 				@else
 				<div class="recent-post-img"><a href="{{route('get-resource',['id'=> $id,'title' => $title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a><div class="hover-icon"></div></div>

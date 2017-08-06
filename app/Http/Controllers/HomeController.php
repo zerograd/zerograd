@@ -494,19 +494,22 @@ class HomeController extends Controller
 
 
     	//Recent jobs 
-    	$recentJobs = DB::table('postings')->select(DB::raw('postings.*'),DB::raw('companies.company_name'))
-    						->join('companies','companies.id','=','postings.company_id')
+    	$recentJobs = DB::table('postings')->select(DB::raw('postings.*'))
     						->orderBy('postings.posted_date','DESC')
     						->take(5)
     						->get();
+
 		$sizeOfJobs = DB::table('postings')->select('*')->count();
 		$sizeOfMembers = DB::table('students')->select('*')->count();
 		$sizeOfResumes = DB::table('resume')->select('*')->count();
 		$sizeOfCompanies = DB::table('companies')->select('*')->count();
 
 		$api = new APIController();
-		$recentJobs = $api->index();
 		$spotLight = $api->spotlight();
+
+		$spotlightArray = array();
+
+		
 
 
 		//Resources
