@@ -31,13 +31,13 @@
 			<!-- Post -->
 			<div class="post-container">
 				@if(isset($resource->image_path))
-				<div class="post-img"><a href="{{route('get-resource',$resource->res_id)}}"><img src="{{$resource->image_path}}" alt=""></a><div class="hover-icon"></div></div>
+				<div class="post-img"><a href="{{route('get-resource',[$resource->res_id,$resource->res_title])}}"><img src="{{$resource->image_path}}" alt=""></a><div class="hover-icon"></div></div>
 				@else
-				<div class="post-img"><a href="{{route('get-resource',$resource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a><div class="hover-icon"></div></div>
+				<div class="post-img"><a href="{{route('get-resource',[$resource->res_id,$resource->res_title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a><div class="hover-icon"></div></div>
 				@endif
 				
 				<div class="post-content">
-					<a href="{{route('get-resource',$resource->res_id)}}"><h3>{{$resource->res_title}}</h3></a>
+					<a href="{{route('get-resource',[$resource->res_id,$resource->res_title])}}"><h3>{{$resource->res_title}}</h3></a>
 					<div class="meta-tags">
 						<?php $date = date_create($resource->created);
 										$dateFormatted = date_format($date,'F d, Y'); 
@@ -46,7 +46,7 @@
 						<span><a href="#">0 Comments</a></span>
 					</div>
 					<p>{{substr($resource->res_content_first,0,100)}}...</p>
-					<a class="button" href="{{route('get-resource',$resource->res_id)}}">Read More</a>
+					<a class="button" href="{{route('get-resource',[$resource->res_id,$resource->res_title])}}">Read More</a>
 				</div>
 			</div>
 		@endforeach
@@ -113,15 +113,15 @@
 							<li>
 								<div class="widget-thumb">
 									@if(isset($popularResource->image_path))
-									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{$popularResource->image_path}}" alt="" /></a>
+									<a href="{{route('get-resource',[$popularResource->res_id,$popularResource->res_title])}}"><img src="{{$popularResource->image_path}}" alt="" /></a>
 									@else
-									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									<a href="{{route('get-resource',[$popularResource->res_id,$popularResource->res_title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
 									@endif
 									
 								</div>
 								
 								<div class="widget-text">
-									<h5><a href="{{route('get-resource',$popularResource->res_id)}}">{{$popularResource->res_title}}</a></h5>
+									<h5><a href="{{route('get-resource',[$popularResource->res_id,$popularResource->res_title])}}">{{$popularResource->res_title}}</a></h5>
 									<?php $date = date_create($popularResource->created);
 										$dateFormatted = date_format($date,'F d, Y'); 
 									?>
@@ -142,14 +142,14 @@
 							<li>
 								<div class="widget-thumb">
 									@if(isset($recentResource->image_path))
-									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{$recentResource->image_path}}" alt="" /></a>
+									<a href="{{route('get-resource',[$recentResource->res_id,$recentResource->res_title])}}"><img src="{{$recentResource->image_path}}" alt="" /></a>
 									@else
-									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									<a href="{{route('get-resource',[$recentResource->res_id,$recentResource->res_title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
 									@endif
 								</div>
 								
 								<div class="widget-text">
-									<h5><a href="{{route('get-resource',$recentResource->res_id)}}">{{$recentResource->res_title}}</a></h5>
+									<h5><a href="{{route('get-resource',[$recentResource->res_id,$resource->res_title])}}">{{$recentResource->res_title}}</a></h5>
 									<?php $date = date_create($recentResource->created);
 										$dateFormatted = date_format($date,'F d, Y'); 
 									?>

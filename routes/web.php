@@ -177,7 +177,7 @@ Route::get('/resources',array(
 	'uses' => 'HomeController@resources'
 ));
 
-Route::get('/resources/{id}',array(
+Route::get('/resources/{id}/{title}',array(
 	'as' => 'get-resource',
 	'uses' => 'HomeController@getResource'
 ));
@@ -313,10 +313,7 @@ Route::get('/company/{id}',array(
 ));
 
 //PostingController
-Route::get('/posting/{title}/{id}',array(
-	'as' => 'posting-get',
-	'uses' => 'PostingController@index'		
-));
+
 
 Route::post('/save-job/{id}',array(
 		'as' => 'save-job',

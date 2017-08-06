@@ -171,15 +171,15 @@
 							<li>
 								<div class="widget-thumb">
 									@if(isset($popularResource->image_path))
-									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{$popularResource->image_path}}" alt="" /></a>
+									<a href="{{route('get-resource',[$popularResource->res_id,$popularResource->res_title])}}"><img src="{{$popularResource->image_path}}" alt="" /></a>
 									@else
-									<a href="{{route('get-resource',$popularResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									<a href="{{route('get-resource',[$popularResource->res_id,$popularResource->res_title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
 									@endif
 									
 								</div>
 								
 								<div class="widget-text">
-									<h5><a href="{{route('get-resource',$popularResource->res_id)}}">{{$popularResource->res_title}}</a></h5>
+									<h5><a href="{{route('get-resource',[$popularResource->res_id,$popularResource->res_title])}}">{{ str_replace('-',' ',$popularResource->res_title)}}</a></h5>
 									<?php $date = date_create($popularResource->created);
 										$dateFormatted = date_format($date,'F d, Y'); 
 									?>
@@ -200,14 +200,14 @@
 							<li>
 								<div class="widget-thumb">
 									@if(isset($recentResource->image_path))
-									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{$recentResource->image_path}}" alt="" /></a>
+									<a href="{{route('get-resource',[$recentResource->res_id,$recentResource->res_title])}}"><img src="{{$recentResource->image_path}}" alt="" /></a>
 									@else
-									<a href="{{route('get-resource',$recentResource->res_id)}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
+									<a href="{{route('get-resource',[$recentResource->res_id,$recentResource->res_title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt="" /></a>
 									@endif
 								</div>
 								
 								<div class="widget-text">
-									<h5><a href="{{route('get-resource',$recentResource->res_id)}}">{{$recentResource->res_title}}</a></h5>
+									<h5><a href="{{route('get-resource',[$recentResource->res_id,$recentResource->res_title])}}">{{str_replace('-',' ',$recentResource->res_title)}}</a></h5>
 									<?php $date = date_create($recentResource->created);
 										$dateFormatted = date_format($date,'F d, Y'); 
 									?>

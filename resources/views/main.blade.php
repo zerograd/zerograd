@@ -325,16 +325,21 @@
 
 @foreach($resources as $resource)
 	<div class="one-third column">
-
+		<?php 
+					$id = $resource->res_id; 
+					$title = str_replace(' ','-',$resource->res_title);
+				?>
 		<!-- Post #1 -->
 		<div class="recent-post">
 			@if(isset($resource->image_path))
-				<div class="recent-post-img"><a href="{{route('get-resource',$resource->res_id)}}""><img src="{{$resource->image_path}}" alt=""></a><div class="hover-icon"></div></div>
+				
+				<div class="recent-post-img"><a href="{{route('get-resource',['id'=> $id,'title' => $title])}}"><img src="{{$resource->image_path}}" alt=""></a><div class="hover-icon"></div></div>
 				@else
-				<div class="recent-post-img"><a href="{{route('get-resource',$resource->res_id)}}""><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a><div class="hover-icon"></div></div>
+				<div class="recent-post-img"><a href="{{route('get-resource',['id'=> $id,'title' => $title])}}"><img src="{{URL::asset('/images/bg-facts.jpg')}}" alt=""></a><div class="hover-icon"></div></div>
 				@endif
 			
-			<a href="blog-single-post.html"><h4>{{$resource->res_title}}</h4></a>
+			
+			<a href="{{route('get-resource',['id'=> $id,'title' => $title])}}"><h4>{{$resource->res_title}}</h4></a>
 			<div class="meta-tags">
 				<?php $date = date_create($resource->created);
 										$dateFormatted = date_format($date,'F d, Y'); 
@@ -344,7 +349,7 @@
 			</div>
 			<p>The world of job seeking can be all consuming. From secretly stalking the open reqs page of your dream company to sending endless applications.</p>
 			<p>{{substr($resource->res_content_first,0,100)}}...</p>
-			<a class="button" href="{{route('get-resource',$resource->res_id)}}">Read More</a>
+			<a class="button" href="{{route('get-resource',['id'=> $id,'title' => $title])}}">Read More</a>
 		</div>
 
 	</div>

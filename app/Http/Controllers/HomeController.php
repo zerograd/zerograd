@@ -569,6 +569,7 @@ class HomeController extends Controller
 
 		foreach ($resources as $resource) {
 			$resource->image_path = null;
+			$resource->res_title = str_replace(' ','-',$resource->res_title);
 			$image_path = '';
 			if($resource->res_image) {
 				$image_path = asset('storage/' . $resource->res_image);
@@ -585,6 +586,7 @@ class HomeController extends Controller
 							->get();
 		foreach ($popularResources as $popularResource) {
 			$popularResource->image_path = null;
+			$popularResource->res_title = str_replace(' ','-',$popularResource->res_title);
 			$image_path = '';
 			if($popularResource->res_image) {
 				$image_path = asset('storage/' . $popularResource->res_image);
@@ -601,6 +603,7 @@ class HomeController extends Controller
 
 		foreach ($recentResources as $recentResource) {
 			$recentResource->image_path = null;
+			$recentResource->res_title = str_replace(' ','-',$recentResource->res_title);
 			$image_path = '';
 			if($recentResource->res_image) {
 				$image_path = asset('storage/' . $recentResource->res_image);
@@ -616,7 +619,7 @@ class HomeController extends Controller
         return view('resources')->with($data);
     }
 
-    public function getResource($id = null){
+    public function getResource($id = null,$title = null){
 
     	$resource = DB::table('resources')
     					->select('*')
@@ -651,6 +654,7 @@ class HomeController extends Controller
 							->get();
 		foreach ($popularResources as $popularResource) {
 			$popularResource->image_path = null;
+			$popularResource->res_title = str_replace(' ','-',$popularResource->res_title);
 			$image_path = '';
 			if($popularResource->res_image) {
 				$image_path = asset('storage/' . $popularResource->res_image);
@@ -667,6 +671,7 @@ class HomeController extends Controller
 
 		foreach ($recentResources as $recentResource) {
 			$recentResource->image_path = null;
+			$recentResource->res_title = str_replace(' ','-',$recentResource->res_title);
 			$image_path = '';
 			if($recentResource->res_image) {
 				$image_path = asset('storage/' . $recentResource->res_image);
