@@ -627,6 +627,16 @@ class StudentController extends Controller
         return "Success";
     }
 
+    public function getSettings(){
+
+
+        $data = array(
+
+        );
+
+        return view('student-settings')->with($data);
+    }
+
     public function sendRequest(Request $request){
 
         if(!Session::has('user_id')){

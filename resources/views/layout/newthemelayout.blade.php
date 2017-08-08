@@ -135,6 +135,7 @@
 					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('company_name')}}</a>
 							<ul>
 								<li><a href="#">Settings</a></li>
+								<li><a href="#"> Company Profile</a></li>
 								<li><a href="{{URL::to('/employer/logout')}}">Logout</a></li>
 							</ul>
 					</li>
@@ -142,6 +143,7 @@
 					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('student_name')}}</a>
 							<ul>
 								<li><a href="#">Settings</a></li>
+								<li><a href="{{route('public-profile-edit',Session::get('user_id'))}}">Profile</a></li>
 								<li><a href="{{URL::to('/logout')}}">Logout</a></li>
 							</ul>
 					</li>

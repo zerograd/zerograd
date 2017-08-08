@@ -361,6 +361,11 @@ Route::post('/profile/update',array(
 	'uses' => 'StudentController@publicProfileUpdate'
 ));
 
+Route::get('/settings',array(
+	'as' => 'student-settings',
+	'uses' => 'StudentController@getSettings'		
+));
+
 
 Route::post('/student-request',array(
 	'as' => 'student-request',
