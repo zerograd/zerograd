@@ -1,7 +1,7 @@
 @extends('layout.newthemelayout')
 
 @section('title')
-	<title>ZeroGrad: Editing Mode</title>
+	<title>ZeroGrad: Settings</title>
 @stop
 
 
