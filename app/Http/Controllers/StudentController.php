@@ -513,7 +513,7 @@ class StudentController extends Controller
     public function publicProfile($id = null){
         
         $student = DB::table('students')
-                        ->select('students.email','students.student_name','students.title','students.website','profile_summary.*','profile_skills.skills')
+                        ->select('students.title','students.status','students.website','profile_summary.*','profile_skills.skills')
                         ->join('profile_summary','profile_summary.user_id','=','students.student_id')
                         ->join('profile_skills','profile_skills.user_id','=','students.student_id')
                         ->where('student_id',$id)
@@ -534,7 +534,8 @@ class StudentController extends Controller
         }
         $data = array(
             'student' => $student,
-            'path' => $path
+            'path' => $path,
+            'id' => $id
         );
 
         if(!Session::has('user_id') && !Session::has('employer_id')){
@@ -543,6 +544,80 @@ class StudentController extends Controller
 
         // return $data;
         return view('profile')->with($data);
+    }
+
+    public function publicProfileEdit($id = null){
+
+
+        $student = DB::table('students')
+                        ->select('students.title','students.status','students.website','profile_summary.*','profile_skills.skills')
+                        ->join('profile_summary','profile_summary.user_id','=','students.student_id')
+                        ->join('profile_skills','profile_skills.user_id','=','students.student_id')
+                        ->where('student_id',$id)
+                        ->first();
+
+        //If student does not exist redirect to 404
+
+        if(!$student){
+            return view('errors.404');
+        }
+
+        if(!Session::has('user_id')){
+            Session::flash('no_permission','You do not have permission to edit this page');
+            return redirect('/');
+        } 
+
+        if(Session::get('user_id') != $id){
+            Session::flash('no_permission','You do not have permission to edit this page');
+            return redirect('/');
+        }
+
+        
+
+        //Path to image
+        $path = '';
+        if($student->avatar){
+         $path = asset('storage/avatars/' . $student->avatar);
+        }else{
+            $path = URL::asset('images/resumes-list-avatar-01.png');
+        }
+        $data = array(
+            'student' => $student,
+            'path' => $path
+        );
+
+        
+
+        // return $data;
+        return view('edit-profile')->with($data);
+    }
+
+    public function publicProfileUpdate(Request $request){
+        $name = $request->name;
+        $summary = $request->summary;
+        $status = $request->status;
+        $title = $request->title;
+        $email = $request->email;
+
+        $user_id = Session::get('user_id');
+
+        //Update profile
+        DB::table('profile_summary')
+            ->where('user_id',$user_id)
+            ->update(array(
+                'summary' => $summary,
+                'email' => $email,
+                'name' => $name,
+            ));
+        //Update student status and title
+        DB::table('students')
+            ->where('student_id',$user_id)
+            ->update(array(
+                'status' => $status,
+                'title' => $title,
+            ));
+
+        return "Success";
     }
 
     public function sendRequest(Request $request){

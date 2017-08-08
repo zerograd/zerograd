@@ -351,6 +351,17 @@ Route::get('/profile/{id}',array(
 	'uses' => 'StudentController@publicProfile'		
 ));
 
+Route::get('/profile/{id}/edit',array(
+	'as' => 'public-profile-edit',
+	'uses' => 'StudentController@publicProfileEdit'		
+));
+
+Route::post('/profile/update',array(
+	'as' => 'profile-update',
+	'uses' => 'StudentController@publicProfileUpdate'
+));
+
+
 Route::post('/student-request',array(
 	'as' => 'student-request',
 	'uses' => 'StudentController@sendRequest'

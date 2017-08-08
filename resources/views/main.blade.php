@@ -426,6 +426,10 @@
         @if(Session::has('email_sent'))
 			swal('{{Session::get('email_sent')}}'); 
 		@endif
+
+		@if(Session::has('no_permission'))
+			swal('{{Session::get('no_permission')}}');
+		@endif
     </script>
 
 

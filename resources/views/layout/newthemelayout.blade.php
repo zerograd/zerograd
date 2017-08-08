@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en" ng-app="app"> <!--<![endif]-->
 <head>
 
 <!-- Basic Page Needs
@@ -25,6 +25,11 @@
          rel = "stylesheet">
       <script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+      <script src=""></script>
+      <link href="{{URL::asset('angular-xeditable-0.8.0/css/xeditable.css')}}" rel="stylesheet">
+	  <script src="{{URL::asset('angular-xeditable-0.8.0/js/xeditable.js')}}"></script>
+	  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
 
 
@@ -155,8 +160,9 @@
 </header>
 <div class="clearfix"></div>
 
+<div ng-controller="Ctrl" ng-cloak>
 @yield('content')
-
+</div>
 
 <!-- Footer
 ================================================== -->
@@ -257,6 +263,13 @@
 <script src="https://cdn.quilljs.com/1.2.6/quill.js"></script>
 <script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
  <script src="{{URL::asset('/Remodal-1.1.1/dist/remodal.min.js')}}"></script>
+
+
+ <!-- AngularJS -->
+<script src="{{URL::asset('/js/main.js')}}"></script>
+
+
+ <!-- END of angular scripts -->
  @yield('script_plugins')
 
 <!-- Style Switcher
