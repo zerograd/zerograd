@@ -432,6 +432,10 @@
 		@if(Session::has('no_permission'))
 			swal('{{Session::get('no_permission')}}');
 		@endif
+
+		@if(Session::has('not_verified'))
+			swal('{{Session::get('not_verified')}}');
+		@endif
     </script>
 
 

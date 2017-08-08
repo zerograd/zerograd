@@ -1,115 +1,190 @@
-<!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layout.newthemelayout')
 
-        <title>{{$company->company_name}}</title>
+@section('title')
+    <title>{{$company->company_name}}</title>
+@stop
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
-        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-        <!-- Compiled and minified CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
 
-  <!-- Compiled and minified JavaScript -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
-        <!-- Styles -->
-        {{ HTML::style('css/styles.css') }}
-        <style>
-        #header{
-            height:10%;
+@section('content')
 
-        }
-        #Container{
-            height:90%;
-        }
+<!-- Titlebar
+================================================== -->
+<div id="titlebar">
+    <div class="container remodal-bg">
+        <div class="ten columns">
 
-        .waves-effect .waves-white .waves-ripple {
-         /* The alpha value allows the text and background color
-         of the button to still show through. */
-          background-color: rgba(239, 246, 237, 0.65);
-        }
-        .btn {
-            margin:5px;
-        }
+            @if(Session::has('employer_id') and Session::get('employer_id') == $id)
+            <h2>{{$company->company_name}}&nbsp<span class="full-time" style="color:white;">VERIFIED</span><a href="{{route('employer-profile-edit',$id)}}" style="text-decoration:none;"><span class="full-time" style="color:white;">Edit This Page</span></a></h2>
+            @else
+            <h2>{{$company->company_name}}&nbsp<span class="full-time">VERIFIED</span></h2>
+            @endif
+        </div>
 
-        .scroll::-webkit-scrollbar {
-            width: 10px;
-        }
-         
-        .scroll::-webkit-scrollbar-track {
-            -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3);
-        }
-         
-        .scroll::-webkit-scrollbar-thumb {
-          background: rgba(224,224,224,0.8);
-          outline: 1px solid slategrey;
-        }
+        <div class="six columns">
+            
+        </div>
 
-        </style>
-    </head>
-    <body>
-        <div id="header">
-            <div id="logo-div" class="col-md-6 col-xs-6">
-                <a href="{{URL::to('/')}}"><h1 id="logo" style="margin:0;padding:15px; color:white;display:block;">Zer<span class="zeroLogo">0</span>Grad</h1></a>
+    </div>
+</div>
 
+
+<!-- Content
+================================================== -->
+<div class="container remodal-bg">
+    
+    <!-- Recent Jobs -->
+    <div class="eleven columns">
+    <div class="padding-right">
+        
+        <!-- Company Info -->
+        <div class="company-info">
+            <img src="{$path}" alt="">
+            <div class="content">
+                <h4>{{$company->company_name}}</h4>
+                
+                <span><a href="{{$company->website}}" target="_blank"><i class="fa fa-at" aria-hidden="true"></i>{{$company->website}}</a></span>
+                <span><a href="mailto:{{$company->profile_email}}"><i class="fa fa-envelope" aria-hidden="true"></i>&nbspContact</a></span>
             </div>
-            <div class="col-md-6 col-xs-6">
-                <ul class="navigation">
-                    <li><a>Home</a></li>
-                    <li><a>About</a></li>
-                    <li><a>Contact Us</a></li>
-                    <a href="{{URL::to('/student-login')}}"><button class="white-btn">Login</button></a>
-                    <button class="white-btn">Employer?</button>
+            <div class="clearfix"></div>
+        </div>
+
+        
+
+        <br>
+        <h3>Summary:</h3>
+
+        <p>{{$company->company_overview}}</p>
+        
+        <br>
+
+        <h4 class="margin-bottom-10">Jobs offered by: &nbsp {{$company->company_name}}</h4>
+
+        <ul class="list-1">
+            
+        </ul>
+
+    </div>
+    </div>
+
+
+    <!-- Widgets -->
+    <div class="four columns">
+
+        <!-- Sort by -->
+        <div class="widget">
+            <h4>Overview</h4>
+
+            <div class="job-overview">
+                
+                <ul>
+                    <li>
+                        <i class="fa fa-building"></i>
+                        <div>
+                            <strong>Headquaters:</strong>
+                            <span>{{$company->company_location}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                        <div>
+                            <strong>Company Size:</strong>    
+                            <span>{{$company->employees}}</span>
+                        </div>
+                    </li>
+                    <li>
+                        <i class="fa fa-phone" aria-hidden="true"></i>
+                        <div>
+                            <strong>Telephone:</strong>    
+                            <span></span>
+                        </div>
+                    </li>
                 </ul>
-            </div>
-        </div>
-        <div class="container">
-            <div  style="margin:50px 0;height:100%;border:1px solid #354886;border-radius: 10px;padding:10px;">
-                <div class="row" style="text-align: center;margin-top: 15px;">
-                    <img class="center-block img-responsive" style="width:400px;height:315px;" src="{{URL::asset('/images/nasa.png')}}" alt="Company Photo">
-                </div>
-                <div class="row" style="text-align: center;">
-                    <h2 class="text-center" style="display:block;margin:0 auto;font-weight: bold;">{{$company->company_name}}</h2>
-                </div>
-                <div class="row" style="text-align: center;">
-                    <h4 class="text-center" style="display:block;margin:0 auto;font-weight: bold;">
-                        @if($company->followers > 1000)
-                            1000+ Followers
-                        @else
-                            {{$company->followers}} Followers
-                        @endif
-                    </h4>
-                </div>
-                <div class="row" style="text-align: center;">
-                    <button style="margin:0 auto" class="btn waves-effect waves-white">
-                    @if($company->jobs_avaliable > 20)
-                        20+ Jobs
-                    @else
-                        {{$company->jobs_avaliable}} Jobs
-                    @endif
 
-                    </button>
-                    <button style="margin:0 auto" class="btn waves-effect waves-white waves-ripple ">
-                    @if($company->employees > 500)
-                        500+ Employees
-                    @else
-                        {{$company->employees}} Employees
-                    @endif
-                    </button>
-                    <button style="margin:0 auto" class="btn waves-effect waves-teal"> Follow</button>
-                </div>
-                <div class="row" style="text-align: center;">
-                    <h6 style="font-weight: bold;">Company Overview</h6>
-                    <div class="col-sm-8 col-sm-offset-2">
-                        <p style="font-weight: bold;">{{$company->company_overview}}<p>
-                    </div>
-                </div>
+
+                
+
+                
+                
+
             </div>
+
         </div>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-    </body>
-</html>
+
+    </div>
+    <!-- Widgets / End -->
+
+
+</div>
+
+<div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <div id="login-panel">
+        <form id="register-form">
+            { csrf_field() }
+            <h2 style="color:#29C9C8;;">Sign Up Today and begin your search</h2>
+            <input type="text" id="student_name" name="student_name" placeholder="Name" value=""/>
+            <input type="text" id="email" name="email" placeholder="Email" value=""/>
+            <input type="password" id="password" name="password" placeholder="Password" value=""/>
+            
+            <button data-remodal-action="confirm" type="button" class="white-btn" style="margin:0 auto;padding:15px;" onClick="verifyLogin();">Register</button>
+            <div class="links col-sm-12" style="margin-top: 5px;">
+                <a href="#" style="color:black;font-weight: 600;">Need to Contact Us?</a>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="remodal" data-remodal-id="modal-apply" data-remodal-options="hashTracking: false">
+  <button data-remodal-action="close" class="remodal-close"></button>
+    <div id="login-panel">
+        <form id="apply-form" action="{route('apply-to-job',$posting->id)}" method="POST" enctype="multipart/form-data">
+            {csrf_field()}
+            <input type="text" placeholder="Full Name"  name="student_name" value="{Session::get('student_name')}"/>
+            <input type="text" placeholder="Email Address" name="email" value="{Session::get('email')}">
+            <textarea placeholder="Your message / cover letter sent to the employer" name="message" id="message"></textarea>
+
+            <!-- Upload CV -->
+            <div class="upload-info"><strong>Upload your CV (optional)</strong> <span>Max. file size: 5MB</span></div>
+            <div class="clearfix"></div>
+
+            <label class="upload-btn">
+                <input type="file" multiple name="user_file" />
+                <i class="fa fa-upload"></i> Browse
+            </label>
+            <span class="fake-input" id="file-name">No file selected</span>
+
+            <div class="divider"></div>
+
+            <button class="send button" style="color:white;" type="submit" >Send Application</button>
+        </form>
+    </div>
+</div>
+
+<div class="small-dialog-content">
+                        
+                    </div>
+
+
+
+<div class="remodal" data-remodal-id="modal" data-remodal-options="hashTracking: false, closeOnOutsideClick: false">
+  <a href="{URL::to('/')}"><button class="remodal-close"></button></a>
+    <div id="login-panel">
+        <form id="register-form">
+            { csrf_field() }
+            <h2 style="color:#29C9C8;;">Sign Up Today and View this page</h2>
+            
+            <a href="{URL::to('/my-account')}"><button type="button" class="white-btn" style="margin:0 auto;padding:15px;">Student?</button></a>
+            <a href="{URL::to('/employer/myaccount')}"><button type="button" class="white-btn" style="margin:0 auto;padding:15px;" >Employer?</button></a>
+            <div class="links col-sm-12" style="margin-top: 5px;">
+                <a href="{URL::to('/')}" style="color:black;font-weight: 600;">Return home</a>
+            </div>
+        </form>
+    </div>
+</div>
+@stop
+
+@section('script_plugins')
+    <script type="text/javascript">
+        
+        
+    </script>
+@stop

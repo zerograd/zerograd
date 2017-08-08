@@ -306,10 +306,20 @@ Route::get('/student-register','StudentController@getRegister');
 Route::post('/student-register/register','StudentController@postRegister');
 
 
-//CompanyController
+//EmployerController
 Route::get('/company/{id}',array(
 	'as' => 'company-get',
-	'uses' => 'CompanyController@index'		
+	'uses' => 'EmployerController@index'		
+));
+
+Route::get('/company/{id}/edit',array(
+	'as' => 'employer-profile-edit',
+	'uses' => 'EmployerController@profileEdit'		
+));
+
+Route::post('/employer/profile/update',array(
+	'as' => 'employer-profile-update',
+	'uses' => 'EmployerController@publicProfileUpdate'
 ));
 
 //PostingController

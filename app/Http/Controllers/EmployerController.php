@@ -8,9 +8,62 @@ use Illuminate\Support\Facades\DB;
 use Session;
 use Storage;
 use File;
+use URL;
 class EmployerController extends Controller
 {
     //
+
+    public function index($id = null){
+
+        $company = DB::table('companies')
+                        ->select('*')
+                        ->where('id',$id)
+                        ->first();
+        if($company->verified != 'yes'){
+            Session::flash('not_verified','This company is not yet verified. Please check back shortly.');
+            return redirect('/');
+        }
+        $data = array(
+            'company' => $company,
+            'id' => $id
+        );
+        
+        return view('company')->with($data);
+    }
+
+    public function profileEdit($id = null){
+        
+
+        
+
+        //Path to image
+        $path = '';
+            $path = URL::asset('images/resumes-list-avatar-01.png');
+
+        $company = DB::table('companies')
+                        ->select('*')
+                        ->where('id',$id)
+                        ->first();
+        if($company->verified != 'yes'){
+            Session::flash('not_verified','This company is not yet verified. Please check back shortly.');
+            return redirect('/');
+        }
+        $data = array(
+            'company' => $company,
+            'id' => $id,
+            'path' => $path
+        );
+
+        
+
+        // return $data;
+        return view('edit-company')->with($data);
+    }
+
+    public function publicProfileUpdate(Request $request){
+
+    }
+
     public function getRegister(){
     	 $data = array(
 
