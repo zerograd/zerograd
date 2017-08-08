@@ -40,7 +40,7 @@
 				<h4 editable-text="user.name"><% user.name || "Add a name" %></h4>
 
 				
-				<span><a href="http://{{$student->website}}" target="_blank"><i class="fa fa-at" aria-hidden="true"></i> {{$student->website}}</a></span>
+				<span><a href="http://{{$student->website}}" target="_blank" editable-text="user.website"><i class="fa fa-at" aria-hidden="true"></i> <% user.website || "No site" %></a></span>
 				<span><a href="mailto:{{$student->email}}"><i class="fa fa-envelope" aria-hidden="true"></i>&nbspContact</a></span>
 			</div>
 			<div class="clearfix"></div>
@@ -58,9 +58,7 @@
 		<h4 class="margin-bottom-10">Skills</h4>
 
 		<ul class="list-1">
-			@foreach(explode(',',$student->skills) as $skill)
-				<li>{{$skill}}</li>
-			@endforeach
+				<li editable-text="user.skills" style="display: inline-block;"><% user.skills || "Add Skills"%> (Seperate Skills By Commas)</li>
 		</ul>
 
 	</div>
@@ -188,7 +186,9 @@
 		    title: '{{$student->title}}',
 		    summary: "{{$student->summary}}",
 		    status: "{{$student->status}}",
-		    email: "{{$student->email}}"
+		    email: "{{$student->email}}",
+		    website: "{{$student->website}}",
+		    skills: "{{$student->skills}}"
 		  };  
 
 		  $scope.updateProfile = function(){

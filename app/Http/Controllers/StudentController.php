@@ -598,6 +598,7 @@ class StudentController extends Controller
         $status = $request->status;
         $title = $request->title;
         $email = $request->email;
+        $website = $request->website;
 
         $user_id = Session::get('user_id');
 
@@ -609,12 +610,18 @@ class StudentController extends Controller
                 'email' => $email,
                 'name' => $name,
             ));
+        DB::table('profile_skills')
+            ->where('user_id',$user_id)
+            ->update(array(
+                'skills' => $request->skills
+            ));
         //Update student status and title
         DB::table('students')
             ->where('student_id',$user_id)
             ->update(array(
                 'status' => $status,
                 'title' => $title,
+                'website' => $website
             ));
 
         return "Success";

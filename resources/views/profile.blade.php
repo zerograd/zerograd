@@ -97,12 +97,7 @@
 				</ul>
 
 
-				@if(!Session::has('user_id'))                
-                    <a data-remodal-target="modal" href="#" class="button">Apply For This Job</a>
-					<a data-remodal-target="modal" href="#" class=" button">Save Job</a>
-                @else
-                	
-                @endif
+				
 
 				
 				
