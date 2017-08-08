@@ -367,6 +367,16 @@ Route::get('/settings',array(
 ));
 
 
+Route::post('/update-personal-info',array(
+	'as' => 'update-personal-info',
+	'uses' => 'StudentController@updatePersonalInfo'
+));
+
+Route::post('/update-password',array(
+	'as' => 'update-password',
+	'uses' => 'StudentController@updatePassword'
+));
+
 Route::post('/student-request',array(
 	'as' => 'student-request',
 	'uses' => 'StudentController@sendRequest'

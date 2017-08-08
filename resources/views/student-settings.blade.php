@@ -12,7 +12,7 @@
 <div id="titlebar">
 	<div class="container remodal-bg">
 		<div class="ten columns">
-			<span><a>Settings</a></span>
+			<h2>Settings&nbsp</h2>
 		</div>
 
 		<div class="six columns">
@@ -27,45 +27,49 @@
 ================================================== -->
 <div class="container remodal-bg">
 	
-	<!-- Recent Jobs -->
+	<!-- Info -->
 	<div class="eleven columns">
 	<div class="padding-right">
-		
-		<!-- Company Info -->
-		<div class="company-info">
-			<img src="{{$path}}" alt="">
-			<div class="content">
-				<h4 editable-text="user.name"><% user.name || "Add a name" %></h4>
+		<form id="account-info" action="{{route('update-personal-info')}}" method="POST">
+				{{csrf_field()}}
 
-				
-				<span><a href="http://{{$student->website}}" target="_blank" editable-text="user.website"><i class="fa fa-at" aria-hidden="true"></i> <% user.website || "No site" %></a></span>
-				<span><a href="mailto:{{$student->email}}"><i class="fa fa-envelope" aria-hidden="true"></i>&nbspContact</a></span>
+			<!-- Change name -->
+			<div class="form-group">
+				<h3>Personal Info</h3>
+					<label>Change Your Name.</label>
+					<input type="text" name="student_name" value="{{Session::get('student_name')}}" class="form-control"> 
+
 			</div>
-			<div class="clearfix"></div>
-		</div>
+			<!-- Change email  -->
+			<div class="form-group">
+				
+					<label>Change the email associated with your account.</label>
+					<input type="email" name="email" value="{{Session::get('email')}}" class="form-control"> 
 
-		
+			</div>
+			
+			<button type="submit" class="btn btn-success" style="float:right;">Update Info</button>
+		</form>
+		<form id="change-password-form" action="{{route('update-password')}}" method="POST">
+				{{csrf_field()}}
 
-		<br>
-		<p>Summary:</p>
-
-		<p editable-textarea="user.summary" e-rows="7" e-cols="40"><% user.summary || "Add a Description"%></p>
-		
-		<br>
-
-		<h4 class="margin-bottom-10">Skills</h4>
-
-		<ul class="list-1">
-				<li editable-text="user.skills" style="display: inline-block;"><% user.skills || "Add Skills"%> (Seperate Skills By Commas)</li>
-		</ul>
-
+			<!-- Change Password -->
+			<div class="form-group" style="margin-top: 50px;">
+				<h3>Password</h3>
+					<label>Change Your Name.</label>
+					<input type="password" name="password" id="password" class="form-control" placeholder="Password" required> 
+					<input type="password" name="confirmpassword" id="confirmpassword" class="form-control" placeholder="Confirm Password" required> 
+			</div>
+			
+			<button type="submit" class="btn btn-success" style="float:right;">Update Password</button>
+		</form>
 	</div>
 	</div>
 
 
 
 
-	<button type="button" class="btn btn-success" style="float:right;" ng-click="updateProfile();">Save Profile</button>
+	
 
 
 </div>
@@ -78,6 +82,31 @@
 <!-- Angular code for this page -->
 	<script type="text/javascript">
 
+	$(document).ready(function(){
+		@if(Session::has('info_updated'))
+			swal(
+				  'Good job!',
+				  "{{Session::get('info_updated')}}",
+				  'success'
+				);
+		@endif
+
+		@if(Session::has('password_update'))
+			swal(
+				  'Good job!',
+				  "{{Session::get('password_update')}}",
+				  'success'
+				);
+		@endif
+
+		@if(Session::has('password_match'))
+				swal(
+			      'Error',
+			      "Passwords do not match",
+			      'error'
+			    )
+		@endif
+	});
 		
 		
 		

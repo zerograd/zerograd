@@ -142,7 +142,7 @@
 				@else
 					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('student_name')}}</a>
 							<ul>
-								<li><a href="#">Settings</a></li>
+								<li><a href="{{route('student-settings')}}">Settings</a></li>
 								<li><a href="{{route('public-profile-edit',Session::get('user_id'))}}">Profile</a></li>
 								<li><a href="{{URL::to('/logout')}}">Logout</a></li>
 							</ul>

@@ -629,12 +629,49 @@ class StudentController extends Controller
 
     public function getSettings(){
 
+        if(!Session::has('user_id')){
+            return redirect('/');
+        }
 
         $data = array(
 
         );
 
         return view('student-settings')->with($data);
+    }
+
+    public function updatePersonalInfo(Request $request){
+        foreach($request->except('_token') as $key=>$value){
+            DB::table('students')
+            ->where('student_id',Session::get('user_id'))
+            ->update(array(
+                "$key" => $value
+            ));
+        }
+
+        Session::put('student_name',$request->student_name);
+        Session::put('email',$request->email);
+        Session::flash('info_updated','Info updated');
+        return redirect('/settings');
+    }
+
+    public function updatePassword(Request $request){
+        $password = trim($request->password);
+        $confirmpassword = trim($request->confirmpassword);
+
+        if($password !== $confirmpassword){
+            Session::flash('password_match','Password do not match');
+            return redirect('/settings');
+        }
+
+        DB::table('students')
+            ->where('student_id',Session::get('user_id'))
+            ->update(array(
+                'password' => md5($password)
+            ));
+
+        Session::flash('password_update','Password updated.');
+        return redirect('/settings');
     }
 
     public function sendRequest(Request $request){
