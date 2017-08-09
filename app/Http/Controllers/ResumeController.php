@@ -13,11 +13,24 @@ class ResumeController extends Controller
     //
     public function resumeBuilder($id = null){
 
+
+
         //Templates
         $templates = DB::table('templates')->select('*')->get();
 
+        //make sure the resume record is for builder and not another type
+        $chosenTemplate = DB::table('resume')->select('*')->where('builder','yes')->where('user_id',$id)->first();
+
+        //The chosen template..render it
+        $templateData = array(
+
+        );
+
         $data = array(
-            'templates' => $templates
+            'templates' => $templates,
+            'template' => $templateData,
+            'templateNumber' => $chosenTemplate->selected_template,
+            'id' => $id
         );
 
 		return view('resume-builder')->with($data);
@@ -31,6 +44,23 @@ class ResumeController extends Controller
                     "$key" => "$value"
                 ));
         }
+    }
+
+    public function postResumeTemplate(Request $request){
+        $number = $request->number;
+        $id = $request->id;
+        //Previous Choice
+        DB::table('resume')
+            ->where('user_id',$id)
+            ->where('builder','yes')
+            ->update(array(
+                'selected_template'=> $number
+            ));
+
+        $data = array(
+
+        );
+        return view('templates.resume-template-' . $number)->with($data)->render();
     }
 
     public function processResume(Request $request){

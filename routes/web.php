@@ -457,6 +457,12 @@ Route::get('/resume-builder/profile/{id}',array(
 	'as' => 'resume-builder',
 	'uses' => 'ResumeController@resumeBuilder'		
 ));
+
+
+Route::post('/post-resume-template',array(
+	'as' => 'post-resume-template',
+	'uses' => 'ResumeController@postResumeTemplate'		
+));
 Route::post('/resume-uploaded',array(
 	'as' => 'resume-uploaded',
 	'uses' => 'ResumeController@resumeUploaded'		

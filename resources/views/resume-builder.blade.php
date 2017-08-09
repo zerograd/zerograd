@@ -72,7 +72,22 @@
 		
 		#inner-template-section{
 			overflow-y: scroll;
-			height:500px;
+			height:650px;
+		}
+
+
+		.template-div:hover {
+			cursor: pointer;
+		}
+
+		#resume-buttons {
+			text-align: center;
+			padding: 20px;
+		}
+
+		#resume-buttons button{
+			margin: 0 auto;
+			padding: 20px 35px;
 		}
 	</style>
 @stop
@@ -85,6 +100,7 @@
 		<div class="col-sm-12 form-group" id="filter">
 			<label>Choose your resume template</label>
 			<select class="form-control">
+				<option value="all">All</option>
 				<option value="general">General</option>
 				<option value="professional">Professional</option>
 				<option value="artsy">Artsy</option>
@@ -92,21 +108,59 @@
 		</div>
 		<div class="col-sm-12 scroll" id="inner-template-section">
 			@foreach($templates as $template)
-				<div class="col-sm-6 template-div">
-					<img src='{{URL::asset("images/templates/$template->template_number.png")}}' class="img-responsive {{$template->template_category}}">
+				<div class="col-sm-6 template-div {{$template->template_category}}" onClick="postResumeTemplate({{$template->template_number}},{{$id}})">
+					<img src='{{URL::asset("images/templates/$template->template_number.png")}}' class="img-responsive">
 				</div>
 			@endforeach
+
+		</div>
+		<div id="resume-buttons" class="col-sm-12">
+			<button type="button" class="btn btn-warning"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspHelp</button>
+			<button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>
+			<button type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbspSave</button>
 		</div>
 	</div>
 	<div class="col-sm-9 scroll" id="resume-section">
+
 		<div class="col-sm-8 col-sm-offset-2 scroll" id="inner-resume-section-1">
-			@include('templates.resume-template-6')
+			@include('templates.resume-template-' . $templateNumber)
 		</div>
 	</div>
 @stop
 
  @section('script_plugins')
  	<script type="text/javascript">
- 	
+ 		$(document).ready(function(){
+ 			$('#filter select').on('change', function() {
+			      var value = this.value;
+			       var templateDivs = $('.template-div');
+			      if(value == 'all'){
+
+			      	templateDivs.each(function(){
+			      	 var currentTemplate = $(this);
+				      	 	currentTemplate.show();
+
+				      });
+			      	return;
+			      }
+
+
+			      //Loop through and hide all templates that don't match
+			      templateDivs.each(function(){
+			      	 var currentTemplate = $(this);
+
+			      	 if(!currentTemplate.hasClass(value)){
+			      	 	currentTemplate.hide();
+			      	 }else{
+			      	 	currentTemplate.show();
+			      	 }
+			      });
+			})
+ 		});
+ 		function postResumeTemplate(number,id){
+ 			$.post('{{route('post-resume-template')}}',{number:number,id:id,_token:"{{csrf_token()}}"},function(data){
+ 				$('#inner-resume-section-1').html(data);
+ 			});
+ 		}
  	</script>
  @stop
