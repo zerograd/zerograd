@@ -16,7 +16,7 @@
             @if(Session::has('employer_id') and Session::get('employer_id') == $id)
             <h2>{{$company->company_name}}&nbsp<span class="full-time" style="color:white;">VERIFIED</span><a href="{{route('employer-profile-edit',$id)}}" style="text-decoration:none;"><span class="full-time" style="color:white;">Edit This Page</span></a></h2>
             @else
-            <h2>{{$company->company_name}}&nbsp<span class="full-time">VERIFIED</span></h2>
+            <h2>{{$company->company_name}}&nbsp<span class="full-time" style="color:white;">VERIFIED</span></h2>
             @endif
         </div>
 
@@ -59,6 +59,7 @@
 
         <h4 class="margin-bottom-10">Jobs Offered By: &nbsp {{$company->company_name}}</h4>
 
+        @if(sizeof($jobs) > 0)
         <ul class="job-list">
             @foreach($jobs as $job)
                 <li class="highlighted"><a href="{{route('get-posting',$job->id)}}" target="_blank" onClick="seen();">
@@ -80,7 +81,7 @@
                 </li>
             @endforeach
         </ul>
-
+        @endif
     </div>
     </div>
 
