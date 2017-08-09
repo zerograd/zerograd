@@ -34,20 +34,41 @@ class EmployerController extends Controller
     public function profileEdit($id = null){
         
 
-        
-
-        //Path to image
-        $path = '';
-            $path = URL::asset('images/resumes-list-avatar-01.png');
-
-        $company = DB::table('companies')
+         $company = DB::table('companies')
                         ->select('*')
                         ->where('id',$id)
                         ->first();
-        if($company->verified != 'yes'){
-            Session::flash('not_verified','This company is not yet verified. Please check back shortly.');
+        
+
+        if(!$company){
+            return view('errors.404');
+        }
+
+        if(Session::has('employer_id') && Session::get('employer_id') == $id){
+            //do nothing
+        }else if(!Session::has('user_id') || !Session::has('employer_id')){
+            Session::flash('no_permission','You do not have permission to edit this page');
+            return redirect('/');
+        }else if(Session::get('employer_id') != $id){
+            Session::flash('no_permission','You do not have permission to edit this page');
             return redirect('/');
         }
+
+        //Path to image
+        $path = '';
+
+        if($company->path){
+            $path = asset('storage/'. $company->path);
+        }else{
+            $path = URL::asset('images/resumes-list-avatar-01.png');
+        }
+            
+
+       
+
+        
+
+        
         $data = array(
             'company' => $company,
             'id' => $id,
@@ -60,8 +81,50 @@ class EmployerController extends Controller
         return view('edit-company')->with($data);
     }
 
+    public function uploadImage(Request $request){
+
+        $path = null;
+
+        //If image was uploaded and is a valid image 
+        if($request->file('res_file')){
+            $fileType = $request->file('res_file')->getMimeType();
+
+            if($fileType == 'image/jpeg' || $fileType = 'image/png'){
+
+                //Upload so the image will be available via public 
+                $path = $request->file('res_file')->store('companies','public');
+
+                DB::table('companies')
+                    ->where('id',Session::get('employer_id'))
+                    ->update(array(
+                        'path' => $path
+                    ));
+            }else{
+                Session::flash('res_image','Not a valid image type');
+                return redirect('/company/' . Session::get('employer_id') . '/edit');
+            }
+        }
+
+         Session::flash('profile_updated','Profile Updated.');
+        return redirect('/company/' . Session::get('employer_id') . '/edit');
+    }
+
     public function publicProfileUpdate(Request $request){
 
+
+        
+
+        $employer_id = Session::get('employer_id');
+
+        foreach($request->except('_token') as $key=>$value){
+            DB::table('companies')
+                ->where('id',$employer_id)
+                ->update(array(
+                    "$key" => $value
+                ));
+        }
+
+        return 'Success';
     }
 
     public function getRegister(){

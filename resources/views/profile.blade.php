@@ -40,6 +40,7 @@
 		<!-- Company Info -->
 		<div class="company-info">
 			<img src="{{$path}}" alt="">
+			
 			<div class="content">
 				<h4>{{$student->name}}</h4>
 				

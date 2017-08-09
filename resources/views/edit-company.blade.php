@@ -12,6 +12,7 @@
 <div id="titlebar">
     <div class="container remodal-bg">
         <div class="ten columns">
+        	<span>YOU ARE IN EDIT MODE</span>
             <h2 editable-text="user.company_name"><% user.company_name || "Enter Company Name" %>&nbsp</h2>
         </div>
 
@@ -33,7 +34,13 @@
         
         <!-- Company Info -->
         <div class="company-info">
-            <img src="{$path}" alt="">
+            <img src="{{$path}}" alt="">
+            <form id="image-upload-form" action="{{route('companyprofile-upload')}}" method="POST" enctype="multipart/form-data">
+            	{{csrf_field()}}
+            	<input type="file" multiple name="res_file" class="form-control" id="res_file" style="display:none;"/>
+            	<button type="button" class="btn btn-success" onClick="openDialog();">Change Image</button>
+            </form>
+            
             <div class="content">
                 <h4 editable-text="user.company_name"><% user.company_name || "Enter Company Name" %></h4>
                 
@@ -107,7 +114,7 @@
 
     </div>
     <!-- Widgets / End -->
-
+    <button type="button" class="btn btn-success" style="float:right;" ng-click="updateProfile();">Save Company Profile</button>
 
 </div>
 
@@ -119,6 +126,24 @@
 
 <!-- Angular code for this page -->
 	<script type="text/javascript">
+
+	$(document).ready(function(){
+		@if(Session::has('res_image'))
+			swal("{{Session::get('res_image')}}");
+		@endif
+
+		@if(Session::has('profile_updated'))
+			swal(
+				  'Good job!',
+				  "{{Session::get('profile_updated')}}",
+				  'success'
+				);
+		@endif
+	});
+
+		function openDialog(){
+			$('#res_file').click();
+		}
 
 		app.controller('Ctrl', function($scope) {
 		  $scope.user = {
@@ -133,15 +158,20 @@
 
 		  	 var data = this.user;
 
-		  	 data['_token'] = "{csrf_token()}";
+		  	 data['_token'] = "{{csrf_token()}}";
 
-		  	 $.post("{route('profile-update')}",data,function(data){
+		  	 $.post("{{route('companyprofile-update')}}",data,function(data){
 		  	 	if(data == 'Success'){
-		  	 		swal(
-					  'Good job!',
-					  "Profile Saved.",
-					  'success'
-					);
+		  	 		if(document.getElementById("res_file").files.length != 0){
+			  	 		$('#image-upload-form').submit();
+		  	 		}else{
+		  	 			swal(
+						  'Good job!',
+						  "Profile Updated.",
+						  'success'
+						);
+		  	 		}
+
 		  	 	}
 		  	 });
 		  };

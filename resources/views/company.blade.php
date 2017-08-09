@@ -88,7 +88,7 @@
                         <i class="fa fa-user" aria-hidden="true"></i>
                         <div>
                             <strong>Company Size:</strong>    
-                            <span>{{$company->employees}}</span>
+                            <span>{{$company->employees}}+ employees</span>
                         </div>
                     </li>
                     <li>

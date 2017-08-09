@@ -135,7 +135,7 @@
 					<li><a href="#"><i class="fa fa-user"></i>{{Session::get('company_name')}}</a>
 							<ul>
 								<li><a href="#">Settings</a></li>
-								<li><a href="#"> Company Profile</a></li>
+								<li><a href="{{route('company-get',Session::get('employer_id'))}}"> Company Profile</a></li>
 								<li><a href="{{URL::to('/employer/logout')}}">Logout</a></li>
 							</ul>
 					</li>

@@ -36,6 +36,11 @@
 		<!-- Company Info -->
 		<div class="company-info">
 			<img src="{{$path}}" alt="">
+			<form id="image-upload-form" action="{{route('profile-upload')}}" method="POST" enctype="multipart/form-data">
+            	{{csrf_field()}}
+            	<input type="file" multiple name="res_file" class="form-control" id="res_file" style="display:none;"/>
+            	<button type="button" class="btn btn-success" onClick="openDialog();">Change Image</button>
+            </form>
 			<div class="content">
 				<h4 editable-text="user.name"><% user.name || "Add a name" %></h4>
 
@@ -180,6 +185,24 @@
 <!-- Angular code for this page -->
 	<script type="text/javascript">
 
+		$(document).ready(function(){
+			@if(Session::has('res_image'))
+				swal("{{Session::get('res_image')}}");
+			@endif
+
+			@if(Session::has('profile_updated'))
+				swal(
+					  'Good job!',
+					  "{{Session::get('profile_updated')}}",
+					  'success'
+					);
+			@endif
+		});
+
+		function openDialog(){
+			$('#res_file').click();
+		}
+
 		app.controller('Ctrl', function($scope) {
 		  $scope.user = {
 		    name: '{{$student->name}}',
@@ -199,11 +222,16 @@
 
 		  	 $.post("{{route('profile-update')}}",data,function(data){
 		  	 	if(data == 'Success'){
-		  	 		swal(
-					  'Good job!',
-					  "Profile Saved.",
-					  'success'
-					);
+		  	 		if(document.getElementById("res_file").files.length != 0){
+			  	 		$('#image-upload-form').submit();
+		  	 		}else{
+		  	 			swal(
+						  'Good job!',
+						  "Profile Updated.",
+						  'success'
+						);
+		  	 		}
+
 		  	 	}
 		  	 });
 		  };

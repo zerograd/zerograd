@@ -562,12 +562,12 @@ class StudentController extends Controller
             return view('errors.404');
         }
 
-        if(!Session::has('user_id')){
+        if(Session::has('user_id') && Session::get('user_id') == $id){
+            //do nothing
+        }else if(!Session::has('user_id') || !Session::has('employer_id')){
             Session::flash('no_permission','You do not have permission to edit this page');
             return redirect('/');
-        } 
-
-        if(Session::get('user_id') != $id){
+        }else if(Session::get('user_id') != $id){
             Session::flash('no_permission','You do not have permission to edit this page');
             return redirect('/');
         }
@@ -577,7 +577,7 @@ class StudentController extends Controller
         //Path to image
         $path = '';
         if($student->avatar){
-         $path = asset('storage/avatars/' . $student->avatar);
+         $path = asset('storage/' . $student->avatar);
         }else{
             $path = URL::asset('images/resumes-list-avatar-01.png');
         }
@@ -590,6 +590,34 @@ class StudentController extends Controller
 
         // return $data;
         return view('edit-profile')->with($data);
+    }
+
+    public function uploadImage(Request $request){
+
+        $path = null;
+
+        //If image was uploaded and is a valid image 
+        if($request->file('res_file')){
+            $fileType = $request->file('res_file')->getMimeType();
+
+            if($fileType == 'image/jpeg' || $fileType = 'image/png'){
+
+                //Upload so the image will be available via public 
+                $path = $request->file('res_file')->store('avatars','public');
+
+                DB::table('profile_summary')
+                    ->where('id',Session::get('user_id'))
+                    ->update(array(
+                        'avatar' => $path
+                    ));
+            }else{
+                Session::flash('res_image','Not a valid image type');
+                return redirect('/profile/' . Session::get('user_id') . '/edit');
+            }
+        }
+
+         Session::flash('profile_updated','Profile Updated.');
+        return redirect('/profile/' . Session::get('user_id') . '/edit');
     }
 
     public function publicProfileUpdate(Request $request){

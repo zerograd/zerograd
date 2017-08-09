@@ -317,8 +317,13 @@ Route::get('/company/{id}/edit',array(
 	'uses' => 'EmployerController@profileEdit'		
 ));
 
-Route::post('/employer/profile/update',array(
-	'as' => 'employer-profile-update',
+Route::post('/company/profile/upload',array(
+	'as' => 'companyprofile-upload',
+	'uses' => 'EmployerController@uploadImage'
+));
+
+Route::post('/company/profile/update',array(
+	'as' => 'companyprofile-update',
 	'uses' => 'EmployerController@publicProfileUpdate'
 ));
 
@@ -364,6 +369,11 @@ Route::get('/profile/{id}',array(
 Route::get('/profile/{id}/edit',array(
 	'as' => 'public-profile-edit',
 	'uses' => 'StudentController@publicProfileEdit'		
+));
+
+Route::post('/profile/upload',array(
+	'as' => 'profile-upload',
+	'uses' => 'StudentController@uploadImage'
 ));
 
 Route::post('/profile/update',array(
