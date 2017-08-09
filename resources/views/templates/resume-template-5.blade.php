@@ -1,25 +1,13 @@
 
 <head>
-<title>Resume Template 5</title>
-
-<meta name="viewport" content="width=device-width"/>
-<meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
-<meta charset="UTF-8"> 
-
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
-<script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 	<style type="text/css">
-		html,body{
-			width:100%;
+
+		#content {
 			height:100%;
-			margin:0;
-			font-family: 'Raleway', sans-serif;
 		}
 		#header{
 			background-color: #06234C;
@@ -178,8 +166,7 @@
 		}
 	</style>
 </head>
-<body>
-	<div id="content">
+	<div id="content" class="container-fluid">
 		<div id="header">
 			<h1>Kyle Wilson-McCormack</h1>
 			<h2>Web Developer</h2>
@@ -278,4 +265,3 @@
 		</div>
 	</div>
 	<script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
-</body>

@@ -13,64 +13,9 @@ class ResumeController extends Controller
     //
     public function resumeBuilder($id = null){
 
+        $data = array(
 
-
-    	$education = DB::table('education')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->get();
-        $resume = DB::table('resume')
-                        ->select('*')
-                        ->where('user_id',$id)
-                        ->first();
-        $profileSummary = DB::table('profile_summary')
-                        ->select('summary')
-                        ->where('user_id',$id)
-                        ->first();  
-
-        $resumeSkills = explode(',',$resume->skills);
-
-        $profileSkills = DB::table('profile_skills')
-                            ->select('skills')
-                            ->where('user_id',$id)
-                            ->first();
-
-        if($profileSkills){
-            $skills = explode(',', $profileSkills->skills);
-        }
-        
-
-        $profileProjects = DB::table('profile_projects')
-                            ->select('*')
-                            ->where('user_id',$id)
-                            ->get();
-
-        $workExperience = DB::table('work_experience')
-                            ->select('*')
-                            ->where('user_id',$id)
-                            ->get();
-        $volunteering = DB::table('volunteer')
-                            ->select('*')
-                            ->where('user_id',$id)
-                            ->get();
-
-        $resumeUploaded = DB::table('students')->select('resume_uploaded')->where('student_id',$id)->first()->resume_uploaded;
-        $snaps = array(asset('images/resume-1-snap.png'),asset('images/resume-2-snap.png'),asset('images/resume-3-snap.png'));
-    	$data = array(
-    		'educations' => $education,
-            'resume' => $resume,
-            'profileSummary' => $profileSummary,
-            'resumeSkills' => $resumeSkills,
-            'skills' => isset($skills)?$skills:"",
-            'profileProjects' => $profileProjects,
-            'workExperience' => $workExperience,
-            'volunteering' => $volunteering,
-            'id' => $id,
-            'snaps' => $snaps,
-            'currentSnap' => 1,
-            'templateChosen' => $resume->selected_template,
-            'resume_uploaded' => $resumeUploaded
-		);
+        );
 
 		return view('resume-builder')->with($data);
     }
