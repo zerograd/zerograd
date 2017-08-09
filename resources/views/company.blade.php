@@ -38,7 +38,7 @@
         
         <!-- Company Info -->
         <div class="company-info">
-            <img src="{$path}" alt="">
+            <img src="{{$path}}" alt="">
             <div class="content">
                 <h4>{{$company->company_name}}</h4>
                 

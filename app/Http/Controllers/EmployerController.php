@@ -23,9 +23,20 @@ class EmployerController extends Controller
             Session::flash('not_verified','This company is not yet verified. Please check back shortly.');
             return redirect('/');
         }
+
+        //Path to image
+        $path = '';
+
+        if($company->path){
+            $path = asset('storage/'. $company->path);
+        }else{
+            $path = URL::asset('images/resumes-list-avatar-01.png');
+        }
+
         $data = array(
             'company' => $company,
-            'id' => $id
+            'id' => $id,
+            'path' => $path
         );
         
         return view('company')->with($data);
