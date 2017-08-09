@@ -13,8 +13,11 @@ class ResumeController extends Controller
     //
     public function resumeBuilder($id = null){
 
-        $data = array(
+        //Templates
+        $templates = DB::table('templates')->select('*')->get();
 
+        $data = array(
+            'templates' => $templates
         );
 
 		return view('resume-builder')->with($data);

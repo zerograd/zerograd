@@ -1,34 +1,23 @@
 
 <head>
-<title>Resume Template 5</title>
 
-<meta name="viewport" content="width=device-width"/>
-<meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
-<meta charset="UTF-8"> 
-
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{URL::asset('theme/css/font-awesome.css')}}">
-<script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 	<style type="text/css">
-		html,body{
-			width:100%;
+		#content{
+			width: 100%;
 			height:100%;
-			margin:0;
-			font-family: 'Raleway', sans-serif;
 		}
 
 		#leftColumn,#rightColumn{
-			height:100%;
+			height:1000px;
 		}
 
 		#leftColumn{
 			background-color: #D1BF15;
+
 		}
 		#rightColumn{
 			background-color: #200842;
@@ -92,44 +81,9 @@
 		}
 	</style>
 </head>
-<body>
 	<div id="content">
 		<div id="leftColumn" class="container col-sm-4">
-			<div class="border">
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus left-plus" aria-hidden="true"></i>
-			</div>
+			
 		</div>
 		<div id="rightColumn" class="container col-sm-8">
 
@@ -156,42 +110,7 @@
 					</ul>
 				</div>
 			</div>
-			<div class="border">
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-				<i class="fa fa-plus right-plus" aria-hidden="true"></i>
-			</div>
 		</div>
 	</div>
 	<script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
-</body>
+

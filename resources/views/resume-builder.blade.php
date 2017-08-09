@@ -44,6 +44,7 @@
 			max-height: 700px;
 			overflow-y: scroll;
 			box-shadow: 5px 5px 5px #000;
+			padding: 0;
 		}
 
 		#logo-header{
@@ -84,10 +85,17 @@
 				<option value="artsy">Artsy</option>
 			</select>
 		</div>
+		<div class="col-sm-12">
+			@foreach($templates as $template)
+				<div class="col-sm-6 template-div">
+					<img src='{{URL::asset("images/templates/$template->template_number.png")}}' class="img-responsive {{$template->template_category}}">
+				</div>
+			@endforeach
+		</div>
 	</div>
 	<div class="col-sm-9 scroll" id="resume-section">
 		<div class="col-sm-8 col-sm-offset-2 scroll" id="inner-resume-section-1">
-			@include('templates.resume-template-5')
+			@include('templates.resume-template-6')
 		</div>
 	</div>
 @stop
