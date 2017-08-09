@@ -19,6 +19,14 @@ class EmployerController extends Controller
                         ->select('*')
                         ->where('id',$id)
                         ->first();
+
+        //Jobs offered by the company
+        $jobs = DB::table('postings')
+                    ->select('*')
+                    ->where('company_id',$id)
+                    ->take(3)
+                    ->get();
+
         if($company->verified != 'yes'){
             Session::flash('not_verified','This company is not yet verified. Please check back shortly.');
             return redirect('/');
@@ -36,7 +44,8 @@ class EmployerController extends Controller
         $data = array(
             'company' => $company,
             'id' => $id,
-            'path' => $path
+            'path' => $path,
+            'jobs' => $jobs
         );
         
         return view('company')->with($data);

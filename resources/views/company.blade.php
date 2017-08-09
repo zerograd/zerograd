@@ -57,10 +57,28 @@
         
         <br>
 
-        <h4 class="margin-bottom-10">Jobs offered by: &nbsp {{$company->company_name}}</h4>
+        <h4 class="margin-bottom-10">Jobs Offered By: &nbsp {{$company->company_name}}</h4>
 
-        <ul class="list-1">
-            
+        <ul class="job-list">
+            @foreach($jobs as $job)
+                <li class="highlighted"><a href="{{route('get-posting',$job->id)}}" target="_blank" onClick="seen();">
+                    <img src="{{URL::asset('/images/job-list-logo-01.png')}}" alt="">
+                    <div class="job-list-content">
+                        <h4>{{$job->title}}</h4>
+                        <div class="job-icons">
+                            <span style="text-transform: capitalize;"><i class="fa fa-briefcase"></i>{{$job->company}}</span>
+                            <span><i class="fa fa-map-marker"></i>{{$job->location}}</span>
+                            <?php 
+                                $date = date_create($job->posted_date);
+                                $formattedDate = date_format($date,'F d, Y');
+                            ?>
+                            <span><i class="fa fa-calendar" aria-hidden="true"></i></i>{{$formattedDate}}</span>
+                        </div>
+                    </div>
+                    </a>
+                    <div class="clearfix"></div>
+                </li>
+            @endforeach
         </ul>
 
     </div>
