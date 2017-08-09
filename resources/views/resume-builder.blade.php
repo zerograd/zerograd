@@ -31,6 +31,7 @@
 		#template-section{
 			background:rgba(0,0,0,0.5);
 			height:100%;
+			overflow-y: hidden;
 		}
 
 		#resume-section{
@@ -69,6 +70,10 @@
 			font-weight: bold;
 		}
 		
+		#inner-template-section{
+			overflow-y: scroll;
+			height:500px;
+		}
 	</style>
 @stop
 
@@ -85,7 +90,7 @@
 				<option value="artsy">Artsy</option>
 			</select>
 		</div>
-		<div class="col-sm-12">
+		<div class="col-sm-12 scroll" id="inner-template-section">
 			@foreach($templates as $template)
 				<div class="col-sm-6 template-div">
 					<img src='{{URL::asset("images/templates/$template->template_number.png")}}' class="img-responsive {{$template->template_category}}">
