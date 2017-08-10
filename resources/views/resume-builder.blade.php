@@ -114,7 +114,7 @@
 		</div>
 		<div class="col-sm-12 scroll" id="inner-template-section">
 			@foreach($templates as $template)
-				<div class="col-sm-6 template-div {{$template->template_category}}" onClick="postResumeTemplate({{$template->template_number}},{{$id}})">
+				<div class="col-sm-6 template-div {{$template->template_category}}" ng-click="postResumeTemplate({{$template->template_number}},{{$id}})">
 					<img src='{{URL::asset("images/templates/$template->template_number.png")}}' class="img-responsive">
 				</div>
 			@endforeach
@@ -128,7 +128,7 @@
 	</div>
 	<div class="col-sm-9 scroll" id="resume-section">
 
-		<div class="col-sm-8 col-sm-offset-2 scroll" id="inner-resume-section-1" ng-controller="Ctrl" ng-cloak>
+		<div class="col-sm-8 col-sm-offset-2 scroll" id="inner-resume-section-1" >
 			@include('templates.resume-template-' . $templateNumber)
 		</div>
 	</div>
@@ -163,11 +163,9 @@
 			      });
 			})
  		});
- 		function postResumeTemplate(number,id){
- 			$.post('{{route('post-resume-template')}}',{number:number,id:id,_token:"{{csrf_token()}}"},function(data){
- 				$('#inner-resume-section-1').html(data);
- 			});
- 		}
+ 		
+
+ 		
 
  		//This will add another project line <p>
  		// function addProject(){
@@ -180,7 +178,13 @@
 
  	</script>
  	<script type="text/javascript">
-		app.controller('Ctrl', function($scope) {
+
+ 		app.service('templateService',function($http){
+ 			var template;
+
+
+ 		});
+		app.controller('Ctrl', function($scope,$http,$compile) {
 		  $scope.user = {
 		    name: '',
 		    title: '',
@@ -194,7 +198,22 @@
 
 		  $scope.projectSize = $scope.user.projects.length;
 
-		  
+		  $scope.postResumeTemplate = function(number,id){
+
+		  	$http.post('{{route('post-resume-template')}}',{number:number,id:id,_token:"{{csrf_token()}}"},{})
+            .success(function (data, status, headers, config) {
+                // $('#inner-resume-section-1').html(data);
+                var elem = angular.element(data);
+                angular.element(document.getElementById('inner-resume-section-1')).html(elem);
+                $scope.Data = data;
+                $compile(elem)($scope);
+            })
+
+ 			// $.post('{{route('post-resume-template')}}',{number:number,id:id,_token:"{{csrf_token()}}"},function(data){
+ 			// 	$('#inner-resume-section-1').html(data);
+ 				
+ 			// });
+		};
 
 		  $scope.addProject = function(){
 		  	 $scope.newProject = {

@@ -60,6 +60,8 @@ class ResumeController extends Controller
         $data = array(
 
         );
+
+        
         return view('templates.resume-template-' . $number)->with($data)->render();
     }
 

@@ -128,5 +128,4 @@
 			</div>
 		</div>
 	</div>
-	<script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
 
