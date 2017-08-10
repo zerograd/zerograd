@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale') }}" ng-app="app">
     <head>
     <!-- <script src="https://use.fontawesome.com/ba4723fdf4.js"></script> -->
         <meta charset="utf-8">
@@ -22,13 +22,12 @@
         
         <link href="{{URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{URL::asset('/radios-to-slider/css/radios-to-slider.css')}}">
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-        <script>
-          (adsbygoogle = window.adsbygoogle || []).push({
-            google_ad_client: "ca-pub-2940368448899385",
-            enable_page_level_ads: true
-          });
-        </script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+      <script src=""></script>
+      <link href="{{URL::asset('angular-xeditable-0.8.0/css/xeditable.css')}}" rel="stylesheet">
+      <script src="{{URL::asset('angular-xeditable-0.8.0/js/xeditable.js')}}"></script>
+      <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+
         <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
         
         
@@ -51,6 +50,8 @@
         <script src="{{URL::asset('/Remodal-1.1.1/dist/remodal.min.js')}}"></script>
         <script src="{{URL::asset('radios-to-slider/js/jquery.radios-to-slider.js')}}"></script>
         <script src="https://cdn.jsdelivr.net/sweetalert2/5.3.5/sweetalert2.min.js"></script>
+                 <!-- AngularJS -->
+        <script src="{{URL::asset('/js/main.js')}}"></script>
         @yield('script_plugins')
         </div>
     </body>

@@ -24,6 +24,7 @@
 <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
          rel = "stylesheet">
       <script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
+      
       <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
       <script src=""></script>

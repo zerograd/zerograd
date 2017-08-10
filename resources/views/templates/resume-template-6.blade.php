@@ -78,6 +78,16 @@
 			font-size:16px;
 			color:white;
 			margin:0;
+		    word-break: break-all;
+		}
+
+		#projects button{
+			float:right;
+			margin:10px;
+		}
+
+		.margin-tab {
+			margin: 5px 0;
 		}
 	</style>
 </head>
@@ -88,15 +98,21 @@
 		<div id="rightColumn" class="container col-sm-8">
 
 			<div class="container-fluid" style="padding:100px 30px 0 30px;">
-				<h1 class="resume-name ">Kyle Wilson-McCormack</h1>
-				<h2 class="resume-title">Project Manager</h2>
+				<h1 class="resume-name " editable-text="user.name"><% user.name || 'Add A Name'%></h1>
+				<h2 class="resume-title" editable-text="user.title"><%user.title || 'A Title'%></h2>
 				<div class="right-section">
 					<h2>Profile</h2>
-					<p>I am an experienced project manager who is looking for a full-time job in order to enhance my skills, and gain more experience and knowledge in my field.</p>
+					<p editable-textarea="user.summary" e-cols='40' e-rows="7" ><%user.summary || 'Enter a summary...'%></p>
 				</div>
-				<div class="right-section">
+				<div class="right-section" id="projects">
 					<h2>Projects</h2>
-					<p>Proposed new projects and organized them. Made PowerPoint presentations. Overall handling of events and projects. Spearheaded projects and preparations.</p>
+					<div ng-repeat="project in user.projects track by project.id" class="container-fluid">
+						<p editable-textarea="project.info" class="margin-tab" e-cols='40' e-rows="7"><% project.info || 'Enter a project...'%></p>
+					</div>
+					<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addProject();">+</button>
+						<button class="btn btn-danger" ng-click="removeProject();">-</button>
+					</div>
 				</div>
 				<div class="right-section">
 					<h2>Skills</h2>

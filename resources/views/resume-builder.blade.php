@@ -89,6 +89,12 @@
 			margin: 0 auto;
 			padding: 20px 35px;
 		}
+
+		/*Editing CSS*/
+
+		.form-control {
+			font-weight:bold;
+		}
 	</style>
 @stop
 
@@ -122,7 +128,7 @@
 	</div>
 	<div class="col-sm-9 scroll" id="resume-section">
 
-		<div class="col-sm-8 col-sm-offset-2 scroll" id="inner-resume-section-1">
+		<div class="col-sm-8 col-sm-offset-2 scroll" id="inner-resume-section-1" ng-controller="Ctrl" ng-cloak>
 			@include('templates.resume-template-' . $templateNumber)
 		</div>
 	</div>
@@ -162,5 +168,50 @@
  				$('#inner-resume-section-1').html(data);
  			});
  		}
+
+ 		//This will add another project line <p>
+ 		// function addProject(){
+ 		// 	var last = $('#projects p').last();
+ 		// 	var newProject = $("<p editable-textarea='user.project' e-cols='40' e-rows='7'><%user.project || 'Enter a project...'%></p>");
+
+ 		// 	//Insert the project after the last one
+ 		// 	newProject.insertAfter(last);
+ 		// }
+
  	</script>
+ 	<script type="text/javascript">
+		app.controller('Ctrl', function($scope) {
+		  $scope.user = {
+		    name: '',
+		    title: '',
+		    summary: '',
+		    projects: [{
+		    	name:'',
+		    	id:1,
+		    	info:''
+		    }],
+		  };  
+
+		  $scope.projectSize = $scope.user.projects.length;
+
+		  
+
+		  $scope.addProject = function(){
+		  	 $scope.newProject = {
+		    	name:'',
+		    	id:$scope.projectSize + 1,
+		    	info:''
+		    };
+		    $scope.projectSize++;
+		  	 $scope.user.projects.push($scope.newProject);
+		  };
+
+		  $scope.removeProject = function(){
+		  	 $scope.user.projects.pop();
+		  };
+		  
+
+		});
+		</script>
  @stop
+
