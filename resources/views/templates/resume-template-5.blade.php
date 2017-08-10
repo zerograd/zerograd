@@ -42,14 +42,16 @@
 			font-size: 24px;
 			margin:0;
 			margin-bottom: 15px;
-			color:#a6a6a6;
+			color:#000000;
 			text-transform: uppercase;
+			font-weight: bold;
 		}
 		.section-content{
 			font-size: 16px;
 			margin:0;
-			color:#a6a6a6;
+			color:#000000;
 			width:100%;
+			font-weight: bold;
 		}
 
 		.text-right{
@@ -72,6 +74,11 @@
 
 		#skills li,#education li{
 			text-align: right;
+		}
+
+		.skill-text {
+			color:black;
+			font-weight: bold;
 		}
 
 		#education li {
@@ -141,13 +148,13 @@
 			font-size: 18px;
 			margin:0;
 			margin-bottom: 15px;
-			color:#a6a6a6;
+			color:#000000;
 			text-transform: uppercase;
 		}
 		.section-content{
 			font-size: 12px;
 			margin:0;
-			color:#a6a6a6;
+			color:#000000;
 			width:100%;
 		}
 
@@ -168,24 +175,25 @@
 </head>
 	<div id="content" class="container-fluid">
 		<div id="header">
-			<h1>Kyle Wilson-McCormack</h1>
-			<h2>Web Developer</h2>
+			<h1 class="resume-name " editable-text="user.name"><% user.name || 'Add A Name'%></h1>
+			<h2 class="resume-title" editable-text="user.title"><%user.title || 'A Title'%></h2>
 		</div>
 		<div id="leftColumn" class="container col-sm-5">
 			<div class="section">
 				<h2 class="section-title text-right">Profile</h2>
-				<p class="section-content text-right" id="summary">
-					Energetic business consultant who has a track record of increasing revenue and enhancing productivity. Specializes in technology distributors and retail organizations.
+				<p class="section-content text-right" id="summary" editable-textarea="user.summary" e-cols='40' e-rows="7" ><%user.summary || 'Enter a summary...'%>
 				</p>
 			</div>
 			<div class="section">
-				<h2 class="section-title text-right">SKILLS</h2>
+				<h2 class="section-title text-right">SKILLS</h2>					
 				<ul id="skills">
-					<li class="section-content">Leadership</li>
-					<li class="section-content">Communication</li>
-					<li class="section-content">Strategic Planning</li>
-					<li class="section-content">Blogging</li>
+					<li class="" ng-repeat="skill in user.skills track by $index" class="margin-tab section-content">	  	<p editable-text="skill" class="skill-text"><% skill || 'New Skill...'%></p>
+					</li>
 				</ul>
+				<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addSkill();">+</button>
+						<button class="btn btn-danger" ng-click="removeSkill();">-</button>
+				</div>
 			</div>
 			<div class="section">
 				<h2 class="section-title text-right">EDUCATION</h2>
