@@ -22,11 +22,19 @@
         
         <link href="{{URL::asset('/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css">
         <link rel="stylesheet" type="text/css" href="{{URL::asset('/radios-to-slider/css/radios-to-slider.css')}}">
+
+        <!-- Angular Code -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
       <script src=""></script>
       <link href="{{URL::asset('angular-xeditable-0.8.0/css/xeditable.css')}}" rel="stylesheet">
       <script src="{{URL::asset('angular-xeditable-0.8.0/js/xeditable.js')}}"></script>
       <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.3.1/ui-bootstrap-tpls.min.js"></script>
+
+      <!-- jQuery UI -->
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
         <!-- <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
         

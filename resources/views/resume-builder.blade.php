@@ -179,6 +179,10 @@
  	</script>
  	<script type="text/javascript">
 
+ 		$(document).ready(function(){
+ 			$('.date').datepicker();
+ 		});
+
  		app.service('templateService',function($http){
  			var template;
 
@@ -194,15 +198,29 @@
 		    	id:1,
 		    	info:''
 		    }],
+		    works:[{
+		    	title:'',
+		    	id:1,
+		    	company:'',
+		    	info:'',
+		    	start:new Date(),
+		    	completed:new Date()
+		    }],
+		    skills: [''],
 		  };  
 
 		  $scope.projectSize = $scope.user.projects.length;
+		  $scope.workSize = $scope.user.works.length;
 
 		  $scope.postResumeTemplate = function(number,id){
 
 		  	$http.post('{{route('post-resume-template')}}',{number:number,id:id,_token:"{{csrf_token()}}"},{})
             .success(function (data, status, headers, config) {
                 // $('#inner-resume-section-1').html(data);
+
+                //Append Data to an element then load element to #
+                // re compile using $compile
+                // CAUTION : use $compile carefully
                 var elem = angular.element(data);
                 angular.element(document.getElementById('inner-resume-section-1')).html(elem);
                 $scope.Data = data;
@@ -218,7 +236,7 @@
 		  $scope.addProject = function(){
 		  	 $scope.newProject = {
 		    	name:'',
-		    	id:$scope.projectSize + 1,
+		    	id:1,
 		    	info:''
 		    };
 		    $scope.projectSize++;
@@ -228,9 +246,49 @@
 		  $scope.removeProject = function(){
 		  	 $scope.user.projects.pop();
 		  };
+
+		  $scope.addWork = function(){
+		  	 $scope.work = {
+		    	title:'',
+		    	id:1,
+		    	company:'',
+		    	info:'',
+		    	start:new Date(),
+		    	completed:new Date()
+		    };
+		    $scope.workSize++;
+		  	 $scope.user.works.push($scope.work);
+		  };
+
+		  $scope.removeWork = function(){
+		  	 $scope.user.works.pop();
+		  };
+
+		  $scope.opened = {};
+
+	$scope.open = function($event, elementOpened) {
+		$event.preventDefault();
+		$event.stopPropagation();
+
+		$scope.opened[elementOpened] = !$scope.opened[elementOpened];
+	};
+
+		  $scope.addSkill = function(){
+		  	 $scope.skill = 'New Skill...';
+
+		  	 $scope.user.skills.push($scope.skill);
+		  };
+
+		  $scope.removeSkill = function(){
+		  	$scope.user.skills.pop();
+		  };
 		  
 
 		});
+
+		// Datepicker UI
+
+
 		</script>
  @stop
 

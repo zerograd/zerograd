@@ -81,6 +81,12 @@
 		    word-break: break-all;
 		}
 
+		/*Project DIV CSS*/
+
+		.project-div {
+			margin: 10px 0;
+		}
+
 		#projects button{
 			float:right;
 			margin:10px;
@@ -88,6 +94,51 @@
 
 		.margin-tab {
 			margin: 5px 0;
+		}
+
+		#skills button {
+			float:right;
+			margin:10px;
+		}
+
+		/*Work DIV CSS*/
+		.work-div {
+			margin: 10px 0;
+		}
+		#work button {
+			float:right;
+			margin:10px;
+		}
+
+		.work-title {
+			float:left;
+		}
+
+		.work-period {
+			float:right;
+		}
+
+		.work-period span {
+			color:white;
+		}
+
+		.work-company {
+			float:left;
+		}
+
+		.work-info {
+			font-style: italic;
+		}
+
+		ul {
+			list-style: none
+		}
+
+		li::before {
+			content: "•"; color: #D1BF15;
+  			width: 10px;
+  			float:left;
+ 			 margin-left: -1em
 		}
 	</style>
 </head>
@@ -106,7 +157,7 @@
 				</div>
 				<div class="right-section" id="projects">
 					<h2>Projects</h2>
-					<div ng-repeat="project in user.projects track by project.id" class="container-fluid">
+					<div ng-repeat="project in user.projects track by project.id" class="container-fluid project-div">
 						<p editable-textarea="project.info" class="margin-tab" e-cols='40' e-rows="7"><% project.info || 'Enter a project...'%></p>
 					</div>
 					<div class="col-sm-12">
@@ -114,16 +165,40 @@
 						<button class="btn btn-danger" ng-click="removeProject();">-</button>
 					</div>
 				</div>
-				<div class="right-section">
+				<div class="right-section" id="work">
+					<h2>Work Experience</h2>
+					<div ng-repeat="work in user.works track by work.id" class="container-fluid work-div">
+					    <div class="col-sm-12 margin-tab">
+					    	<p class="work-title" editable-text="work.title"><% work.title || 'Work Title...'%></p>
+					    	<p class="work-period">
+					    		<span editable-text="work.start"><% (work.start | date:"MM/yyyy")|| 'Start Date'%></span>
+					    		<span>&nbsp-&nbsp</span>
+					    		<span editable-text="work.completed"><% (work.completed | date:"MM/yyyy") || 'End Date'%></span>
+					    	</p>
+					    </div>
+					    <div class="col-sm-12">
+					    	<p class="work-company" style="font-size: 14px;" editable-text="work.company"><% work.company || 'Work Company...'%></p>
+					    </div>
+					    <div class="col-sm-12 margin-tab">
+				    		<p editable-textarea="work.info" class="margin-tab" e-cols='40' e-rows="7" class="work-info"><% work.info || 'Enter work experience...'%></p>
+					    </div>
+					</div>
+					<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addWork();">+</button>
+						<button class="btn btn-danger" ng-click="removeWork();">-</button>
+					</div>
+				</div>
+				<div class="right-section" id="skills">
 					<h2>Skills</h2>
 					<ul style="margin:0;list-style: circle;">
-						<li><p>Event planning</p></li>
-						<li><p>Project management</p></li>
-						<li><p>Strong communication skills</p></li>
-						<li><p>Fast learner</p></li>
-						<li><p>Collaborative</p></li>
-						<li><p>Team Player</p></li>
+						<li ng-repeat="skill in user.skills track by $index" class="margin-tab">
+							<p editable-text="skill"><% skill || 'New Skill...'%></p>
+						</li>
 					</ul>
+					<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addSkill();">+</button>
+						<button class="btn btn-danger" ng-click="removeSkill();">-</button>
+					</div>
 				</div>
 			</div>
 		</div>
