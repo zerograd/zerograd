@@ -184,6 +184,14 @@
 				text-align: center;
 				text-transform: uppercase;
 			}
+
+			#education span {
+				color:black;
+			}
+
+			#footer span {
+				color:white;
+			}
 		}
 	</style>
 </head>
@@ -279,9 +287,9 @@
 
 		<div id="footer" class="col-sm-12">
 			<p class="text-center">
-				<span>+12 213 4182</span>&nbsp|&nbsp
-				<span>kmccormack@gmail.com</span>&nbsp|&nbsp
-				<span>Phoenix,&nbspArizona</span>
+				<span editable-text="user.phone"><% user.phone || 'Phone number here...'%></span>&nbsp|&nbsp
+				<span editable-text="user.email"><% user.email || 'Email here...'%></span>&nbsp|&nbsp
+				<span editable-text="user.city"><% user.city || 'Your City here...'%></span>
 			</p>
 		</div>
 	</div>

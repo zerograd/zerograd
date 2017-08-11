@@ -217,7 +217,10 @@
 		    	start:'',
 		    	complete:'',
 		    	school:''
-		    }]
+		    }],
+		    phone:'',
+		    email:'',
+		    city: '',
 		  };  
 
 		  $scope.projectSize = $scope.user.projects.length;
