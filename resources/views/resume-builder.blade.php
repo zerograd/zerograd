@@ -75,6 +75,13 @@
 			height:650px;
 		}
 
+		.template-div {
+			margin:5px 0;
+		}
+		.template-div img {
+			width:170px;
+			height:153px;
+		}
 
 		.template-div:hover {
 			cursor: pointer;

@@ -1,28 +1,9 @@
 
 <head>
-<title>Resume Template 7</title>
 
-<meta name="viewport" content="width=device-width"/>
-<meta name="description" content="The Curriculum Vitae of Joe Bloggs."/>
-<meta charset="UTF-8"> 
-
-<link href='http://fonts.googleapis.com/css?family=Rokkitt:400,700|Lato:400,300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
-<link rel="stylesheet" href="{{URL::asset('/css/font-awesome-4.7.0/css/font-awesome.min.css')}}">
-<script src="{{URL::asset('theme/scripts/jquery-2.1.3.min.js')}}"></script>
-<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
-<!--[if lt IE 9]>
-<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
 
 	<style type="text/css">
-		html,body{
-			width:100%;
-			height:100%;
-			margin:0;
-			font-family: 'Raleway', sans-serif;
-			background-color: #20BD88;
-		}
+		
 
 		#Content {
 			height:100%;
@@ -43,7 +24,7 @@
 
 		#leftColumn {
 			height:90%;
-			border-right:2px solid white;
+			border-right:2px solid black;
 		}
 
 		#rightColumn {
@@ -61,7 +42,7 @@
 		}
 
 		.section-title {
-			color:white;
+			color:black;
 			text-transform: uppercase;
 			font-weight: 600;
 		}
@@ -70,7 +51,7 @@
 		}
 	</style>
 </head>
-<body>
+
 	<div id="Content" class="container-fluid">
 		<div class="inner container-fluid">
 			<div id="resume-name-div" class="col-sm-12">
@@ -96,4 +77,4 @@
 		</div>
 	</div>
 	<script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
-</body>
+
