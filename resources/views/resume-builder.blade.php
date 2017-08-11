@@ -196,17 +196,28 @@
 		    projects: [{
 		    	name:'',
 		    	id:1,
-		    	info:''
+		    	info:'',
+		    	role:'',
+		    	start:'',
+		    	completed:'',
+		    	list: [''],
 		    }],
 		    works:[{
 		    	title:'',
 		    	id:1,
 		    	company:'',
 		    	info:'',
-		    	start:new Date(),
-		    	completed:new Date()
+		    	start:'',
+		    	completed:'',
+		    	list: [''],
 		    }],
 		    skills: [''],
+		    education: [{
+		    	degree: '',
+		    	start:'',
+		    	complete:'',
+		    	school:''
+		    }]
 		  };  
 
 		  $scope.projectSize = $scope.user.projects.length;
@@ -237,7 +248,11 @@
 		  	 $scope.newProject = {
 		    	name:'',
 		    	id:1,
-		    	info:''
+		    	role:'',
+		    	info:'',
+		    	start:'',
+		    	completed:'',
+		    	list: [''],
 		    };
 		    $scope.projectSize++;
 		  	 $scope.user.projects.push($scope.newProject);
@@ -253,8 +268,9 @@
 		    	id:1,
 		    	company:'',
 		    	info:'',
-		    	start:new Date(),
-		    	completed:new Date()
+		    	start:'',
+		    	completed:'',
+		    	list:['']
 		    };
 		    $scope.workSize++;
 		  	 $scope.user.works.push($scope.work);
@@ -262,6 +278,25 @@
 
 		  $scope.removeWork = function(){
 		  	 $scope.user.works.pop();
+		  };
+
+		  // If the resume has <li> for specific sections e.g. work experience
+		  $scope.addListItem = function(type,index){
+		  	$scope.listItem = '';
+
+		  	if(type == 'work'){
+				$scope.user.works[index].list.push($scope.listItem);
+		  	}else if(type == 'project'){
+		  		$scope.user.projects[index].list.push($scope.listItem);
+		  	}
+		  };
+
+		  $scope.removeListItem = function(type,index){
+		  	if(type == 'work'){
+				$scope.user.works[index].list.pop();
+		  	}else if(type == 'project'){
+		  		$scope.user.projects[index].list.pop();
+		  	}
 		  };
 
 		  $scope.opened = {};
@@ -284,7 +319,24 @@
 		  };
 		  
 
-		});
+		  $scope.addSchool = function(){
+		  	 $scope.school = {
+		    	degree: '',
+		    	start:'',
+		    	complete:'',
+		    	school:''
+		    };
+
+		  	 $scope.user.education.push($scope.school);
+		  };
+
+		  $scope.removeSchool = function(){
+		  	$scope.user.education.pop();
+		  };
+
+
+
+		}); //end of controller
 
 		// Datepicker UI
 

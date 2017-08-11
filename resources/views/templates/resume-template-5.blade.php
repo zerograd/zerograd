@@ -54,6 +54,10 @@
 			font-weight: bold;
 		}
 
+		.section-content p {
+			color:black;
+		}
+
 		.text-right{
 			float:right;
 			text-align: right;
@@ -117,6 +121,16 @@
 			color:black;
 			font-size: 16px;
 			font-weight: 600;
+		}
+
+		.experience-title span {
+			color:black;
+		}
+
+		.list-btn {
+			padding:2px 5px;
+			float:right;
+			margin:5px;
 		}
 
 		#footer {
@@ -198,69 +212,68 @@
 			<div class="section">
 				<h2 class="section-title text-right">EDUCATION</h2>
 				<ul id="education">
-					<li class="section-content">
-						<p>University Of Phoenix</p>
-						<p>Major in Marketing, 2019</p>
-					</li>
-					<li class="section-content">
-						<p>College of Business</p>
-						<p>Major in Management, 2010</p>
+					<li class="section-content" ng-repeat="school in user.education track by $index">
+						<p editable-text="school.school"><% school.school || 'School Here'%></p>
+						<p>
+							<span editable-text="school.degree"><% school.degree || 'Degree Here..'%></span>, 
+							<span editable-text="school.completed"><% school.completed || 'completion year..'%></span>
+						</p>
 					</li>
 				</ul>
+				<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addSchool();">+</button>
+						<button class="btn btn-danger" ng-click="removeSchool();">-</button>
+				</div>
 			</div>
 		</div>
 		 <div id="rightColumn" class="container col-sm-7">
 			<div class="section">
-				<h2 class="section-title text-left">Core Qualifications</h2>
-
-				<ul id="qualifications">
-					<li class="section-content">
-						<p>Track record of increasing revenue of clients by an average of 30 percent</p>
-					</li>
-					<li class="section-content">
-						<p>excellent analytical and problem solving skills</p>
-					</li>
-					<li class="section-content">
-						<p>exceptional presentation abilities</p>
-					</li>
-					<li class="section-content">
-						<p>Able to establish rapport with all levels of management</p>
-					</li>
-				</ul>
-				
+				<h2 class="section-title text-left">Projects</h2>
+				<div class="col-sm-12" ng-repeat="project in user.projects track by $index">
+					<h3 class="experience-title">
+						<span editable-text="project.name"><% project.name || 'Project Name'%></span>, 
+						<span editable-text="project.role"><% project.role || 'Role'%></span> | 
+						<span editable-text="project.start"><% project.start || 'Start Date'%></span>-
+						<span editable-text="project.completed"><% project.completed || 'Completed'%></span>
+					</h3>
+					<ul class="experience">
+						<li class="section-content" ng-repeat="listitem in project.list track by $index">
+							<p editable-text="listitem"><% listitem || 'Add project note...'%></p>
+						</li>
+					</ul>
+					<div class="col-sm-12">
+						<button class="list-btn btn btn-success" ng-click="addListItem('project',$index);">+</button>
+						<button class="list-btn btn btn-danger" ng-click="removeListItem('project',$index);">-</button>
+					</div>
+				</div>
+				<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addWork();">+</button>
+						<button class="btn btn-danger" ng-click="removeWork();">-</button>
+				</div>
 			</div>
 			<div class="section">
 				<h2 class="section-title text-left">Work Experience</h2>
-				<h3 class="experience-title">Mandarin Group, Associate | 2023-present</h3>
-				<ul class="experience">
-					<li class="section-content">
-						<p>Track record of increasing revenue of clients by an average of 30 percent</p>
-					</li>
-					<li class="section-content">
-						<p>excellent analytical and problem solving skills</p>
-					</li>
-					<li class="section-content">
-						<p>exceptional presentation abilities</p>
-					</li>
-					<li class="section-content">
-						<p>Able to establish rapport with all levels of management</p>
-					</li>
-				</ul>
-				<h3 class="experience-title">Mandarin Group, Associate | 2023-present</h3>
-				<ul class="experience">
-					<li class="section-content">
-						<p>Track record of increasing revenue of clients by an average of 30 percent</p>
-					</li>
-					<li class="section-content">
-						<p>excellent analytical and problem solving skills</p>
-					</li>
-					<li class="section-content">
-						<p>exceptional presentation abilities</p>
-					</li>
-					<li class="section-content">
-						<p>Able to establish rapport with all levels of management</p>
-					</li>
-				</ul>
+				<div class="col-sm-12" ng-repeat="work in user.works track by $index">
+					<h3 class="experience-title">
+						<span editable-text="work.company"><% work.company || 'Company Here'%></span>, 
+						<span editable-text="work.title"><% work.title || 'Position Here'%></span> | 
+						<span editable-text="work.start"><% work.start || 'Start Date'%></span>-
+						<span editable-text="work.completed"><% work.completed || 'Completed'%></span>
+					</h3>
+					<ul class="experience">
+						<li class="section-content" ng-repeat="listitem in work.list track by $index">
+							<p editable-text="listitem"><% listitem || 'Add work note...'%></p>
+						</li>
+					</ul>
+					<div class="col-sm-12">
+						<button class="list-btn btn btn-success" ng-click="addListItem('work',$index);">+</button>
+						<button class="list-btn btn btn-danger" ng-click="removeListItem('work',$index);">-</button>
+					</div>
+				</div>
+				<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addWork();">+</button>
+						<button class="btn btn-danger" ng-click="removeWork();">-</button>
+				</div>
 			</div>
 		</div> 
 

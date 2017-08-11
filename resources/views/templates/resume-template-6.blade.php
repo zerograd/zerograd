@@ -157,7 +157,7 @@
 				</div>
 				<div class="right-section" id="projects">
 					<h2>Projects</h2>
-					<div ng-repeat="project in user.projects track by project.id" class="container-fluid project-div">
+					<div ng-repeat="project in user.projects track by $index" class="container-fluid project-div">
 						<p editable-textarea="project.info" class="margin-tab" e-cols='40' e-rows="7"><% project.info || 'Enter a project...'%></p>
 					</div>
 					<div class="col-sm-12">
