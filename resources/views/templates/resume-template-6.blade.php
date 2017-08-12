@@ -130,6 +130,32 @@
 			font-style: italic;
 		}
 
+		/*Education div CSS*/
+
+		.school-div {
+			margin: 10px 0;
+		}
+		#education button {
+			float:right;
+			margin:10px;
+		}
+
+		.school-title {
+			float:left;
+		}
+
+		.school-period {
+			float:right;
+		}
+
+		.school-period span {
+			color:white;
+		}
+
+		.school-degree {
+			float:left;
+		}
+
 		ul {
 			list-style: none
 		}
@@ -163,6 +189,24 @@
 					<div class="col-sm-12">
 						<button class="btn btn-success" ng-click="addProject();">+</button>
 						<button class="btn btn-danger" ng-click="removeProject();">-</button>
+					</div>
+				</div>
+				<div class="right-section" id="education">
+					<h2>Education</h2>
+					<div ng-repeat="school in user.education track by $index" class="container-fluid school-div">
+					    <div class="col-sm-12 margin-tab">
+					    	<p class="school-title" editable-text="school.school"><% school.school || 'School Here...'%></p>
+					    	<p class="school-period">
+					    		<span editable-text="school.complete"><% school.complete || 'Completion Date' %></span>
+					    	</p>
+					    </div>
+					    <div class="col-sm-12">
+					    	<p class="school-degree" style="font-size: 14px;" editable-text="school.degree"><% school.degree || 'Degree...'%></p>
+					    </div>
+					</div>
+					<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addSchool();">+</button>
+						<button class="btn btn-danger" ng-click="removeSchool();">-</button>
 					</div>
 				</div>
 				<div class="right-section" id="work">

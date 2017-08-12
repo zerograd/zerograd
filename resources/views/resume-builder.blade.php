@@ -186,9 +186,7 @@
  	</script>
  	<script type="text/javascript">
 
- 		$(document).ready(function(){
- 			$('.date').datepicker();
- 		});
+ 		
 
  		app.service('templateService',function($http){
  			var template;
