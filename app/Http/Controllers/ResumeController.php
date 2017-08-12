@@ -65,7 +65,11 @@ class ResumeController extends Controller
         return view('templates.resume-template-' . $number)->with($data)->render();
     }
 
-  
+   // Function to process data from resume builder
+
+    public function postViaResumeBuilder(Request $request){
+        
+    }
 
 
     public function resumeUploaded(Request $request){

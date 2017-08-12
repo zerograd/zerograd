@@ -196,6 +196,8 @@
 		app.controller('Ctrl', function($scope,$http,$compile) {
 		  $scope.user = {
 		    name: '',
+		    first_name:'',
+		    last_name:'',
 		    title: '',
 		    summary: '',
 		    projects: [{
