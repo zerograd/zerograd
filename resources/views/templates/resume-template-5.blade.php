@@ -224,7 +224,7 @@
 						<p editable-text="school.school"><% school.school || 'School Here'%></p>
 						<p>
 							<span editable-text="school.degree"><% school.degree || 'Degree Here..'%></span>, 
-							<span editable-text="school.completed"><% school.completed || 'completion year..'%></span>
+							<span editable-text="school.complete"><% school.complete || 'completion year..'%></span>
 						</p>
 					</li>
 				</ul>
