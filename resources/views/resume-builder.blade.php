@@ -129,7 +129,7 @@
 		</div>
 		<div id="resume-buttons" class="col-sm-12">
 			<button type="button" class="btn btn-warning"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspHelp</button>
-			<button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>
+			<button type="button" class="btn btn-danger" ng-click="deleteResume();"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>
 			<button type="button" class="btn btn-primary" ng-click="postData();"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbspSave</button>
 		</div>
 	</div>
@@ -244,11 +244,18 @@
 		}
 
 		$scope.deleteResume = function(){
-			var user = this.user.user_id;
-			$http.post('{{route('delete-builder')}}',{user:user,_token:"{{csrf_token()}}"},{})
-            .success(function (data, status, headers, config) {
-                window.location = '{{route('resume-builder',$id)}}';
-            });
+
+			var deleted = confirm('Are you sure you want to delete this resume. (Cannot be undone)');
+
+			if(deleted == true){
+				var user = this.user.user_id;
+				$http.post('{{route('delete-builder')}}',{user:user,_token:"{{csrf_token()}}"},{})
+	            .success(function (data, status, headers, config) {
+	                window.location = '{{route('resume-builder',$id)}}';
+	            });
+			}
+
+			
 		}
 
 		  $scope.addProject = function(){

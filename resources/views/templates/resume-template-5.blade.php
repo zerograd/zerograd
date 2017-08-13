@@ -246,7 +246,7 @@
 					</h3>
 					<ul class="experience">
 						<li class="section-content" ng-repeat="listitem in project.list track by $index">
-							<p editable-text="listitem"><% listitem || 'Add project note...'%></p>
+							<p editable-text="project.list[$index]"><% project.list[$index] || 'Add project note...'%></p>
 						</li>
 					</ul>
 					<div class="col-sm-12">

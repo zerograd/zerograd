@@ -266,7 +266,7 @@ class ResumeController extends Controller
             DB::table('work_experience')
                 ->where('id',$data['id'])
                 ->delete();
-        }else if($type == 'projec'){
+        }else if($type == 'project'){
             DB::table('projects')
                 ->where('id',$data['id'])
                 ->delete();
@@ -289,7 +289,19 @@ class ResumeController extends Controller
             ->where('builder','yes')
             ->delete();
 
-            
+             DB::table('work_experience')
+            ->where('user_id',$request->user_id)
+            ->where('builder','yes')
+            ->delete();
+
+             DB::table('education')
+            ->where('user_id',$request->user_id)
+            ->where('builder','yes')
+            ->delete();
+
+             DB::table('projects')
+            ->where('user_id',$request->user_id)
+            ->delete();
     }
 
 
