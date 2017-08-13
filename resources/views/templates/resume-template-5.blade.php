@@ -270,7 +270,7 @@
 					</h3>
 					<ul class="experience">
 						<li class="section-content" ng-repeat="listitem in work.list track by $index">
-							<p editable-text="listitem"><% listitem || 'Add work note...'%></p>
+							<p editable-text="work.list[$index]"><% work.list[$index] || 'Add work note...'%></p>
 						</li>
 					</ul>
 					<div class="col-sm-12">

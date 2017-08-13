@@ -249,7 +249,7 @@
 
 			if(deleted == true){
 				var user = this.user.user_id;
-				$http.post('{{route('delete-builder')}}',{user:user,_token:"{{csrf_token()}}"},{})
+				$http.post('{{route('delete-builder')}}',{user_id:user,_token:"{{csrf_token()}}"},{})
 	            .success(function (data, status, headers, config) {
 	                window.location = '{{route('resume-builder',$id)}}';
 	            });

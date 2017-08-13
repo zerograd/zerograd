@@ -18,8 +18,7 @@ class ResumeController extends Controller
         //Templates
         $templates = DB::table('templates')->select('*')->get();
 
-        //make sure the resume record is for builder and not another type
-        $chosenTemplate = DB::table('resume')->select('*')->where('builder','yes')->where('user_id',$id)->first();
+        
 
         //User
 
@@ -28,6 +27,12 @@ class ResumeController extends Controller
                     ->where('user_id',$id)
                     ->where('builder','yes')
                     ->first();
+
+        //If the user has used the builder before
+        if($user){
+
+            //make sure the resume record is for builder and not another type
+
 
         $skills = json_encode(explode(',',$user->skills));
 
@@ -65,9 +70,18 @@ class ResumeController extends Controller
             $project->list = explode(',',$project->list);
         }
 
-        if(!$user){
-            return redirect('/');
-        }
+    }else{ // Create and Insert
+        DB::table('resume')
+            ->insert(array(
+                'user_id' => $id,
+                'builder' => 'yes',
+                'student_name' => '',
+                'selected_template' => 5
+            ));
+
+    }
+
+    $chosenTemplate = DB::table('resume')->select('*')->where('builder','yes')->where('user_id',$id)->first();
 
 
         $data = array(
@@ -184,6 +198,7 @@ class ResumeController extends Controller
                             'company_name' =>  $work['company'],
                             'job_title' => $work['title'],
                             'duties' => ($work['info'] != '')?$work['info']:(($work['duties'])? implode(',' ,$work['duties']): ''),
+                            'list' => ($work['list'])? implode(',' ,$work['list']): '',
                             'start' => $work['start'],
                             'completed' => $work['completed'] ,
                         ));
