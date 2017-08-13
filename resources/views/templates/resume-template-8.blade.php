@@ -175,18 +175,28 @@
 				<div class="col-sm-10">
 					<span class="section-span"></span>
 				</div>
-				<div class="col-sm-12">
+				<div class="col-sm-12" ng-repeat="work in user.works track by $index">
 					<div class="col-sm-2 position-title">
 						<div class="titles">
-							<h3>Operations Associate</h3>
+							<h3 editable-text="work.title"><% work.title || 'Position...' %></h3>
 						</div>
 					</div>
 					<div class="col-sm-7 section-content-title">
-						<h3>Heritage Education Funds</h3>
+						<h3 editable-text="work.company"><% work.company || 'Company...' %></h3>
 						<ul>
-							<li>Test</li>
+							<li class="section-content" ng-repeat="listitem in work.list track by $index">
+								<p editable-text="work.list[$index]"><% work.list[$index] || 'Add work note...'%></p>
+							</li>
 						</ul>
+						<div class="col-sm-12">
+							<button class="list-btn btn btn-success" ng-click="addListItem('work',$index);">+</button>
+							<button class="list-btn btn btn-danger" ng-click="removeListItem('work',$index);">-</button>
+						</div>
 					</div>
+				</div>
+				<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addWork();">+</button>
+						<button class="btn btn-danger" ng-click="removeWork();">-</button>
 				</div>
 			</div>
 			<!-- Skills -->
@@ -204,8 +214,13 @@
 					<div class="col-sm-7 section-content-title">
 						<br>
 						<ul>
-							<li>Test</li>
+							<li class="" ng-repeat="skill in user.skills track by $index" class="margin-tab section-content">	  	<p editable-text="user.skills[$index]" class="skill-text"><%user.skills[$index]|| 'New Skill...'%></p>
+							</li>
 						</ul>
+						<div class="col-sm-12">
+							<button class="btn btn-success" ng-click="addSkill();">+</button>
+							<button class="btn btn-danger" ng-click="removeSkill();">-</button>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -218,18 +233,25 @@
 				<div class="col-sm-10">
 					<span class="section-span"></span>
 				</div>
-				<div class="col-sm-12">
+				<div class="col-sm-12" ng-repeat="school in user.education track by $index">
 					<div class="col-sm-2 project-title">
 						<div class="titles">
 							
 						</div>
 					</div>
 					<div class="col-sm-7  section-content-title">
-						<h3>Heritage Education Funds</h3>
-						<ul>
-							<li>Test</li>
-						</ul>
+						<h3 editable-text="school.degree"><% school.degree || 'Degree...' %></h3>
+						<span editable-text="school.school">
+							<% school.school || 'School...' %>
+						</span>
+						<p>
+							<span editable-text="school.complete"><% school.complete || 'completion year..'%></span>
+						</p>
 					</div>
+				</div>
+				<div class="col-sm-12">
+						<button class="btn btn-success" ng-click="addSchool();">+</button>
+						<button class="btn btn-danger" ng-click="removeSchool();">-</button>
 				</div>
 			</div>
 		</div>
