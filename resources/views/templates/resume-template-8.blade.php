@@ -77,7 +77,8 @@
 			color:black;
 			text-transform: uppercase;
 			float:right;
-			font-weight:500;
+			font-weight:600;
+			font-size: 24px;
 			margin: 0;
 		}
 
@@ -124,6 +125,8 @@
 
 		.summary {
 			word-wrap: break-word;
+			color:black;
+			font-weight:bold;
 		}
 	</style>
 </head>
