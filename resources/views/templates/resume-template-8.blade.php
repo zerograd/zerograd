@@ -136,8 +136,7 @@
 				</div>
 				<div class="title-div-info col-sm-10">
 					<div class="name-info col-sm-6">
-						<h2 editable-text="user.first_name"><% user.first_name || 'First Name..'%></h2>
-						<h3 editable-text="user.last_name"><% user.last_name || 'Last Name..'%></h3>
+						<h3 editable-text="user.name"><% user.name || 'Your Full Name..'%></h3>
 						<h4 editable-text="user.title"><% user.title || 'Title..'%></h4>
 					</div>
 					<div class="contact-info col-sm-6">

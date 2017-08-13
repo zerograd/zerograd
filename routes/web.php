@@ -47,6 +47,23 @@ Route::get('/test/template/{id}/',array(
 
 
 
+Route::post('/post-data',array(
+	'as' => 'post-data',
+	'uses' => 'ResumeController@postViaResumeBuilder'
+));
+
+Route::post('/delete-data',array(
+	'as' => 'delete-data',
+	'uses' => 'ResumeController@deleteViaResumeBuilder'
+));
+
+Route::post('/delete-builder',array(
+	'as' => 'delete-builder',
+	'uses' => 'ResumeController@deleteBuilderResume'
+));
+
+
+
 
 
 Route::post('update-resume',array(

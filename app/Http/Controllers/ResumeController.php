@@ -21,16 +21,64 @@ class ResumeController extends Controller
         //make sure the resume record is for builder and not another type
         $chosenTemplate = DB::table('resume')->select('*')->where('builder','yes')->where('user_id',$id)->first();
 
-        //The chosen template..render it
-        $templateData = array(
+        //User
 
-        );
+        $user = DB::table('resume')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->where('builder','yes')
+                    ->first();
+
+        $skills = json_encode(explode(',',$user->skills));
+
+        $works = DB::table('work_experience')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->where('builder','yes')
+                    ->get();
+        //Change work to match front-end work JSON
+        foreach($works as $work){
+            $work->company = $work->company_name;
+            $work->info = $work->duties;
+            $work->list = explode(',',$work->list);
+            $work->title = $work->job_title;
+        }
+
+        $education = DB::table('education')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->where('builder','yes')
+                    ->get();
+
+        foreach($education as $school){
+            $school->complete = $school->completed;
+            $school->degree = $school->program;
+            $school->id = $school->education_id;
+        }
+
+        $projects = DB::table('projects')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+
+        foreach($projects as $project){
+            $project->list = explode(',',$project->list);
+        }
+
+        if(!$user){
+            return redirect('/');
+        }
+
 
         $data = array(
             'templates' => $templates,
-            'template' => $templateData,
             'templateNumber' => $chosenTemplate->selected_template,
-            'id' => $id
+            'id' => $id,
+            'user' => $user,
+            'skills' => $skills,
+            'works' => json_encode($works),
+            'education' => json_encode($education),
+            'projects' => json_encode($projects)
         );
 
 		return view('resume-builder')->with($data);
@@ -68,7 +116,180 @@ class ResumeController extends Controller
    // Function to process data from resume builder
 
     public function postViaResumeBuilder(Request $request){
+        $user = $request->user;
         
+        $count  =  DB::table('resume')
+            ->select('*')
+            ->where('user_id',$user['user_id'])
+            ->where('builder','yes')
+            ->count();
+
+
+        //Insert info resume if new
+        if($count == 0){
+            DB::table('resume')
+                ->insert(array(
+                'student_name' => $user['name'],
+                'email' => $user['email'],
+                'title' => $user['title'],
+                'city' => $user['city'],
+                'summary' => $user['summary'],
+                'skills' => implode(',',$user['skills']),
+                'telephone_number' => $user['phone']
+            ));
+        }else{
+            DB::table('resume')
+            ->where('user_id',$user['user_id'])
+            ->where('builder','yes')
+            ->update(array(
+                'student_name' => $user['name'],
+                'email' => $user['email'],
+                'title' => $user['title'],
+                'city' => $user['city'],
+                'summary' => $user['summary'],
+                'skills' => implode(',',$user['skills']),
+                'telephone_number' => $user['phone']
+            ));
+        }
+
+        
+
+        // Updating work experience 
+
+            $works = $user['works'];
+
+            foreach($works as $work){
+                //Find the work to update
+                $count = DB::table('work_experience')->select('*')->where('id',$work['id'])->where('user_id',$user['user_id'])->where('builder','yes')->count();
+
+                //New Work Experience
+                if($count == 0){
+                    DB::table('work_experience')
+                        ->insert(array(
+                            'builder' => 'yes',
+                            'user_id' => $user['user_id'],
+                            'company_name' =>  $work['company'],
+                            'job_title' => $work['title'],
+                            'duties' => ($work['info'] != '')?$work['info']:'',
+                            'list' => ($work['list'])? implode(',' ,$work['list']): '',
+                            'start' => $work['start'],
+                            'completed' => $work['completed'] ,
+                        ));
+                }else{
+                    DB::table('work_experience')
+                        ->where('user_id',$user['user_id'])
+                        ->where('id',$work['id'])
+                        ->where('builder','yes')
+                        ->update(array(
+                            'company_name' =>  $work['company'],
+                            'job_title' => $work['title'],
+                            'duties' => ($work['info'] != '')?$work['info']:(($work['duties'])? implode(',' ,$work['duties']): ''),
+                            'start' => $work['start'],
+                            'completed' => $work['completed'] ,
+                        ));
+                }
+            }
+
+            // Updating projects 
+
+            $projects = $user['projects'];
+
+            foreach($projects as $project){
+                //Find the project to update
+                $count = DB::table('projects')->select('*')->where('id',$project['id'])->where('user_id',$user['user_id'])->count();
+
+                //New Project
+                if($count == 0){
+                    DB::table('projects')
+                        ->insert(array(
+                            'user_id' => $user['user_id'],
+                            'name' => $project['name'],
+                            'info' => ($project['info'] != '')?$project['info']:'',
+                            'role' => $project['role'],
+                            'list' => ($project['list'])? implode(',' ,$project['list']): '',
+                            'start' => $project['start'],
+                            'completed' => $project['completed']
+                        ));
+                }else{
+                    DB::table('projects')
+                        ->where('user_id',$user['user_id'])
+                        ->where('id',$project['id'])
+                        ->update(array(
+                            'name' => $project['name'],
+                            'info' => ($project['info'] != '')?$project['info']:'',
+                            'role' => $project['role'],
+                            'list' => ($project['list'])? implode(',' ,$project['list']): '',
+                            'start' => $project['start'],
+                            'completed' => $project['completed']
+                        ));
+                }
+            }
+
+        //Updating school info
+
+            $education = $user['education'];
+
+            foreach($education as $school){
+                //Find the school to update
+                $count = DB::table('education')->select('*')->where('education_id',$school['id'])->where('user_id',$user['user_id'])->where('builder','yes')->count();
+
+                //New Work Experience
+                if($count == 0){
+                    DB::table('education')
+                        ->insert(array(
+                            'builder' => 'yes',
+                            'user_id' => $user['user_id'],
+                            'school' => $school['school'],
+                            'program' => $school['degree'],
+                            'start' => $school['start'],
+                            'completed' => $school['complete'],
+                        ));
+                }else{
+                    DB::table('education')
+                        ->where('user_id',$user['user_id'])
+                        ->where('education_id',$school['id'])
+                        ->where('builder','yes')
+                        ->update(array(
+                            'school' => $school['school'],
+                            'program' => $school['degree'],
+                            'start' => $school['start'],
+                            'completed' => $school['complete'],
+                        ));
+                }
+            }
+    }
+
+    public function deleteViaResumeBuilder(Request $request){
+        $type = $request->type;
+        $data = $request->data;
+        if($type == 'work'){
+            DB::table('work_experience')
+                ->where('id',$data['id'])
+                ->delete();
+        }else if($type == 'projec'){
+            DB::table('projects')
+                ->where('id',$data['id'])
+                ->delete();
+        }else if($type == 'school'){
+            DB::table('education')
+                ->where('education_id',$data['id'])
+                ->delete();
+        }else if($type == 'skills'){
+            DB::table('resume')
+                ->where('user_id',$request->user_id)
+                ->update(array(
+                    'skills' => implode(',',$data)
+                ));
+        }
+    }
+
+    public function deleteBuilderResume(Request $request){
+        DB::table('resume')
+            ->where('user_id',$request->user_id)
+            ->where('builder','yes')
+            ->delete();
+
+            
     }
 
 

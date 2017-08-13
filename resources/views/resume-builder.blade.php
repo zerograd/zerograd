@@ -130,7 +130,7 @@
 		<div id="resume-buttons" class="col-sm-12">
 			<button type="button" class="btn btn-warning"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspHelp</button>
 			<button type="button" class="btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>
-			<button type="button" class="btn btn-primary"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbspSave</button>
+			<button type="button" class="btn btn-primary" ng-click="postData();"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbspSave</button>
 		</div>
 	</div>
 	<div class="col-sm-9 scroll" id="resume-section">
@@ -195,39 +195,18 @@
  		});
 		app.controller('Ctrl', function($scope,$http,$compile) {
 		  $scope.user = {
-		    name: '',
-		    first_name:'',
-		    last_name:'',
-		    title: '',
-		    summary: '',
-		    projects: [{
-		    	name:'',
-		    	id:1,
-		    	info:'',
-		    	role:'',
-		    	start:'',
-		    	completed:'',
-		    	list: [''],
-		    }],
-		    works:[{
-		    	title:'',
-		    	id:1,
-		    	company:'',
-		    	info:'',
-		    	start:'',
-		    	completed:'',
-		    	list: [''],
-		    }],
-		    skills: [''],
-		    education: [{
-		    	degree: '',
-		    	start:'',
-		    	complete:'',
-		    	school:''
-		    }],
-		    phone:'',
-		    email:'',
-		    city: '',
+		  	user_id: {{$id}},
+		    name: '{{$user->student_name}}',
+		    title: '{{$user->title}}',
+		    summary: '{{$user->summary}}',
+		    projects: {!! $projects !!},
+		    works:{!! $works !!},
+		    skills: {!! $skills !!},
+		    education:{!! $education !!},
+		    phone:'{{$user->telephone_number}}',
+		    email:'{{$user->email}}',
+		    city: '{{$user->city}}',
+		    work_delete:[]
 		  };  
 
 		  $scope.projectSize = $scope.user.projects.length;
@@ -254,10 +233,28 @@
  			// });
 		};
 
+		// Send user data to be updated
+
+		$scope.postData = function(){
+			var user = this.user;
+			$http.post('{{route('post-data')}}',{user:user,_token:"{{csrf_token()}}"},{})
+            .success(function (data, status, headers, config) {
+                alert('Saved');
+            });
+		}
+
+		$scope.deleteResume = function(){
+			var user = this.user.user_id;
+			$http.post('{{route('delete-builder')}}',{user:user,_token:"{{csrf_token()}}"},{})
+            .success(function (data, status, headers, config) {
+                window.location = '{{route('resume-builder',$id)}}';
+            });
+		}
+
 		  $scope.addProject = function(){
 		  	 $scope.newProject = {
 		    	name:'',
-		    	id:1,
+		    	id:'',
 		    	role:'',
 		    	info:'',
 		    	start:'',
@@ -269,13 +266,24 @@
 		  };
 
 		  $scope.removeProject = function(){
-		  	 $scope.user.projects.pop();
+		  	
+		  	var deleteProject = confirm("Are you sure you want to delete this project?");
+
+		  	if(deleteProject == true){
+		  	 	var project =  $scope.user.projects.pop();;
+		  	 	$http.post('{{route('delete-data')}}',{data:project,type:'project',_token:"{{csrf_token()}}"},{})
+		            .success(function (data, status, headers, config) {
+		                alert('Deleted');
+		            });
+		  	}else{
+		  		//do nothing
+		  	}
 		  };
 
 		  $scope.addWork = function(){
 		  	 $scope.work = {
 		    	title:'',
-		    	id:1,
+		    	id:'',
 		    	company:'',
 		    	info:'',
 		    	start:'',
@@ -287,7 +295,17 @@
 		  };
 
 		  $scope.removeWork = function(){
-		  	 $scope.user.works.pop();
+		  	var deleteWork = confirm("Are you sure you want to delete this work experience?");
+
+		  	if(deleteWork == true){
+		  	 	var work = $scope.user.works.pop();
+		  	 	$http.post('{{route('delete-data')}}',{data:work,type:'work',_token:"{{csrf_token()}}"},{})
+		            .success(function (data, status, headers, config) {
+		                alert('Deleted');
+		            });
+		  	}else{
+		  		//do nothing
+		  	}
 		  };
 
 		  // If the resume has <li> for specific sections e.g. work experience
@@ -325,12 +343,23 @@
 		  };
 
 		  $scope.removeSkill = function(){
-		  	$scope.user.skills.pop();
+		  	var deleteSkill = confirm("Are you sure you want to delete this skill?");
+
+		  	if(deleteSkill == true){
+		  		$scope.user.skills.pop();
+		  	 	$http.post('{{route('delete-data')}}',{data:$scope.user.skills,type:'skills',user_id:$scope.user.user_id,_token:"{{csrf_token()}}"},{})
+		            .success(function (data, status, headers, config) {
+		                alert('Deleted');
+		            });
+		  	}else{
+		  		//do nothing
+		  	}
 		  };
 		  
 
 		  $scope.addSchool = function(){
 		  	 $scope.school = {
+		  	 	id:'',
 		    	degree: '',
 		    	start:'',
 		    	complete:'',
@@ -341,7 +370,19 @@
 		  };
 
 		  $scope.removeSchool = function(){
-		  	$scope.user.education.pop();
+		  	
+
+		  	var deleteSchool = confirm("Are you sure you want to delete this school?");
+
+		  	if(deleteSchool == true){
+		  	 	var school = $scope.user.education.pop();
+		  	 	$http.post('{{route('delete-data')}}',{data:school,type:'school',_token:"{{csrf_token()}}"},{})
+		            .success(function (data, status, headers, config) {
+		                alert('Deleted');
+		            });
+		  	}else{
+		  		//do nothing
+		  	}
 		  };
 
 
