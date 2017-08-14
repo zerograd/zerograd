@@ -1,4 +1,4 @@
-var app = angular.module("app", ["xeditable","ui.bootstrap"],function($interpolateProvider){
+var app = angular.module("app", ["xeditable"],function($interpolateProvider){
 		$interpolateProvider.startSymbol('<%');
         $interpolateProvider.endSymbol('%>');
 });

@@ -163,7 +163,7 @@
 </header>
 <div class="clearfix"></div>
 
-<div ng-controller="Ctrl" ng-cloak>
+<div>
 @yield('content')
 </div>
 

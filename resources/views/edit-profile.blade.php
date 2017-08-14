@@ -6,7 +6,7 @@
 
 
 @section('content')
-
+<div ng-controller="Ctrl" ng-cloak>
 <!-- Titlebar
 ================================================== -->
 <div id="titlebar">
@@ -177,6 +177,8 @@
             </div>
         </form>
     </div>
+</div>
+
 </div>
 @stop
 
