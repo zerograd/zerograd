@@ -114,6 +114,16 @@
 			color:#c6c6c6;
 		}
 
+		/*Help button*/
+
+		
+
+		.help {
+			border:2px solid yellow;
+		}
+
+
+
 		/*Editing CSS*/
 
 		.form-control {
@@ -149,7 +159,7 @@
 
 		</div>
 		<div id="resume-buttons" class="col-sm-12">
-			<button type="button" class="btn btn-warning"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspHelp</button>
+			<button id="help" type="button" class="btn btn-success"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspHelp</button>
 			<button type="button" class="btn btn-danger" ng-click="deleteResume();"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>
 			<button type="button" class="btn btn-primary" ng-click="postData();"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbspSave</button>
 			<a href="{{route('builder-preview',$id)}}" target="_blank"><button type="button" class="btn btn-default" ><i class="fa fa-eye" aria-hidden="true"></i>&nbspPreview</button></a>
@@ -191,9 +201,41 @@
 			      	 }
 			      });
 			})
+
+
+
+			// Sweet Alert if user is using builder for first time
+			@if($firstTime == '')
+			swal.setDefaults({
+			  input: 'text',
+			  confirmButtonText: 'Go to Builder &rarr;',
+			  showCancelButton: false,
+			  animation: false,
+			   allowOutsideClick:false
+			})
+
+			var steps = [
+			  {
+			    title: 'First Time?',
+			    text: "We've noticed this your first time using the 'Resume Builder'. We could not be more excited! Click Go to Builder to begin."
+			  }
+			]
+
+			swal.queue(steps).then(function (result) {
+			  swal.resetDefaults()
+			}, function () {
+			  swal.resetDefaults()
+			})
+			@endif
+
+
+			setInterval(toggleHelp,1000);
+
  		});
  		
-
+ 		function toggleHelp(){
+ 			$('#help').toggleClass('help');
+ 		}
  		
 
  		//This will add another project line <p>

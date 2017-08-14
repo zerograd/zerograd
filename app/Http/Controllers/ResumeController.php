@@ -27,6 +27,8 @@ class ResumeController extends Controller
         $templates = DB::table('templates')->select('*')->get();
 
         
+        //First time using 
+        $firstTime = '';
 
         //User
 
@@ -86,10 +88,17 @@ class ResumeController extends Controller
                 'student_name' => '',
                 'selected_template' => 5
             ));
+        $firstTime = 'yes';
 
+        $skills = json_encode(array());
+        $works = array();
+        $education = array();
+        $projects = array();
     }
 
     $chosenTemplate = DB::table('resume')->select('*')->where('builder','yes')->where('user_id',$id)->first();
+
+
 
 
         $data = array(
@@ -100,8 +109,11 @@ class ResumeController extends Controller
             'skills' => $skills,
             'works' => json_encode($works),
             'education' => json_encode($education),
-            'projects' => json_encode($projects)
+            'projects' => json_encode($projects),
+            'firstTime' => $firstTime
         );
+
+        // return $data;
 
 		return view('resume-builder')->with($data);
     }
@@ -325,6 +337,8 @@ class ResumeController extends Controller
              DB::table('projects')
             ->where('user_id',$request->user_id)
             ->delete();
+
+            return redirect('/resume-builder/profile/' . $request->user_id);
     }
 
 
