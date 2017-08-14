@@ -131,7 +131,7 @@
 			<button type="button" class="btn btn-warning"><i class="fa fa-question-circle" aria-hidden="true"></i>&nbspHelp</button>
 			<button type="button" class="btn btn-danger" ng-click="deleteResume();"><i class="fa fa-trash" aria-hidden="true"></i>&nbspDelete</button>
 			<button type="button" class="btn btn-primary" ng-click="postData();"><i class="fa fa-floppy-o" aria-hidden="true"></i>&nbspSave</button>
-			<a href=""><button type="button" class="btn btn-default" ><i class="fa fa-eye" aria-hidden="true"></i>&nbspPreview</button></a>
+			<a href="{{route('builder-preview',$id)}}" target="_blank"><button type="button" class="btn btn-default" ><i class="fa fa-eye" aria-hidden="true"></i>&nbspPreview</button></a>
 		</div>
 	</div>
 	<div class="col-sm-9 scroll" id="resume-section">

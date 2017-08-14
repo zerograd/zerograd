@@ -255,8 +255,8 @@
 					</div>
 				</div>
 				<div class="col-sm-12">
-						<button class="btn btn-success" ng-click="addWork();">+</button>
-						<button class="btn btn-danger" ng-click="removeWork();">-</button>
+						<button class="btn btn-success" ng-click="addProject();">+</button>
+						<button class="btn btn-danger" ng-click="removeProject();">-</button>
 				</div>
 			</div>
 			<div class="section">

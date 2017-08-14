@@ -620,5 +620,47 @@ class ResumeController extends Controller
     public function testTemplate($id = null){
         return view('templates.resume-template-' . $id);
     }
+
+
+    public function previewResume($id = null){
+        $resume = DB::table('resume')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->where('builder','yes')
+                    ->first();
+        $education = DB::table('education')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->where('builder','yes')
+                    ->get();
+
+        $workExperience = DB::table('work_experience')
+                    ->select('*')
+                    ->where('user_id',$id)
+                    ->where('builder','yes')
+                    ->get();
+
+        $projects = DB::table('projects')
+                     ->select('*')
+                    ->where('user_id',$id)
+                    ->get();
+       
+        $data = array(
+            'resume'  => $resume,
+            'education' => $education,
+            'works' => $workExperience,
+            'projects' => $projects,
+            'summary' => $resume->summary
+        );
+        $templateChosen = $resume->selected_template;
+
+        $html = view('pdfs.resumes.resume-template-'.$templateChosen)->with($data)->render();
+        $pdf = new Dompdf();
+
+        $pdf->loadHtml($html);
+
+        $pdf->render();
+        return $pdf->stream($resume->student_name. '.pdf',array('Attachment'=> 0));
+    }
 }
 

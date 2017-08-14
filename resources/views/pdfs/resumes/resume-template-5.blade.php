@@ -1,10 +1,19 @@
-
+<!DOCTYPE html>
+<html>
 <head>
+	<title>{{$resume->student_name}}</title>
+<head>
+
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+       
+        
 <!--[if lt IE 9]>
 <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
 
 	<style type="text/css">
+
 
 		#content {
 			height:100%;
@@ -28,14 +37,17 @@
 		#leftColumn{
 			border-right: 4px solid #e6e6e6; 
 			padding: 30px 10px;
+			width:40%;
 		}
 		#rightColumn{
 			padding: 30px 10px;
+			width:50%;
 		}
 
 		.section {
 			padding:10px;
 			min-height: 200px;
+			width:100%;
 		}
 
 		.section-title{
@@ -59,12 +71,12 @@
 		}
 
 		.text-right{
-			float:right;
+			
 			text-align: right;
 		}
 
 		.text-left{
-			float:left;
+			
 			text-align: left;
 		}
 
@@ -73,7 +85,7 @@
 			padding:0;
 			width:100%;
 			list-style: none;
-			float:right;
+			
 		}
 
 		#skills li,#education li{
@@ -83,6 +95,7 @@
 		.skill-text {
 			color:black;
 			font-weight: bold;
+			font-size: 16px;
 		}
 
 		#education li {
@@ -97,7 +110,7 @@
 			margin:0;
 			padding: 0 20px;
 			width:100%;
-			float:left;
+			
 			list-style: circle;
 		}
 
@@ -105,7 +118,7 @@
 			margin:0;
 			padding: 0 20px;
 			width:100%;
-			float:left;
+			
 			list-style: circle;
 			margin-bottom: 20px;
 		}
@@ -116,7 +129,7 @@
 
 		.experience-title{
 			margin:10px 0;
-			float:left;
+			
 			width:100%;
 			color:black;
 			font-size: 16px;
@@ -129,7 +142,7 @@
 
 		.list-btn {
 			padding:2px 5px;
-			float:right;
+			
 			margin:5px;
 		}
 
@@ -148,14 +161,17 @@
 		#leftColumn{
 			border-right: 4px solid #e6e6e6; 
 			padding: 10px 10px;
+			page-break-after: none;
 		}
 		#rightColumn{
 			padding: 10px 10px;
+			page-break-after: always;
 		}
 
 		.section {
 			padding:10px;
-			min-height:120px;		
+			min-height:120px;	
+			width:100%;	
 		}
 
 		.section-title{
@@ -195,102 +211,95 @@
 		}
 	</style>
 </head>
-	<div id="content" class="container-fluid">
+
+<body>
+	<div id="content">
 		<div id="header">
-			<h1 class="resume-name " editable-text="user.name"><% user.name || 'Add A Name'%></h1>
-			<h2 class="resume-title" editable-text="user.title"><%user.title || 'A Title'%></h2>
+			<h1 class="resume-name " editable-text="user.name">{{$resume->student_name}}</h1>
+			<h2 class="resume-title" editable-text="user.title">{{$resume->title}}</h2>
 		</div>
-		<div id="leftColumn" class="container col-sm-5">
+		<div id="leftColumn" class="">
 			<div class="section">
 				<h2 class="section-title text-right">Profile</h2>
-				<p class="section-content text-right" id="summary" editable-textarea="user.summary" e-cols='40' e-rows="7" ><%user.summary || 'Enter a summary...'%>
+				<p class="section-content text-right" id="summary" editable-textarea="user.summary" e-cols='40' e-rows="7" >{{$resume->summary}}
 				</p>
 			</div>
 			<div class="section">
 				<h2 class="section-title text-right">SKILLS</h2>					
 				<ul id="skills">
-					<li class="" ng-repeat="skill in user.skills track by $index" class="margin-tab section-content">	  	<p editable-text="skill" class="skill-text"><% skill || 'New Skill...'%></p>
+				    @foreach(explode(',',$resume->skills) as $skill)
+					<li class=""  class="margin-tab section-content">	  	
+						<p class="skill-text">{{$skill}}</p>
 					</li>
+					@endforeach
 				</ul>
-				<div class="col-sm-12">
-						<button class="btn btn-success" ng-click="addSkill();">+</button>
-						<button class="btn btn-danger" ng-click="removeSkill();">-</button>
-				</div>
 			</div>
 			<div class="section">
 				<h2 class="section-title text-right">EDUCATION</h2>
 				<ul id="education">
-					<li class="section-content" ng-repeat="school in user.education track by $index">
-						<p editable-text="school.school"><% school.school || 'School Here'%></p>
+					@foreach($education as $school)
+					<li class="section-content">
+						<p editable-text="school.school">{{$school->school}}</p>
 						<p>
-							<span editable-text="school.degree"><% school.degree || 'Degree Here..'%></span>, 
-							<span editable-text="school.complete"><% school.complete || 'completion year..'%></span>
+							<span editable-text="school.degree">{{$school->program}}</span>, 
+							<span editable-text="school.complete">{{$school->completed}}</span>
 						</p>
 					</li>
+					@endforeach
 				</ul>
-				<div class="col-sm-12">
-						<button class="btn btn-success" ng-click="addSchool();">+</button>
-						<button class="btn btn-danger" ng-click="removeSchool();">-</button>
-				</div>
 			</div>
 		</div>
-		 <div id="rightColumn" class="container col-sm-7">
+		<div id="rightColumn" class="container col-sm-7">
 			<div class="section">
 				<h2 class="section-title text-left">Projects</h2>
-				<div class="col-sm-12" ng-repeat="project in user.projects track by $index">
+				@foreach($projects as $project)
+				<div class="col-sm-12" >
 					<h3 class="experience-title">
-						<span editable-text="project.name"><% project.name || 'Project Name'%></span>, 
-						<span editable-text="project.role"><% project.role || 'Role'%></span> | 
-						<span editable-text="project.start"><% project.start || 'Start Date'%></span>-
-						<span editable-text="project.completed"><% project.completed || 'Completed'%></span>
+						<span editable-text="project.name">{{$project->name}}</span>, 
+						<span editable-text="project.role">{{$project->role}}</span> | 
+						<span editable-text="project.start">{{$project->start}}</span>-
+						<span editable-text="project.completed">{{$project->completed}}</span>
 					</h3>
 					<ul class="experience">
-						<li class="section-content" ng-repeat="listitem in project.list track by $index">
-							<p editable-text="project.list[$index]"><% project.list[$index] || 'Add project note...'%></p>
+						@foreach(explode(',',$project->list) as $listitem)
+						<li class="section-content">
+							<p editable-text="project.list[$index]">{{$listitem}}</p>
 						</li>
+						@endforeach
 					</ul>
-					<div class="col-sm-12">
-						<button class="list-btn btn btn-success" ng-click="addListItem('project',$index);">+</button>
-						<button class="list-btn btn btn-danger" ng-click="removeListItem('project',$index);">-</button>
-					</div>
 				</div>
-				<div class="col-sm-12">
-						<button class="btn btn-success" ng-click="addWork();">+</button>
-						<button class="btn btn-danger" ng-click="removeWork();">-</button>
-				</div>
+				@endforeach
 			</div>
 			<div class="section">
 				<h2 class="section-title text-left">Work Experience</h2>
-				<div class="col-sm-12" ng-repeat="work in user.works track by $index">
+				@foreach($works as $work)
+				<div class="col-sm-12">
 					<h3 class="experience-title">
-						<span editable-text="work.company"><% work.company || 'Company Here'%></span>, 
-						<span editable-text="work.title"><% work.title || 'Position Here'%></span> | 
-						<span editable-text="work.start"><% work.start || 'Start Date'%></span>-
-						<span editable-text="work.completed"><% work.completed || 'Completed'%></span>
+						<span editable-text="work.company">{{$work->company_name}}</span>, 
+						<span editable-text="work.title">{{$work->job_title}}</span> | 
+						<span editable-text="work.start">{{$work->start}}</span>-
+						<span editable-text="work.completed">{{$work->completed}}</span>
 					</h3>
 					<ul class="experience">
-						<li class="section-content" ng-repeat="listitem in work.list track by $index">
-							<p editable-text="work.list[$index]"><% work.list[$index] || 'Add work note...'%></p>
+						@foreach(explode(',',$work->list) as $listitem)
+						<li class="section-content">
+							<p editable-text="project.list[$index]">{{$listitem}}</p>
 						</li>
+						@endforeach
 					</ul>
-					<div class="col-sm-12">
-						<button class="list-btn btn btn-success" ng-click="addListItem('work',$index);">+</button>
-						<button class="list-btn btn btn-danger" ng-click="removeListItem('work',$index);">-</button>
-					</div>
 				</div>
-				<div class="col-sm-12">
-						<button class="btn btn-success" ng-click="addWork();">+</button>
-						<button class="btn btn-danger" ng-click="removeWork();">-</button>
-				</div>
+				@endforeach
 			</div>
 		</div> 
 
 		<div id="footer" class="col-sm-12">
 			<p class="text-center">
-				<span editable-text="user.phone"><% user.phone || 'Phone number here...'%></span>&nbsp|&nbsp
-				<span editable-text="user.email"><% user.email || 'Email here...'%></span>&nbsp|&nbsp
-				<span editable-text="user.city"><% user.city || 'Your City here...'%></span>
+				<span editable-text="user.phone">{{$resume->telephone_number}}</span> |
+				<span editable-text="user.email">{{$resume->email}}</span> | 
+				<span editable-text="user.city">{{$resume->city}}</span>
 			</p>
 		</div>
 	</div>
 	<script src="{{URL::asset('/js/bootstrap.min.js')}}"></script>
+</html>
+
