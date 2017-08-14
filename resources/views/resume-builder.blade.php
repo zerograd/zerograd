@@ -97,6 +97,23 @@
 			padding: 20px 35px;
 		}
 
+		#return {
+			position: absolute;
+			top:10px;
+			left:10px;
+			z-index: 1;
+			color:white;
+		}
+
+		#return i {
+			color:white;
+			font-size: 48px;
+		}
+
+		#return i:hover {
+			color:#c6c6c6;
+		}
+
 		/*Editing CSS*/
 
 		.form-control {
@@ -107,6 +124,10 @@
 
 @section('content')
 	<div class="col-sm-3 scroll" id="template-section">
+		<div id="return">
+			<a href="{{URL::to('/')}}"><i class="fa fa-arrow-circle-o-left" aria-hidden="true"></i></a>
+			<p>Return</p>
+		</div>
 		<div id="logo-header" class="col-sm-12">
 			<img src="{{URL::asset('theme/images/logo2.png')}}" alt="Work Scout" />
 		</div>

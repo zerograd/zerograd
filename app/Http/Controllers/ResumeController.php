@@ -13,6 +13,14 @@ class ResumeController extends Controller
     //
     public function resumeBuilder($id = null){
 
+        if(!Session::has('user_id')){
+            Session::flash('no_permission','Do not have access to view this page.');
+            return redirect('/');
+        }else if (Session::get('user_id') != $id){
+            Session::flash('no_permission','Do not have access to view this page.');
+            return redirect('/');
+        }
+
 
 
         //Templates
