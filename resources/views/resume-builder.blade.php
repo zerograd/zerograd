@@ -116,7 +116,7 @@
 
 		/*Help button*/
 
-		
+
 
 		.help {
 			border:2px solid yellow;
@@ -205,9 +205,8 @@
 
 
 			// Sweet Alert if user is using builder for first time
-			@if($firstTime == '')
+			@if($firstTime == 'yes')
 			swal.setDefaults({
-			  input: 'text',
 			  confirmButtonText: 'Go to Builder &rarr;',
 			  showCancelButton: false,
 			  animation: false,
@@ -258,6 +257,8 @@
 
  		});
 		app.controller('Ctrl', function($scope,$http,$compile) {
+
+		@if($firstTime == '')	
 		  $scope.user = {
 		  	user_id: {{$id}},
 		    name: '{{$user->student_name}}',
@@ -272,7 +273,41 @@
 		    city: '{{$user->city}}',
 		    work_delete:[]
 		  };  
-
+		@else
+		  $scope.user = {
+		    name: '',
+		    title: '',
+		    summary: '',
+		    projects: [{
+		    	name:'',
+		    	id:1,
+		    	info:'',
+		    	role:'',
+		    	start:'',
+		    	completed:'',
+		    	list: [''],
+		    }],
+		    works:[{
+		    	title:'',
+		    	id:1,
+		    	company:'',
+		    	info:'',
+		    	start:'',
+		    	completed:'',
+		    	list: [''],
+		    }],
+		    skills: [''],
+		    education: [{
+		    	degree: '',
+		    	start:'',
+		    	complete:'',
+		    	school:''
+		    }],
+		    phone:'',
+		    email:'',
+		    city: '',
+		  }; 
+		@endif  
 		  $scope.projectSize = $scope.user.projects.length;
 		  $scope.workSize = $scope.user.works.length;
 

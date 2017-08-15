@@ -338,7 +338,7 @@ class ResumeController extends Controller
             ->where('user_id',$request->user_id)
             ->delete();
 
-            return redirect('/resume-builder/profile/' . $request->user_id);
+        
     }
 
 
