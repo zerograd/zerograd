@@ -145,6 +145,11 @@ Route::post('/password-reset',array(
 	'uses' => 'HomeController@passwordReset'
 ));
 
+Route::post('/send-contact-email',array(
+	'as' => 'send-contact-email',
+	'uses' => 'HomeController@sendContactEmail'
+));
+
 Route::post('/newpassword',array(
 	'as' => 'new-password',
 	'uses' => 'HomeController@newPassword'

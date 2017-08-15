@@ -39,8 +39,7 @@
 
 		<!-- Google Maps -->
 		<section class="google-map-container">
-			<div id="googlemaps" class="google-map google-map-full"></div>
-		</section>
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d369481.4635104497!2d-79.60104534851556!3d43.6570321197331!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89d4cb90d7c63ba5%3A0x323555502ab4c477!2sToronto%2C+ON!5e0!3m2!1sen!2sca!4v1502756317751" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>		</section>
 		<!-- Google Maps / End -->
 
 	</div>
@@ -51,7 +50,7 @@
 <!-- Container -->
 <div class="container">
 
-<div class="eleven columns">
+<div class="ten columns">
 
 	<h3 class="margin-bottom-15">Contact Form</h3>
 	
@@ -78,12 +77,12 @@
 
 					<div>
 						<label>Message: <span>*</span></label>
-						<textarea name="comment" cols="40" rows="3" id="comment" spellcheck="true"></textarea>
+						<textarea name="comment" cols="40" rows="3" id="message" spellcheck="true"></textarea>
 					</div>
 
 				</fieldset>
 				<div id="result"></div>
-				<input type="submit" class="submit" id="submit" value="Send Message" />
+				<input type="button" class="submit" id="submit" value="Send Message" onClick="sendEmail();"/>
 				<div class="clearfix"></div>
 				<div class="margin-bottom-40"></div>
 			</form>
@@ -143,27 +142,31 @@
 @section('script_plugins')
 
 
-<script type="text/javascript">
-	(function($){
-		$(document).ready(function(){
+<script>
 
-			$('#googlemaps').gMap({
-				maptype: 'ROADMAP',
-				scrollwheel: false,
-				zoom: 13,
-				markers: [
-					{
-						address: 'New York, 45 Park Avenue', // Your Adress Here
-						html: '<strong>Our Office</strong><br>45 Park Avenue, Apt. 303 </br>New York, NY 10016 ',
-						popup: true,
-					}
-				],
-			});
+	  function sendEmail(){
+	  	 var data = $('#contactform').serialize();
+	  	 data += '&_token=' + "{{csrf_token()}}";
+	  	  $.post('{{route('send-contact-email')}}',data,function(data){
+	  	  	 swal('Message sent!');
+	  	  });
+	  }
 
-		   });
-
-	})(this.jQuery);
-</script>
+      function initMap() {
+        var uluru = {lat: -25.363, lng: 131.044};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDLyXtzsh5Wnf1aiJdcuVbVq92vhiR9Ej0&callback=initMap">
+    </script>
 @stop
 
 

@@ -783,4 +783,10 @@ class HomeController extends Controller
     		}
     	}
     }
+
+
+    public function sendContactEmail(Request $request){
+    	$emailer = new EmailController();
+    	$emailer->sendMessage($request);
+    }
 }

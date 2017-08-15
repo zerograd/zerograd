@@ -101,4 +101,22 @@ class EmailController extends Controller
 
         return response()->json(['message' => 'Request completed']);
     }
+
+    public function sendMessage(Request $request){
+     
+        $msg = $request->comment;
+        Mail::send('confirmations.message', ['name'=> $request->name,'email' => $request->email,'msg'=> $msg], function ($message)
+        {
+
+            $message->from('info@zerograd.com', 'ZeroGrad');
+
+            $message->to('info@zerograd.com');
+            $message->subject('ZeroGrad: New Message');
+
+        });
+
+        return response()->json(['message' => 'Request completed']);
+    }
+
+
 }
