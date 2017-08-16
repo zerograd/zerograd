@@ -193,6 +193,11 @@ Route::post('/filter-applications',array(
 	'uses' => 'EmployerController@filterApplications'
 ));
 
+Route::get('/testRSS',array(
+	'as' => 'testRSS',
+	'uses' => 'EmployerController@testRSS'
+));
+
 
 Route::get('/resources',array(
 	'as' => 'resources',

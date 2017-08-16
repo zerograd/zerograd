@@ -9,6 +9,8 @@ use Session;
 use Storage;
 use File;
 use URL;
+use Feeds;
+
 class EmployerController extends Controller
 {
     //
@@ -726,5 +728,16 @@ class EmployerController extends Controller
 
         return $applicants;
         
+    }
+
+    public function testRSS(){
+        $feed = Feeds::make('http://feeds.feedburner.com/ParallelForall');
+        $data = array(
+          'title'     => $feed->get_title(),
+          'permalink' => $feed->get_permalink(),
+          'items'     => $feed->get_items(),
+        );
+
+        return view('rss')->with($data);    
     }
 }

@@ -65,7 +65,7 @@
 			</div>
 
 			<!-- Comments -->
-			<section class="comments">
+			<!-- <section class="comments">
 			<h4>Comments <span class="comments-amount">({{$resource->commentsCount}})</span></h4>
 
 				<ul>
@@ -90,7 +90,7 @@
 
 					</li>
 				 </ul>
-			</section>
+			</section> -->
 
 
 			<div class="clearfix"></div>
@@ -98,11 +98,11 @@
 
 
 			<!-- Add Comment -->
-			<h4 class="comment">Add Comment</h4>
-			<div class="margin-top-20"></div>
+			<!-- <h4 class="comment">Add Comment</h4>
+			<div class="margin-top-20"></div> -->
 			
 			<!-- Add Comment Form -->
-			<form id="add-comment" class="add-comment">
+			<!-- <form id="add-comment" class="add-comment">
 				<fieldset>
 
 					<div>
@@ -126,7 +126,7 @@
 				<div class="clearfix"></div>
 				<div class="margin-bottom-20"></div>
 
-			</form>
+			</form> -->
 
 		</div>
 	</div>
@@ -148,7 +148,7 @@
 			<h4>Got any questions?</h4>
 			<div class="widget-box">
 				<p>If you are having any questions, please feel free to ask.</p>
-				<a href="contact.html" class="button widget-btn"><i class="fa fa-envelope"></i> Drop Us a Line</a>
+				<a href="{{route('contact-us')}}" class="button widget-btn"><i class="fa fa-envelope"></i> Drop Us a Line</a>
 			</div>
 		</div>
 

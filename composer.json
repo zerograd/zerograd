@@ -12,7 +12,8 @@
         "laravel/tinker": "~1.0",
         "laravelcollective/html": "^5.4",
         "mashape/unirest-php": "^3.0",
-        "sonata-project/cache": "^1.0"
+        "sonata-project/cache": "^1.0",
+        "willvincent/feeds": "^1.1"
     },
     "require-dev": {
         "mockery/mockery": "0.9.*",
